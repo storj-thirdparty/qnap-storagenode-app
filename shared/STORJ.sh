@@ -13,10 +13,12 @@ case "$1" in
         exit 1
     fi
     : ADD START ACTIONS HERE
+    ln -s $QPKG_ROOT/web /home/Qhttpd/Web/STORJ
     ;;
 
   stop)
     : ADD STOP ACTIONS HERE
+    rm /home/Qhttpd/Web/STORJ
     ;;
 
   restart)
