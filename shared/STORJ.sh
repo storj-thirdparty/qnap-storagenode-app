@@ -21,6 +21,12 @@ case "$1" in
     rm /home/Qhttpd/Web/STORJ
     ;;
 
+  run-script)
+    : ADD STOP ACTIONS HERE
+    echo "Script ran"
+    exit 1
+    ;;
+
   restart)
     $0 stop
     $0 start
