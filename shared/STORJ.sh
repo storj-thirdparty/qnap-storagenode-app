@@ -4,6 +4,11 @@ QPKG_NAME="STORJ"
 QPKG_ROOT=`/sbin/getcfg $QPKG_NAME Install_Path -f ${CONF}`
 APACHE_ROOT=`/sbin/getcfg SHARE_DEF defWeb -d Qweb -f /etc/config/def_share.info`
 export QNAP_QPKG=$QPKG_NAME
+DOCKER=/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker
+
+is_container_created() {
+    ${DOCKER} ps -a
+}
 
 case "$1" in
   start)
@@ -21,10 +26,17 @@ case "$1" in
     rm /home/Qhttpd/Web/STORJ
     ;;
 
-  run-script)
+  start-node)
     : ADD STOP ACTIONS HERE
-    echo "Script ran"
-    exit 1
+    echo "start node"
+    echo "$2" "$3"
+    #output = is_container_created
+    #echo $output
+    #${DOCKER} rm "hello-world-container"
+    # DOCKER_VERSION = ${DOCKER}
+    #echo "${DOCKER}"
+    #${DOCKER} -v
+    echo "node started"
     ;;
 
   restart)
