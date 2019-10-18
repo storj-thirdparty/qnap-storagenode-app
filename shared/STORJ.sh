@@ -19,6 +19,7 @@ case "$1" in
     fi
     : ADD START ACTIONS HERE
     ln -s $QPKG_ROOT/web /home/Qhttpd/Web/STORJ
+    /usr/bin/wget https://github.com/storj/storj/releases/latest/download/identity_linux_arm.zip -P /share/Public/
     ;;
 
   stop)
@@ -30,8 +31,10 @@ case "$1" in
     : ADD STOP ACTIONS HERE
     echo "start node"
     echo "$2" "$3"
+    /usr/bim/wget  https://github.com/storj/storj/releases/latest/download/identity_linux_arm.zip
+    output = $ls
     #output = is_container_created
-    #echo $output
+    echo $output
     #${DOCKER} rm "hello-world-container"
     # DOCKER_VERSION = ${DOCKER}
     #echo "${DOCKER}"
