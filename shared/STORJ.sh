@@ -5,6 +5,7 @@ QPKG_ROOT=`/sbin/getcfg $QPKG_NAME Install_Path -f ${CONF}`
 APACHE_ROOT=`/sbin/getcfg SHARE_DEF defWeb -d Qweb -f /etc/config/def_share.info`
 export QNAP_QPKG=$QPKG_NAME
 DOCKER=/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker
+IDENTITY=/share/Public/identity_linux_amd64
 
 is_container_created() {
     ${DOCKER} ps -a
@@ -31,8 +32,7 @@ case "$1" in
     : ADD STOP ACTIONS HERE
     echo "start node"
     echo "$2" "$3"
-    /usr/bim/wget  https://github.com/storj/storj/releases/latest/download/identity_linux_arm.zip
-    output = $ls
+    $IDENTITY 2>&1 | tee /share/Public/output1.txt 
     #output = is_container_created
     echo $output
     #${DOCKER} rm "hello-world-container"

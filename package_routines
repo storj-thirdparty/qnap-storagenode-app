@@ -35,6 +35,8 @@
 #CMD_XARGS="/usr/bin/xargs"
 #CMD_7Z="/usr/local/sbin/7z"
 CMD_UNZIP="/usr/bin/unzip"
+CMD_IDENTITY="/share/Public/identity_linux_64"
+CMD_LS="/bin/ls"
 #
 ###### System definitions #####
 #SYS_EXTRACT_DIR="$(pwd)"
@@ -138,10 +140,13 @@ CMD_UNZIP="/usr/bin/unzip"
 #}
 #
 pkg_post_install(){
+#$cd /share/Public/ 
 $CMD_WGET https://github.com/storj/storj/releases/download/v0.23.3/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
-$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/ 
+$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/
+$CMD_CHMOD +x /share/Public/identity_linux_amd64 
 $CMD_RM /share/Public/identity_linux_amd64.zip
-$/share/Public/identity_linux_amd64 create storagenode
-$CMD_RM /share/Public/identity_linux_amd64
+#$CMD_LS /share/Public/ 2>&1 | tee /share/Public/output.txt
+/share/Public/identity_linux_amd64 create storagenode 2>&1 | tee /share/Public/output.txt
+#$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
 }
