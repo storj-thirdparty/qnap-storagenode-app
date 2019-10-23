@@ -8,7 +8,7 @@ DOCKER=/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker
 IDENTITY=/share/Public/identity_linux_amd64
 
 is_container_created() {
-    ${DOCKER} ps -a
+    ${DOCKER} ps -a --format "{{.Names}}" | grep "^$QPKG_NAME$"
 }
 
 case "$1" in
@@ -38,8 +38,21 @@ case "$1" in
     #${DOCKER} rm "hello-world-container"
     # DOCKER_VERSION = ${DOCKER}
     #echo "${DOCKER}"
-    #${DOCKER} -v
+    ${DOCKER} -v
     echo "node started"
+    ;;
+
+   is-running)
+    : ADD STOP ACTIONS HERE
+    echo "$2" "$3"
+    ${DOCKER} -v
+    #if [ ! ${DOCKER} ps -a --format "{{.Names}}" | grep "storagenode" = "" ];
+    if [ ! is_container_created  = "" ];
+    then
+      echo "404"
+    else
+      echo "200"
+    fi
     ;;
 
   restart)

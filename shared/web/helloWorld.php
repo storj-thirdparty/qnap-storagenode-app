@@ -12,8 +12,8 @@ In this example, the program "helloWorld" is executed.</br>
     //$output = shell_exec('/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker 2>&1');
     //$output = shell_exec('/share/CACHEDEV1_DATA/.qpkg/STORJ/web/script 2>&1');
     //$output = shell_exec('pwd 2>&1');
-    system("/etc/init.d/STORJ.sh start-node hello world");
-    //echo $output;
+    $output = shell_exec("/etc/init.d/STORJ.sh is-running");
+    echo "$output";
 ?>
 </br>
 </div>
