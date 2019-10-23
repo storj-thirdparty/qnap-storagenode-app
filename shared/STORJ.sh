@@ -44,8 +44,8 @@ case "$1" in
 
    is-running)
     : ADD STOP ACTIONS HERE
-    echo "$2" "$3"
-    ${DOCKER} -v
+    #echo "$2" "$3"
+    #${DOCKER} -v
     #if [ ! ${DOCKER} ps -a --format "{{.Names}}" | grep "storagenode" = "" ];
     if [ ! is_container_created  = "" ];
     then
