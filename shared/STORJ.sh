@@ -41,18 +41,36 @@ case "$1" in
     ${DOCKER} -v
     echo "node started"
     ;;
+    
+   is-authorized)
+    /share/CACHEDEV1_DATA/.qpkg/STORJ/file_exists.sh 2>&1
+    #if [ -e "/root/ca.key" ];
+    #then
+    #echo "ok"
+    #fi
+   ;;
+
+   start-docker)
+    ${DOCKER} run -d --restart unless-stopped -p 28967:28967 -p 127.0.0.1:14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:28967" -e BANDWIDTH="${4}TB" -e STORAGE="${5}TB" --mount type=bind,source="/share/Public/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
+   #${DOCKER} -v 
+    ;;
+
+  stop-docker)
+    ${DOCKER} stop ${QPKG_NAME}
+    ${DOCKER} rm -f ${QPKG_NAME}
+    ;; 
 
    is-running)
     : ADD STOP ACTIONS HERE
     #echo "$2" "$3"
     #${DOCKER} -v
     #if [ ! ${DOCKER} ps -a --format "{{.Names}}" | grep "storagenode" = "" ];
-    if [ ! is_container_created  = "" ];
-    then
-      echo "404"
-    else
-      echo "200"
-    fi
+    #if [ ! is_container_created  = "" ];
+    #if [ ${DOCKER} ps -a --format "{{.Names}}" | grep "^$QPKG_NAME$"  ];
+    #then
+    #  echo "ok"
+    #fi
+    ${DOCKER} ps -a --format "{{.Names}}" | grep "^$QPKG_NAME$" 2>&1
     ;;
 
   restart)

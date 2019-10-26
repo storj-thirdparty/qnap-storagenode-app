@@ -1,9 +1,9 @@
 <?php
-    $output = shell_exec("/etc/init.d/STORJ.sh is-running 2>&1");
-    if ( trim($output) == "404" ){
-    header("Location: hello.php");
+    $output = shell_exec("/etc/init.d/STORJ.sh is-authorized 2>&1");
+    if ( $output ){
+    header("Location: dashboard.php");
     } else {
-    header("Location: hello1.php");
-    }    
+    header("Location: authorize.php");
+    }
     die();
 ?>
