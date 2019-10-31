@@ -51,7 +51,7 @@ case "$1" in
    ;;
 
    start-docker)
-    ${DOCKER} run -d --restart unless-stopped -p 28967:28967 -p 127.0.0.1:14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:28967" -e BANDWIDTH="${4}TB" -e STORAGE="${5}TB" --mount type=bind,source="/share/Public/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
+    ${DOCKER} run -d --restart unless-stopped -p ${6}:${6} -p 14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:${6}" -e BANDWIDTH="${4}TB" -e STORAGE="${5}GB" --mount type=bind,source="/share/Public/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
    #${DOCKER} -v 
     ;;
 
