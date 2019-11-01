@@ -12,6 +12,7 @@ Dashboard</br>
       $bandwidth = $_POST["bandwidth"];
       $storage = $_POST["storage"];
       $wallet = $_POST["wallet"];
+      $port = $_POST["port"];
       shell_exec("/etc/init.d/STORJ.sh start-docker $wallet $email $bandwidth  $storage $port");
       #shell_exec("/etc/init.d/STORJ.sh start-docker");
      }
