@@ -41,7 +41,15 @@ case "$1" in
     ${DOCKER} -v
     echo "node started"
     ;;
-    
+
+   authorize)
+    : ADD AUTHORIZE COMMAND HERE
+     ${IDENTITY} create storagenode 2>&1
+     /bin/mv /tmp/.local/share/storj/identity/ /
+     ${IDENTITY} authorize storagenode "$2" 2>&1
+    # move the identity files to Public/
+    ;;
+ 
    is-authorized)
     /share/CACHEDEV1_DATA/.qpkg/STORJ/file_exists.sh 2>&1
     #if [ -e "/root/ca.key" ];
