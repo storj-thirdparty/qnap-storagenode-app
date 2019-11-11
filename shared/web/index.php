@@ -3,7 +3,7 @@
     if ( $output ){
     header("Location: dashboard.php");
     } else {
-    header("Location: authorize.php");
+    header("Location: config.php");
     }
     die();
 ?>

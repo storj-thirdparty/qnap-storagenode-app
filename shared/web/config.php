@@ -1,16 +1,14 @@
 <?php
 if($_POST['isajax'] == 1) {
-    $_identity = $_POST["identity"];
     $_address  = $_POST["address"];
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
     $_bandwidth      = $_POST["bandwidth"];
     $_directory      = $_POST["directory"];
-    shell_exec("/etc/init.d/STORJ.sh start-docker $_identity $_address $_wallet  $_storage $_bandwidth $_directory");
+    shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_directory");
   }
 else if($_POST['identityajax'] == 1){
-  $output = shell_exec("/etc/init.d/STORJ.sh authorize partnerships@storj.io:1Bsg4UoBjb3Wz1NNMmHLgBAMZ5SaJBgT2C6kmKQaForB84gMaTo4R6xDzZFb6LAeuny4iQPtbSsSeFCmVDDFKUzbaTHi6o");
-  #$output = shell_exec("/etc/init.d/STORJ.sh is-authorized 2>&1");
+  $output = shell_exec("/etc/init.d/STORJ.sh authorize ".$_POST['identity']);
   echo "$output";
 }
 ?>

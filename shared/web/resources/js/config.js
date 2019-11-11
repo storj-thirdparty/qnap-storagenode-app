@@ -29,7 +29,7 @@ jQuery(function() {
     jQuery("#idetityval").html('');
     identity_val = identitydata;
     jQuery("#idetityval").html(identitydata);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    //showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
   jQuery('#create_address').click(function(){
     createAddress = jQuery("#host_address").val();
@@ -47,7 +47,7 @@ jQuery(function() {
     jQuery("#externalAddressval").html('');
     address_val = createAddress;
     jQuery("#externalAddressval").html(createAddress);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
   jQuery('#create_wallet').click(function(){
     createWallet = jQuery("#wallet_address").val();
@@ -65,7 +65,7 @@ jQuery(function() {
     jQuery("#wallettbtnval").html('');
     wallet_val = createWallet;
     jQuery("#wallettbtnval").html(createWallet);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
   jQuery('#allocate_storage').click(function(){
     storageallocate = jQuery("#storage_allocate").val();
@@ -83,7 +83,7 @@ jQuery(function() {
     jQuery("#storagebtnval").html('');
     storage_val = storageallocate;
     jQuery("#storagebtnval").html(storageallocate);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   })
   jQuery('#create_bandwidth').click(function(){
     bandwidthAllocation = jQuery("#bandwidth_allocation").val();
@@ -101,7 +101,7 @@ jQuery(function() {
     jQuery("#bandwidthbtnval").html('');
     bandwidth_val = bandwidthAllocation;
     jQuery("#bandwidthbtnval").html(bandwidthAllocation);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
   jQuery('#create_directory').click(function(){
     directoryAllocation = jQuery("#storage_directory").val();
@@ -119,21 +119,25 @@ jQuery(function() {
     jQuery("#directorybtnval").html('');
     directory_val = directoryAllocation;
     jQuery("#directorybtnval").html(directoryAllocation);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
+  jQuery("#editidentitybtn button").click(function(){
+      jQuery('#storjrows').hide();
+  })
 });
-function showstartbutton(identitydatavaldata,createAddressvaldata,createWalletvaldata,storageallocatevaldata,bandwidthAllocationvaldata,directoryAllocationvaldata){
-  if(identitydatavaldata === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && directoryAllocationvaldata === 1) {
+function showstartbutton(createAddressvaldata,createWalletvaldata,storageallocatevaldata,bandwidthAllocationvaldata,directoryAllocationvaldata){
+  if(createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && directoryAllocationvaldata === 1) {
     jQuery("#startbtn").removeAttr("disabled", true);
   } else{
     jQuery("#startbtn").attr("disabled", true);
   }
 }
+
 jQuery("#startbtn").click(function(e) {
     jQuery.ajax({
       type: "POST",
       url: "config.php",
-      data: {identity : identity_val, address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val,  directory: directory_val, isajax : 1},
+      data: {address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val,  directory: directory_val, isajax : 1},
       success: function (result) {
         window.location.reload();
       },
