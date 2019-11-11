@@ -19,6 +19,7 @@ jQuery(function() {
       jQuery("#identitybtn").hide();
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
+      createidentifyToken(identitydata);
       identitydataval = 1;
     } else {
       jQuery(".identity_token_msg").show();
@@ -141,3 +142,20 @@ jQuery("#startbtn").click(function(e) {
       }
     });
 });
+
+function createidentifyToken(createidval) {
+  jQuery.ajax({
+    type: "POST",
+    url: "config.php",
+    data: {identity : createidval, identityajax : 1},
+    success: function (result) {
+      if(result) {
+        jQuery('#storjrows').show();
+      }
+    },
+    error: function () {
+      console.log("In tehre wrong on create Identitfy");
+    }
+  });
+
+}

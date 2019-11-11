@@ -8,6 +8,11 @@ if($_POST['isajax'] == 1) {
     $_directory      = $_POST["directory"];
     shell_exec("/etc/init.d/STORJ.sh start-docker $_identity $_address $_wallet  $_storage $_bandwidth $_directory");
   }
+else if($_POST['identityajax'] == 1){
+  $output = shell_exec("/etc/init.d/STORJ.sh authorize partnerships@storj.io:1Bsg4UoBjb3Wz1NNMmHLgBAMZ5SaJBgT2C6kmKQaForB84gMaTo4R6xDzZFb6LAeuny4iQPtbSsSeFCmVDDFKUzbaTHi6o");
+  #$output = shell_exec("/etc/init.d/STORJ.sh is-authorized 2>&1");
+  echo "$output";
+}
 ?>
 <?php include 'header.php';?>
 <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
@@ -29,7 +34,7 @@ if($_POST['isajax'] == 1) {
             <div class="container-fluid">
               <h2>Setup</h2>
               <a href=""><p class="header-link">Documentation ></p></a>
-                <div class="row segment">
+                <div class="row segment" id="identityrow">
                   <div class="column col-md-2"><div class="segment-icon"></div></div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
@@ -63,6 +68,7 @@ if($_POST['isajax'] == 1) {
                     </div>
                   </div>
                 </div>
+                <div style="display:none" id="storjrows">
                 <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon"></div></div>
                   <div class="column col-md-10 segment-content">
@@ -235,11 +241,11 @@ if($_POST['isajax'] == 1) {
                     </div>
                   </div>
                 </div>
-
-            </div>
-            <div class="bottom-buttons">
-              <button type="button" disabled class="stop-button">Stop My Storage Node</button>
-              <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
+                <div class="bottom-buttons">
+                  <button type="button" disabled class="stop-button">Stop My Storage Node</button>
+                  <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
+                </div>
+              </div>
             </div>
           </div>
           <?php } ?>
