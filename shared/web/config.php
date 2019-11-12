@@ -8,8 +8,9 @@ if($_POST['isajax'] == 1) {
     shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_directory");
   }
 else if($_POST['identityajax'] == 1){
-  $output = shell_exec("/etc/init.d/STORJ.sh authorize ".$_POST['identity']);
-  echo "$output";
+  $identitytoken = $_POST['identity'];
+  $output = shell_exec("/etc/init.d/STORJ.sh authorize $identitytoken");
+  echo $output;
 }
 ?>
 <?php include 'header.php';?>
@@ -66,7 +67,7 @@ else if($_POST['identityajax'] == 1){
                     </div>
                   </div>
                 </div>
-                <div style="display:none" id="storjrows">
+                <!-- <div style="display:none" id="storjrows"> -->
                 <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon"></div></div>
                   <div class="column col-md-10 segment-content">
@@ -240,10 +241,10 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="bottom-buttons">
-                  <button type="button" disabled class="stop-button">Stop My Storage Node</button>
+                  <button type="button" disabled class="stop-button" id="stopbtn">Stop My Storage Node</button>
                   <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
                 </div>
-              </div>
+              <!-- </div> -->
             </div>
           </div>
           <?php } ?>
