@@ -41,7 +41,17 @@ case "$1" in
     ${DOCKER} -v
     echo "node started"
     ;;
-    
+
+   authorize)
+    : ADD AUTHORIZE COMMAND HERE
+     ${IDENTITY} create storagenode 2>&1
+     /bin/cp -r /tmp/.local/share/storj/identity/ /id
+     #/bin/cp /tmp/.local/share/storj/identity/ /
+     ${IDENTITY} authorize storagenode "$2" 2>&1
+     /bin/cp -r /tmp/.local/share/storj/identity/ /id
+    # move the identity files to Public/
+    ;;
+ 
    is-authorized)
     /share/CACHEDEV1_DATA/.qpkg/STORJ/file_exists.sh 2>&1
     #if [ -e "/root/ca.key" ];
@@ -51,7 +61,7 @@ case "$1" in
    ;;
 
    start-docker)
-    ${DOCKER} run -d --restart unless-stopped -p 28967:28967 -p 127.0.0.1:14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:28967" -e BANDWIDTH="${4}TB" -e STORAGE="${5}TB" --mount type=bind,source="/share/Public/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
+    ${DOCKER} run -d --restart unless-stopped -p "$6":28967 -p 14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:${6}" -e BANDWIDTH="${4}TB" -e STORAGE="${5}GB" --mount type=bind,source="/id/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
    #${DOCKER} -v 
     ;;
 

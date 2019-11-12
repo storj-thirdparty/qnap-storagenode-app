@@ -141,15 +141,16 @@ CMD_LS="/bin/ls"
 #
 pkg_post_install(){
 #$cd /share/Public/ 
-$CMD_WGET https://github.com/storj/storj/releases/download/v0.23.3/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
+$CMD_WGET https://github.com/storj/storj/releases/download/v0.25.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
 $CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/
 $CMD_CHMOD +x /share/Public/identity_linux_amd64 
 $CMD_RM /share/Public/identity_linux_amd64.zip
 #$CMD_LS /share/Public/ 2>&1 | tee /share/Public/output.txt
 $CMD_MKDIR /share/Public/identity
-/share/Public/identity_linux_amd64 create storagenode --identity-dir /share/Public/identity  2>&1 | tee /share/Public/output.txt
-
-$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
+#/share/Public/identity_linux_amd64 create storagenode --identity-dir /share/Public/identity  2>&1 | tee /share/Public/output.txt
+$CMD_MKDIR /id
+$CMD_CHMOD -R 777 /id
+#$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
 #$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
 }
