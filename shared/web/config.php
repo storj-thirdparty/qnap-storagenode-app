@@ -11,6 +11,8 @@ else if($_POST['identityajax'] == 1){
   $identitytoken = $_POST['identity'];
   $output = shell_exec("/etc/init.d/STORJ.sh authorize $identitytoken");
   echo $output;
+} else if($_POST['isstopAjax'] == 1){
+   shell_exec("/etc/init.d/STORJ.sh stop-docker");
 }
 ?>
 <?php include 'header.php';?>
@@ -90,12 +92,12 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                            <input class="modal-input" id="host_address" name="host_address"/>
-                            <p class="host_token_msg msg" style="display:none;">This is required field</p>
+                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1" class="quantity" />
+                            <p class="host_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_address">Set Address</button>
+                            <button class="modal-btn" id="create_address">Set External Address</button>
                           </div>
                         </div>
                       </div>
@@ -129,7 +131,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_wallet">Set Address</button>
+                            <button class="modal-btn" id="create_wallet">Set Wallet Address</button>
                           </div>
                         </div>
                       </div>
@@ -158,13 +160,13 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Allocation</p>
-                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" />
+                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity"/>
                             <p class="modal-input-metric">TB</p>
-                            <p class="storage_token_msg msg" style="display:none;">This is required Field</p>
+                            <p class="storage_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="allocate_storage">Set Address</button>
+                            <button class="modal-btn" id="allocate_storage">Set Storage Capacity</button>
                           </div>
                         </div>
                       </div>
@@ -193,13 +195,13 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Bandwidth Allocation</p>
-                            <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation"/>
+                            <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity"/>
                             <p class="modal-input-metric">TB</p>
-                            <p class="bandwidth_token_msg msg" style="display:none;">This is required Field</p>
+                            <p class="bandwidth_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_bandwidth">Set Address</button>
+                            <button class="modal-btn" id="create_bandwidth">Set Bandwidth Allocation</button>
                           </div>
                         </div>
                       </div>

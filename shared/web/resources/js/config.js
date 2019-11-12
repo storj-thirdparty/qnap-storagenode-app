@@ -39,7 +39,7 @@ jQuery(function() {
   });
   jQuery('#create_address').click(function(){
     createAddress = jQuery("#host_address").val();
-    if(createAddress !== '') {
+    if(jQuery.isNumeric(createAddress)){
       jQuery(".host_token_msg").hide();
       jQuery("#externalAddressbtn").hide();
       jQuery("#externalAddress .close").trigger("click");
@@ -157,6 +157,20 @@ jQuery("#startbtn").click(function(e) {
     });
 });
 
+jQuery("#stopbtn").click(function(e) {
+    jQuery.ajax({
+      type: "POST",
+      url: "config.php",
+      data: {isstopAjax : 1},
+      success: function (result) {
+        window.location.reload();
+      },
+      error: function () {
+        console.log("In There wrong on Stop Button");
+      }
+    });
+});
+
 function createidentifyToken(createidval) {
   jQuery.ajax({
     type: "POST",
@@ -199,4 +213,15 @@ function hideButton(){
   jQuery("#addstoragebtn").attr("disabled", true);
   jQuery("#addbandwidthbtn").attr("disabled", true);
   jQuery("#adddirectorybtn").attr("disabled", true);
+}
+
+function checkdigitvalidation(addressVal){
+  console.log(addressVal);
+
+
+
+  // if(isValid) {
+  //
+  // }
+
 }
