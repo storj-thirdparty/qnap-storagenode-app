@@ -1,6 +1,7 @@
 var identitydataval, createAddressval, createWalletval, storageallocateval, bandwidthAllocationval, directoryAllocationval;
 var identity_val, address_val, wallet_val, storage_val, bandwidth_val, directory_val;
 jQuery(function() {
+  hideButton();
   var identitydata = jQuery("#identity_token").val();
   var createAddress = jQuery("#host_address").val();
   var createWallet = jQuery("#wallet_address").val();
@@ -12,9 +13,11 @@ jQuery(function() {
   } else {
     jQuery("#startbtn").attr("disabled", true);
   }
+
   jQuery("#create_identity").click(function(){
     identitydata = jQuery("#identity_token").val();
     if(identitydata !== '') {
+      showButton();
       jQuery(".identity_token_msg").hide();
       jQuery("#identitybtn").hide();
       jQuery("#identity .close").trigger("click");
@@ -153,6 +156,7 @@ function createidentifyToken(createidval) {
     url: "config.php",
     data: {identity : createidval, identityajax : 1},
     success: function (result) {
+      console.log(result);
       if(result) {
         jQuery('#storjrows').show();
       }
@@ -162,4 +166,19 @@ function createidentifyToken(createidval) {
     }
   });
 
+}
+
+function showButton(){
+  jQuery("#externalAddressbtn").removeAttr("disabled", true);
+  jQuery("#addwallettbtn").removeAttr("disabled", true);
+  jQuery("#addstoragebtn").removeAttr("disabled", true);
+  jQuery("#addbandwidthbtn").removeAttr("disabled", true);
+  jQuery("#adddirectorybtn").removeAttr("disabled", true);
+}
+function hideButton(){
+  jQuery("#externalAddressbtn").attr("disabled", true);
+  jQuery("#addwallettbtn").attr("disabled", true);
+  jQuery("#addstoragebtn").attr("disabled", true);
+  jQuery("#addbandwidthbtn").attr("disabled", true);
+  jQuery("#adddirectorybtn").attr("disabled", true);
 }
