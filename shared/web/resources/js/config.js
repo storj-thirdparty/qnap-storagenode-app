@@ -36,7 +36,7 @@ jQuery(function() {
     identity_val = identitydata;
     jQuery("#idetityval").html(identitydata);
     //showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
-  });
+  }); 
   jQuery('#create_address').click(function(){
     createAddress = jQuery("#host_address").val();
     if(jQuery.isNumeric(createAddress)){
