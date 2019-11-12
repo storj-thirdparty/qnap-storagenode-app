@@ -241,7 +241,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="bottom-buttons">
-                  <button type="button" disabled class="stop-button">Stop My Storage Node</button>
+                  <button type="button" disabled class="stop-button" id="stopbtn">Stop My Storage Node</button>
                   <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
                 </div>
               <!-- </div> -->
