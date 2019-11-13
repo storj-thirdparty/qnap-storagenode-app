@@ -1,5 +1,5 @@
-var identitydataval, createAddressval, createWalletval, storageallocateval, bandwidthAllocationval, directoryAllocationval;
-var identity_val, address_val, wallet_val, storage_val, bandwidth_val, directory_val;
+var identitydataval, createAddressval, createWalletval, storageallocateval, bandwidthAllocationval, directoryAllocationval, emailiddataval ;
+var identity_val, address_val, wallet_val, storage_val, bandwidth_val, directory_val, emailiddata_val;
 jQuery(function() {
   hideButton();
   var identitydata = jQuery("#identity_token").val();
@@ -7,8 +7,9 @@ jQuery(function() {
   var createWallet = jQuery("#wallet_address").val();
   var storageallocate = jQuery("#storage_allocate").val();
   var bandwidthAllocation = jQuery("#bandwidth_allocation").val();
+  var emailiddata = jQuery("#email_address").val();
   var directoryAllocation = jQuery("#storage_directory").val();
-  if(identitydata !== '' &&  createAddress !== '' && createWallet !== '' &&  storageallocate !== '' && bandwidthAllocation !== '' && directoryAllocation !== ''){
+  if(identitydata !== '' &&  createAddress !== '' && createWallet !== '' &&  storageallocate !== '' && bandwidthAllocation !== '' && directoryAllocation !== '' && emailiddata !== ''){
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#stopbtn").removeClass("stopnodebtn");
   } else {
@@ -71,7 +72,7 @@ jQuery(function() {
     jQuery("#externalAddressval").html('');
     address_val = createAddress;
     jQuery("#externalAddressval").html(createAddress);
-    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_wallet').click(function(){
     createWallet = jQuery("#wallet_address").val();
@@ -89,7 +90,7 @@ jQuery(function() {
     jQuery("#wallettbtnval").html('');
     wallet_val = createWallet;
     jQuery("#wallettbtnval").html(createWallet);
-    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#allocate_storage').click(function(){
     storageallocate = parseInt(jQuery("#storage_allocate").val());
@@ -112,7 +113,7 @@ jQuery(function() {
     jQuery("#storagebtnval").html('');
     storage_val = storageallocate;
     jQuery("#storagebtnval").html(storageallocate);
-    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   })
   jQuery('#create_bandwidth').click(function(){
     bandwidthAllocation = parseInt(jQuery("#bandwidth_allocation").val());
@@ -132,21 +133,29 @@ jQuery(function() {
       jQuery("#editbandwidthbtn").hide();
       bandwidthAllocationval = 0;
     }
-    // if(bandwidthAllocation !== '') {
-    //   jQuery(".bandwidth_token_msg").hide();
-    //   jQuery("#addbandwidthbtn").hide();
-    //   jQuery("#bandwidth .close").trigger('click');
-    //   jQuery("#editbandwidthbtn").show();
-    //   bandwidthAllocationval = 1;
-    // } else {
-    //   jQuery(".bandwidth_token_msg").show();
-    //   jQuery("#editbandwidthbtn").hide();
-    //   bandwidthAllocationval = 0;
-    // }
     jQuery("#bandwidthbtnval").html('');
     bandwidth_val = bandwidthAllocation;
     jQuery("#bandwidthbtnval").html(bandwidthAllocation);
-    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+  });
+  jQuery('#create_emailaddress').click(function(){
+    emailiddata = jQuery("#email_address").val();
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(regex.test(emailiddata)) {
+      jQuery(".email_token_msg").hide();
+      jQuery("#emailAddressbtn").hide();
+      jQuery("#emailAddress .close").trigger("click");
+      jQuery("#editemailAddressbtn").show();
+      emailiddataval = 1;
+    } else {
+      jQuery(".email_token_msg").show();
+      jQuery("#editemailAddressbtn").hide();
+      emailiddataval = 0;
+    }
+    jQuery("#emailAddressval").html('');
+    emailiddata_val = emailiddata;
+    jQuery("#emailAddressval").html(emailiddata);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_directory').click(function(){
     directoryAllocation = jQuery("#storage_directory").val();
@@ -164,14 +173,14 @@ jQuery(function() {
     jQuery("#directorybtnval").html('');
     directory_val = directoryAllocation;
     jQuery("#directorybtnval").html(directoryAllocation);
-    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
+    showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery("#editidentitybtn button").click(function(){
       jQuery('#storjrows').hide();
   })
 });
-function showstartbutton(createAddressvaldata,createWalletvaldata,storageallocatevaldata,bandwidthAllocationvaldata,directoryAllocationvaldata){
-  if(createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && directoryAllocationvaldata === 1) {
+function showstartbutton(createAddressvaldata,createWalletvaldata,storageallocatevaldata,bandwidthAllocationvaldata,emailAddressvaldata,directoryAllocationvaldata,){
+  if(createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#stopbtn").removeAttr("disabled", true);
     jQuery("#startbtn").addClass("start-button");
@@ -186,7 +195,7 @@ jQuery("#startbtn").click(function(e) {
     jQuery.ajax({
       type: "POST",
       url: "config.php",
-      data: {address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val,  directory: directory_val, isajax : 1},
+      data: {address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
         window.location.reload();
       },
@@ -237,6 +246,8 @@ function showButton(){
   jQuery("#addstoragebtn").addClass("segment-btn");
   jQuery("#addbandwidthbtn").removeAttr("disabled", true);
   jQuery("#addbandwidthbtn").addClass("segment-btn");
+  jQuery("#emailAddressbtn").removeAttr("disabled", true);
+  jQuery("#emailAddressbtn").addClass("segment-btn");
   jQuery("#adddirectorybtn").removeAttr("disabled", true);
   jQuery("#adddirectorybtn").addClass("segment-btn");
 }
@@ -247,9 +258,11 @@ function hideButton(){
   jQuery("#addstoragebtn").removeClass("segment-btn");
   jQuery("#addbandwidthbtn").removeClass("segment-btn");
   jQuery("#adddirectorybtn").removeClass("segment-btn");
+  jQuery("#emailAddressbtn").removeClass("segment-btn");
   jQuery("#externalAddressbtn").attr("disabled", true);
   jQuery("#addwallettbtn").attr("disabled", true);
   jQuery("#addstoragebtn").attr("disabled", true);
+  jQuery("#emailAddressbtn").attr("disabled", true);
   jQuery("#addbandwidthbtn").attr("disabled", true);
   jQuery("#adddirectorybtn").attr("disabled", true);
 }

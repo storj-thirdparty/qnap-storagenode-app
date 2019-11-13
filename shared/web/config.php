@@ -4,8 +4,9 @@ if($_POST['isajax'] == 1) {
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
     $_bandwidth      = $_POST["bandwidth"];
+    $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
-    shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_directory");
+    shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_emailId $_directory");
   }
 else if($_POST['identityajax'] == 1){
   $identitytoken = $_POST['identity'];
@@ -209,6 +210,40 @@ else if($_POST['identityajax'] == 1){
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
                             <button class="modal-btn" id="create_bandwidth">Set Bandwidth Allocation</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row segment">
+                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-10 segment-content">
+                    <h4 class="segment-title">Email Address</h4>
+                    <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
+                    <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn" data-toggle="modal" data-target="#emailAddress">
+                      Edit Email Address
+                    </button></span>
+                    <button class="segment-btn" data-toggle="modal" data-target="#emailAddress" id="emailAddressbtn">
+                      Add Email Address
+                    </button>
+                    <div class="modal fade" id="emailAddress" tabindex="-1" role="dialog" aria-labelledby="email_address" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Email Address</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="modal-input-title">Email Address</p>
+                            <input class="modal-input" id="email_address" name="email_address" type="email" />
+                            <p class="email_token_msg msg" style="display:none;">Enter a Valid Email address</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="modal-btn" data-dismiss="modal">Close</button>
+                            <button class="modal-btn" id="create_emailaddress">Set Email Address</button>
                           </div>
                         </div>
                       </div>
