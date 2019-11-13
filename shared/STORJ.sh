@@ -11,7 +11,7 @@ is_container_created() {
     ${DOCKER} ps -a --format "{{.Names}}" | grep "^$QPKG_NAME$"
 }
 
-echo "$@"
+#echo "$@"
 
 case "$1" in
   start)
