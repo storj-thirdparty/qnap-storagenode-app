@@ -195,7 +195,7 @@ jQuery("#startbtn").click(function(e) {
     jQuery.ajax({
       type: "POST",
       url: "config.php",
-      data: {address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val,  directory: directory_val, isajax : 1},
+      data: {address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
         window.location.reload();
       },
