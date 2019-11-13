@@ -11,6 +11,8 @@ is_container_created() {
     ${DOCKER} ps -a --format "{{.Names}}" | grep "^$QPKG_NAME$"
 }
 
+#echo "$@"
+
 case "$1" in
   start)
     ENABLED=$(/sbin/getcfg $QPKG_NAME Enable -u -d FALSE -f $CONF)
@@ -61,7 +63,7 @@ case "$1" in
    ;;
 
    start-docker)
-    ${DOCKER} run -d --restart unless-stopped -p "$6":28967 -p 14002:14002 -e WALLET="$2" -e EMAIL="$3" -e ADDRESS="68.55.169.100:${6}" -e BANDWIDTH="${4}TB" -e STORAGE="${5}GB" --mount type=bind,source="/id/identity/storagenode/",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta
+    ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="dummy@gmail.com" -e ADDRESS="68.55.169.100:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="${6}",destination=/app/identity --mount type=bind,source="/share/CACHEDEV1_DATA/storj/",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
    #${DOCKER} -v 
     ;;
 

@@ -1,0 +1,133 @@
+
+.config-page {
+  margin: 40px 0;
+}
+
+.config-page h2 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.header-link {
+  color: #245AC3;
+  font-size: 14px;
+  float: right;
+  position: relative;
+  bottom: 30px;
+  right: 35px;
+  text-decoration: underline;
+}
+
+.segment {
+  border: 1px solid #E5E5E5;
+  width: 95%;
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.segment .segment-icon {
+  border: 1px solid #245AC3;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  margin: 10% auto;
+}
+
+.segment .segment-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.segment .segment-msg {
+  font-size: 14px;
+  color: #616161;
+}
+
+.segment .segment-btn {
+  border-color: #245AC3;
+  color: #245AC3;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+.segment .modal-content {
+  margin-top: 30%;
+}
+
+.segment .modal-input-title {
+  display: inline;
+  margin-right: 20px;
+  color: #6B6B6B;
+  font-size: 14px;
+}
+
+.segment .modal-input {
+  width: 300px;
+  border: 1px solid #000;
+}
+
+.segment .modal-input.shorter {
+  width: 290px;
+  border: 1px solid #000;
+}
+
+.segment .modal-input-metric {
+  display: inline;
+}
+
+.segment .modal-btn {
+  border: 1px solid #707070;
+  padding: 5px 10px;
+}
+
+.segment .modal-footer {
+  border-top: none;
+}
+
+.bottom-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.start-button {
+  background: #245AC3;
+  border-radius: 2px;
+  border: none;
+  margin: 0 auto;
+  margin: 10px;
+  color: #fff;
+  padding: 10px;
+}
+
+
+.stop-button {
+  background: #D94C44;
+  border-radius: 2px;
+  border: none;
+  margin: 10px;
+  color: #fff;
+  padding: 10px;
+}
+.msg{
+text-align: center;
+color: red;
+font-size: 15px;
+margin-right: 50px;
+font-weight: bold;
+}
+.stopnodebtn{
+  margin-right: 15px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
