@@ -20,7 +20,7 @@ else if($_POST['identityajax'] == 1){
   } else {
     echo $output;
   }
-}
+} else {
 ?>
 <?php include 'header.php';?>
 <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
@@ -261,3 +261,4 @@ else if($_POST['identityajax'] == 1){
 <?php include 'footer.php';?>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="./resources/js/config.js"></script>
+<?php } ?>
