@@ -13,6 +13,13 @@ else if($_POST['identityajax'] == 1){
   echo $output;
 } else if($_POST['isstopAjax'] == 1){
    shell_exec("/etc/init.d/STORJ.sh stop-docker");
+} else if($_POST['isstartajax'] == 1) {
+  $output = shell_exec("/etc/init.d/STORJ.sh is-running");
+  if (!trim($output) == "") {
+    echo $output;
+  } else {
+    echo $output;
+  }
 }
 ?>
 <?php include 'header.php';?>
@@ -242,7 +249,7 @@ else if($_POST['identityajax'] == 1){
                     </div>
                   </div>
                 </div>
-                <div class="bottom-buttons"> 
+                <div class="bottom-buttons">
                   <button type="button" disabled class="stop-button" id="stopbtn">Stop My Storage Node</button>
                   <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
                 </div>

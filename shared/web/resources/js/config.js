@@ -17,6 +17,21 @@ jQuery(function() {
     jQuery("#stopbtn").removeClass("stop-button");
   }
 
+  jQuery.ajax({
+    type: "POST",
+    url: "config.php",
+    data: { isstartajax : 1},
+    success: function (resposnse) {
+      if(resposnse) {
+        jQuery("#stopbtn").removeAttr("disabled", true);
+        jQuery("#stopbtn").addClass("stop-button");
+      }
+    },
+    error: function () {
+      console.log("In There check runing or not");
+    }
+  });
+
   jQuery("#create_identity").click(function(){
     identitydata = jQuery("#identity_token").val();
     if(identitydata !== '') {
@@ -35,16 +50,19 @@ jQuery(function() {
     jQuery("#idetityval").html('');
     identity_val = identitydata;
     jQuery("#idetityval").html(identitydata);
-    //showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
-  }); 
+  });
   jQuery('#create_address').click(function(){
-    createAddress = jQuery("#host_address").val();
-    if(jQuery.isNumeric(createAddress)){
+    createAddress = parseInt(jQuery("#host_address").val());
+    if(jQuery.isNumeric(createAddress) && Number.isInteger(createAddress)){
       jQuery(".host_token_msg").hide();
       jQuery("#externalAddressbtn").hide();
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
+    } else if(createAddress !== ''){
+      jQuery(".host_token_msg").show();
+      jQuery("#addstoragebtn").show();
+      createAddressval = 0;
     } else {
       jQuery(".host_token_msg").show();
       jQuery("#editexternalAddressbtn").hide();
@@ -74,14 +92,19 @@ jQuery(function() {
     showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   });
   jQuery('#allocate_storage').click(function(){
-    storageallocate = jQuery("#storage_allocate").val();
-    if(storageallocate !== '') {
+    storageallocate = parseInt(jQuery("#storage_allocate").val());
+    if(jQuery.isNumeric(storageallocate) && Number.isInteger(storageallocate) &&  storageallocate >= 1000){
       jQuery(".storage_token_msg").hide();
       jQuery("#addstoragebtn").hide();
       jQuery("#storageAllocation .close").trigger('click');
       jQuery("#editstoragebtn").show();
       storageallocateval = 1;
-    } else {
+    } else if(storageallocate !== '') {
+      storageallocate = '';
+      jQuery(".storage_token_msg").show();
+      jQuery("#editstoragebtn").hide();
+      storageallocateval = 0;
+    } else  {
       jQuery(".storage_token_msg").show();
       jQuery("#editstoragebtn").hide();
       storageallocateval = 0;
@@ -92,18 +115,34 @@ jQuery(function() {
     showstartbutton(createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,directoryAllocationval);
   })
   jQuery('#create_bandwidth').click(function(){
-    bandwidthAllocation = jQuery("#bandwidth_allocation").val();
-    if(bandwidthAllocation !== '') {
+    bandwidthAllocation = parseInt(jQuery("#bandwidth_allocation").val());
+    if(jQuery.isNumeric(bandwidthAllocation) && Number.isInteger(bandwidthAllocation) &&  bandwidthAllocation >= 1){
       jQuery(".bandwidth_token_msg").hide();
       jQuery("#addbandwidthbtn").hide();
       jQuery("#bandwidth .close").trigger('click');
       jQuery("#editbandwidthbtn").show();
       bandwidthAllocationval = 1;
-    } else {
+    } else if(bandwidthAllocation !== '') {
+      bandwidthAllocation = '';
+      jQuery(".bandwidth_token_msg").show();
+      jQuery("#editbandwidthbtn").hide();
+      bandwidthAllocationval = 0;
+    } else  {
       jQuery(".bandwidth_token_msg").show();
       jQuery("#editbandwidthbtn").hide();
       bandwidthAllocationval = 0;
     }
+    // if(bandwidthAllocation !== '') {
+    //   jQuery(".bandwidth_token_msg").hide();
+    //   jQuery("#addbandwidthbtn").hide();
+    //   jQuery("#bandwidth .close").trigger('click');
+    //   jQuery("#editbandwidthbtn").show();
+    //   bandwidthAllocationval = 1;
+    // } else {
+    //   jQuery(".bandwidth_token_msg").show();
+    //   jQuery("#editbandwidthbtn").hide();
+    //   bandwidthAllocationval = 0;
+    // }
     jQuery("#bandwidthbtnval").html('');
     bandwidth_val = bandwidthAllocation;
     jQuery("#bandwidthbtnval").html(bandwidthAllocation);
@@ -213,15 +252,4 @@ function hideButton(){
   jQuery("#addstoragebtn").attr("disabled", true);
   jQuery("#addbandwidthbtn").attr("disabled", true);
   jQuery("#adddirectorybtn").attr("disabled", true);
-}
-
-function checkdigitvalidation(addressVal){
-  console.log(addressVal);
-
-
-
-  // if(isValid) {
-  //
-  // }
-
 }
