@@ -12,7 +12,7 @@
               $_finalIp = $ip.":14002/".
               $output = shell_exec("/etc/init.d/STORJ.sh is-running");
               if (!trim($output) == "") { ?>
-               <iframe src="<?php echo $ip; ?>" width="100%" height="100%"></iframe>
+               <iframe src="<?php echo $_finalIp; ?>" width="100%" height="100%"></iframe>
              <?php } else {
                echo $output;
               } ?>
