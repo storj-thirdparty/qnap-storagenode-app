@@ -46,12 +46,12 @@ case "$1" in
 
    authorize)
     : ADD AUTHORIZE COMMAND HERE
-     ${IDENTITY} create storagenode 2>&1
-     /bin/cp -r /tmp/.local/share/storj/identity/ /id
+     #${IDENTITY} create storagenode 2>&1
+     #/bin/cp -r /tmp/.local/share/storj/identity/ /id
      #/bin/cp /tmp/.local/share/storj/identity/ /
-     ${IDENTITY} authorize storagenode "$2" 2>&1
-     /bin/cp -r /tmp/.local/share/storj/identity/ /id
-    # move the identity files to Public/
+     #${IDENTITY} authorize storagenode "$2" 2>&1
+     #/bin/cp -r /tmp/.local/share/storj/identity/ /id
+     #move the identity files to Public/
     ;;
  
    is-authorized)
@@ -62,8 +62,15 @@ case "$1" in
     #fi
    ;;
 
+   ip)
+    ip="$(dig @resolver1.opendns.com A myip.opendns.com +short -4)"
+    echo $ip
+    ;;
+
    start-docker)
-   ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="68.55.169.100:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="/id/identity/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
+   ip = $0 ip 2>&1
+   echo $ip
+   ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="${ip}:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="/id/identity/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
    #${DOCKER} -v 
     ;;
 
