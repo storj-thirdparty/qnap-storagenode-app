@@ -182,10 +182,7 @@ jQuery(function() {
 function showstartbutton(createAddressvaldata,createWalletvaldata,storageallocatevaldata,bandwidthAllocationvaldata,emailAddressvaldata,directoryAllocationvaldata,){
   if(createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
     jQuery("#startbtn").removeAttr("disabled", true);
-    jQuery("#stopbtn").removeAttr("disabled", true);
     jQuery("#startbtn").addClass("start-button");
-    jQuery("#stopbtn").addClass("stop-button");
-    jQuery("#stopbtn").removeClass("stopnodebtn");
   } else{
     jQuery("#startbtn").attr("disabled", true);
   }

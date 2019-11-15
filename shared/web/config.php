@@ -169,7 +169,7 @@ else if($_POST['identityajax'] == 1){
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Allocation</p>
                             <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity"/>
-                            <p class="modal-input-metric">TB</p>
+                            <p class="modal-input-metric">GB</p>
                             <p class="storage_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
                           </div>
                           <div class="modal-footer">
