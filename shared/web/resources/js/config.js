@@ -4,6 +4,7 @@ jQuery(function() {
   hideButton();
   var identitydata = jQuery("#identity_token").val();
   var createAddress = jQuery("#host_address").val();
+  createAddressvaldata = 1;
   var createWallet = jQuery("#wallet_address").val();
   var storageallocate = jQuery("#storage_allocate").val();
   var bandwidthAllocation = jQuery("#bandwidth_allocation").val();
