@@ -131,3 +131,9 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+#editidentitybtn,#editexternalAddressbtn,#editwallettbtn,#editstoragebtn,#editbandwidthbtn,#editemailAddressbtn,#editdirectorybtn{margin-left:10px;}
+.identity_token_msg{margin-left: 6%;}
+.host_token_msg{margin-right: 15%;}
+.wallet_token_msg{margin-right: 17%;}
+.storage_token_msg{margin-left: 15%;}
+.bandwidth_token_msg{margin-left: 16%;}
