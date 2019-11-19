@@ -25,6 +25,7 @@ jQuery(function() {
     success: function (resposnse) {
       if(resposnse) {
         jQuery("#stopbtn").removeAttr("disabled", true);
+        jQuery("#startbtn").css('margin', 10 + 'px');
         jQuery("#stopbtn").addClass("stop-button");
       }
     },
@@ -184,7 +185,7 @@ function showstartbutton(createidentitydataval,createAddressvaldata,createWallet
   if(createidentitydataval === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1 && bandwidthAllocationvaldata === 1 && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#startbtn").addClass("start-button");
-    jQuery("#stopbtn").css('margin', 11 + 'px');
+    jQuery("#stopbtn").css('margin', 10 + 'px');
   } else{
     jQuery("#startbtn").attr("disabled", true);
   }
