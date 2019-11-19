@@ -70,7 +70,7 @@ case "$1" in
    start-docker)
    ip = $0 ip 2>&1
    echo $ip
-   ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="${ip}:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="/id/identity/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
+   ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="${ip}:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="${8}/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
    #${DOCKER} -v 
     ;;
 
