@@ -6,7 +6,8 @@ if($_POST['isajax'] == 1) {
     $_bandwidth      = $_POST["bandwidth"];
     $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
-    shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_emailId $_directory");
+    $_identity_directory = $_POST['identityDirectory'];
+    shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_emailId $_directory $_identity_directory");
   }
 else if($_POST['identityajax'] == 1){
   $identitytoken = $_POST['identity'];
@@ -49,10 +50,10 @@ else if($_POST['identityajax'] == 1){
                     <h4 class="segment-title">Identity</h4>
                     <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.</p>
                     <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
-                      Edit Identity
+                      Edit Identity Path
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
-                      Create Identity
+                    Set Identity Path
                     </button>
                     <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -65,12 +66,12 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Authorization Token</p>
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token"/>
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_identity">Create Identity</button>
+                            <button class="modal-btn" id="create_identity"> Set Identity Path</button>
                           </div>
                         </div>
                       </div>
@@ -100,7 +101,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1" class="quantity" />
+                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="Enter Port Address"/>
                             <p class="host_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
                           </div>
                           <div class="modal-footer">
@@ -134,7 +135,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Wallet Address</p>
-                            <input class="modal-input" name="Wallet Address" id="wallet_address"/>
+                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enetr Wallet Address"/>
                             <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
@@ -168,9 +169,9 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Allocation</p>
-                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity"/>
+                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number"/>
                             <p class="modal-input-metric">GB</p>
-                            <p class="storage_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
+                            <p class="storage_token_msg msg" style="display:none;">Minimum 1000 GB is required</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -203,9 +204,9 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Bandwidth Allocation</p>
-                            <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity"/>
+                            <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number"/>
                             <p class="modal-input-metric">TB</p>
-                            <p class="bandwidth_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
+                            <p class="bandwidth_token_msg msg" style="display:none;">Minimum 1 TB is required</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -238,7 +239,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Email Address</p>
-                            <input class="modal-input" id="email_address" name="email_address" type="email" />
+                            <input class="modal-input" id="email_address" name="email_address" type="email" placeholder="Email Address"/>
                             <p class="email_token_msg msg" style="display:none;">Enter a Valid Email address</p>
                           </div>
                           <div class="modal-footer">
@@ -272,7 +273,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Directory</p>
-                            <input class="modal-input" id="storage_directory" name="storage_directory" />
+                            <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" />
                             <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
