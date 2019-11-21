@@ -68,6 +68,7 @@ else if($_POST['identityajax'] == 1){
                             <p class="modal-input-title">Authorization Token</p>
                             <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
+                            <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -101,8 +102,8 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="Enter Port Address"/>
-                            <p class="host_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
+                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="domain.ddns.net: 28967"/>
+                            <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
