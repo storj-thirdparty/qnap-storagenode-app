@@ -45,7 +45,9 @@ else if($_POST['identityajax'] == 1){
               <h2>Setup</h2>
               <a href=""><p class="header-link">Documentation ></p></a>
                 <div class="row segment" id="identityrow">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
+
+                  </div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
                     <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.</p>
@@ -81,7 +83,7 @@ else if($_POST['identityajax'] == 1){
                 </div>
                 <!-- <div style="display:none" id="storjrows"> -->
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon port-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Port Forwarding</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
@@ -115,7 +117,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon wallet-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Ethereum Wallet Address</h4>
                     <p class="segment-msg">In order to recieve and hold your STORJ toen payouts, you need an ERC-20 compatible wallet to wwhich you hold the private key yourself.</p>
@@ -149,7 +151,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon storage-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Allocation</h4>
                     <p class="segment-msg">How much disk space you wnat to allocate to the Storj network</p>
@@ -184,7 +186,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon bandwidth-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Bandwidth Allocation</h4>
                     <p class="segment-msg">How much bandwidth can you allocate to the Storj network.</p>
@@ -219,7 +221,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Email Address</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
@@ -253,7 +255,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon directory-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Directory</h4>
                     <p class="segment-msg">The local directory where you want files to be stored on your hard drive for the network</p>
@@ -296,6 +298,6 @@ else if($_POST['identityajax'] == 1){
           <?php } ?>
   </div>
 <?php include 'footer.php';?>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="./resources/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php } ?>
