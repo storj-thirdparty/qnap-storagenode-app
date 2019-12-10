@@ -65,7 +65,10 @@
   background-image: url(./../img/storage-directory.png);
   background-repeat: round;
 }
-
+.segment .email-icon {
+  background-image: url(./../img/email.png);
+  background-repeat: round;
+}
 
 .segment .segment-msg {
   font-size: 14px;
