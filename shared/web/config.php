@@ -48,7 +48,7 @@ else if($_POST['identityajax'] == 1){
                   <div class="column col-md-2"><div class="segment-icon"></div></div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
-                    <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.</p>
+                    <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.Please copy the folder containing idenity to the node at a suitable path</p>
                     <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
                       Edit Identity Path
                     </button></span>
@@ -117,7 +117,7 @@ else if($_POST['identityajax'] == 1){
                   <div class="column col-md-2"><div class="segment-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Ethereum Wallet Address</h4>
-                    <p class="segment-msg">In order to recieve and hold your STORJ toen payouts, you need an ERC-20 compatible wallet to wwhich you hold the private key yourself.</p>
+                    <p class="segment-msg">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet to which you hold the private key yourself.</p>
                     <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn" data-toggle="modal" data-target="#walletAddress">
                         Edit Wallett Address
                       </button></span>
@@ -135,7 +135,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Wallet Address</p>
-                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enetr Wallet Address"/>
+                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address"/>
                             <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
