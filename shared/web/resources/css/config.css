@@ -47,6 +47,12 @@
   font-weight: bold;
   font-size: 16px;
 }
+
+.segment .email-icon {
+  background-image: url(./../img/email.png);
+  background-repeat: round;
+}
+
 .segment .wallet-icon{
   background-image: url(./../img/wallet-addr.png);
   background-repeat: round;
@@ -63,10 +69,6 @@
 }
 .segment .directory-icon{
   background-image: url(./../img/storage-directory.png);
-  background-repeat: round;
-}
-.segment .email-icon {
-  background-image: url(./../img/email.png);
   background-repeat: round;
 }
 

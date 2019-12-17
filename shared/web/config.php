@@ -45,10 +45,12 @@ else if($_POST['identityajax'] == 1){
               <h2>Setup</h2>
               <a href=""><p class="header-link">Documentation ></p></a>
                 <div class="row segment" id="identityrow">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
+
+                  </div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
-                    <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.Please copy the folder containing idenity to the node at a suitable path</p>
+                    <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.</p>
                     <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
                       Edit Identity Path
                     </button></span>
@@ -68,6 +70,7 @@ else if($_POST['identityajax'] == 1){
                             <p class="modal-input-title">Authorization Token</p>
                             <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
+                            <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -80,7 +83,7 @@ else if($_POST['identityajax'] == 1){
                 </div>
                 <!-- <div style="display:none" id="storjrows"> -->
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon port-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Port Forwarding</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
@@ -101,8 +104,8 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="Enter Port Address"/>
-                            <p class="host_token_msg msg" style="display:none;">Enter only Valid Numbers</p>
+                            <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="domain.ddns.net: 28967"/>
+                            <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -114,10 +117,10 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon wallet-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Ethereum Wallet Address</h4>
-                    <p class="segment-msg">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet to which you hold the private key yourself.</p>
+                    <p class="segment-msg">In order to recieve and hold your STORJ toen payouts, you need an ERC-20 compatible wallet to wwhich you hold the private key yourself.</p>
                     <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn" data-toggle="modal" data-target="#walletAddress">
                         Edit Wallett Address
                       </button></span>
@@ -135,7 +138,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Wallet Address</p>
-                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address"/>
+                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enetr Wallet Address"/>
                             <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
@@ -148,7 +151,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon storage-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Allocation</h4>
                     <p class="segment-msg">How much disk space you wnat to allocate to the Storj network</p>
@@ -183,7 +186,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon bandwidth-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Bandwidth Allocation</h4>
                     <p class="segment-msg">How much bandwidth can you allocate to the Storj network.</p>
@@ -218,7 +221,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Email Address</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
@@ -252,7 +255,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                 </div>
                 <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon"></div></div>
+                  <div class="column col-md-2"><div class="segment-icon directory-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Directory</h4>
                     <p class="segment-msg">The local directory where you want files to be stored on your hard drive for the network</p>
@@ -295,6 +298,6 @@ else if($_POST['identityajax'] == 1){
           <?php } ?>
   </div>
 <?php include 'footer.php';?>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="./resources/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php } ?>
