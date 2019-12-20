@@ -50,7 +50,7 @@ else if($_POST['identityajax'] == 1){
                   </div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
-                    <p class="segment-msg">Every node ie required to have a unique identifier on the network. If you haven't already, get an authorization token. This is required to create an identity.</p>
+                    <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
                     <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
                       Edit Identity Path
                     </button></span>
@@ -61,7 +61,7 @@ else if($_POST['identityajax'] == 1){
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title">Create Identity</h5>
+                            <h5 class="modal-title">Identity Folder path</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -120,12 +120,12 @@ else if($_POST['identityajax'] == 1){
                   <div class="column col-md-2"><div class="segment-icon wallet-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Ethereum Wallet Address</h4>
-                    <p class="segment-msg">In order to recieve and hold your STORJ toen payouts, you need an ERC-20 compatible wallet to wwhich you hold the private key yourself.</p>
+                    <p class="segment-msg">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address.</p>
                     <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn" data-toggle="modal" data-target="#walletAddress">
-                        Edit Wallett Address
+                        Edit Wallet Address
                       </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#walletAddress" id="addwallettbtn">
-                      Add Wallett Address
+                      Add Wallet Address
                     </button>
                     <div class="modal fade" id="walletAddress" tabindex="-1" role="dialog" aria-labelledby="walletAddress" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -138,7 +138,7 @@ else if($_POST['identityajax'] == 1){
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Wallet Address</p>
-                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enetr Wallet Address"/>
+                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address"/>
                             <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
@@ -154,7 +154,7 @@ else if($_POST['identityajax'] == 1){
                   <div class="column col-md-2"><div class="segment-icon storage-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Allocation</h4>
-                    <p class="segment-msg">How much disk space you wnat to allocate to the Storj network</p>
+                    <p class="segment-msg">How much disk space you want to allocate to the Storj network</p>
                     <span id="storagebtnval"></span><span style="display:none;" id="editstoragebtn"><button class="segment-btn" data-toggle="modal" data-target="#storageAllocation">
                       Edit Storage Capacity
                     </button></span>
