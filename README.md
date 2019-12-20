@@ -50,3 +50,11 @@ dashboard.php will check if the docker is running or not which is queried from S
 start and stop commands are fired to STORJ.sh
 
 Pass absolute path of the Storage Directory in the form field Identity path.
+
+# App Use
+- Put path to identity folder in **Identity**. This is the absolute path of `identity` folder. For example you copied your identity folder to `/share/Public`, the input will be `/share/Public/identity`.
+- Make sure you open the port you're going to enter in **Port Forwarding**.
+- **Storage Directory** should contain the complete path to the shared folder. Make sure you give all the permissions to the folder with `chmod -R 777 </absolutepath/to/shared_folder>`. For example you create a folder with name `storj` at `/root`, this field should be populated with `/root/storj`
+
+# Debug
+App is installed at `/share/CACHEDEV1_DATA/.qpkg/STORJ`. The folder structure is the same as it is in the shared folder. In case the app is misbehaving or needs to be debugged, it can be found here.
