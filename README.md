@@ -32,6 +32,8 @@ The qpkg file is found at [storj-node-qnap/build](storj-node-qnap/build)
 ## Identity Generation
 [Storj docs](https://documentation.storj.io/dependencies/identity)
 
+
+
 ## Paths
 docker-path - '/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker'
 
@@ -55,6 +57,15 @@ Pass absolute path of the Storage Directory in the form field Identity path.
 - Put path to identity folder in **Identity**. This is the absolute path of `identity` folder. For example you copied your identity folder to `/share/Public`, the input will be `/share/Public/identity`.
 - Make sure you open the port you're going to enter in **Port Forwarding**.
 - **Storage Directory** should contain the complete path to the shared folder. Make sure you give all the permissions to the folder with `chmod -R 777 </absolutepath/to/shared_folder>`. For example you create a folder with name `storj` at `/root`, this field should be populated with `/root/storj`
+- **Ethereum Wallet Address** It should be a valid ERC-20 compatible wallet address. If this path is invalid the storagenode woould not start.
+- **Email** Please check the email id
+- **Bandwidth** The minimum bandwidth requirement is **2TB**.
+- **Storage Allocation** Be sure not to over-allocate space! Allow at least 10% extra for overhead. If you over-allocate space, you may corrupt your database when the system attempts to store pieces when no more physical space is actually available on your drive. The minimum storage shared requirement is 500 GB, which means you need a disk of at least 550 GB total size to allow for the 10% overhead.
 
 # Debug
 App is installed at `/share/CACHEDEV1_DATA/.qpkg/STORJ`. The folder structure is the same as it is in the shared folder. In case the app is misbehaving or needs to be debugged, it can be found here.
+
+If you can't see or access the dashboard try the command **docker container ls -all** to check if the storaganode docker container is running.
+
+## More information
+To know more about running the Docker container of Storj Storage node docker container [Storagenode CLI](https://documentation.storj.io/setup/cli/storage-node)
