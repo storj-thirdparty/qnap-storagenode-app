@@ -1,5 +1,6 @@
 var identitydataval, createAddressval, createWalletval, storageallocateval, bandwidthAllocationval, directoryAllocationval, emailiddataval ;
 var identity_val, address_val, wallet_val, storage_val, bandwidth_val, directory_val, emailiddata_val;
+var identity_text,address_text, storage_text, bandwidth_text;
 jQuery(function() {
   //hideButton();
   var identitydata = jQuery("#identity_token").val();
@@ -44,14 +45,16 @@ jQuery(function() {
       jQuery("#editidentitybtn").show();
       createidentifyToken(identitydata);
       identitydataval = 1;
+      identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
       jQuery(".identity_token_msg").show();
       jQuery("#editidentitybtn").hide();
       identitydataval = 0;
+      identity_text = '';
     }
     jQuery("#idetityval").html('');
     identity_val = identitydata;
-    jQuery("#idetityval").html(identitydata);
+    jQuery("#idetityval").html(identity_text+identitydata);
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_address').click(function(){
@@ -62,18 +65,21 @@ jQuery(function() {
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
+      address_text = "<span class='address_text'>domain.ddns.net: </span>";
     } else if(createAddress !== ''){
       jQuery(".host_token_msg").show();
       jQuery("#addstoragebtn").show();
       createAddressval = 0;
+      address_text = '';
     } else {
       jQuery(".host_token_msg").show();
       jQuery("#editexternalAddressbtn").hide();
       createAddressval = 0;
+      address_text = '';
     }
     jQuery("#externalAddressval").html('');
     address_val = createAddress;
-    jQuery("#externalAddressval").html(createAddress);
+    jQuery("#externalAddressval").html(address_text+createAddress);
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_wallet').click(function(){
@@ -102,19 +108,22 @@ jQuery(function() {
       jQuery("#storageAllocation .close").trigger('click');
       jQuery("#editstoragebtn").show();
       storageallocateval = 1;
+      storage_text = "GB";
     } else if(storageallocate !== '') {
       storageallocate = '';
       jQuery(".storage_token_msg").show();
       jQuery("#editstoragebtn").hide();
       storageallocateval = 0;
+      storage_text = '';
     } else  {
       jQuery(".storage_token_msg").show();
       jQuery("#editstoragebtn").hide();
       storageallocateval = 0;
+      storage_text = '';
     }
     jQuery("#storagebtnval").html('');
     storage_val = storageallocate;
-    jQuery("#storagebtnval").html(storageallocate);
+    jQuery("#storagebtnval").html(storageallocate+storage_text);
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   })
   jQuery('#create_bandwidth').click(function(){
@@ -125,19 +134,22 @@ jQuery(function() {
       jQuery("#bandwidth .close").trigger('click');
       jQuery("#editbandwidthbtn").show();
       bandwidthAllocationval = 1;
+      bandwidth_text = "TB";
     } else if(bandwidthAllocation !== '') {
       bandwidthAllocation = '';
       jQuery(".bandwidth_token_msg").show();
       jQuery("#editbandwidthbtn").hide();
       bandwidthAllocationval = 0;
+      bandwidth_text = '';
     } else  {
       jQuery(".bandwidth_token_msg").show();
       jQuery("#editbandwidthbtn").hide();
       bandwidthAllocationval = 0;
+      bandwidth_text = '';
     }
     jQuery("#bandwidthbtnval").html('');
     bandwidth_val = bandwidthAllocation;
-    jQuery("#bandwidthbtnval").html(bandwidthAllocation);
+    jQuery("#bandwidthbtnval").html(bandwidthAllocation+bandwidth_text);
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_emailaddress').click(function(){
@@ -197,6 +209,7 @@ jQuery("#startbtn").click(function(e) {
       url: "config.php",
       data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
+        //console.log("I am here");
         window.location.reload();
       },
       error: function () {
