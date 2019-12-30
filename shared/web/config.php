@@ -55,7 +55,7 @@ while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
           <div class="col-10 config-page">
             <div class="container-fluid">
               <h2>Setup</h2>
-              <a href=""><p class="header-link">Documentation ></p></a>
+              <a href="https://documentation.storj.io/"><p class="header-link">Documentation ></p></a>
               <div class="row segment" id="identityrow">
                 <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
 
