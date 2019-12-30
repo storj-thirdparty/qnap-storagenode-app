@@ -79,7 +79,7 @@ while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p class="modal-input-title">Authorization Token</p>
+                          <p class="modal-input-title">Identity Path</p>
                           <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity" value="<?php if(isset($data[0])) echo $data[0] ?>"/>
                           <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
                           <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
