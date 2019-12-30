@@ -179,3 +179,4 @@ input[type=number]::-webkit-outer-spin-button {
 #idetityval .identity_text{font-weight: 600;}
 .identity_note{display:inline-block;font-size: 14px; margin-top: 18px; color: #245AC3}
 .identity_note span{font-weight: bold;}
+#updatebtn {position: absolute;bottom: 0%;left: 4%;}

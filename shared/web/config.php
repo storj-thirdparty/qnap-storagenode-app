@@ -305,6 +305,7 @@ while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
                   <button type="button" class="start-button" id="startbtn">Start My Storage Node</button>
                 </div>
               <!-- </div> -->
+              <button type="button" class="start-button" id="updatebtn">Update My Storage Node</button>
             </div>
           </div>
           <?php }
