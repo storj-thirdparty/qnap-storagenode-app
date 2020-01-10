@@ -2,6 +2,7 @@
 $filename = "output.csv";
 $file = $_SERVER['DOCUMENT_ROOT']."/qnap_storagenode/".$filename;
 if($_POST['isajax'] == 1) {
+   # On press of start button
     $_address  = $_POST["address"];
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
@@ -18,6 +19,7 @@ if($_POST['isajax'] == 1) {
     shell_exec("/etc/init.d/STORJ.sh start-docker $_address $_wallet $_storage $_bandwidth $_emailId $_directory $_identity_directory");
   }
 else if($_POST['identityajax'] == 1){
+ # Create identify Token
   $identitytoken = $_POST['identity'];
   $output = shell_exec("/etc/init.d/STORJ.sh authorize $identitytoken");
   echo $output;
@@ -33,7 +35,8 @@ else if($_POST['identityajax'] == 1){
 } else {
 $h = fopen($file, "r");
 $data = fgetcsv($h, 1000, ",");
-while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
+$data = fgetcsv($h, 1000, ",");
+// while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
 {
 ?>
 <?php include 'header.php';?>
