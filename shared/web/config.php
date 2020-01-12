@@ -1,6 +1,7 @@
 <?php
 $filename = "output.csv";
-$file = $_SERVER['DOCUMENT_ROOT']."/qnap_storagenode/".$filename;
+#$file = $_SERVER['DOCUMENT_ROOT']."/qnap_storagenode/".$filename;
+$file = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['PHP_SELF']) . DIRECTORY_SEPARATOR . $filename  ;
 if($_POST['isajax'] == 1) {
    # On press of start button
     $_address  = $_POST["address"];
@@ -36,7 +37,6 @@ else if($_POST['identityajax'] == 1){
 $h = fopen($file, "r");
 $data = fgetcsv($h, 1000, ",");
 $data = fgetcsv($h, 1000, ",");
-// while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
 {
 ?>
 <?php include 'header.php';?>
