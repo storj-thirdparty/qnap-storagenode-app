@@ -3,6 +3,9 @@ $filename = "output.csv";
 #$file = $_SERVER['DOCUMENT_ROOT']."/qnap_storagenode/".$filename;
 $file = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['PHP_SELF']) . DIRECTORY_SEPARATOR . $filename  ;
 if($_POST['isajax'] == 1) {
+    logMessage("config called up with isajax 1 ");
+    logEnvironment() ;
+
    # On press of start button
     $_address  = $_POST["address"];
     $_wallet   = $_POST["wallet"];
@@ -189,7 +192,7 @@ $data = fgetcsv($h, 1000, ",");
                           <p class="modal-input-title">Storage Allocation</p>
                           <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($data[3])) echo $data[3] ?>"/>
                           <p class="modal-input-metric">GB</p>
-                          <p class="storage_token_msg msg" style="display:none;">Minimum 1000 GB is required</p>
+                          <p class="storage_token_msg msg" style="display:none;">Minimum 500 GB is required</p>
                         </div>
                         <div class="modal-footer">
                           <button class="modal-btn" data-dismiss="modal">Close</button>
@@ -315,6 +318,25 @@ $data = fgetcsv($h, 1000, ",");
         } ?>
   </div>
 <?php include 'footer.php';?>
-<script src="./resources/js/jquery-3.1.1.min.js"></script>
+<!-- <script src="./resources/js/jquery-3.1.1.min.js"></script> -->
 <script type="text/javascript" src="./resources/js/config.js"></script>
-<?php } ?>
+<?php 
+
+}
+
+function logEnvironment() {
+	logMessage(
+		"\n----------------------------------------------\n"
+		. "ENV is : " . print_r($_ENV, true)
+		. "POST is : " . print_r($_POST, true)
+		. "SERVER is : " . print_r($_SERVER, true)
+		. "----------------------------------------------\n"
+	);
+}
+
+function logMessage($message) {
+    $file = "/var/log/StorJ" ;
+    file_put_contents($file, `date` .  $message . "\n", FILE_APPEND);
+}
+
+?>

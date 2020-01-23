@@ -102,7 +102,7 @@ jQuery(function() {
   });
   jQuery('#allocate_storage').click(function(){
     storageallocate = parseInt(jQuery("#storage_allocate").val());
-    if(jQuery.isNumeric(storageallocate) && Number.isInteger(storageallocate) &&  storageallocate >= 1000){
+    if(jQuery.isNumeric(storageallocate) && Number.isInteger(storageallocate) &&  storageallocate >= 500){
       jQuery(".storage_token_msg").hide();
       jQuery("#addstoragebtn").hide();
       jQuery("#storageAllocation .close").trigger('click');
@@ -228,6 +228,21 @@ jQuery("#stopbtn").click(function(e) {
       },
       error: function () {
         console.log("In There wrong on Stop Button");
+      }
+    });
+});
+
+jQuery("#updatebtn").click(function(e) {
+    jQuery.ajax({
+      type: "POST",
+      url: "config.php",
+      data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isUpdateAjax : 1},
+      success: function (result) {
+        //console.log("I am here");
+        window.location.reload();
+      },
+      error: function () {
+        console.log("Something wrong with stop button");
       }
     });
 });

@@ -97,6 +97,12 @@ CMD_LS="/bin/ls"
 ## Path to ipkg or opkg package tool if installed.
 #CMD_PKG_TOOL=
 #
+#
+######################################################################
+# STORJ specific variables definitions
+######################################################################
+PKGNAME="StorJ"
+LOGFILE="/var/log/$PKGNAME"
 ######################################################################
 # All package specific functions shall call 'err_log MSG' if an error
 # is detected that shall terminate the installation.
@@ -106,8 +112,27 @@ CMD_LS="/bin/ls"
 # Define any package specific operations that shall be performed when
 # the package is removed.
 ######################################################################
-#PKG_PRE_REMOVE="{
-#}"
+PKG_PRE_REMOVE="{
+
+# -----------------------------------------------------------
+# Cleanup docker containers and images
+# -----------------------------------------------------------
+BASE_IMAGE="storjlabs/storagenode:beta"
+REGISTRY=""
+IMAGE="$BASE_IMAGE"
+
+CID=$(docker ps -a | grep $IMAGE | awk '{print $1}')
+for im in $CID
+do
+    NAME=`docker inspect --format '{{.Name}}' $im | sed "s/\///g"`
+    echo `date` "Killing : Container($im) (name:$NAME) ">> $LOGFILE
+    docker stop $NAME
+    docker rm -f $NAME
+done
+echo `date` "Removing : (image:$IMAGE) ">> $LOGFILE
+docker rmi $IMAGE
+
+}"
 #
 #PKG_MAIN_REMOVE="{
 #}"
@@ -142,7 +167,7 @@ CMD_LS="/bin/ls"
 pkg_post_install(){
 #$cd /share/Public/
 #Changing the file permissions for retentive parameters
-$CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/output.csv
+$CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/output.csv
 $CMD_WGET https://github.com/storj/storj/releases/download/v0.25.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
 $CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/
 $CMD_CHMOD +x /share/Public/identity_linux_amd64 
@@ -155,4 +180,6 @@ $CMD_CHMOD -R 777 /id
 #$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
 #$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
+$CMD_TOUCH $LOGFILE
+$CMD_CHMOD 666 $LOGFILE
 }
