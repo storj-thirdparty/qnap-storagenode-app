@@ -7,16 +7,31 @@
       <?php include 'menu.php'; ?>
       <div class="col-10">
         <div class="container-fluid dashboard-view">
-          <?php
-            $ip = shell_exec("/etc/init.d/STORJ.sh ip");
-              $_finalIp = "http://".$ip.":14002/";
-              $output = shell_exec("/etc/init.d/STORJ.sh is-running");
-              if (!trim($output) == "") { ?>
-               <iframe src="<?php echo $_finalIp; ?>" width="100%" height="100%"></iframe>
-             <?php } else { ?>
-               <iframe src="<?php echo $_finalIp; ?>" width="100%" height="100%"></iframe>
-               <?php echo $output;
-              } ?>
+	<?php
+		$platformBase   = $_SERVER['DOCUMENT_ROOT'];
+		$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
+		$scriptsBase    = $moduleBase . '/scripts' ;
+		$checkRunning	= $scriptsBase . '/checkStorj.sh' ;
+
+              $output = shell_exec("/bin/bash $checkRunning");
+              $err = shell_exec("/bin/bash $checkRunning 2>&1 ");
+	      if (!trim($output) == "") { 
+		      echo "<H2> Storj Status </H2> " ;
+		      echo " $output <br> " ;
+			$port = ":14002" ;
+			$url =  "http://{$_SERVER['SERVER_NAME']}${port}";
+			$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+			$_finalUrl = $escaped_url ;
+	?>
+		      <a href="<?php echo $_finalUrl;?>" target="_blank">Storj Storage Node Stats </a>
+       <?php 
+	      }  else {
+	?>
+		<frame width="40%" height="20%">  <H2> STORJ Status is: </H2> <?php echo $err ;?> </frame>
+	<?php
+	      }
+	?>
+
         <div>
       </div>
     </div>

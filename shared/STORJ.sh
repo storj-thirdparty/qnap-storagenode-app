@@ -1,5 +1,6 @@
 #!/bin/sh
 CONF=/etc/config/qpkg.conf
+LOGFILE=/var/log/StorJ
 QPKG_NAME="STORJ"
 QPKG_ROOT=`/sbin/getcfg $QPKG_NAME Install_Path -f ${CONF}`
 APACHE_ROOT=`/sbin/getcfg SHARE_DEF defWeb -d Qweb -f /etc/config/def_share.info`
@@ -62,21 +63,23 @@ case "$1" in
     #fi
    ;;
 
-   ip)
-    ip="$(dig @resolver1.opendns.com A myip.opendns.com +short -4)"
-    echo $ip
-    ;;
-
    start-docker)
-   ip = $0 ip 2>&1
-   echo $ip
-   ${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="${ip}:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="${8}/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta 2>&1
+   command="${DOCKER} run -d --restart unless-stopped -p "$2":28967 -p 14002:14002 -e WALLET="$3" -e EMAIL="$6" -e ADDRESS="${9}:${2}" -e BANDWIDTH="${5}TB" -e STORAGE="${4}GB" --mount type=bind,source="${8}/storagenode/",destination=/app/identity --mount type=bind,source="$7",destination=/app/config --name ${QPKG_NAME} storjlabs/storagenode:beta "
+   output=` $command 2>&1 ` 
+   echo $command >> $LOGFILE
+   echo $output >> $LOGFILE
+ 
+ 
    #${DOCKER} -v 
     ;;
 
   stop-docker)
-    ${DOCKER} stop ${QPKG_NAME}
-    ${DOCKER} rm -f ${QPKG_NAME}
+    command1="${DOCKER} stop ${QPKG_NAME} "
+    command2="${DOCKER} rm -f ${QPKG_NAME} "
+    output1=` $command1 2>&1 `
+    output2=` $command2 2>&1 `
+    echo `date` " $output1  " >> $LOGFILE
+    echo `date` " $output2  " >> $LOGFILE
     ;; 
 
    is-running)

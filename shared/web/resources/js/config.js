@@ -4,19 +4,180 @@ var identity_text,address_text, storage_text, bandwidth_text;
 jQuery(function() {
   //hideButton();
   var identitydata = jQuery("#identity_token").val();
-  var createAddress = jQuery("#host_address").val();
+  var createAddress = parseInt(jQuery("#host_address").val());
   var createWallet = jQuery("#wallet_address").val();
-  var storageallocate = jQuery("#storage_allocate").val();
-  var bandwidthAllocation = jQuery("#bandwidth_allocation").val();
+  // var storageallocate = jQuery("#storage_allocate").val();
+  storageallocate = parseInt(jQuery("#storage_allocate").val());
+  // var bandwidthAllocation = jQuery("#bandwidth_allocation").val();
+  bandwidthAllocation = parseInt(jQuery("#bandwidth_allocation").val());
   var emailiddata = jQuery("#email_address").val();
   var directoryAllocation = jQuery("#storage_directory").val();
+
+  // Get values
+  if(identitydata !== '') {
+      //showButton();
+      jQuery(".identity_token_msg").hide();
+      jQuery("#identitybtn").hide();
+      jQuery("#identity .close").trigger("click");
+      jQuery("#editidentitybtn").show();
+      createidentifyToken(identitydata);
+      identitydataval = 1;
+      identity_text = "<span class='identity_text'>Identity Generated: </span>";
+    } else {
+      jQuery(".identity_token_msg").show();
+      jQuery("#editidentitybtn").hide();
+      identitydataval = 0;
+      identity_text = '';
+    }
+    jQuery("#idetityval").html('');
+    identity_val = identitydata;
+    jQuery("#idetityval").html(identity_text+identitydata);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+  if(jQuery.isNumeric(createAddress) && Number.isInteger(createAddress)){
+      jQuery(".host_token_msg").hide();
+      jQuery("#externalAddressbtn").hide();
+      jQuery("#externalAddress .close").trigger("click");
+      jQuery("#editexternalAddressbtn").show();
+      createAddressval = 1;
+      address_text = "<span class='address_text'>domain.ddns.net: </span>";
+    } else if(createAddress !== ''){
+      jQuery(".host_token_msg").show();
+      jQuery("#addstoragebtn").show();
+      createAddressval = 0;
+      address_text = '';
+    } else {
+      jQuery(".host_token_msg").show();
+      jQuery("#editexternalAddressbtn").hide();
+      createAddressval = 0;
+      address_text = '';
+    }
+    jQuery("#externalAddressval").html('');
+    address_val = createAddress;
+    jQuery("#externalAddressval").html(address_text+createAddress);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+ if(createWallet !== '') {
+      jQuery(".wallet_token_msg").hide();
+      jQuery("#addwallettbtn").hide();
+      jQuery("#walletAddress .close").trigger("click");
+      jQuery("#editwallettbtn").show();
+      createWalletval = 1;
+    } else {
+      jQuery(".wallet_token_msg").show();
+      jQuery("#editwallettbtn").hide();
+      createWalletval = 0;
+    }
+    jQuery("#wallettbtnval").html('');
+    wallet_val = createWallet;
+    jQuery("#wallettbtnval").html(createWallet);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+  if(jQuery.isNumeric(storageallocate) && Number.isInteger(storageallocate) &&  storageallocate >= 500){
+      jQuery(".storage_token_msg").hide();
+      jQuery("#addstoragebtn").hide();
+      jQuery("#storageAllocation .close").trigger('click');
+      jQuery("#editstoragebtn").show();
+      storageallocateval = 1;
+      storage_text = "GB";
+    } else if(storageallocate !== '') {
+      storageallocate = '';
+      jQuery(".storage_token_msg").show();
+      jQuery("#editstoragebtn").hide();
+      storageallocateval = 0;
+      storage_text = '';
+    } else  {
+      jQuery(".storage_token_msg").show();
+      jQuery("#editstoragebtn").hide();
+      storageallocateval = 0;
+      storage_text = '';
+    }
+    jQuery("#storagebtnval").html('');
+    storage_val = storageallocate;
+    jQuery("#storagebtnval").html(storageallocate+storage_text);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+  if(jQuery.isNumeric(bandwidthAllocation) && Number.isInteger(bandwidthAllocation) &&  bandwidthAllocation >= 1){
+      jQuery(".bandwidth_token_msg").hide();
+      jQuery("#addbandwidthbtn").hide();
+      jQuery("#bandwidth .close").trigger('click');
+      jQuery("#editbandwidthbtn").show();
+      bandwidthAllocationval = 1;
+      bandwidth_text = "TB";
+    } else if(bandwidthAllocation !== '') {
+      bandwidthAllocation = '';
+      jQuery(".bandwidth_token_msg").show();
+      jQuery("#editbandwidthbtn").hide();
+      bandwidthAllocationval = 0;
+      bandwidth_text = '';
+    } else  {
+      jQuery(".bandwidth_token_msg").show();
+      jQuery("#editbandwidthbtn").hide();
+      bandwidthAllocationval = 0;
+      bandwidth_text = '';
+    }
+    jQuery("#bandwidthbtnval").html('');
+    bandwidth_val = bandwidthAllocation;
+    jQuery("#bandwidthbtnval").html(bandwidthAllocation+bandwidth_text);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(regex.test(emailiddata)) {
+      jQuery(".email_token_msg").hide();
+      jQuery("#emailAddressbtn").hide();
+      jQuery("#emailAddress .close").trigger("click");
+      jQuery("#editemailAddressbtn").show();
+      emailiddataval = 1;
+    } else {
+      jQuery(".email_token_msg").show();
+      jQuery("#editemailAddressbtn").hide();
+      emailiddataval = 0;
+    }
+    jQuery("#emailAddressval").html('');
+    emailiddata_val = emailiddata;
+    jQuery("#emailAddressval").html(emailiddata);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+  if(directoryAllocation !== '') {
+      jQuery(".directory_token_msg").hide();
+      jQuery("#adddirectorybtn").hide();
+      jQuery("#directory .close").trigger('click');
+      jQuery("#editdirectorybtn").show();
+      directoryAllocationval = 1;
+    } else {
+      jQuery(".directory_token_msg").show();
+      jQuery("#editdirectorybtn").hide();
+      directoryAllocationval = 0;
+    }
+    jQuery("#directorybtnval").html('');
+    directory_val = directoryAllocation;
+    jQuery("#directorybtnval").html(directoryAllocation);
+    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+
+
+
+
   if(identitydata !== '' &&  createAddress !== '' && createWallet !== '' &&  storageallocate !== '' && bandwidthAllocation !== '' && directoryAllocation !== '' && emailiddata !== ''){
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#stopbtn").removeClass("stopnodebtn");
+    // make button cursor pointer
+    jQuery("#stopbtn").removeAttr("disabled", true);
+    jQuery("#startbtn").css("cursor", "pointer");
+    jQuery("#stopbtn").css("cursor", "pointer");
   } else {
     jQuery("#startbtn").attr("disabled", true);
     jQuery("#startbtn").removeClass("start-button");
-    jQuery("#stopbtn").removeClass("stop-button");
+    //jQuery("#stopbtn").removeClass("stop-button");
+    //jQuery("#stopbtn").attr("disabled", true);
+    // make button cursor not-allowed
+    jQuery("#startbtn").css("cursor", "not-allowed");
+    //jQuery("#stopbtn").css("cursor", "not-allowed");
+    // jQuery("#startbtn").css('margin', 10 + 'px');
   }
 
   jQuery.ajax({
@@ -25,13 +186,14 @@ jQuery(function() {
     data: { isstartajax : 1},
     success: function (resposnse) {
       if(resposnse) {
-        jQuery("#stopbtn").removeAttr("disabled", true);
-        jQuery("#startbtn").css('margin', 10 + 'px');
-        jQuery("#stopbtn").addClass("stop-button");
+        // log message
+        $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
       }
     },
     error: function () {
       console.log("In There check runing or not");
+      // log message
+      $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
     }
   });
 
@@ -198,8 +360,12 @@ function showstartbutton(createidentitydataval,createAddressvaldata,createWallet
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#startbtn").addClass("start-button");
     jQuery("#stopbtn").css('margin', 10 + 'px');
+    // make button cursor pointer
+    jQuery("#startbtn").css("cursor", "pointer");
   } else{
     jQuery("#startbtn").attr("disabled", true);
+    // make button cursor not-allowed
+    jQuery("#startbtn").css("cursor", "not-allowed");
   }
 }
 
@@ -210,9 +376,19 @@ jQuery("#startbtn").click(function(e) {
       data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
         //console.log("I am here");
-        window.location.reload();
+        // window.location.reload();
+
+        // // log message
+         $('iframe').contents().find('body').html('<p>'+result+'</p>');
+
+        //jQuery("#stopbtn").removeAttr("disabled", true);
+        //jQuery("#stopbtn").addClass("stop-button");
+        // make button cursor pointer
+        //jQuery("#stopbtn").css("cursor", "pointer");
       },
       error: function () {
+        // log message
+         $('iframe').contents().find('body').html('<p>'+result+'</p>');
         console.log("In there wrong");
       }
     });
