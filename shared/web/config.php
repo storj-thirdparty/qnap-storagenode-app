@@ -39,7 +39,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     //Changing permissions of the shell script
     shell_exec("chmod 777 $startScript 2>&1");
     shell_exec("chmod 777 $stopScript 2>&1");
-    shell_exec("chmod 666 $file 2>&1");
+    // shell_exec("chmod 666 $file 2>&1");
 
     // set_time_limit(300);
     $properties = array(
@@ -87,7 +87,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     logMessage("config called up with isstartajax 1 ");
     $content = file_get_contents($file);
     $prop = json_decode($content, true);
-    $output = "<br><b>LATEST LOG :</b> <br>" . $prop['last_log'] ;
+    $output = "<br><b>LATEST LOG :</b> <br><code>" . $prop['last_log'] . "</code>";
     $output = preg_replace('/\n/m', '<br>', $output);
     if (!trim($output) == "") {
 	echo $output;
@@ -110,6 +110,12 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 
 ?>
 <?php include 'header.php';?>
+<style>
+code {
+        white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
+        /* white-space: pre-line; /* collapse WS, preserve LB */
+}
+</style>
 <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
   <div>
     <nav class="navbar">
