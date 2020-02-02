@@ -112,11 +112,12 @@ LOGFILE="/var/log/$PKGNAME"
 # Define any package specific operations that shall be performed when
 # the package is removed.
 ######################################################################
-PKG_PRE_REMOVE="{
+PKG_PRE_REMOVE={
 
 # -----------------------------------------------------------
 # Cleanup docker containers and images
 # -----------------------------------------------------------
+export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 BASE_IMAGE="storjlabs/storagenode:beta"
 REGISTRY=""
 IMAGE="$BASE_IMAGE"
@@ -132,7 +133,7 @@ done
 echo `date` "Removing : (image:$IMAGE) ">> $LOGFILE
 docker rmi $IMAGE
 
-}"
+}
 #
 #PKG_MAIN_REMOVE="{
 #}"
