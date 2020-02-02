@@ -376,7 +376,7 @@ jQuery("#startbtn").click(function(e) {
       data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, bandwidth : bandwidth_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
         //console.log("I am here");
-        // window.location.reload();
+        window.location.reload();
 
         // // log message
          $('iframe').contents().find('body').html('<p>'+result+'</p>');
