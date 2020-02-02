@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-chmod 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
 container=storagenode
 cmd="docker ps -a --filter name=\"^/${container}$\" | wc -l"
 numLines=`eval $cmd`
@@ -14,5 +13,5 @@ then
 	echo "Container named $container launched <br> "
 	echo "$status "
 else
-	echo "Container named $container not launched  "
+	echo "Container named $container not running "
 fi
