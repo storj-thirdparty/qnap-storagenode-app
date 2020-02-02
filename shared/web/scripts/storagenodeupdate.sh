@@ -8,7 +8,6 @@ LOG="/var/log/$PKGNAME"
 echo `date` $PKGNAME  " docker container updater script running " >> $LOG
 
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-chmod 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
 
 #This should be processed as a parameter to this script (by calling party)
 if [[ $# -gt 0 ]]
@@ -24,10 +23,29 @@ echo `date` "Using config file path as $CONFIG_FILE" >> $LOG
 # ------------------------------------------------------------------
 # Figure out parameters for container
 # ------------------------------------------------------------------
-config_settings=`tail -1 ${CONFIG_FILE} | sed -re 's/,/ /g' `
-# Identity, Port, Wallet, Allocation, Bandwidth, Email, Directory 
-#read -r 6   1    2      5  4    3     7    rest <<< ${config_settings}
-read -r id port wallet size bw email config rest <<< ${config_settings}
+jq=`which jq`
+if [[ "x$jq" == "x" ]]
+then
+function jsonval {
+    temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $1 `
+    echo ${temp##*|}
+}
+else
+function jsonval {
+	echo `echo $json | jq .$1 | sed 's/"//g' `
+}
+fi
+json=`cat $CONFIG_FILE `
+id=`jsonval Identity`
+port=`jsonval Port`
+wallet=`jsonval Wallet`
+size=`jsonval Allocation`
+bw=`jsonval Bandwidth`
+email=`jsonval Email`
+config=`jsonval Directory`
+#echo " id port wallet size bw email config "
+#echo " $id $port $wallet $size $bw $email $config "
+
 # ------------------------------------------------------------------
 # 	ERROR HANDLING (TODO) -> In case params not found and 
 #  	all params passed to script, use them
