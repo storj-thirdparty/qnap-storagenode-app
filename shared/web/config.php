@@ -22,7 +22,7 @@ logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($sc
 # ------------------------------------------------------------------------
 
 
-
+$output = "";
 if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     logMessage("config called up with isajax 1 ");
     logEnvironment() ;

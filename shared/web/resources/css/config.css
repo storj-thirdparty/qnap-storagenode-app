@@ -181,5 +181,30 @@ iframe{
   margin: 5px;		
   margin-left: 35px;
   border: 1px solid #E5E5E5;
-  border-radius: 10px;				
+  border-radius: 10px;
+  padding: 5px;			
 }
+
+/*RClone*/
+.segment .name_icon {
+  background-image: url(./../img/identity.png);
+  background-repeat: round;
+}
+.segment .scope-icon{
+  background-image: url(./../img/storage-alloc.png);
+  background-repeat: round;
+}
+.segment .viewaccess-icon{
+  background-image: url(./../img/port-forwarding.png);
+  background-repeat: round;
+}
+.segment .defaults-icon{
+  background-image: url(./../img/wallet-addr.png);
+  background-repeat: round;
+}
+#nameval{color: #245AC3}
+#nameval .name_text{font-weight: 600;}
+#viewaccessval{color: #245AC3}
+#defaultsval{color: #245AC3}
+#defaultsval .defaults_text{font-weight: 600;}
+.rclonebtns{width: 175px;padding: 10px;}
