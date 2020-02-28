@@ -31,6 +31,8 @@ jQuery(function() {
       jQuery("#editscopebtn").hide();
       scope_text = '';
     }
+    jQuery("#scopeval").html('');
+    jQuery("#scopeval").html(scope_text+scope);
     Source = scope;
     showrunrclonebutton(Access_Key,Source, Destination);
 
@@ -138,6 +140,9 @@ $("#create_viewaccess").click(function(){
 });
 
 $("#rclonebtn").click(function(){
+  var t = this;
+  $(this).children(".fa-spin").css("display","inherit");
+  $(this).css("opacity","0.8");
 	jQuery.ajax({
     type: "POST",
     url: "rclone.php",
@@ -147,16 +152,23 @@ $("#rclonebtn").click(function(){
         // log message
        console.log("success");
        $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
+       $(t).children(".fa-spin").css("display","none");
+       $(t).css("opacity","1");
       }
     },
     error: function () {
       console.log("error");
       $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
+      $(t).children(".fa-spin").css("display","none");
+      $(t).css("opacity","1");
     }
   });
 });
 
 $("#runrclonebtn").click(function(){
+    var t = this;
+    $(this).children(".fa-spin").css("display","inherit");
+    $(this).css("opacity","0.8");
     jQuery.ajax({
       type: "POST",
       url: "rclone.php",
@@ -167,11 +179,15 @@ $("#runrclonebtn").click(function(){
 
         // // log message
          $('iframe').contents().find('body').html('<p>'+result+'</p>');
+         $(t).children(".fa-spin").css("display","none");
+         $(t).css("opacity","1");
       },
       error: function () {
         // log message
          $('iframe').contents().find('body').html('<p>'+result+'</p>');
-        console.log("In there wrong");
+        // console.log("In there wrong");
+        $(t).children(".fa-spin").css("display","none");
+        $(t).css("opacity","1");
       }
     });
 

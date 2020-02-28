@@ -181,8 +181,8 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
                   </div>
                   <div class="column col-md-10">
                     <h4 class="segment-title">Source</h4>
-                    <p class="segment-msg">A brief detail about what is scope for and how it can be set.</p>
-                    <span id="scopeval"></span><span style="display:none;" id="editscopebtn"><button class="segment-btn" data-toggle="modal" data-target="#scope">
+                    <p class="segment-msg"><!-- A brief detail about what is scope for and how it can be set. --> The local/source directory to be copied to the distributed network.</p>
+                    <span id="scopeval"></span><span style="display:none;" id="editscopebtn">&nbsp;&nbsp;<button class="segment-btn" data-toggle="modal" data-target="#scope">
                       Edit Source
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#scope" id="scopebtn">
@@ -216,12 +216,12 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
                   <div class="column col-md-2"><div class="segment-icon viewaccess-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Destination</h4>
-                    <p class="segment-msg">Tell what is purpose of this flag. what does it enable or disable</p>
+                    <p class="segment-msg"><!-- Tell what is purpose of this flag. what does it enable or disable -->The target path on the network to copy the directory into.</p>
                     <span id="viewaccessval"></span><span style="display:none;" id="editviewaccessbtn">&nbsp;&nbsp;<button class="segment-btn" data-toggle="modal" data-target="#viewaccess">
-                      Edit View Access
+                     Edit Destination
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#viewaccess" id="viewaccessbtn">
-                      Set View Access
+                      Set Destination
                     </button>
                     <div class="modal fade" id="viewaccess" tabindex="-1" role="dialog" aria-labelledby="viewaccess" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -233,13 +233,13 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
                             </button>
                           </div>
                           <div class="modal-body">
-                            <p class="modal-input-title">View Access</p>
-                           <input class="modal-input" type="text" id="viewaccess_val" name="viewaccess_val" placeholder="View Access" value="<?php if(isset($data[2])) echo $data[2] ?>"/>
+                            <p class="modal-input-title">Destination</p>
+                           <input class="modal-input" type="text" id="viewaccess_val" name="viewaccess_val" placeholder="Destination" value="<?php if(isset($data[2])) echo $data[2] ?>"/>
                            <p class="viewaccess_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
                             <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_viewaccess">Set View Access</button>
+                            <button class="modal-btn" id="create_viewaccess">Set Destination</button>
                           </div>
                         </div>
                       </div>
@@ -280,7 +280,7 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
                     </div>
                   </div>
                 </div> --><br>
-                <center><button class="btn btn-primary rclonebtns" id="rclonebtn">Configure RClone</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary rclonebtns" id="runrclonebtn">Run RClone</button></center><br>
+                <center><button class="btn btn-primary rclonebtns" id="rclonebtn"><i class="fa fa-spinner fa-spin rcloneloader"></i>Apply Configuration</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary rclonebtns" id="runrclonebtn"><i class="fa fa-spinner fa-spin runrcloneloader"></i>Run RClone</button></center><br>
                  <!-- log message -->
                 <iframe>
                   <p  id="msg"></p>

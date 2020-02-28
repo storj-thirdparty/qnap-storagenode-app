@@ -8,7 +8,7 @@
 <div class="side-nav col-2">
   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <a class="nav-link" id="v-pills-dashboard-tab" href="dashboard.php" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><div class="nav-link-icon"></div>Dashboard</a>
-    <a class="nav-link" id="v-pills-config-tab" href="config.php" role="tab" aria-controls="v-pills-config" aria-selected="true"><div class="nav-link-icon"></div>Config</a>
+    <a class="nav-link" id="v-pills-config-tab" href="config.php" role="tab" aria-controls="v-pills-config" aria-selected="true" style="border-bottom: 1px solid lightgrey;"><div class="nav-link-icon"></div>Config</a>
     <a class="nav-link" id="v-pills-rclone-tab" href="rclone.php" role="tab" aria-controls="v-pills-rclone" aria-selected="true"><div class="nav-link-icon"></div>RClone</a>
   </div>
 </div>

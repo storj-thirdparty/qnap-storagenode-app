@@ -23,7 +23,7 @@
 			$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
 			$_finalUrl = $escaped_url ;
 	?>
-		      <a href="<?php echo $_finalUrl;?>" target="_blank">Storj Storage Node Stats </a>
+		      <a href="<?php echo $_finalUrl;?>" target="_blank">Storj storagenode Stats </a>
        <?php 
 	      }  else {
 	?>
