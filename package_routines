@@ -78,7 +78,7 @@ CMD_LS="/bin/ls"
 ## Location of installed software.
 #SYS_QPKG_DIR=""
 ## If the QPKG should be enabled or disabled after the installation/upgrade.
-#SYS_QPKG_SERVICE_ENABLED=""
+SYS_QPKG_SERVICE_ENABLED="TRUE"
 ## Architecture of the device the QPKG is installed on.
 #SYS_CPU_ARCH=""
 ## Name and location of system shares
@@ -101,8 +101,9 @@ CMD_LS="/bin/ls"
 ######################################################################
 # STORJ specific variables definitions
 ######################################################################
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOGFILE="/var/log/$PKGNAME"
+LOGFILERC="/var/log/rclone.log"
 ######################################################################
 # All package specific functions shall call 'err_log MSG' if an error
 # is detected that shall terminate the installation.
@@ -112,34 +113,38 @@ LOGFILE="/var/log/$PKGNAME"
 # Define any package specific operations that shall be performed when
 # the package is removed.
 ######################################################################
-PKG_PRE_REMOVE={
-
+PKG_PRE_REMOVE="{
 # -----------------------------------------------------------
 # Cleanup docker containers and images
 # -----------------------------------------------------------
-export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-BASE_IMAGE="storjlabs/storagenode:beta"
-REGISTRY=""
-IMAGE="$BASE_IMAGE"
+export PATH=\$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
+BASE_IMAGE=storjlabs/storagenode:beta
+LOGFILE=$LOGFILE
+IMAGE=\$BASE_IMAGE
+REGISTRY=
 
-CID=$(docker ps -a | grep $IMAGE | awk '{print $1}')
-for im in $CID
+echo 'Running Package pre-remove function' >> \$LOGFILE
+
+CID=\$(docker ps -a | grep \$IMAGE | awk '{print \$1}')
+for im in \$CID
 do
-    NAME=`docker inspect --format '{{.Name}}' $im | sed "s/\///g"`
-    echo `date` "Killing : Container($im) (name:$NAME) ">> $LOGFILE
-    docker stop $NAME
-    docker rm -f $NAME
+    NAME=\`docker inspect --format '{{.Name}}' \$im | sed 's/\///g'\`
+    echo \`date\` \"Killing : Container(\$im) (name:\$NAME) \">> \$LOGFILE
+    docker stop \$NAME
+    docker rm -f \$NAME
 done
-echo `date` "Removing : (image:$IMAGE) ">> $LOGFILE
-docker rmi $IMAGE
+echo \`date\` \"Removing : (image:\$IMAGE) \" >> \$LOGFILE
+docker rmi \$IMAGE
+echo \`date \` \"COMPLETED pre remove (ver $QPKG_VER) \" >> $\$LOGFILE
 
-}
+}"
 #
 #PKG_MAIN_REMOVE="{
 #}"
 #
-#PKG_POST_REMOVE="{
-#}"
+PKG_POST_REMOVE="{
+echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
+}"
 #
 ######################################################################
 # Define any package specific initialization that shall be performed
@@ -159,16 +164,25 @@ docker rmi $IMAGE
 # Define any package specific operations that shall be performed when
 # the package is installed.
 ######################################################################
-#pkg_pre_install(){
-#}
+pkg_pre_install(){
+#$CMD_RM $LOGFILE $LOGFILERC	# if required
+$CMD_TOUCH $LOGFILE $LOGFILERC
+$CMD_CHOWN httpdusr $LOGFILE $LOGFILERC
+$CMD_CHMOD 666 $LOGFILE $LOGFILERC
+echo `date ` " pre install completed (ver $QPKG_VER) " >> $LOGFILE
+}
 #
-#pkg_install(){
-#}
+pkg_install(){
+echo `date ` "INSTALL run completed (ver $QPKG_VER) " >> $LOGFILE
+}
 #
 pkg_post_install(){
+echo `date ` " RUNNING post install " >> $LOGFILE
 #$cd /share/Public/
 #Changing the file permissions for retentive parameters
 $CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
+$CMD_CHOWN httpdusr /share/CACHEDEV1_DATA/.qpkg/STORJ
+$CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/conf
 $CMD_CHOWN admin /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 $CMD_CHMOD a+rx /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 $CMD_CHMOD u+s /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
@@ -184,6 +198,5 @@ $CMD_CHMOD -R 777 /id
 #$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
 #$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
-$CMD_TOUCH $LOGFILE
-$CMD_CHMOD 666 $LOGFILE
+echo `date ` " post install COMPLETED (ver $QPKG_VER) "  >> $LOGFILE
 }
