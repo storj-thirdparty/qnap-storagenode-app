@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script starts storagenode 
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOG="/var/log/$PKGNAME"
 echo `date` "Storagenode is starting" >> $LOG
 

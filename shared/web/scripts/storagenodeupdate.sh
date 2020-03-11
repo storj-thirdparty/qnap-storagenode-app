@@ -3,7 +3,7 @@
 # This script updates the storagenode docker image
 # Assumption: # It needs CONFIG_FILE path as a parameter 
 
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOG="/var/log/$PKGNAME"
 echo `date` $PKGNAME  " docker container updater script running " >> $LOG
 

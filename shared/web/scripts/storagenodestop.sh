@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script Stops the docker image of storagenode and removes it
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOG="/var/log/$PKGNAME"
 echo `date` "Storagenode is stopping" >> $LOG
 output=`docker stop storagenode 2>&1 `
