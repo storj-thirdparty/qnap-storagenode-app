@@ -104,26 +104,22 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
       );
     file_put_contents($filename, json_encode($properties));
 
-     $command = sprintf("${rcloneBin} copy $source ${rcloneConfigName}:$destination --config $rcloneCfg 2>&1 ");
-      $output = "At time: " . `date ` . "Running command => $command \n" ;
-      $output .= shell_exec("$command 2>&1 ");
-     logMessage("Output of command run: $output");
+     $command = sprintf("${rcloneBin} copy $source ${rcloneConfigName}:$destination --config $rcloneCfg ");
+     $output = "At time: " . `date ` . "Running command => $command \n" ;
+     $result = shell_exec("$command 2>&1 ");
+     if($result == "") {
+     	$output .= "rclone copy ($source -> $destination was successful." ;
+     } else {
+      $output .= "(ERROR) rclone copy failed ! \n($result)";
+     }
 
-      $jsonString = file_get_contents($filename);
-      $data = json_decode($jsonString, true);
-      $data['last_log'] = $output;
-      $newJsonString = json_encode($data);
+      $properties['last_log'] = $output;
+      $newJsonString = json_encode($properties);
       file_put_contents($filename, $newJsonString);
 
-      $content = file_get_contents($filename);
-      $prop = json_decode($content, true);
-      $output = "<br><b>LATEST LOG :</b> <br><code>" . $prop['last_log'] . "</code>";
-      $output = preg_replace('/\n/m', '<br>', $output);
-      if (!trim($output) == "") {
-        echo $output;
-      } else {
-        echo $output;
-      }
+      $output = "<b>LATEST LOG :</b> <br><code>" . $properties['last_log'] . "</code>";
+      $output = preg_replace('/\n/m', '<br>', $output);   
+      echo $output ;
     }
      if ( $output ){
           } else {
