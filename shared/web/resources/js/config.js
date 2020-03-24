@@ -41,7 +41,8 @@ jQuery(function() {
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
-      address_text = "<span class='address_text'>domain.ddns.net: </span>";
+      // address_text = "<span class='address_text'>domain.ddns.net: </span>";
+      address_text = "<span class='address_text'></span>";
     } else if(createAddress !== ''){
       jQuery(".host_token_msg").show();
       jQuery("#addstoragebtn").show();
@@ -227,7 +228,8 @@ jQuery(function() {
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
-      address_text = "<span class='address_text'>domain.ddns.net: </span>";
+      // address_text = "<span class='address_text'>domain.ddns.net: </span>";
+      address_text = "<span class='address_text'></span>";
     } else if(createAddress !== ''){
       jQuery(".host_token_msg").show();
       jQuery("#addstoragebtn").show();
