@@ -116,7 +116,8 @@ $("#creat_scope").click(function(){
       source_text = '';
     }
      jQuery("#scopeval").html('');
-     Source = source_val;
+     Source = source_val;+
+     jQuery("#scopeval").html(source_text+Source);
      showrunrclonebutton(Access_Key,Source, Destination);
 });
 
