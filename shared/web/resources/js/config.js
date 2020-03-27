@@ -4,7 +4,7 @@ var identity_text,address_text, storage_text, bandwidth_text;
 jQuery(function() {
   //hideButton();
   var identitydata = jQuery("#identity_token").val();
-  var createAddress = parseInt(jQuery("#host_address").val());
+  var createAddress = jQuery("#host_address").val();
   var createWallet = jQuery("#wallet_address").val();
   // var storageallocate = jQuery("#storage_allocate").val();
   storageallocate = parseInt(jQuery("#storage_allocate").val());
@@ -35,7 +35,8 @@ jQuery(function() {
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
 
 
-  if(jQuery.isNumeric(createAddress) && Number.isInteger(createAddress)){
+  // Fix -> Later on detailed check may be added
+  if( createAddress !== '' ){
       jQuery(".host_token_msg").hide();
       jQuery("#externalAddressbtn").hide();
       jQuery("#externalAddress .close").trigger("click");
@@ -43,11 +44,6 @@ jQuery(function() {
       createAddressval = 1;
       // address_text = "<span class='address_text'>domain.ddns.net: </span>";
       address_text = "<span class='address_text'></span>";
-    } else if(createAddress !== ''){
-      jQuery(".host_token_msg").show();
-      jQuery("#addstoragebtn").show();
-      createAddressval = 0;
-      address_text = '';
     } else {
       jQuery(".host_token_msg").show();
       jQuery("#editexternalAddressbtn").hide();
@@ -221,8 +217,9 @@ jQuery(function() {
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
   });
   jQuery('#create_address').click(function(){
-    createAddress = parseInt(jQuery("#host_address").val());
-    if(jQuery.isNumeric(createAddress) && Number.isInteger(createAddress)){
+    createAddress = jQuery("#host_address").val();
+    // Later on provide detailed check as per need (host:port)
+    if(createAddress !== '') {
       jQuery(".host_token_msg").hide();
       jQuery("#externalAddressbtn").hide();
       jQuery("#externalAddress .close").trigger("click");
@@ -230,11 +227,6 @@ jQuery(function() {
       createAddressval = 1;
       // address_text = "<span class='address_text'>domain.ddns.net: </span>";
       address_text = "<span class='address_text'></span>";
-    } else if(createAddress !== ''){
-      jQuery(".host_token_msg").show();
-      jQuery("#addstoragebtn").show();
-      createAddressval = 0;
-      address_text = '';
     } else {
       jQuery(".host_token_msg").show();
       jQuery("#editexternalAddressbtn").hide();

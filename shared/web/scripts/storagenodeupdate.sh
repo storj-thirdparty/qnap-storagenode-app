@@ -72,32 +72,35 @@ fi
 # ------------------------------------------------------------------------------
 set -e
 BASE_IMAGE="storjlabs/storagenode:beta"
+CONTAINER_NAME=storjlabsSnContainer
 REGISTRY=""
 IMAGE="$BASE_IMAGE"
 #REGISTRY="registry.hub.docker.com"
 #IMAGE="storjlabs/storagenode:beta"
 #IMAGE="$REGISTRY/$BASE_IMAGE"
-CID=$(docker ps | grep $IMAGE | awk '{print $1}')
+CID=$(docker ps | grep ${CONTAINER_NAME} | awk '{print $1}')
+
+OLD=`docker inspect --format "{{.Id}}" $IMAGE`
 docker pull $IMAGE
-for im in $CID
-do
-    LATEST=`docker inspect --format "{{.Id}}" $IMAGE`
-    RUNNING=`docker inspect --format "{{.Image}}" $im`
-    NAME=`docker inspect --format '{{.Name}}' $im | sed "s/\///g"`
-    echo `date` "Latest:" $LATEST >> $LOG
-    echo `date` "Running:" $RUNNING >> $LOG
+LATEST=`docker inspect --format "{{.Id}}" $IMAGE`
+
+if [[ "x${OLD}" != "x${LATEST}" ]]
+then
+    RUNNING=`docker inspect --format "{{.Image}}" $CID`
     if [ "$RUNNING" != "$LATEST" ];then
-        echo `date` "upgrading $NAME" >> $LOG
-        #stop docker-$NAME
+        echo `date` "Upgrading $NAME" >> $LOG
 	docker stop $NAME
         docker rm -f $NAME
 	# ------------------------------------------------------------------
 	# Re-start new container with related params
 	# ------------------------------------------------------------------
-	docker run -d --restart unless-stopped -p "${port}":28967 -p 14002:14002 -e WALLET="${wallet}" -e EMAIL="${email}" -e ADDRESS="${myIP}:${port}" -e BANDWIDTH="${bw}TB" -e STORAGE="${size}GB" -v ${id}:/app/identity -v ${config}:/app/config --name storagenode ${IMAGE} >> $LOG 2>&1
+	docker run -d --restart unless-stopped -p "${port}":28967 -p 14002:14002 -e WALLET="${wallet}" -e EMAIL="${email}" -e ADDRESS="${myIP}:${port}" -e BANDWIDTH="${bw}TB" -e STORAGE="${size}GB" -v ${id}:/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
+	echo `date` "$NAME updated (And running container updated)" >> $LOG
     else
-        echo `date` "$NAME up to date" >> $LOG
+	echo `date` "$NAME updated (And no container was running)" >> $LOG
     fi
-done
+else
+    echo `date` "$IMAGE is already up to date" >> $LOG
+fi
 
 # ------------------------------------------------------------------------------

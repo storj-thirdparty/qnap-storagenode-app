@@ -192,7 +192,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                          <input class="modal-input" id="host_address" name="host_address" type="number" step="1" min="1"  value="28967" class="quantity" placeholder="28967" value="<?php if(isset($data[1])) echo $data[1] ?>"/>
+                          <input class="modal-input" id="host_address" name="host_address" type="text" value="28967" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if(isset($data[1])) echo $data[1] ?>"/>
                             <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
                           </div>
                           <div class="modal-footer">

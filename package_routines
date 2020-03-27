@@ -119,23 +119,14 @@ PKG_PRE_REMOVE="{
 # -----------------------------------------------------------
 export PATH=\$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 BASE_IMAGE=storjlabs/storagenode:beta
+CONTAINER_NAME=storjlabsSnContainer
 LOGFILE=$LOGFILE
 IMAGE=\$BASE_IMAGE
 REGISTRY=
 
 echo 'Running Package pre-remove function' >> \$LOGFILE
-
-CID=\$(docker ps -a | grep \$IMAGE | awk '{print \$1}')
-for im in \$CID
-do
-    NAME=\`docker inspect --format '{{.Name}}' \$im | sed 's/\///g'\`
-    echo \`date\` \"Killing : Container(\$im) (name:\$NAME) \">> \$LOGFILE
-    docker stop \$NAME
-    docker rm -f \$NAME
-done
-echo \`date\` \"Removing : (image:\$IMAGE) \" >> \$LOGFILE
-docker rmi \$IMAGE
-echo \`date \` \"COMPLETED pre remove (ver $QPKG_VER) \" >> $\$LOGFILE
+docker stop \$CONTAINER_NAME	>> \$LOGFILE
+docker rm -f \$CONTAINER_NAME	>> \$LOGFILE
 
 }"
 #

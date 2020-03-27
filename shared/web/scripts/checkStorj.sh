@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-container=storagenode
+container=storjlabsSnContainer
 cmd="docker ps -a --filter name=\"^/${container}$\" | wc -l"
 numLines=`eval $cmd`
 
