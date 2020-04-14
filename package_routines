@@ -127,6 +127,56 @@ REGISTRY=
 echo 'Running Package pre-remove function' >> \$LOGFILE
 docker stop \$CONTAINER_NAME	>> \$LOGFILE
 docker rm -f \$CONTAINER_NAME	>> \$LOGFILE
+# -----------------------------------------------------------
+# Cleanup cron entries
+# -----------------------------------------------------------
+BASE_PATH=/share/Web/STORJ
+CONFIG_FILE=\$BASE_PATH/config.json
+SJCRON=\`mktemp\`
+NEWCRON=\`mktemp\`
+CRONBAK=/tmp/sj_cron.bak
+
+dumpEntries() {
+    echo \"\$1 (first 3 entries and last entries) ====> \" >> \$LOGFILE
+    cat \$1 | head -3 >> \$LOGFILE
+    echo '................' >> \$LOGFILE
+    cat \$1 | tail -3 >> \$LOGFILE
+}
+
+fetchCron() {
+    rm -f \$SJCRON
+    # Fetch required crontab (Update user for fetch if required)
+    crontab -l > \$SJCRON
+    echo \`date\` \"Fetched crontab to temp \$SJCRON  \" >> \$LOGFILE
+    dumpEntries \$SJCRON
+}
+removeEntryFromCronTable() {
+    # Update entry into crontab contents
+    echo \"Cleaning up using cat \$SJCRON | grep -E -v -e '\$1' > \$NEWCRON\" >> \$LOGFILE
+    cat \$SJCRON | grep -E -v -e \"\$1\" > \$NEWCRON 2>> \$LOGFILE
+    echo \`date\` \" updated cron being installed through \$NEWCRON \" >> \$LOGFILE
+}
+
+updateCron() {
+    # Update to required crontab (Update user if required)
+    dumpEntries \$NEWCRON
+    if [[ -s \$NEWCRON ]]
+    then
+	    echo \`date\` \"Setting crontab through \$NEWCRON \" >> \$LOGFILE
+	    crontab \$NEWCRON
+    fi
+    # Save old cron 
+    mv \$SJCRON \$CRONBAK   
+    echo \`date\` \"OLD cron is saved at \$CRONBAK \" >> \$LOGFILE
+    rm -f \$NEWCRON
+}
+
+
+# Update CRON Tab entry
+fetchCron
+removeEntryFromCronTable \"5\\s0.*\$BASE_PATH/scripts/storagenodeupdate.sh\\s\$BASE_PATH/config.json\"
+updateCron
+# -----------------------------------------------------------
 
 }"
 #
@@ -141,8 +191,9 @@ echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
 # Define any package specific initialization that shall be performed
 # before the package is installed.
 ######################################################################
-#pkg_init(){
-#}
+pkg_init(){
+echo `date ` "RUNNING pkg_init (ver $QPKG_VER) " >> $LOGFILE
+}
 #
 ######################################################################
 # Define any package specific requirement checks that shall be
@@ -189,5 +240,34 @@ $CMD_CHMOD -R 777 /id
 #$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
 #$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
+
+# ------- cron setup ------------------------------
+BASE_PATH="/share/Web/STORJ"
+CONFIG_FILE="${BASE_PATH}/config.json"
+SJCRON="/tmp/sjcrontable"
+
+fetchCron() {
+    rm -f $SJCRON
+    # Fetch required crontab (Update user for fetch if required)
+    crontab -l > $SJCRON
+}
+addEntryToCronTable() {
+    # Update entry into crontab contents
+    grep -Fq "$1" ${SJCRON} || echo "$1" >> ${SJCRON}
+    echo "check/put entry in cron file: $1 "  >> ${LOGFILE}
+}
+updateCron() {
+    # Update to required crontab (Update user if required)
+    crontab $SJCRON
+    rm -f $SJCRON
+}
+
+# Setup CRON Tab entry
+fetchCron
+addEntryToCronTable "5 0 * * * ${BASE_PATH}/scripts/storagenodeupdate.sh ${CONFIG_FILE} "
+updateCron
+# ------- cron setup ------------------------------
+
 echo `date ` " post install COMPLETED (ver $QPKG_VER) "  >> $LOGFILE
+
 }
