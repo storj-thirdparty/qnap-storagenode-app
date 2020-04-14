@@ -208,6 +208,7 @@ jQuery(function() {
     } else {
       jQuery(".identity_token_msg").show();
       jQuery("#editidentitybtn").hide();
+      jQuery("#identitybtn").show();
       identitydataval = 0;
       identity_text = '';
     }
@@ -230,6 +231,7 @@ jQuery(function() {
     } else {
       jQuery(".host_token_msg").show();
       jQuery("#editexternalAddressbtn").hide();
+      jQuery("#externalAddressbtn").show();
       createAddressval = 0;
       address_text = '';
     }
@@ -249,6 +251,7 @@ jQuery(function() {
     } else {
       jQuery(".wallet_token_msg").show();
       jQuery("#editwallettbtn").hide();
+      jQuery("#addwallettbtn").show();
       createWalletval = 0;
     }
     jQuery("#wallettbtnval").html('');
@@ -268,12 +271,15 @@ jQuery(function() {
     } else if(storageallocate !== '') {
       storageallocate = '';
       jQuery(".storage_token_msg").show();
+      // jQuery("#editstoragebtn").hide();
+      jQuery("#addstoragebtn").show();
       jQuery("#editstoragebtn").hide();
       storageallocateval = 0;
       storage_text = '';
     } else  {
       jQuery(".storage_token_msg").show();
       jQuery("#editstoragebtn").hide();
+      jQuery("#addstoragebtn").show();
       storageallocateval = 0;
       storage_text = '';
     }
@@ -295,11 +301,13 @@ jQuery(function() {
       bandwidthAllocation = '';
       jQuery(".bandwidth_token_msg").show();
       jQuery("#editbandwidthbtn").hide();
+      jQuery("#addbandwidthbtn").show();
       bandwidthAllocationval = 0;
       bandwidth_text = '';
     } else  {
       jQuery(".bandwidth_token_msg").show();
       jQuery("#editbandwidthbtn").hide();
+      jQuery("#addbandwidthbtn").show();
       bandwidthAllocationval = 0;
       bandwidth_text = '';
     }
@@ -317,15 +325,19 @@ jQuery(function() {
       jQuery("#emailAddress .close").trigger("click");
       jQuery("#editemailAddressbtn").show();
       emailiddataval = 1;
+
+      jQuery("#emailAddressval").html('');
+      emailiddata_val = emailiddata;
+      jQuery("#emailAddressval").html(emailiddata);
+      showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
     } else {
       jQuery(".email_token_msg").show();
       jQuery("#editemailAddressbtn").hide();
+      jQuery("#emailAddressbtn").show();
       emailiddataval = 0;
+      jQuery("#emailAddressval").html('');
     }
-    jQuery("#emailAddressval").html('');
-    emailiddata_val = emailiddata;
-    jQuery("#emailAddressval").html(emailiddata);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,bandwidthAllocationval,emailiddataval,directoryAllocationval);
+    
   });
   jQuery('#create_directory').click(function(){
     directoryAllocation = jQuery("#storage_directory").val();
@@ -338,6 +350,7 @@ jQuery(function() {
     } else {
       jQuery(".directory_token_msg").show();
       jQuery("#editdirectorybtn").hide();
+      jQuery("#adddirectorybtn").show();
       directoryAllocationval = 0;
     }
     jQuery("#directorybtnval").html('');
@@ -434,6 +447,28 @@ function createidentifyToken(createidval) {
   });
 
 }
+
+jQuery.ajax({
+    type: "POST",
+    url: "config.php",
+    data: { isrun : 1},
+    success: function (resposnse) {
+      if(resposnse) {
+        // log message
+        if(resposnse ==1){
+          $(".editbtn").attr("disabled",true).css("cursor","not-allowed");
+        }else{
+          $(".editbtn").attr("disabled",false).css("cursor","pointer");
+        }
+      }
+    },
+    error: function () {
+      console.log("error");
+      // log message
+      $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
+    }
+  });
+
 
 // function showButton(){
 //   jQuery("#externalAddressbtn").removeAttr("disabled", true);

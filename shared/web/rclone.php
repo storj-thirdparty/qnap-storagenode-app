@@ -1,10 +1,3 @@
-<?php include 'header.php';?>
-<style>
-code {
-        white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
-        /* white-space: pre-line; /* collapse WS, preserve LB */
-}
-</style>
 <?php
 
 # ------------------------------------------------------------------------
@@ -66,7 +59,7 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
     logMessage("name in file $filename updated #" . $newJsonString );
   }
 
-  if(isset($_POST['rcloneconfig'])){
+  else if(isset($_POST['rcloneconfig'])){
      logMessage("config called for rcloneconfig ");
      $name = $data[0] ;
      $command = sprintf("${rcloneBin} config create $rcloneConfigName storj scope %s --config $rcloneCfg ", $name);
@@ -90,7 +83,7 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
         echo $output;
       }
   }
-  if(isset($_POST['runrclone'])){
+  else if(isset($_POST['runrclone'])){
       $access_key = $_POST['Access_Key'];
       # Validated that source and destination exists
       $source = $_POST['source'];
@@ -121,9 +114,20 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
       $output = preg_replace('/\n/m', '<br>', $output);   
       echo $output ;
     }
+
+
+    else{
+
      if ( $output ){
           } else {
 ?>
+<?php include 'header.php';?>
+<style>
+code {
+        white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
+        /* white-space: pre-line; /* collapse WS, preserve LB */
+}
+</style>
 <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
     <nav class="navbar">
       <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>
@@ -288,6 +292,7 @@ $rcloneCfg	= $confBase . DIRECTORY_SEPARATOR . 'rclone.conf' ;
 <script type="text/javascript" src="./resources/js/rclone.js"></script>
 
 <?php
+}
 }
 
 function logEnvironment() {

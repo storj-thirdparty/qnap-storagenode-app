@@ -15,6 +15,7 @@ $startScript    = $scriptsBase . DIRECTORY_SEPARATOR . 'storagenodestart.sh' ;
 $stopScript     = $scriptsBase . DIRECTORY_SEPARATOR . 'storagenodestop.sh' ;
 $updateScript	= $scriptsBase . DIRECTORY_SEPARATOR . 'storagenodeupdate.sh' ;
 $checkScript    = $scriptsBase . DIRECTORY_SEPARATOR . 'checkStorj.sh' ;
+$isRunning      = $scriptsBase . DIRECTORY_SEPARATOR . 'isRunning.sh' ;
 $storageBinary  = $scriptsBase . DIRECTORY_SEPARATOR . 'storagenode' ;
 $yamlPath	= $scriptsBase . DIRECTORY_SEPARATOR . 'docker-compose_base.yml' ;
 logMessage("------------------------------------------------------------------------------");
@@ -23,6 +24,7 @@ logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($sc
 
 
 $output = "";
+
 if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     logMessage("config called up with isajax 1 ");
     logEnvironment() ;
@@ -94,7 +96,16 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     } else {
 	echo $output;
     }
- } else {
+ } 
+
+  // checking is storagenode is running.
+  else if(isset($_POST['isrun']) && ($_POST['isrun'] == 1)) {
+    $output = shell_exec("/bin/bash $isRunning ");
+    logMessage("Run status of container is $output ");
+    echo $output ;
+  }
+
+ else {
   // DEFAULT : Load contents at start
   logMessage("config called up with for loading ");
 	//
@@ -139,7 +150,7 @@ code {
                   <div class="column col-md-10">
                     <h4 class="segment-title">Identity</h4>
                     <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
-                    <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
+                    <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#identity">
                       Edit Identity Path
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
@@ -175,7 +186,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Port Forwarding</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
-                    <span id="externalAddressval"></span><span style="display:none;" id="editexternalAddressbtn"><button class="segment-btn" data-toggle="modal" data-target="#externalAddress">
+                    <span id="externalAddressval"></span><span style="display:none;" id="editexternalAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#externalAddress">
                       Edit External Address
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#externalAddress" id="externalAddressbtn">
@@ -209,7 +220,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Ethereum Wallet Address</h4>
                     <p class="segment-msg">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address.</p>
-                    <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn" data-toggle="modal" data-target="#walletAddress">
+                    <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#walletAddress">
                         Edit Wallet Address
                       </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#walletAddress" id="addwallettbtn">
@@ -243,7 +254,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Allocation</h4>
                     <p class="segment-msg">How much disk space you want to allocate to the Storj network</p>
-                    <span id="storagebtnval"></span><span style="display:none;" id="editstoragebtn"><button class="segment-btn" data-toggle="modal" data-target="#storageAllocation">
+                    <span id="storagebtnval"></span><span style="display:none;" id="editstoragebtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#storageAllocation">
                       Edit Storage Capacity
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#storageAllocation" id="addstoragebtn">
@@ -278,7 +289,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Bandwidth Allocation</h4>
                     <p class="segment-msg">How much bandwidth can you allocate to the Storj network.</p>
-                      <span id="bandwidthbtnval"></span><span style="display:none;" id="editbandwidthbtn"><button class="segment-btn" data-toggle="modal" data-target="#bandwidth">
+                      <span id="bandwidthbtnval"></span><span style="display:none;" id="editbandwidthbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#bandwidth">
                       Edit Bandwidth Allocation
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#bandwidth" id="addbandwidthbtn">
@@ -313,7 +324,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Email Address</h4>
                     <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
-                    <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn" data-toggle="modal" data-target="#emailAddress">
+                    <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#emailAddress">
                       Edit Email Address
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#emailAddress" id="emailAddressbtn">
@@ -347,7 +358,7 @@ code {
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Storage Directory</h4>
                     <p class="segment-msg">The local directory where you want files to be stored on your hard drive for the network</p>
-                      <span id="directorybtnval"></span><span style="display:none;" id="editdirectorybtn"><button class="segment-btn" data-toggle="modal" data-target="#directory">
+                      <span id="directorybtnval"></span><span style="display:none;" id="editdirectorybtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#directory">
                       Edit Storage Directory
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#directory" id="adddirectorybtn">

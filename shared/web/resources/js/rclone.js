@@ -95,6 +95,7 @@ $("#create_name").click(function(){
   } else {
       jQuery(".name_msg").show();
       jQuery("#editnamebtn").hide();
+      jQuery("#namebtn").show();
       name_text = '';
     }
      jQuery("#nameval").html('');
@@ -111,8 +112,9 @@ $("#creat_scope").click(function(){
       jQuery("#editscopebtn").show();
       source_text = "<span class='scope_text'></span>";
     } else {
-       jQuery(".scope_msg").show();
+      jQuery(".scope_msg").show();
       jQuery("#editscopebtn").hide();
+      jQuery("#scopebtn").show();
       source_text = '';
     }
      jQuery("#scopeval").html('');
@@ -130,8 +132,9 @@ $("#create_viewaccess").click(function(){
       jQuery("#editviewaccessbtn").show();
       viewaccess_text = "<span class='viewaccess_text'></span>";
     } else {
-       jQuery(".viewaccess_msg").show();
+      jQuery(".viewaccess_msg").show();
       jQuery("#editviewaccessbtn").hide();
+      jQuery("#viewaccessbtn").show();
       viewaccess_text = '';
     }
      jQuery("#viewaccessval").html('');
