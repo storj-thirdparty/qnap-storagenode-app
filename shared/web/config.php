@@ -143,7 +143,7 @@ code {
             <div class="container-fluid">
               <h2>Setup</h2>
               <a href="https://documentation.storj.io/" target="_blank"><p class="header-link">Documentation ></p></a>
-                <div class="row segment" id="identityrow">
+            <!--     <div class="row segment" id="identityrow">
                   <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
 
                   </div>
@@ -179,7 +179,66 @@ code {
                       </div>
                     </div>
                   </div>
+                </div> -->
+
+                 <div class="row segment" id="identityrow">
+                  <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
+
+                  </div>
+                  <div class="column col-md-10">
+                    <h4 class="segment-title">Identity</h4>
+                    <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
+
+                   <!--  hide Identity Generated message -->
+                    <!-- <span id="idetityval"></span> -->
+
+                    <span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
+                      <!--  Replace Edit Identity Path to Authorization  Token -->
+                      Edit Authorization Token
+                    </button></span>
+                    <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
+                       <!--  Replace Set Identity Path to Enter Authorization Token -->
+                   Enter Authorization Token
+                    </button>
+                    <!-- identity status -->
+                    <br><br>
+                    <!-- <b><p id="identity_status"></p></b> -->
+                    <div id="identity_status" style="overflow: auto;"><B> LATEST LOG </B></div>
+
+                    <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                             <!--  Replace Identity Folder path to Identity -->
+                          <h5 class="modal-title">Identity</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!--  Replace Identity Path to Authorization Token -->
+                            <p class="modal-input-title">Authorization Token</p>
+
+                           <!--  Replace placeholder /path/to/identity to  -->
+
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($data[0])) echo $data[0] ?>"/>
+                            <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
+                            <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="modal-btn" data-dismiss="modal">Close</button>
+                            <!--  Replace Set Identity Path to Create Identity -->
+                            <button class="modal-btn" id="create_identity"> Create Identity</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+
+
+
                 <!-- <div style="display:none" id="storjrows"> -->
                 <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon port-icon"></div></div>

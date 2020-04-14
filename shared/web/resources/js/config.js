@@ -20,7 +20,29 @@ jQuery(function() {
       jQuery("#identitybtn").hide();
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
-      createidentifyToken(identitydata);
+      // createidentifyToken(identitydata);
+
+      jQuery.ajax({
+      type: "POST",
+      url: "identity.php",
+      data: {file_exist : "file_exist"},
+      success: function (result) {
+        if(result==1){
+          // calling createidentifyToken function.
+          createidentifyToken(identitydata);
+
+          //calling readidentitystatus function.
+          readidentitystatus();
+        }else{
+          console.log("File already exist.");
+          $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+        }
+      },
+      error: function () {
+        console.log("In tehre wrong on create Identitfy");
+      }
+    });
+
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
@@ -430,23 +452,23 @@ jQuery("#updatebtn").click(function(e) {
     });
 });
 
-function createidentifyToken(createidval) {
-  jQuery.ajax({
-    type: "POST",
-    url: "config.php",
-    data: {identity : createidval, identityajax : 1},
-    success: function (result) {
-      console.log(result);
-      if(result) {
-        jQuery('#storjrows').show();
-      }
-    },
-    error: function () {
-      console.log("In tehre wrong on create Identitfy");
-    }
-  });
+// function createidentifyToken(createidval) {
+//   jQuery.ajax({
+//     type: "POST",
+//     url: "config.php",
+//     data: {identity : createidval, identityajax : 1},
+//     success: function (result) {
+//       console.log(result);
+//       if(result) {
+//         jQuery('#storjrows').show();
+//       }
+//     },
+//     error: function () {
+//       console.log("In tehre wrong on create Identitfy");
+//     }
+//   });
 
-}
+// }
 
 jQuery.ajax({
     type: "POST",
@@ -468,6 +490,81 @@ jQuery.ajax({
       $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
     }
   });
+
+  
+  // Create identity.
+function createidentifyToken(createidval){
+   jQuery.ajax({
+      type: "POST",
+      url: "identity.php",
+      data: {
+    createidval : createidval,
+    identityString: createidval 
+        },
+      success: function (result) {
+        $("#identity_status").html("<b>"+result+"</b>");
+      },
+      error: function () {
+        console.log("Error during create Identitfy operation");
+      }
+    });
+}
+
+
+// Read status from identity.php file.
+function readidentitystatus(){
+   jQuery.ajax({
+      type: "POST",
+      url: "identity.php",
+      data: {status : "status",},
+      success: function (result) {
+        if(result == "identity available at /root/.local/share/storj/identity"){
+          // validateIdentity();
+          $("#identity_status").html("<b>"+result+"</b>");
+          identitydataval = 1;
+        }else{
+          $("#identity_status").html("<b>"+result+"</b>");
+        }
+      },
+      error: function () {
+        console.log("In tehre wrong on create Identitfy");
+      }
+    });
+  setInterval(function(){
+    jQuery.ajax({
+      type: "POST",
+      url: "identity.php",
+      data: {status : "status",},
+      success: function (result) {
+        if(result == "identity available at /root/.local/share/storj/identity"){
+            // validateIdentity();
+            $("#identity_status").html("<b>"+result+"</b>");
+            identitydataval = 1;
+        }else{
+          $("#identity_status").html("<b>"+result+"</b>");
+        }
+      },
+      error: function () {
+        console.log("In tehre wrong on Identitfy status");
+      }
+    });
+  },60000);
+}
+
+function validateIdentity(){
+  jQuery.ajax({
+  type: "POST",
+  url: "identity.php",
+  data: {validateIdentity : "validateIdentity",},
+  success: function (result) {
+    $("#identity_status").html("<b>"+result+"</b>");
+  },
+  error: function () {
+    console.log("In tehre wrong on create Identitfy");
+  }
+});
+}
+
 
 
 // function showButton(){
