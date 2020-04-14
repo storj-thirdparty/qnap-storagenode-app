@@ -89,16 +89,16 @@ if [[ "x${OLD}" != "x${LATEST}" ]]
 then
     RUNNING=`docker inspect --format "{{.Image}}" $CID`
     if [ "$RUNNING" != "$LATEST" ];then
-        echo `date` "Upgrading $NAME" >> $LOG
-	docker stop $NAME
-        docker rm -f $NAME
+        echo `date` "Upgrading $CONTAINER_NAME" >> $LOG
+	docker stop $CONTAINER_NAME
+        docker rm -f $CONTAINER_NAME
 	# ------------------------------------------------------------------
 	# Re-start new container with related params
 	# ------------------------------------------------------------------
 	docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${port} -e BANDWIDTH="${bw}TB" -e STORAGE="${size}GB" -v ${id}:/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
-	echo `date` "$NAME updated (And running container updated)" >> $LOG
+	echo `date` "Iamge $IMAGE updated (And running container $CONTAINER_NAME updated)" >> $LOG
     else
-	echo `date` "$NAME updated (And no container was running)" >> $LOG
+	echo `date` "Image $IMAGE updated (And no container was running)" >> $LOG
     fi
 else
     echo `date` "$IMAGE is already up to date" >> $LOG
