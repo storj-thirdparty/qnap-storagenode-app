@@ -172,6 +172,7 @@ input[type=number]::-webkit-outer-spin-button {
 .identity_note{display:inline-block;font-size: 14px; margin-top: 18px; color: #245AC3}
 .identity_note span{font-weight: bold;}
 #startbtn{height: 46px;}
+#stopbtn{height: 46px;}
 #updatebtn{margin-left: 35px;}
 
  /*log message*/

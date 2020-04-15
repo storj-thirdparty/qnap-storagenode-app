@@ -33,7 +33,9 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     $_address  = $_POST["address"];
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
-    $_bandwidth      = $_POST["bandwidth"];
+    // $_bandwidth      = $_POST["bandwidth"];
+    $_bandwidth      = "";
+
     $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
     $_identity_directory = $_POST['identityDirectory'];
@@ -343,7 +345,9 @@ code {
                     </div>
                   </div>
                 </div>
-                <div class="row segment">
+
+
+                <!-- <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon bandwidth-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Bandwidth Allocation</h4>
@@ -377,7 +381,9 @@ code {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
+
+
                 <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
                   <div class="column col-md-10 segment-content">
@@ -449,7 +455,7 @@ code {
                 <div class="bottom-buttons">
                   <button type="button" class="start-button" id="updatebtn">Update My Storage Node</button>
                   <div style="position: absolute;display: inline-block;left: 40%;">
-                    <button type="button" disabled class="stop-button" id="stopbtn">Stop My Storage Node</button>&nbsp;&nbsp;
+                    <button type="button" disabled  id="stopbtn">Stop My Storage Node</button>&nbsp;&nbsp;
                   <button type="button" class="start-button" id="startbtn">Start My Storage Node</button></d>
                 </div>
               <!-- log message -->
