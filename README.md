@@ -61,6 +61,7 @@ Pass absolute path of the Storage Directory in the form field Identity path.
 - **Email** Please check the email id
 - **Bandwidth** The minimum bandwidth requirement is **2TB**.
 - **Storage Allocation** Be sure not to over-allocate space! Allow at least 10% extra for overhead. If you over-allocate space, you may corrupt your database when the system attempts to store pieces when no more physical space is actually available on your drive. The minimum storage shared requirement is 500 GB, which means you need a disk of at least 550 GB total size to allow for the 10% overhead.
+- **Update** During installation a cron tab is created to trigger the update script at 12:05 AM. The scripts checks if the docker container running is latest or not. If the current image is latest then the nothing is done but if it is old then the storagenode is stopped, old container is removed and updated and restarted using the same old parameters that are saved. This all process happen automatically. Also the user can trigger the same process manually whenver they want by pressing the 'Update' button on the UI . 
 
 # Debug
 App is installed at `/share/CACHEDEV1_DATA/.qpkg/STORJ`. The folder structure is the same as it is in the shared folder. In case the app is misbehaving or needs to be debugged, it can be found here.
