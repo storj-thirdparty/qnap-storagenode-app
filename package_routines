@@ -223,6 +223,7 @@ echo `date ` " RUNNING post install " >> $LOGFILE
 #$cd /share/Public/
 #Changing the file permissions for retentive parameters
 $CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
+$CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/rclone.json
 $CMD_CHOWN httpdusr /share/CACHEDEV1_DATA/.qpkg/STORJ
 $CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/conf
 $CMD_CHOWN admin /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
@@ -230,12 +231,20 @@ $CMD_CHMOD a+rx /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 $CMD_CHMOD u+s /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 
 #------------------Identity Creation----------------------------------------------
-$CMD_WGET https://github.com/storj/storj/releases/download/v0.25.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
-$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/
-$CMD_CHMOD +x /share/Public/identity_linux_amd64 
+$CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
+$CMD_MKDIR -p /share/Public/identity
+$CMD_MKDIR -p /share/Public/identity/logs
+$CMD_MKDIR /share/Public/identity.bin
+#$CMD_RM -rf /share/Public/identity
+$CMD_MKDIR -p /root/.local/share/storj/identity
+
+$CMD_CHOWN httpdusr /share/Public/identity /share/Public/identity.bin
+$CMD_CHOWN httpdusr /root/.local/share/storj/identity
+$CMD_CHMOD a+rx /root/.local/share/storj/identity
+
+$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/identity.bin
+$CMD_CHMOD +x /share/Public/identity.bin/identity*
 $CMD_RM /share/Public/identity_linux_amd64.zip
-#$CMD_LS /share/Public/ 2>&1 | tee /share/Public/output.txt
-$CMD_MKDIR /share/Public/identity
 #/share/Public/identity_linux_amd64 create storagenode --identity-dir /share/Public/identity  2>&1 | tee /share/Public/output.txt
 $CMD_MKDIR /id
 $CMD_CHMOD -R 777 /id
