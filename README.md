@@ -15,11 +15,11 @@ opkg install git
 Cloning the repository.
 
 ```bash
-$ git clone https://ninad458@bitbucket.org/utropicmedia/storj-node-qnap.git
-$ cd storj-node-qnap
+$ git clone https://github.com/storj/qnap-app.git
+$ cd qnap-app
 $ qbuild
 ```
-The qpkg file is found at [storj-node-qnap/build](storj-node-qnap/build)
+The qpkg file is found at [qnap-app/build](storj-node-qnap/build)
 
 [QPKG Building Instructions](https://edhongcy.gitbooks.io/qdk-quick-start-guide/content/build-your-own-qpkg.html)
 
