@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 
 #===========================================================================
 # Generate Identity
@@ -26,7 +26,7 @@ identityString=$1
 user=www
 home=/root
 identitySimulator=/tmp/iSimulator.php
-identityBinary=/share/Public/
+identityBinary=/share/Public/identity.bin/identity
 identityDirPath=/share/Public/identity/storagenode
 fileList="ca.key identity.key ca.cert identity.cert"
 identityKey=${home}/.local/share/storj/identity/storagenode/identity.key

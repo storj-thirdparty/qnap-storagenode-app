@@ -22,27 +22,32 @@ jQuery(function() {
       jQuery("#editidentitybtn").show();
       // createidentifyToken(identitydata);
 
-      jQuery.ajax({
-      type: "POST",
-      url: "identity.php",
-      data: {file_exist : "file_exist"},
-      success: function (result) {
-        if(result==1){
-          // calling createidentifyToken function.
-          createidentifyToken(identitydata);
+      var file_exists = $("#file_exists").text();
 
-          //calling readidentitystatus function.
-          readidentitystatus();
-        }else{
-          console.log("File already exist.");
-          $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+    if(file_exists !=="0"){
+
+        jQuery.ajax({
+        type: "POST",
+        url: "identity.php",
+        data: {file_exist : "file_exist"},
+        success: function (result) {
+          if(result==1){
+            // calling createidentifyToken function.
+            createidentifyToken(identitydata);
+
+            //calling readidentitystatus function.
+            readidentitystatus();
+          }else{
+            console.log("File already exist.");
+            $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+          }
+        },
+        error: function () {
+          console.log("In tehre wrong on create Identitfy");
         }
-      },
-      error: function () {
-        console.log("In tehre wrong on create Identitfy");
-      }
-    });
+      });
 
+    }
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
@@ -262,6 +267,7 @@ jQuery(function() {
     jQuery("#externalAddressval").html(address_text+createAddress);
     showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
   });
+  jQuery("#create_address").click();
   jQuery('#create_wallet').click(function(){
     createWallet = jQuery("#wallet_address").val();
     if(createWallet !== '') {
@@ -387,6 +393,7 @@ jQuery(function() {
       jQuery('#storjrows').hide();
   })
 });
+
 function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
   if(createidentitydataval === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
     jQuery("#startbtn").removeAttr("disabled", true);
@@ -405,7 +412,7 @@ jQuery("#startbtn").click(function(e) {
     jQuery.ajax({
       type: "POST",
       url: "config.php",
-      data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
+      data: {authKey:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
         //console.log("I am here");
         window.location.reload();
@@ -444,7 +451,7 @@ jQuery("#updatebtn").click(function(e) {
     jQuery.ajax({
       type: "POST",
       url: "config.php",
-      data: {identityDirectory:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isUpdateAjax : 1},
+      data: {authKey:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isUpdateAjax : 1},
       success: function (result) {
         //console.log("I am here");
         window.location.reload();

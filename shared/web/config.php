@@ -8,6 +8,7 @@ $filename = "config.json";
 $platformBase   = $_SERVER['DOCUMENT_ROOT'];
 $moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 $scriptsBase    = $moduleBase . '/scripts' ;
+$rootBase	= "/root/.local/share/storj/identity" ;
 
 
 $file           = $moduleBase  . DIRECTORY_SEPARATOR . $filename  ;
@@ -34,11 +35,12 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
     // $_bandwidth      = $_POST["bandwidth"];
-    $_bandwidth      = "";
+    $_bandwidth      = "20";
 
     $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
-    $_identity_directory = $_POST['identityDirectory'];
+    $_identity_directory = "/root/.local/share/storj/identity/storagenode" ;
+    $_authKey = $_POST['authKey'];
    
     //Changing permissions of the shell script
     shell_exec("chmod 777 $startScript 2>&1");
@@ -48,6 +50,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     // set_time_limit(300);
     $properties = array(
 	    'Identity'	=> "$_identity_directory",
+	    'AuthKey'	=> $_authKey,
 	    'Port'	=> $_address,
 	    'Wallet'	=> $_wallet,
 	    'Allocation'=> $_storage,
@@ -56,7 +59,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 	    'Directory' => "$_directory"
 	    );
     file_put_contents($file, json_encode($properties));
-    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_emailId $_bandwidth $_storage $_identity_directory $_directory 2>&1 ");
+    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_emailId $_storage $_identity_directory $_directory 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
@@ -81,7 +84,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 
     logMessage("config called up with isUpdateAjax 1 ");
     $server_address = $_SERVER['SERVER_ADDR'] ;
-    $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_emailId $_bandwidth $_storage $_identity_directory $_directory $server_address 2>&1 ");
+    $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_emailId $_storage $_identity_directory $_directory $server_address 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
@@ -116,7 +119,6 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 	$content = file_get_contents($file);
 	$prop = json_decode($content, true);
 	logMessage("Loaded properties : " . print_r($prop, true));
-	$data = array_values($prop);
   }
 
 {
@@ -140,6 +142,26 @@ code {
 	// TODO: REMOVE this once this works OK
           if ( $output ){
           } else {
+
+            $file1 = "${rootBase}/storagenode/ca.cert";
+            $file2 = "${rootBase}/storagenode/ca.key";
+            $file3 = "${rootBase}/storagenode/identity.cert";
+            $file4 = "${rootBase}/storagenode/identity.key";
+	    $numFiles = `ls ${rootBase}/storagenode | wc -l ` ;
+	    $numFiles = (int) numFiles ;
+
+              if(
+		($numFiles == 6) and 
+		file_exists($file1) and
+		file_exists($file2) and
+		file_exists($file3) and
+		file_exists($file4)
+		) {
+                  echo "<span id='file_exists' style='display:none;'>0</span>";
+                }else{
+                  echo "<span id='file_exists' style='display:none;'>1</span>";
+                }
+
           ?>
           <div class="col-10 config-page">
             <div class="container-fluid">
@@ -169,7 +191,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Identity Path</p>
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity" value="<?php if(isset($data[0])) echo $data[0] ?>"/>
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
                             <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
@@ -223,7 +245,7 @@ code {
 
                            <!--  Replace placeholder /path/to/identity to  -->
 
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($data[0])) echo $data[0] ?>"/>
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
                             <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
@@ -264,7 +286,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Host Address</p>
-                          <input class="modal-input" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if(isset($data[1])) echo $data[1] ?>"/>
+                          <input class="modal-input" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>"/>
                             <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
                           </div>
                           <div class="modal-footer">
@@ -298,7 +320,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Wallet Address</p>
-                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address" value="<?php if(isset($data[2])) echo $data[2] ?>"/>
+                            <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>"/>
                             <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">
@@ -332,7 +354,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Allocation</p>
-                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($data[3])) echo $data[3] ?>"/>
+                            <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>"/>
                             <p class="modal-input-metric">GB</p>
                           <p class="storage_token_msg msg" style="display:none;">Minimum 500 GB is required</p>
                           </div>
@@ -369,7 +391,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Bandwidth Allocation</p>
-                          <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($data[4])) echo $data[4] ?>" />
+                          <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" />
                             <p class="modal-input-metric">TB</p>
                             <p class="bandwidth_token_msg msg" style="display:none;">Minimum 1 TB is required</p>
                           </div>
@@ -406,7 +428,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Email Address</p>
-                            <input class="modal-input" id="email_address" name="email_address" type="email" placeholder="Email Address" value="<?php if(isset($data[5])) echo $data[5] ?>"/>
+                            <input class="modal-input" id="email_address" name="email_address" type="email" placeholder="Email Address" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>"/>
                             <p class="email_token_msg msg" style="display:none;">Enter a Valid Email address</p>
                           </div>
                           <div class="modal-footer">
@@ -440,7 +462,7 @@ code {
                           </div>
                           <div class="modal-body">
                             <p class="modal-input-title">Storage Directory</p>
-                          <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($data[6])) echo $data[6] ?>"  />
+                          <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>"  />
                             <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
                           </div>
                           <div class="modal-footer">

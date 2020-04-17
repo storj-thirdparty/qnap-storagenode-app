@@ -13,43 +13,19 @@ $platformBase   = $_SERVER['DOCUMENT_ROOT'];
 $moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 $scriptsBase    = $moduleBase . '/scripts' ;
 
-$identityGenBinary = "/share/Public/" ;
-$identityZipFile = '/tmp/identity_kinux_amd64.zip';
+$identityGenBinary = "/share/Public/identity.bin/identity" ;
 $identityGenSimulator = "/tmp/iSimulator.php" ;
-$logFile = "/tmp/storj_identity.log" ;
+$logFile = "/share/Public/identity/logs/storj_identity.log" ;
 #$logFile = "/var/log/StorJ" ;
+
+
 $identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh' ;
 $identityFilePath = "/root/.local/share/storj/identity/storagenode/identity.key" ;
 $Path = "/share/Public//identity/storagenode/";
 $urlToFetch = "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip" ;
 $centralLogFile = "/var/log/STORJ" ;
+
 # ------------------------------------------------------------------------
-
-function get_web_page( $url ) {
-    $res = array();
-    $options = array( 
-        CURLOPT_RETURNTRANSFER => true,     // return web page 
-        CURLOPT_HEADER         => false,    // do not return headers 
-        CURLOPT_FOLLOWLOCATION => true,     // follow redirects 
-        CURLOPT_USERAGENT      => "spider", // who am i 
-        CURLOPT_AUTOREFERER    => true,     // set referer on redirect 
-        CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect 
-        CURLOPT_TIMEOUT        => 120,      // timeout on response 
-        CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects 
-    ); 
-    $ch      = curl_init( $url ); 
-    curl_setopt_array( $ch, $options ); 
-    $content = curl_exec( $ch ); 
-    $err     = curl_errno( $ch ); 
-    $errmsg  = curl_error( $ch ); 
-    $header  = curl_getinfo( $ch ); 
-    curl_close( $ch ); 
-
-    $res['content'] = $content;     
-    $res['url'] = $header['url'];
-    return $res; 
-} 
-
 
 function validateExistence() {
 	global $Path ;
@@ -107,41 +83,6 @@ function identityExists() {
 		    $cmd = "$identityGenScriptPath $identityString > $logFile 2>&1 "; 
 		} else {
 
-		/*
-		# 1) Fetch the zip file
-		$result = get_web_page($urlToFetch ) ;
-		$content = $result['content'];
-		if( $content == NULL ) {
-		    echo "Error during URL fetch ($urlToFetch)" ;
-		    logMessage("Error during URL fetch ($urlToFetch)");
-		    return ;
-		}
-		file_put_contents($identityZipFile, $content);
-		if( file_exists($identityZipFile)) {
-		    chmod($identityZipFile, 0666);
-		}
-
-		# 2) Uncompress it in /tmp/ folder
-		# 3) Provide it executable permissions 
-
-		$zip = new ZipArchive;
-		$res = $zip->open($identityZipFile);
-		if ($res === TRUE) {
-		  $zip->extractTo('/tmp/');
-		  if( ! file_exists($identityGenBinary)) {
-			logMessage("File $identityGenBinary not in zip $identityZipFile!");
-			echo "File $identityGenBinary not in zip ! check contents!";
-			return ;
-		  }
-		  chmod($identityGenBinary, 0777);
-		  $zip->close();
-		} else {
-		  echo 'error while unzip!';
-		  logMessage("Error during unzip of file $identityZipFile ");
-		  return ;
-		}
-		logMessage("Zip file $identityZipFile has been extracted -> $identityGenBinary");
-		 */
 		$cmd = "$identityGenScriptPath $identityString > $logFile 2>&1  "; 
 
 		} # Extraction of Identity generation program binary
@@ -168,9 +109,13 @@ function identityExists() {
 		$data['idGenPid'] = $pid ;
 		$data['idGenStartTime'] = $programStartTime ;
 		$newJsonString = json_encode($data);
+		$file = $data['LogFilePath'];
+		$file = escapeshellarg($file);
+	    $lastline = `tail -c 59 $file `;
 		file_put_contents($configFile, $newJsonString);
 
-	        logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+	    logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+	    echo $lastline;
 
     } else if (isset($_POST["status"])) {
 		logMessage("Identity php called for fetching STATUS!");
