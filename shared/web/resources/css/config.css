@@ -210,6 +210,7 @@ iframe{
 #defaultsval{color: #245AC3}
 #defaultsval .defaults_text{font-weight: 600;}
 .rclonebtns{width: 175px;padding: 10px;}
+.configbtns{width: 215px;padding: 10px;}
 .rcloneloader{font-size:24px;position: absolute;margin-left: 60px;display: none;}
 .runrcloneloader{font-size:24px;position: absolute;margin-left: 30px;display:none ;}
 

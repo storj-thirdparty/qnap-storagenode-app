@@ -187,21 +187,27 @@ jQuery(function() {
 
 
   if(identitydata !== '' &&  createAddress !== '' && createWallet !== '' &&  storageallocate !== '' && bandwidthAllocation !== '' && directoryAllocation !== '' && emailiddata !== ''){
+    // jQuery("#startbtn").removeAttr("disabled", true);
+    // jQuery("#stopbtn").removeClass("stopnodebtn");
+    // // make button cursor pointer
+    // jQuery("#stopbtn").removeAttr("disabled", true);
+    // jQuery("#startbtn").css("cursor", "pointer");
+    // jQuery("#stopbtn").css("cursor", "pointer");
+
     jQuery("#startbtn").removeAttr("disabled", true);
-    jQuery("#stopbtn").removeClass("stopnodebtn");
-    // make button cursor pointer
-    jQuery("#stopbtn").removeAttr("disabled", true);
     jQuery("#startbtn").css("cursor", "pointer");
-    jQuery("#stopbtn").css("cursor", "pointer");
   } else {
-    jQuery("#startbtn").attr("disabled", true);
-    jQuery("#startbtn").removeClass("start-button");
-    //jQuery("#stopbtn").removeClass("stop-button");
-    //jQuery("#stopbtn").attr("disabled", true);
-    // make button cursor not-allowed
-    jQuery("#startbtn").css("cursor", "not-allowed");
-    //jQuery("#stopbtn").css("cursor", "not-allowed");
-    // jQuery("#startbtn").css('margin', 10 + 'px');
+    // jQuery("#startbtn").attr("disabled", true);
+    // jQuery("#startbtn").removeClass("start-button");
+    // //jQuery("#stopbtn").removeClass("stop-button");
+    // //jQuery("#stopbtn").attr("disabled", true);
+    // // make button cursor not-allowed
+    // jQuery("#startbtn").css("cursor", "not-allowed");
+    // //jQuery("#stopbtn").css("cursor", "not-allowed");
+    // // jQuery("#startbtn").css('margin', 10 + 'px');
+
+     jQuery("#startbtn").attr("disabled", true);
+     jQuery("#startbtn").css("cursor", "not-allowed");
   }
 
   jQuery.ajax({
@@ -396,10 +402,13 @@ jQuery(function() {
 
 function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
   if(createidentitydataval === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
+    // jQuery("#startbtn").removeAttr("disabled", true);
+    // jQuery("#startbtn").addClass("start-button");
+    // jQuery("#stopbtn").css('margin', 10 + 'px');
+    // // make button cursor pointer
+    // jQuery("#startbtn").css("cursor", "pointer");
+
     jQuery("#startbtn").removeAttr("disabled", true);
-    jQuery("#startbtn").addClass("start-button");
-    jQuery("#stopbtn").css('margin', 10 + 'px');
-    // make button cursor pointer
     jQuery("#startbtn").css("cursor", "pointer");
   } else{
     jQuery("#startbtn").attr("disabled", true);
@@ -491,18 +500,18 @@ jQuery.ajax({
           $(".editbtn").attr("disabled",true).css("cursor","not-allowed");
 
           $("#startbtn").attr("disabled",true).css("cursor","not-allowed");
-          $("#startbtn").removeClass("start-button");
+          // $("#startbtn").removeClass("start-button");
 
           $("#stopbtn").attr("disabled",false).css("cursor","pointer");
-          $("#stopbtn").addClass("stop-button");
+          // $("#stopbtn").addClass("stop-button");
         }else if(resposnse ==1){
           $(".editbtn").attr("disabled",false).css("cursor","pointer");
 
           $("#stopbtn").attr("disabled",true).css("cursor","not-allowed");
-          $("#stopbtn").removeClass("stop-button");
+          // $("#stopbtn").removeClass("stop-button");
 
           $("#startbtn").attr("disabled",false).css("cursor","pointer");
-          $("#startbtn").addClass("start-button");
+          // $("#startbtn").addClass("start-button");
         }
       }
     },

@@ -147,18 +147,19 @@ code {
             $file2 = "${rootBase}/storagenode/ca.key";
             $file3 = "${rootBase}/storagenode/identity.cert";
             $file4 = "${rootBase}/storagenode/identity.key";
-	    $numFiles = `ls ${rootBase}/storagenode | wc -l ` ;
-	    $numFiles = (int) numFiles ;
+      	    $numFiles = `ls ${rootBase}/storagenode | wc -l ` ;
+      	    $numFiles = (int) $numFiles ;
 
-              if(
-		($numFiles == 6) and 
-		file_exists($file1) and
-		file_exists($file2) and
-		file_exists($file3) and
-		file_exists($file4)
-		) {
-                  echo "<span id='file_exists' style='display:none;'>0</span>";
-                }else{
+             if(
+          		($numFiles == 6) and 
+          		file_exists($file1) and
+          		file_exists($file2) and
+          		file_exists($file3) and
+          		file_exists($file4)
+          		) 
+             {
+                 echo "<span id='file_exists' style='display:none;'>0</span>";
+              }else{
                   echo "<span id='file_exists' style='display:none;'>1</span>";
                 }
 
@@ -475,11 +476,11 @@ code {
                   </div>
                 </div>
                 <div class="bottom-buttons">
-                  <button type="button" class="start-button" id="updatebtn">Update My Storage Node</button>
+                   <button type="button" class="btn btn-primary configbtns" id="updatebtn">Update My Storage Node</button>
                   <div style="position: absolute;display: inline-block;left: 40%;">
-                    <button type="button" disabled  id="stopbtn">Stop My Storage Node</button>&nbsp;&nbsp;
-                  <button type="button" class="start-button" id="startbtn">Start My Storage Node</button></d>
-                </div>
+                    <button type="button" disabled  id="stopbtn" class="btn btn-primary configbtns" style="cursor: not-allowed;">Stop My Storage Node</button>&nbsp;&nbsp;
+                  <button type="button"  id="startbtn" class="btn btn-primary configbtns">Start My Storage Node</button>
+                </div><br><br>
               <!-- log message -->
               <iframe>
                 <p  id="msg"></p>
