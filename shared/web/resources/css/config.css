@@ -167,7 +167,7 @@ input[type=number]::-webkit-outer-spin-button {
 .wallet_token_msg{margin-right: 17%;}
 .storage_token_msg{margin-left: 15%;}
 .bandwidth_token_msg{margin-left: 16%;}
-#idetityval,#externalAddressval,#wallettbtnval,#storagebtnval,#bandwidthbtnval,#emailAddressval{color: #245AC3}
+#idetityval,#externalAddressval,#wallettbtnval,#storagebtnval,#bandwidthbtnval,#emailAddressval, #directorybtnval{color: #245AC3}
 #idetityval .identity_text{font-weight: 600;}
 .identity_note{display:inline-block;font-size: 14px; margin-top: 18px; color: #245AC3}
 .identity_note span{font-weight: bold;}
