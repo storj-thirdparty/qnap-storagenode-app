@@ -411,7 +411,7 @@ code {
                   <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Email Address</h4>
-                    <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
+                    <p class="segment-msg">Email address so that we can notify you when a new version has been released.</p>
                     <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#emailAddress">
                       Edit Email Address
                     </button></span>
