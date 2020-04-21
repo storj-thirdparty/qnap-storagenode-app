@@ -103,7 +103,6 @@ SYS_QPKG_SERVICE_ENABLED="TRUE"
 ######################################################################
 PKGNAME="STORJ"
 LOGFILE="/var/log/$PKGNAME"
-LOGFILERC="/var/log/rclone.log"
 ######################################################################
 # All package specific functions shall call 'err_log MSG' if an error
 # is detected that shall terminate the installation.
@@ -223,7 +222,6 @@ echo `date ` " RUNNING post install " >> $LOGFILE
 #$cd /share/Public/
 #Changing the file permissions for retentive parameters
 $CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
-$CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/rclone.json
 $CMD_CHOWN httpdusr /share/CACHEDEV1_DATA/.qpkg/STORJ
 $CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/conf
 $CMD_CHOWN admin /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
