@@ -139,7 +139,7 @@ code {
     <div class="row">
       <?php include 'menu.php'; ?>
           <?php
-	// TODO: REMOVE this once this works OK
+	       // TODO: REMOVE this once this works OK
           if ( $output ){
           } else {
 
@@ -168,44 +168,6 @@ code {
             <div class="container-fluid">
               <h2>Setup</h2>
               <a href="https://documentation.storj.io/" target="_blank"><p class="header-link">Documentation ></p></a>
-            <!--     <div class="row segment" id="identityrow">
-                  <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
-
-                  </div>
-                  <div class="column col-md-10">
-                    <h4 class="segment-title">Identity</h4>
-                    <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
-                    <span id="idetityval"></span><span style="display:none;" id="editidentitybtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#identity">
-                      Edit Identity Path
-                    </button></span>
-                    <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
-                    Set Identity Path
-                    </button>
-                    <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                          <h5 class="modal-title">Identity Folder path</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="modal-input-title">Identity Path</p>
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
-                            <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
-                            <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
-                          </div>
-                          <div class="modal-footer">
-                            <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_identity"> Set Identity Path</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
                  <div class="row segment" id="identityrow">
                   <div class="column col-md-2"><div class="segment-icon identity_icon"></div>
 
@@ -370,48 +332,11 @@ code {
                 </div>
 
 
-                <!-- <div class="row segment">
-                  <div class="column col-md-2"><div class="segment-icon bandwidth-icon"></div></div>
-                  <div class="column col-md-10 segment-content">
-                    <h4 class="segment-title">Bandwidth Allocation</h4>
-                    <p class="segment-msg">How much bandwidth can you allocate to the Storj network.</p>
-                      <span id="bandwidthbtnval"></span><span style="display:none;" id="editbandwidthbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#bandwidth">
-                      Edit Bandwidth Allocation
-                    </button></span>
-                    <button class="segment-btn" data-toggle="modal" data-target="#bandwidth" id="addbandwidthbtn">
-                      Set Bandwidth Allocation
-                    </button>
-                    <div class="modal fade" id="bandwidth" tabindex="-1" role="dialog" aria-labelledby="bandwidth" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Bandwidth Allocation</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="modal-input-title">Bandwidth Allocation</p>
-                          <input style="width: 280px" class="modal-input shorter" id="bandwidth_allocation" name="bandwidth_allocation" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" />
-                            <p class="modal-input-metric">TB</p>
-                            <p class="bandwidth_token_msg msg" style="display:none;">Minimum 1 TB is required</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button class="modal-btn" data-dismiss="modal">Close</button>
-                            <button class="modal-btn" id="create_bandwidth">Set Bandwidth Allocation</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-
                 <div class="row segment">
                   <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
                   <div class="column col-md-10 segment-content">
                     <h4 class="segment-title">Email Address</h4>
-                    <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
+                    <p class="segment-msg">Email address so that you can recieve notification you when a new version is  released.</p>
                     <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#emailAddress">
                       Edit Email Address
                     </button></span>
@@ -491,7 +416,6 @@ code {
         } ?>
   </div>
 <?php include 'footer.php';?>
-<!--<script src="./resources/js/jquery-3.1.1.min.js"></script>-->
 <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php
 
