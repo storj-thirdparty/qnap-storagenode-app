@@ -2,25 +2,20 @@ var identitydataval, createAddressval, createWalletval, storageallocateval, dire
 var identity_val, address_val, wallet_val, storage_val, bandwidth_val, directory_val, emailiddata_val;
 var identity_text,address_text, storage_text, bandwidth_text;
 jQuery(function() {
-  //hideButton();
   var identitydata = jQuery("#identity_token").val();
   var createAddress = jQuery("#host_address").val();
   var createWallet = jQuery("#wallet_address").val();
-  // var storageallocate = jQuery("#storage_allocate").val();
   storageallocate = parseInt(jQuery("#storage_allocate").val());
-  // var bandwidthAllocation = jQuery("#bandwidth_allocation").val();
   bandwidthAllocation = parseInt(jQuery("#bandwidth_allocation").val());
   var emailiddata = jQuery("#email_address").val();
   var directoryAllocation = jQuery("#storage_directory").val();
 
   // Get values
   if(identitydata !== '') {
-      //showButton();
       jQuery(".identity_token_msg").hide();
       jQuery("#identitybtn").hide();
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
-      // createidentifyToken(identitydata);
 
       var file_exists = $("#file_exists").text();
 
@@ -69,7 +64,6 @@ jQuery(function() {
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
-      // address_text = "<span class='address_text'>domain.ddns.net: </span>";
       address_text = "<span class='address_text'></span>";
     } else {
       jQuery(".host_token_msg").show();
@@ -187,25 +181,9 @@ jQuery(function() {
 
 
   if(identitydata !== '' &&  createAddress !== '' && createWallet !== '' &&  storageallocate !== '' && bandwidthAllocation !== '' && directoryAllocation !== '' && emailiddata !== ''){
-    // jQuery("#startbtn").removeAttr("disabled", true);
-    // jQuery("#stopbtn").removeClass("stopnodebtn");
-    // // make button cursor pointer
-    // jQuery("#stopbtn").removeAttr("disabled", true);
-    // jQuery("#startbtn").css("cursor", "pointer");
-    // jQuery("#stopbtn").css("cursor", "pointer");
-
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#startbtn").css("cursor", "pointer");
   } else {
-    // jQuery("#startbtn").attr("disabled", true);
-    // jQuery("#startbtn").removeClass("start-button");
-    // //jQuery("#stopbtn").removeClass("stop-button");
-    // //jQuery("#stopbtn").attr("disabled", true);
-    // // make button cursor not-allowed
-    // jQuery("#startbtn").css("cursor", "not-allowed");
-    // //jQuery("#stopbtn").css("cursor", "not-allowed");
-    // // jQuery("#startbtn").css('margin', 10 + 'px');
-
      jQuery("#startbtn").attr("disabled", true);
      jQuery("#startbtn").css("cursor", "not-allowed");
   }
@@ -236,6 +214,7 @@ jQuery(function() {
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
       createidentifyToken(identitydata);
+      readidentitystatus();
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
@@ -259,7 +238,6 @@ jQuery(function() {
       jQuery("#externalAddress .close").trigger("click");
       jQuery("#editexternalAddressbtn").show();
       createAddressval = 1;
-      // address_text = "<span class='address_text'>domain.ddns.net: </span>";
       address_text = "<span class='address_text'></span>";
     } else {
       jQuery(".host_token_msg").show();
@@ -305,7 +283,6 @@ jQuery(function() {
     } else if(storageallocate !== '') {
       storageallocate = '';
       jQuery(".storage_token_msg").show();
-      // jQuery("#editstoragebtn").hide();
       jQuery("#addstoragebtn").show();
       jQuery("#editstoragebtn").hide();
       storageallocateval = 0;
@@ -402,17 +379,11 @@ jQuery(function() {
 
 function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
   if(createidentitydataval === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
-    // jQuery("#startbtn").removeAttr("disabled", true);
-    // jQuery("#startbtn").addClass("start-button");
-    // jQuery("#stopbtn").css('margin', 10 + 'px');
-    // // make button cursor pointer
-    // jQuery("#startbtn").css("cursor", "pointer");
-
+    
     jQuery("#startbtn").removeAttr("disabled", true);
     jQuery("#startbtn").css("cursor", "pointer");
   } else{
     jQuery("#startbtn").attr("disabled", true);
-    // make button cursor not-allowed
     jQuery("#startbtn").css("cursor", "not-allowed");
   }
 }
@@ -423,16 +394,11 @@ jQuery("#startbtn").click(function(e) {
       url: "config.php",
       data: {authKey:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isajax : 1},
       success: function (result) {
-        //console.log("I am here");
         window.location.reload();
 
         // // log message
          $('iframe').contents().find('body').html('<p>'+result+'</p>');
 
-        //jQuery("#stopbtn").removeAttr("disabled", true);
-        //jQuery("#stopbtn").addClass("stop-button");
-        // make button cursor pointer
-        //jQuery("#stopbtn").css("cursor", "pointer");
       },
       error: function () {
         // log message
@@ -462,7 +428,6 @@ jQuery("#updatebtn").click(function(e) {
       url: "config.php",
       data: {authKey:identity_val, address : address_val, wallet : wallet_val, storage : storage_val, email_val : emailiddata_val, directory: directory_val, isUpdateAjax : 1},
       success: function (result) {
-        //console.log("I am here");
         window.location.reload();
       },
       error: function () {
@@ -471,56 +436,40 @@ jQuery("#updatebtn").click(function(e) {
     });
 });
 
-// function createidentifyToken(createidval) {
-//   jQuery.ajax({
-//     type: "POST",
-//     url: "config.php",
-//     data: {identity : createidval, identityajax : 1},
-//     success: function (result) {
-//       console.log(result);
-//       if(result) {
-//         jQuery('#storjrows').show();
-//       }
-//     },
-//     error: function () {
-//       console.log("In tehre wrong on create Identitfy");
-//     }
-//   });
 
-// }
+if(jQuery("#identity_token").val() == "" || jQuery("#identity_token").val() ==null || jQuery("#host_address").val() =="" || jQuery("#host_address").val() ==null || jQuery("#wallet_address").val() =="" || jQuery("#wallet_address").val() ==null || parseInt(jQuery("#storage_allocate").val()) =="" || parseInt(jQuery("#storage_allocate").val()) ==null || jQuery("#email_address").val() =="" || jQuery("#email_address").val() ==null || jQuery("#storage_directory").val() =="" || jQuery("#storage_directory").val() ==null){
 
-jQuery.ajax({
-    type: "POST",
-    url: "config.php",
-    data: { isrun : 1},
-    success: function (resposnse) {
-      if(resposnse) {
-        // log message
-        if(resposnse ==0){
-          $(".editbtn").attr("disabled",true).css("cursor","not-allowed");
+  }else{
+    jQuery.ajax({
+        type: "POST",
+        url: "config.php",
+        data: { isrun : 1},
+        success: function (resposnse) {
+          if(resposnse) {
+            // log message
+            if(resposnse ==1){
+              $(".editbtn").attr("disabled",true).css("cursor","not-allowed");
 
-          $("#startbtn").attr("disabled",true).css("cursor","not-allowed");
-          // $("#startbtn").removeClass("start-button");
+              $("#startbtn").attr("disabled",true).css("cursor","not-allowed");
 
-          $("#stopbtn").attr("disabled",false).css("cursor","pointer");
-          // $("#stopbtn").addClass("stop-button");
-        }else if(resposnse ==1){
-          $(".editbtn").attr("disabled",false).css("cursor","pointer");
+              $("#stopbtn").attr("disabled",false).css("cursor","pointer");
+            }else if(resposnse ==0){
+              $(".editbtn").attr("disabled",false).css("cursor","pointer");
 
-          $("#stopbtn").attr("disabled",true).css("cursor","not-allowed");
-          // $("#stopbtn").removeClass("stop-button");
+              $("#stopbtn").attr("disabled",true).css("cursor","not-allowed");
 
-          $("#startbtn").attr("disabled",false).css("cursor","pointer");
-          // $("#startbtn").addClass("start-button");
+              $("#startbtn").attr("disabled",false).css("cursor","pointer");
+            }
+
+          }
+        },
+        error: function () {
+          console.log("error");
+          // log message
+          $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
         }
-      }
-    },
-    error: function () {
-      console.log("error");
-      // log message
-      $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
-    }
-  });
+      });
+  }
 
   
   // Create identity.
@@ -533,7 +482,7 @@ function createidentifyToken(createidval){
     identityString: createidval 
         },
       success: function (result) {
-        $("#identity_status").html("<b>"+result+"</b>");
+        $("#identity_status").html("<p>"+result+"</p>");
       },
       error: function () {
         console.log("Error during create Identitfy operation");
@@ -550,11 +499,10 @@ function readidentitystatus(){
       data: {status : "status",},
       success: function (result) {
         if(result == "identity available at /root/.local/share/storj/identity"){
-          // validateIdentity();
-          $("#identity_status").html("<b>"+result+"</b>");
+          $("#identity_status").html("<p>"+result+"</p>");
           identitydataval = 1;
         }else{
-          $("#identity_status").html("<b>"+result+"</b>");
+          $("#identity_status").html("<p>"+result+"</p>");
         }
       },
       error: function () {
@@ -568,11 +516,10 @@ function readidentitystatus(){
       data: {status : "status",},
       success: function (result) {
         if(result == "identity available at /root/.local/share/storj/identity"){
-            // validateIdentity();
-            $("#identity_status").html("<b>"+result+"</b>");
+            $("#identity_status").html("<p>"+result+"</p>");
             identitydataval = 1;
         }else{
-          $("#identity_status").html("<b>"+result+"</b>");
+          $("#identity_status").html("<p>"+result+"</p>");
         }
       },
       error: function () {
@@ -595,35 +542,3 @@ function validateIdentity(){
   }
 });
 }
-
-
-
-// function showButton(){
-//   jQuery("#externalAddressbtn").removeAttr("disabled", true);
-//   jQuery("#externalAddressbtn").addClass("segment-btn");
-//   jQuery("#addwallettbtn").removeAttr("disabled", true);
-//   jQuery("#addwallettbtn").addClass("segment-btn");
-//   jQuery("#addstoragebtn").removeAttr("disabled", true);
-//   jQuery("#addstoragebtn").addClass("segment-btn");
-//   jQuery("#addbandwidthbtn").removeAttr("disabled", true);
-//   jQuery("#addbandwidthbtn").addClass("segment-btn");
-//   jQuery("#emailAddressbtn").removeAttr("disabled", true);
-//   jQuery("#emailAddressbtn").addClass("segment-btn");
-//   jQuery("#adddirectorybtn").removeAttr("disabled", true);
-//   jQuery("#adddirectorybtn").addClass("segment-btn");
-// }
-// function hideButton(){
-//   jQuery("#stopbtn").addClass("stopnodebtn");
-//   jQuery("#externalAddressbtn").removeClass("segment-btn");
-//   jQuery("#addwallettbtn").removeClass("segment-btn");
-//   jQuery("#addstoragebtn").removeClass("segment-btn");
-//   jQuery("#addbandwidthbtn").removeClass("segment-btn");
-//   jQuery("#adddirectorybtn").removeClass("segment-btn");
-//   jQuery("#emailAddressbtn").removeClass("segment-btn");
-//   jQuery("#externalAddressbtn").attr("disabled", true);
-//   jQuery("#addwallettbtn").attr("disabled", true);
-//   jQuery("#addstoragebtn").attr("disabled", true);
-//   jQuery("#emailAddressbtn").attr("disabled", true);
-//   jQuery("#addbandwidthbtn").attr("disabled", true);
-//   jQuery("#adddirectorybtn").attr("disabled", true);
-// }
