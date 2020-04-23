@@ -213,8 +213,38 @@ jQuery(function() {
       jQuery("#identitybtn").hide();
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
-      createidentifyToken(identitydata);
-      readidentitystatus();
+      // createidentifyToken(identitydata);
+      // readidentitystatus();
+
+      var file_exists = $("#file_exists").text();
+      console.log("file_exists",file_exists);
+      if(file_exists !=="0"){
+
+          jQuery.ajax({
+          type: "POST",
+          url: "identity.php",
+          data: {file_exist : "file_exist"},
+          success: function (result) {
+            if(result==1){
+              // calling createidentifyToken function.
+              createidentifyToken(identitydata);
+
+              //calling readidentitystatus function.
+              readidentitystatus();
+            }else{
+              console.log("File already exist.");
+              $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+            }
+          },
+          error: function () {
+            console.log("In tehre wrong on create Identitfy");
+          }
+        });
+
+      }else{
+        $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+      }
+
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
