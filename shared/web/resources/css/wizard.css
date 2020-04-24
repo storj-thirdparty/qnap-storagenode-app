@@ -1093,6 +1093,10 @@ body {
 	color: #FFFFFF;
 }
 
+.progress .text-active {
+	color: #384B65 !important;
+}
+
 .progress .text-1 {
 	position: absolute;
 	width: 109px;
@@ -1111,7 +1115,7 @@ body {
 	align-items: center;
 	text-align: center;
 
-	color: #384B65;
+	color: rgba(56, 75, 101, 0.4)
 }
 
 .progress .text-2 {
