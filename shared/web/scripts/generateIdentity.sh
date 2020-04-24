@@ -25,13 +25,17 @@ fi
 identityString=$1
 user=www
 home=/root
-identitySimulator=/tmp/iSimulator.php
-identityBinary=/share/Public/identity.bin/identity
-identityDirPath=/share/Public/identity/storagenode
+identityBase=/share/Public/identity
+keyBase=${home}/.local/share/storj/identity
+
+identityLogFile=${identityBase}/logs/storj_identity.log
+identityPidFile=${identityBase}/logs/identity.pid
+identityDirPath=${identityBase}/storagenode
+identityBinary=${identityBase}.bin/identity
+
+identityKey=${keyBase}/storagenode/identity.key
+caKey=${keyBase}/storagenode/ca.key
 fileList="ca.key identity.key ca.cert identity.cert"
-identityKey=${home}/.local/share/storj/identity/storagenode/identity.key
-caKey=${home}/.local/share/storj/identity/storagenode/ca.key
-runSimulator=0
 
 if [[ -f $identityKey ]] 
 then
@@ -39,14 +43,13 @@ then
     exit 2
 fi
 
-if [[ $runSimulator -gt 0 ]]
-then
-    identityBinary=" php /tmp/iSimulator.php "
-fi
-
 logMessage "Launching Identity generation program "
 logMessage "Running $identityBinary create storagenode "
-$identityBinary create storagenode --identity-dir /root/.local/share/storj/identity
+$identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 & 
+BG_PID=$!
+echo ${BG_PID} > ${identityPidFile}
+logMessage "$identityBinary launched with PID ${BG_PID}. Going to wait for it"
+tail --pid=${BG_PID} -f /dev/null
 logMessage "Identity key generation completed (STEP#1) "
 
 if [[ ! -f $identityKey  ]]

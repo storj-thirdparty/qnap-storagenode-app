@@ -143,6 +143,29 @@ code {
           if ( $output ){
           } else {
 
+            $identityfile = "identity.pid";
+
+             if(file_exists($identityfile))
+             {
+                $pid = `tail -c 59 $identityfile `;
+
+                // Execute command for check process running or not.
+                exec("ps aux | grep -i '[l]ighttpd -D'", $pid);
+
+                  if(empty($pid)) {
+                    // if process is running then print true.
+                    echo "<span id='identityfile' style='display:none;'>true</span>";
+                  } else {
+                    // if process is not running then print false.
+                    echo "<span id='identityfile' style='display:none;'>false</span>";
+                  }
+
+
+
+              }else{
+                 echo "<span id='identityfile' style='display:none;'>false</span>";
+              }
+
             $file1 = "${rootBase}/storagenode/ca.cert";
             $file2 = "${rootBase}/storagenode/ca.key";
             $file3 = "${rootBase}/storagenode/identity.cert";
@@ -161,7 +184,7 @@ code {
                  echo "<span id='file_exists' style='display:none;'>0</span>";
               }else{
                   echo "<span id='file_exists' style='display:none;'>1</span>";
-                }
+              }
 
           ?>
           <div class="col-10 config-page">
@@ -208,7 +231,7 @@ code {
 
                            <!--  Replace placeholder /path/to/identity to  -->
 
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
                             <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
                             <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
@@ -216,6 +239,7 @@ code {
                             <button class="modal-btn" data-dismiss="modal">Close</button>
                             <!--  Replace Set Identity Path to Create Identity -->
                             <button class="modal-btn" id="create_identity"> Create Identity</button>
+                            <button class="modal-btn" id="stop_identity"> Stop Identity</button>
                           </div>
                         </div>
                       </div>

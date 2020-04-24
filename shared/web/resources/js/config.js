@@ -17,32 +17,39 @@ jQuery(function() {
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
 
+      var identityfile = $("#identityfile").text();
       var file_exists = $("#file_exists").text();
+      if(identityfile =="false"){
 
-    if(file_exists !=="0"){
+        if(file_exists !=="0"){
 
-        jQuery.ajax({
-        type: "POST",
-        url: "identity.php",
-        data: {file_exist : "file_exist"},
-        success: function (result) {
-          if(result==1){
-            // calling createidentifyToken function.
-            createidentifyToken(identitydata);
+            jQuery.ajax({
+            type: "POST",
+            url: "identity.php",
+            data: {file_exist : "file_exist"},
+            success: function (result) {
+              if(result==1){
+                // calling createidentifyToken function.
+                createidentifyToken(identitydata);
 
-            //calling readidentitystatus function.
-            readidentitystatus();
-          }else{
-            console.log("File already exist.");
-            $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
-          }
-        },
-        error: function () {
-          console.log("In tehre wrong on create Identitfy");
+                //calling readidentitystatus function.
+                readidentitystatus();
+              }else{
+                console.log("File already exist.");
+                $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+              }
+            },
+            error: function () {
+              console.log("In tehre wrong on create Identitfy");
+            }
+          });
+
         }
-      });
+      }else{
+         //calling readidentitystatus function.
+          readidentitystatus();
+      }
 
-    }
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
     } else {
@@ -214,36 +221,39 @@ jQuery(function() {
       jQuery("#identity .close").trigger("click");
       jQuery("#editidentitybtn").show();
       // createidentifyToken(identitydata);
-      // readidentitystatus();
 
       var file_exists = $("#file_exists").text();
-      console.log("file_exists",file_exists);
-      if(file_exists !=="0"){
+      if(identityfile =="false"){
 
-          jQuery.ajax({
-          type: "POST",
-          url: "identity.php",
-          data: {file_exist : "file_exist"},
-          success: function (result) {
-            if(result==1){
-              // calling createidentifyToken function.
-              createidentifyToken(identitydata);
+        if(file_exists !=="0"){
 
-              //calling readidentitystatus function.
-              readidentitystatus();
-            }else{
-              console.log("File already exist.");
-              $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+            jQuery.ajax({
+            type: "POST",
+            url: "identity.php",
+            data: {file_exist : "file_exist"},
+            success: function (result) {
+              if(result==1){
+                // calling createidentifyToken function.
+                createidentifyToken(identitydata);
+
+                //calling readidentitystatus function.
+                readidentitystatus();
+              }else{
+                console.log("File already exist.");
+                $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+              }
+            },
+            error: function () {
+              console.log("In tehre wrong on create Identitfy");
             }
-          },
-          error: function () {
-            console.log("In tehre wrong on create Identitfy");
-          }
-        });
+          });
 
+        }
       }else{
-        $("#identity_status").html("<b>identity available at /root/.local/share/storj/identity</b>");
+         //calling readidentitystatus function.
+          readidentitystatus();
       }
+
 
       identitydataval = 1;
       identity_text = "<span class='identity_text'>Identity Generated: </span>";
@@ -512,7 +522,7 @@ function createidentifyToken(createidval){
     identityString: createidval 
         },
       success: function (result) {
-        $("#identity_status").html("<p>"+result+"</p>");
+        $("#identity_status").html("<b>"+result+"</b>");
       },
       error: function () {
         console.log("Error during create Identitfy operation");
@@ -529,10 +539,10 @@ function readidentitystatus(){
       data: {status : "status",},
       success: function (result) {
         if(result == "identity available at /root/.local/share/storj/identity"){
-          $("#identity_status").html("<p>"+result+"</p>");
+          $("#identity_status").html("<b>"+result+"</b>");
           identitydataval = 1;
         }else{
-          $("#identity_status").html("<p>"+result+"</p>");
+          $("#identity_status").html("<b>"+result+"</b>");
         }
       },
       error: function () {
@@ -546,10 +556,10 @@ function readidentitystatus(){
       data: {status : "status",},
       success: function (result) {
         if(result == "identity available at /root/.local/share/storj/identity"){
-            $("#identity_status").html("<p>"+result+"</p>");
+            $("#identity_status").html("<b>"+result+"</b>");
             identitydataval = 1;
         }else{
-          $("#identity_status").html("<p>"+result+"</p>");
+          $("#identity_status").html("<b>"+result+"</b>");
         }
       },
       error: function () {
@@ -572,3 +582,18 @@ function validateIdentity(){
   }
 });
 }
+
+
+jQuery("#stop_identity").click(function(e) {
+    jQuery.ajax({
+      type: "POST",
+      url: "identity.php",
+      data: {isstopAjax : 1},
+      success: function (result) {
+        window.location.reload();
+      },
+      error: function () {
+        console.log("In There wrong on Stop Button");
+      }
+    });
+});
