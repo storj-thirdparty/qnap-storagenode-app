@@ -4,7 +4,7 @@
 
 *QNAP storagenode* is an application for installing the Storj *[storagenode](https://documentation.storj.io/setup/cli/storage-node)* on QNAP NAS devices using the QNAP-native application bundle. The format of the application installed on the QNAP is .qpkg which can be built on [QDK](https://github.com/qnap-dev/QDK#installation).
 
-![qnap_logo](README.assets/qnap_logo.png)
+<p align="center"><img src="README.assets/qnap_logo.png" alt="qnap_logo" /></p>
 
 
 
