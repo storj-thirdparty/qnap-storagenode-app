@@ -3,11 +3,11 @@
 
 *QNAP storagenode* is an application for installing the Storj *[storagenode](https://documentation.storj.io/setup/cli/storage-node)* on QNAP NAS devices using the QNAP-native application bundle. The format of the application installed on the QNAP is .qpkg which can be built on [QDK](https://github.com/qnap-dev/QDK#installation).
 
-<pre>
+
 
 <p align="center"><img src="README.assets/qnap_logo.png" alt="qnap_logo" /></p>
 
-</pre>
+
 
 ## App Use
 
@@ -31,7 +31,7 @@ Currently the application must be manually installed via the QNAP App Center app
 
 **Update** ... During installation a cron tab is created to trigger the update script at 12:05 AM. The scripts checks if the docker container running is latest or not. If the current image is latest then the nothing is done but if it is old then the storagenode is stopped, old container is removed and updated and restarted using the same old parameters that are saved. This all process happen automatically. Also the user can trigger the same process manually whenver they want by pressing the 'Update' button on the UI. 
 
-**(Start | Stop) ** ... will gracefully start and stop the container image.
+**(Start | Stop)** ... will gracefully start and stop the container image.
 
 
 ## Identity Generation
