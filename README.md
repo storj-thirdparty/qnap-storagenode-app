@@ -8,17 +8,17 @@
 
 *QNAP storagenode* is an application for installing the Storj *[storagenode](https://documentation.storj.io/setup/cli/storage-node)* on QNAP NAS devices using the QNAP-native application bundle. The format of the application installed on the QNAP is .qpkg which can be built on [QDK](https://github.com/qnap-dev/QDK#installation).
 
-
+<br />
 
 <p align="center"><img src="README.assets/qnap_logo.png" alt="qnap_logo" /></p>
 
-
+<br />
 
 ## App Use
 
 Currently the application must be manually installed via the QNAP App Center applciation provided with your QNAP.  The App Center is accessable from the Web UI (Desktop) provided from your device.  The app is a html5/php application that 
 
-
+<br />
 
 ## Configuration Items
 
@@ -38,14 +38,14 @@ Currently the application must be manually installed via the QNAP App Center app
 
 **(Start | Stop) ** ... will gracefully start and stop the container image.
 
+<br /><br /><br />
+
 
 ## Identity Generation
 
-Identity Generation is performed using the published Storj identity generation tools.  More information on the process can be found in the [Storj identity generation docs](https://documentation.storj.io/dependencies/identity)
+Identity Generation is performed using the published Storj identity generation tools.  More information on the process can be found in the [Storj identity generation docs](https://documentation.storj.io/dependencies/identity) 
 
-
-
-------
+<br /><br />
 
 
 
@@ -72,7 +72,7 @@ The qpkg file is found at [qnap-app/build](storj-node-qnap/build)
 
 [QPKG Building Instructions](https://edhongcy.gitbooks.io/qdk-quick-start-guide/content/build-your-own-qpkg.html)
 
-
+<br /><br />
 
 ## Notes on Building
 
@@ -81,7 +81,7 @@ The qpkg file is found at [qnap-app/build](storj-node-qnap/build)
 - [To add new icons](https://github.com/qnap-dev/QDK#how-to-add-icons-in-qpkg)
 - Add html/php files in the [web folder (shared/web)](shared/web)
 
-
+<br /><br />
 
 ## Notes on Paths
 
@@ -102,7 +102,7 @@ The qpkg file is found at [qnap-app/build](storj-node-qnap/build)
 - *dashboard.php* will check if the docker is running or not which is queried from STORJ.sh. If the docker is running it will give stop button and show you the dashboard, else it will show a form for wallet, email, port, storage and bandwidth and let you start the container.
   start and stop commands are fired to STORJ.sh
 
-  
+  <br /><br />
 
 ## Debugging
 
@@ -115,7 +115,7 @@ Logging comes from the following sources:
 - */var/log/StorJ* ... Applicaiton log messages
 - */share/Public/identity/logs/storj_identity.log* ... Identity log messages
 
-  
+  <br />
 
 ## More information
 
