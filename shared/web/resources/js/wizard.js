@@ -51,13 +51,17 @@ const app = new Vue({
 		}
 	},
 	methods: {
-		finish() {
-			console.log({
+		async finish() {
+			const data = {
 				email: this.email,
 				address: this.address,
 				host: this.host,
 				identity: this.identity
-			})
+			};
+
+			await axios.post('config.php', data);
+
+			location.href = 'dashboard.php';
 		}
 	}
 });
