@@ -57,6 +57,18 @@
 
 			<div v-if="step === 5">
 				<div class="profile"></div>
+				<h1 class="title">Set Storage Directory</h1>
+
+				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
+
+				<label class="directory-label">Storage Directory</label>
+				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }">
+
+				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
+			</div>
+
+			<div v-if="step === 6">
+				<div class="profile"></div>
 				<h1 class="title">Configure Your External Port Forwarding</h1>
 
 				<p class="tagline">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected</p>
@@ -67,20 +79,46 @@
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
 			</div>
 
-			<div v-if="step === 6">
-				<div class="profile"></div>
-				<h1 class="title">Setup Your Identity Path</h1>
+			<div v-if="step === 7">
+				<div class="identity-step-1" v-if="identityStep === 1">
+					<div class="profile"></div>
+					<h1 class="title">Setup Your Identity Path</h1>
 
-				<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
+					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
 
-				<label class="identity-label">Identity Path</label>
-				<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity">
+					<label class="identity-label">Identity Path</label>
+					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity">
 
-				<button class="no-identity">I don't have an identity</button>
-				<button class="finish" v-on:click="step++">Finish</button>
+					<button class="no-identity" v-on:click="identityStep++">I don't have an identity</button>
+					<button class="finish" v-on:click="step++">Finish</button>
+				</div>
+
+				<div class="identity-step-2" v-if="identityStep === 2">
+					<div class="profile"></div>
+					<h1 class="title">Generate Your Identity</h1>
+
+					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
+
+					<button class="generate" v-on:click="generateIdentity">Generate</button>
+
+					<div class="warning-icon"><img src="resources/img/i.png"></img></div>
+					<p class="warning">Creating identity can take several hours or even days, depending on your machines processing power.</p>
+				</div>
+
+				<div class="identity-step-3" v-if="identityStep === 3">
+					<div class="profile"></div>
+					<h1 class="title">Identity Generation Started</h1>
+
+					<p class="tagline">Creating identity can take several hours or even days, depending on your machines processing power & probability. You will be able to track your progress after configuring the rest</p>
+
+					<div class="logs">{{identityLogs}}</div>
+
+
+					<button class="finish" v-on:click="step++">Finish</button>
+				</div>
 			</div>
 
-			<div v-if="step === 7">
+			<div v-if="step === 8">
 				<div class="profile"></div>
 				<h1 class="title">Congratulations!</h1>
 
@@ -128,7 +166,7 @@
 	</div>
 
 	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/axios.js"></script>
+	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/wizard.js"></script>
 
 </body>
