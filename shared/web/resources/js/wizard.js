@@ -3,8 +3,8 @@ console.log('hello world')
 const app = new Vue({
 	el: "#app",
 	data: {
-		step: 7,
-		identityStep: 2,
+		step: 1,
+		identityStep: 1,
 		identityLogs: '',
 
 		email: '',
