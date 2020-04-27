@@ -11,7 +11,7 @@
 
 ## App Use
 
-Currently the application must be manually installed via the QNAP App Center applciation provided with your QNAP.  The App Center is accessable from the Web UI (Desktop) provided from your device.  The app is a html5/php application that 
+Currently the application must be manually installed via the QNAP App Center application provided with your QNAP.  The App Center is accessable from the Web UI (Desktop) provided from your device.  The app is a local web application that makes it easier to install and configure the Storj *storagenode* service, which include the SNO Dashboard for monitoring your node. 
 
 <br />
 
