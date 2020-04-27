@@ -32,7 +32,7 @@ Currently the application must be manually installed via the QNAP App Center app
 
 **Ethereum Wallet Address** .... It should be a valid ERC-20 compatible wallet address. If this path is invalid the storagenode woould not start. (ex. )
 
-**Email** .... Please check the email id
+**Email** .... Email ID associated with your authorization token invite
 
 **Storage Allocation** .... Be sure not to over-allocate space! Allow at least 10% extra for overhead. If you over-allocate space, you may corrupt your database when the system attempts to store pieces when no more physical space is actually available on your drive. The minimum storage shared requirement is 500 GB, which means you need a disk of at least 550 GB total size to allow for the 10% overhead.
 
@@ -67,10 +67,10 @@ Cloning the repository.
 
 ```bash
 $ git clone https://github.com/storj/qnap-storagenode-app.git
-$ cd qnap-app
+$ cd qnap-storagenode-app
 $ qbuild
 ```
-The qpkg file is found at [qnap-app/build](storj-node-qnap/build)
+The qpkg file is found at qnap-storagenode-app/build](qnap-storagenode-app/build)
 
 [QPKG Building Instructions](https://edhongcy.gitbooks.io/qdk-quick-start-guide/content/build-your-own-qpkg.html)
 
@@ -114,7 +114,7 @@ If you can't see or access the dashboard try the command **docker container ls -
 
 Logging comes from the following sources:
 
-- */var/log/StorJ* ... Applicaiton log messages
+- */var/log/STORJ* ... Applicaiton log messages
 - */share/Public/identity/logs/storj_identity.log* ... Identity log messages
 
   <br />
