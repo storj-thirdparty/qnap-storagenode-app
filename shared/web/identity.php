@@ -11,8 +11,8 @@ $logFile = "/share/Public/identity/logs/storj_identity.log" ;
 
 
 $identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh' ;
+$Path = "/root/.local/share/storj/identity/storagenode/";
 $identityFilePath = "/root/.local/share/storj/identity/storagenode/identity.key" ;
-$Path = "/share/Public//identity/storagenode/";
 $urlToFetch = "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip" ;
 $centralLogFile = "/var/log/STORJ" ;
 
@@ -76,7 +76,8 @@ function identityExists() {
 		$jsonString = file_get_contents($configFile);
 		$data = json_decode($jsonString, true);
 		$data['LogFilePath'] = $logFile;
-		$data['Identity'] = $identityString;
+		$data['AuthKey'] = $identityString;
+		$data['Identity'] = $_POST["identitypath"];
 		#$data['idGenPid'] = $pid ;
 		$data['idGenStartTime'] = $programStartTime ;
 		$newJsonString = json_encode($data);
@@ -94,15 +95,16 @@ function identityExists() {
 	    $jsonString = file_get_contents($configFile);
 	    $data = json_decode($jsonString, true);
 	    $file = $data['LogFilePath'];
-	    $pid =  $data['idGenPid']  ;
+	    // $pid =  $data['idGenPid']  ;
+	    $pid = file_get_contents("identity.pid");
 	    $prgStartTime = $data['idGenStartTime'] ;
 	    $file = escapeshellarg($file);
-	    $lastline = `tail -c 59 $file `;
+	    $lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
 
 	    if( identityExists() && validateExistence()) {
 		logMessage("STATUS: Identity exists ! returning message");
 		    logMessage("identity available at /root/.local/share/storj/identity");
-		echo "identity available at /root/.local/share/storj/identity" ;
+		echo "identity available at $identityFilePath " ;
 	    } else if($lastline == "Done"){	# EXACT Check to be figured out 
 		    logMessage("STATUS: Identity generation completed. Returning message");
 		    logMessage("identity available at /root/.local/share/storj/identity");
@@ -111,6 +113,7 @@ function identityExists() {
 	    	$lastline = preg_replace('/\n$/', '', $lastline);
 		logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
 		echo "Identity generation STATUS($date):<BR> " .
+			"Process ID: $pid , " .
 			    "Started at:  $prgStartTime <BR>" . $lastline ;
 	    }
 

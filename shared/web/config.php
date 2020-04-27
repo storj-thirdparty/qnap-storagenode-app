@@ -8,7 +8,7 @@ $filename = "config.json";
 $platformBase   = $_SERVER['DOCUMENT_ROOT'];
 $moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 $scriptsBase    = $moduleBase . '/scripts' ;
-$rootBase	= "/root/.local/share/storj/identity" ;
+// $rootBase	= "/root/.local/share/storj/identity" ;
 
 
 $file           = $moduleBase  . DIRECTORY_SEPARATOR . $filename  ;
@@ -19,6 +19,10 @@ $checkScript    = $scriptsBase . DIRECTORY_SEPARATOR . 'checkStorj.sh' ;
 $isRunning      = $scriptsBase . DIRECTORY_SEPARATOR . 'isRunning.sh' ;
 $storageBinary  = $scriptsBase . DIRECTORY_SEPARATOR . 'storagenode' ;
 $yamlPath	= $scriptsBase . DIRECTORY_SEPARATOR . 'docker-compose_base.yml' ;
+
+$identityFile   = $moduleBase  . DIRECTORY_SEPARATOR . 'identity.pid' ;
+
+
 logMessage("------------------------------------------------------------------------------");
 logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
 # ------------------------------------------------------------------------
@@ -39,7 +43,8 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 
     $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
-    $_identity_directory = "/root/.local/share/storj/identity/storagenode" ;
+    // $_identity_directory = "/root/.local/share/storj/identity/storagenode" ;
+    $_identity_directory = $_POST["identity"];
     $_authKey = $_POST['authKey'];
    
     //Changing permissions of the shell script
@@ -116,9 +121,13 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 	//
   // checking if file exists.
   if(file_exists($file)){
-	$content = file_get_contents($file);
-	$prop = json_decode($content, true);
-	logMessage("Loaded properties : " . print_r($prop, true));
+  	$content = file_get_contents($file);
+  	$prop = json_decode($content, true);
+  	logMessage("Loaded properties : " . print_r($prop, true));
+
+    // Identity Path
+    $rootBase = $prop['Identity'] ;
+
   }
 
 {
@@ -143,23 +152,21 @@ code {
           if ( $output ){
           } else {
 
-            $identityfile = "identity.pid";
-
-             if(file_exists($identityfile))
+             if(file_exists($identityFile))
              {
-                $pid = `tail -c 59 $identityfile `;
+                $pid = file_get_contents($identityFile);
+		$pid = (int)$pid ;
 
-                // Execute command for check process running or not.
-                exec("ps aux | grep -i '[l]ighttpd -D'", $pid);
+                // Figure out whether process is running
+		$status = exec("if [ -d '/proc/$pid' ] ; then (echo 1 ; exit 0) ; else (echo 0 ; exit 2 ) ; fi");
 
-                  if(empty($pid)) {
+                  if($status == 1) {
                     // if process is running then print true.
                     echo "<span id='identityfile' style='display:none;'>true</span>";
                   } else {
                     // if process is not running then print false.
                     echo "<span id='identityfile' style='display:none;'>false</span>";
                   }
-
 
 
               }else{
@@ -171,7 +178,6 @@ code {
             $file3 = "${rootBase}/storagenode/identity.cert";
             $file4 = "${rootBase}/storagenode/identity.key";
       	    $numFiles = `ls ${rootBase}/storagenode | wc -l ` ;
-      	    $numFiles = (int) $numFiles ;
 
              if(
           		($numFiles == 6) and 
@@ -199,40 +205,40 @@ code {
                     <h4 class="segment-title">Identity</h4>
                     <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
 
-                   <!--  hide Identity Generated message -->
-                    <!-- <span id="idetityval"></span> -->
-
                     <span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
-                      <!--  Replace Edit Identity Path to Authorization  Token -->
                       Edit Authorization Token
                     </button></span>
                     <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
-                       <!--  Replace Set Identity Path to Enter Authorization Token -->
+                  
                    Enter Authorization Token
                     </button>
-                    <!-- identity status -->
+                  
                     <br><br>
-                    <!-- <b><p id="identity_status"></p></b> -->
+                   
                     <div id="identity_status" style="overflow: auto;"><B> LATEST LOG </B></div>
 
                     <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                             <!--  Replace Identity Folder path to Identity -->
+                          
                           <h5 class="modal-title">Identity</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <!--  Replace Identity Path to Authorization Token -->
+                        
                             <p class="modal-input-title">Authorization Token</p>
 
-                           <!--  Replace placeholder /path/to/identity to  -->
+                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
 
-                            <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
-                            <p class="identity_token_msg msg" style="display:none;">This is required Field</p>
+                            <p class="modal-input-title">Identity Path</p>
+
+                            <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
+                            <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
+
+
                             <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                           </div>
                           <div class="modal-footer">
