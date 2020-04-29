@@ -12,7 +12,7 @@ jQuery(function() {
   var directoryAllocation = jQuery("#storage_directory").val();
 
   // Get values
-  if(identitydata !== '') {
+  // if(identitydata !== '') {
        if(identitypath !== '') {
          jQuery(".identity_path_msg").hide();
           jQuery("#identitybtn").hide();
@@ -58,12 +58,12 @@ jQuery(function() {
             identitydataval = 0;
             identity_text = '';
         }
-    } else {
-      jQuery(".identity_path_msg").show();
-      jQuery("#editidentitybtn").hide();
-      identitydataval = 0;
-      identity_text = '';
-    }
+    // } else {
+    //   jQuery(".identity_path_msg").show();
+    //   jQuery("#editidentitybtn").hide();
+    //   identitydataval = 0;
+    //   identity_text = '';
+    // }
     jQuery("#idetityval").html('');
     identity_val = identitydata;
     identity_path = identitypath;
@@ -436,7 +436,7 @@ jQuery(function() {
 });
 
 function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
-  if(createidentitydataval === 1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && emailAddressvaldata == 1 && directoryAllocationvaldata === 1) {
+  if(createidentitydataval ===1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && directoryAllocationvaldata === 1) {
     
     // jQuery("#startbtn").removeAttr("disabled", true);
     // jQuery("#startbtn").css("cursor", "pointer");
@@ -500,7 +500,7 @@ jQuery("#updatebtn").click(function(e) {
 });
 
 
-if(jQuery("#identity_token").val() == "" || jQuery("#identity_token").val() ==null || jQuery("#host_address").val() =="" || jQuery("#host_address").val() ==null || jQuery("#wallet_address").val() =="" || jQuery("#wallet_address").val() ==null || parseInt(jQuery("#storage_allocate").val()) =="" || parseInt(jQuery("#storage_allocate").val()) ==null || jQuery("#email_address").val() =="" || jQuery("#email_address").val() ==null || jQuery("#storage_directory").val() =="" || jQuery("#storage_directory").val() ==null){
+if(jQuery("#identity_token").val() ==null || jQuery("#host_address").val() =="" || jQuery("#host_address").val() ==null || jQuery("#wallet_address").val() =="" || jQuery("#wallet_address").val() ==null || parseInt(jQuery("#storage_allocate").val()) =="" || parseInt(jQuery("#storage_allocate").val()) ==null  || jQuery("#email_address").val() ==null || jQuery("#storage_directory").val() =="" || jQuery("#storage_directory").val() ==null){
 
   }else{
     jQuery.ajax({
@@ -620,4 +620,20 @@ jQuery("#stop_identity").click(function(e) {
         console.log("In There wrong on Stop Button");
       }
     });
+});
+
+$("#identity_path").change(function(){
+  identity_path = $(this).val();
+  if(identity_path == "" || identity_path ==null){
+    identitydataval = 0;
+    jQuery(".identity_path_msg").show();
+    jQuery("#editidentitybtn").hide();
+    jQuery("#identitybtn").show();
+  }else{
+    jQuery(".identity_path_msg").hide();
+    jQuery("#editidentitybtn").hide();
+    jQuery("#identitybtn").show();
+    identitydataval = 1;
+  }
+  showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
 });

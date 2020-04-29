@@ -26,7 +26,7 @@
 				<label class="email-label">Email Address</label>
 				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }">
 
-				<button class="skip">Skip this step</button>
+				<button class="skip" v-on:click="step++">Skip this step</button>
 				<button class="continue" v-on:click="step++" v-bind:disabled="!emailValid">Continue</button>
 			</div>
 
@@ -99,6 +99,10 @@
 
 					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
 
+					<label>Authorization Token</label>
+					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey" class="invalid"><br><br><br><br>
+
+
 					<button class="generate" v-on:click="generateIdentity">Generate</button>
 
 					<div class="warning-icon"><img src="resources/img/i.png"></img></div>
@@ -168,5 +172,6 @@
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/wizard.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
 </body>

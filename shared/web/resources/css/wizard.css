@@ -912,7 +912,8 @@ body {
 	position: absolute;
 	left: 618px;
 	right: 617px;
-	top: 444px;
+	/*top: 444px;*/
+	top: 549px;
 	bottom: 408px;
 
 	/* acnt-1 */
@@ -938,7 +939,8 @@ body {
 	position: absolute;
 	left: 33.96%;
 	right: 31.18%;
-	top: 61.33%;
+	/*top: 61.33%;*/
+	top: 70.33%;
 	bottom: 34.11%;
 
 	font-family: Inter;
@@ -959,7 +961,8 @@ body {
 	width: 24px;
 	height: 24px;
 	left: 445px;
-	top: 561px;
+	/*top: 561px;*/
+	top: 635px;
 
 	border-radius: 12px;
 
@@ -1035,6 +1038,9 @@ body {
 	line-height: 135%;
 
 	color: #0D1826;
+
+	padding: 15px;
+    overflow-x: auto;
 }
 
 .identity-step-3 .finish {
@@ -1528,4 +1534,51 @@ body {
 	text-align: center;
 
 	color: rgba(56, 75, 101, 0.4);
+}
+
+
+.identity-step-2 input {
+	position: absolute;
+	left: 442px;
+	right: 617px;
+	top: 475px;
+	bottom: 408px;
+
+	/* acnt-1 */
+
+	width: 550px;
+	height: 52px;
+
+	background: #FFFFFF;
+	border: 1px solid #DEE4ED;
+	box-sizing: border-box;
+	border-radius: 6px;
+
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 134.09%;
+
+	padding: 20px;
+}
+
+.identity-step-2 label {
+	position: absolute;
+	height: 22px;
+	left: 445px;
+	right: 735px;
+	top: 445px;
+
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 134.09%;
+	/* identical to box height, or 21px */
+
+	display: flex;
+	align-items: center;
+
+	color: #384B65;
 }

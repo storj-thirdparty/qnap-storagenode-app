@@ -16,7 +16,7 @@ echo "$cmd" >> $LOG
 $cmd >> $LOG 2>&1 
 echo $output >> $LOG 
 echo $output 
-output=`docker ps -a `
+output=`docker ps -a | grep ${CONTAINER_NAME} `
 echo $output >> $LOG 
 cat <<< $output
 

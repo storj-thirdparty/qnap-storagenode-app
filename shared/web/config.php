@@ -29,6 +29,28 @@ logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($sc
 
 
 $output = "";
+$data = json_decode(file_get_contents("php://input"), TRUE);
+$email = $data['email'];
+$address = $data['address'];
+$host = $data['host'];
+$storage = $data['storage'];
+$directory = $data['directory'];
+$identity = $data['identity'];
+if($data){
+
+    $jsonString = file_get_contents($file);
+    $data = json_decode($jsonString, true);
+
+    $data['Identity'] = $identity;
+    $data['Port'] = $host;
+    $data['Wallet'] = $address;
+    $data['Allocation'] = $storage;
+    $data['Email'] = $email;
+    $data['Directory'] = $directory;
+    $newJsonString = json_encode($data);
+    file_put_contents($file, $newJsonString);
+  }
+
 
 if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     logMessage("config called up with isajax 1 ");
@@ -127,6 +149,10 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 
     // Identity Path
     $rootBase = $prop['Identity'] ;
+
+    if($prop['Identity'] == "" && $prop['Identity'] == null && $prop['Port'] == "" && $prop['Port'] == null && $prop['Wallet'] == "" && $prop['Wallet'] == null && $prop['Allocation'] == "" && $prop['Allocation'] == null && $prop['Email'] == "" && $prop['Email'] == null && $prop['Directory'] == "" && $prop['Directory'] == null){
+      echo "<script>location.href = 'wizard.html';</script>";
+    }
 
   }
 

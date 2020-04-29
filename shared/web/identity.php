@@ -49,6 +49,13 @@ function identityExists() {
     logMessage( "================== identity.php invoked ================== ");
     if (isset($_POST["createidval"])){
 		logMessage("Identity php called for creation purpose identityString : " . $_POST['identityString']);
+		// Saving Identity Path and Auth Key in JSON file.
+		$jsonString = file_get_contents($configFile);
+		$data = json_decode($jsonString, true);
+		$data['AuthKey'] = $_POST["identityString"];
+		$data['Identity'] = $_POST["identitypath"];
+		$newJsonString = json_encode($data);
+		file_put_contents($configFile, $newJsonString);		
 		
 		if(identityExists() && validateExistence()) {
 		    logMessage("Identity Key File and others already available");
@@ -76,8 +83,8 @@ function identityExists() {
 		$jsonString = file_get_contents($configFile);
 		$data = json_decode($jsonString, true);
 		$data['LogFilePath'] = $logFile;
-		$data['AuthKey'] = $identityString;
-		$data['Identity'] = $_POST["identitypath"];
+		#$data['AuthKey'] = $_POST["identityString"];
+		#$data['Identity'] = $_POST["identitypath"];
 		#$data['idGenPid'] = $pid ;
 		$data['idGenStartTime'] = $programStartTime ;
 		$newJsonString = json_encode($data);
