@@ -172,6 +172,7 @@ input[type=number]::-webkit-outer-spin-button {
 .identity_note{display:inline-block;font-size: 14px; margin-top: 18px; color: #245AC3}
 .identity_note span{font-weight: bold;}
 #startbtn{height: 46px;}
+#stopbtn{height: 46px;}
 #updatebtn{margin-left: 35px;}
 
  /*log message*/
@@ -181,5 +182,40 @@ iframe{
   margin: 5px;		
   margin-left: 35px;
   border: 1px solid #E5E5E5;
-  border-radius: 10px;				
+  border-radius: 10px;
+  padding: 5px;			
 }
+
+/*RClone*/
+.segment .name_icon {
+  background-image: url(./../img/identity.png);
+  background-repeat: round;
+}
+.segment .scope-icon{
+  background-image: url(./../img/storage-alloc.png);
+  background-repeat: round;
+}
+.segment .viewaccess-icon{
+  background-image: url(./../img/port-forwarding.png);
+  background-repeat: round;
+}
+.segment .defaults-icon{
+  background-image: url(./../img/wallet-addr.png);
+  background-repeat: round;
+}
+#nameval{color: #245AC3}
+#nameval .name_text{font-weight: 600;}
+#viewaccessval{color: #245AC3}
+#scopeval{color: #245AC3}
+#defaultsval{color: #245AC3}
+#defaultsval .defaults_text{font-weight: 600;}
+.rclonebtns{width: 175px;padding: 10px;}
+.configbtns{width: 215px;padding: 10px;}
+.rcloneloader{font-size:24px;position: absolute;margin-left: 60px;display: none;}
+.runrcloneloader{font-size:24px;position: absolute;margin-left: 30px;display:none ;}
+
+ /*log message*/
+iframe{width:95%;height: 120px;margin: 5px;   margin-left: 35px;border: 1px solid #E5E5E5;border-radius: 10px;}
+
+/*identity status*/
+#identity_status{width: 100%;height: 69px;position: relative;margin: 0px;left: 8px;border: 1px solid #E5E5E5;border-radius: 10px;padding: 10px;white-space: normal;}

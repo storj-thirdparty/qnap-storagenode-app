@@ -78,7 +78,7 @@ CMD_LS="/bin/ls"
 ## Location of installed software.
 #SYS_QPKG_DIR=""
 ## If the QPKG should be enabled or disabled after the installation/upgrade.
-#SYS_QPKG_SERVICE_ENABLED=""
+SYS_QPKG_SERVICE_ENABLED="TRUE"
 ## Architecture of the device the QPKG is installed on.
 #SYS_CPU_ARCH=""
 ## Name and location of system shares
@@ -101,7 +101,7 @@ CMD_LS="/bin/ls"
 ######################################################################
 # STORJ specific variables definitions
 ######################################################################
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOGFILE="/var/log/$PKGNAME"
 ######################################################################
 # All package specific functions shall call 'err_log MSG' if an error
@@ -112,41 +112,87 @@ LOGFILE="/var/log/$PKGNAME"
 # Define any package specific operations that shall be performed when
 # the package is removed.
 ######################################################################
-PKG_PRE_REMOVE={
-
+PKG_PRE_REMOVE="{
 # -----------------------------------------------------------
 # Cleanup docker containers and images
 # -----------------------------------------------------------
-export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
-BASE_IMAGE="storjlabs/storagenode:beta"
-REGISTRY=""
-IMAGE="$BASE_IMAGE"
+export PATH=\$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
+BASE_IMAGE=storjlabs/storagenode:beta
+CONTAINER_NAME=storjlabsSnContainer
+LOGFILE=$LOGFILE
+IMAGE=\$BASE_IMAGE
+REGISTRY=
 
-CID=$(docker ps -a | grep $IMAGE | awk '{print $1}')
-for im in $CID
-do
-    NAME=`docker inspect --format '{{.Name}}' $im | sed "s/\///g"`
-    echo `date` "Killing : Container($im) (name:$NAME) ">> $LOGFILE
-    docker stop $NAME
-    docker rm -f $NAME
-done
-echo `date` "Removing : (image:$IMAGE) ">> $LOGFILE
-docker rmi $IMAGE
+echo 'Running Package pre-remove function' >> \$LOGFILE
+docker stop \$CONTAINER_NAME	>> \$LOGFILE
+docker rm -f \$CONTAINER_NAME	>> \$LOGFILE
+# -----------------------------------------------------------
+# Cleanup cron entries
+# -----------------------------------------------------------
+BASE_PATH=/share/Web/STORJ
+CONFIG_FILE=\$BASE_PATH/config.json
+SJCRON=\`mktemp\`
+NEWCRON=\`mktemp\`
+CRONBAK=/tmp/sj_cron.bak
 
+dumpEntries() {
+    echo \"\$1 (first 3 entries and last entries) ====> \" >> \$LOGFILE
+    cat \$1 | head -3 >> \$LOGFILE
+    echo '................' >> \$LOGFILE
+    cat \$1 | tail -3 >> \$LOGFILE
 }
+
+fetchCron() {
+    rm -f \$SJCRON
+    # Fetch required crontab (Update user for fetch if required)
+    crontab -l > \$SJCRON
+    echo \`date\` \"Fetched crontab to temp \$SJCRON  \" >> \$LOGFILE
+    dumpEntries \$SJCRON
+}
+removeEntryFromCronTable() {
+    # Update entry into crontab contents
+    echo \"Cleaning up using cat \$SJCRON | grep -E -v -e '\$1' > \$NEWCRON\" >> \$LOGFILE
+    cat \$SJCRON | grep -E -v -e \"\$1\" > \$NEWCRON 2>> \$LOGFILE
+    echo \`date\` \" updated cron being installed through \$NEWCRON \" >> \$LOGFILE
+}
+
+updateCron() {
+    # Update to required crontab (Update user if required)
+    dumpEntries \$NEWCRON
+    if [[ -s \$NEWCRON ]]
+    then
+	    echo \`date\` \"Setting crontab through \$NEWCRON \" >> \$LOGFILE
+	    crontab \$NEWCRON
+    fi
+    # Save old cron 
+    mv \$SJCRON \$CRONBAK   
+    echo \`date\` \"OLD cron is saved at \$CRONBAK \" >> \$LOGFILE
+    rm -f \$NEWCRON
+}
+
+
+# Update CRON Tab entry
+fetchCron
+removeEntryFromCronTable \"5\\s0.*\$BASE_PATH/scripts/storagenodeupdate.sh\\s\$BASE_PATH/config.json\"
+updateCron
+# -----------------------------------------------------------
+
+}"
 #
 #PKG_MAIN_REMOVE="{
 #}"
 #
-#PKG_POST_REMOVE="{
-#}"
+PKG_POST_REMOVE="{
+echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
+}"
 #
 ######################################################################
 # Define any package specific initialization that shall be performed
 # before the package is installed.
 ######################################################################
-#pkg_init(){
-#}
+pkg_init(){
+echo `date ` "RUNNING pkg_init (ver $QPKG_VER) " >> $LOGFILE
+}
 #
 ######################################################################
 # Define any package specific requirement checks that shall be
@@ -159,31 +205,78 @@ docker rmi $IMAGE
 # Define any package specific operations that shall be performed when
 # the package is installed.
 ######################################################################
-#pkg_pre_install(){
-#}
+pkg_pre_install(){
+#$CMD_RM $LOGFILE $LOGFILERC	# if required
+$CMD_TOUCH $LOGFILE $LOGFILERC
+$CMD_CHOWN httpdusr $LOGFILE $LOGFILERC
+$CMD_CHMOD 666 $LOGFILE $LOGFILERC
+echo `date ` " pre install completed (ver $QPKG_VER) " >> $LOGFILE
+}
 #
-#pkg_install(){
-#}
+pkg_install(){
+echo `date ` "INSTALL run completed (ver $QPKG_VER) " >> $LOGFILE
+}
 #
 pkg_post_install(){
+echo `date ` " RUNNING post install " >> $LOGFILE
 #$cd /share/Public/
 #Changing the file permissions for retentive parameters
 $CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
+$CMD_CHOWN -R httpdusr /share/CACHEDEV1_DATA/.qpkg/STORJ
+$CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/conf
 $CMD_CHOWN admin /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 $CMD_CHMOD a+rx /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
 $CMD_CHMOD u+s /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
-$CMD_WGET https://github.com/storj/storj/releases/download/v0.25.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
-$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/
-$CMD_CHMOD +x /share/Public/identity_linux_amd64 
+
+#------------------Identity Creation----------------------------------------------
+$CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
+$CMD_MKDIR -p /share/Public/identity
+$CMD_MKDIR -p /share/Public/identity/logs
+$CMD_MKDIR /share/Public/identity.bin
+#$CMD_RM -rf /share/Public/identity
+$CMD_MKDIR -p /root/.local/share/storj/identity
+
+$CMD_CHOWN -R httpdusr /share/Public/identity /share/Public/identity.bin
+$CMD_CHOWN -R httpdusr /root/.local/share/storj/identity
+$CMD_CHMOD a+rx /root/.local/share/storj/identity
+
+$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/identity.bin
+$CMD_CHMOD +x /share/Public/identity.bin/identity*
 $CMD_RM /share/Public/identity_linux_amd64.zip
-#$CMD_LS /share/Public/ 2>&1 | tee /share/Public/output.txt
-$CMD_MKDIR /share/Public/identity
 #/share/Public/identity_linux_amd64 create storagenode --identity-dir /share/Public/identity  2>&1 | tee /share/Public/output.txt
 $CMD_MKDIR /id
 $CMD_CHMOD -R 777 /id
 #$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
 #$CMD_RM /share/Public/identity_linux_amd64
 #$CMD_MKDIR /share/Public/Demo_Routine
-$CMD_TOUCH $LOGFILE
-$CMD_CHMOD 666 $LOGFILE
+
+# ------- cron setup ------------------------------
+BASE_PATH="/share/Web/STORJ"
+CONFIG_FILE="${BASE_PATH}/config.json"
+SJCRON="/tmp/sjcrontable"
+
+fetchCron() {
+    rm -f $SJCRON
+    # Fetch required crontab (Update user for fetch if required)
+    crontab -l > $SJCRON
+}
+addEntryToCronTable() {
+    # Update entry into crontab contents
+    grep -Fq "$1" ${SJCRON} || echo "$1" >> ${SJCRON}
+    echo "check/put entry in cron file: $1 "  >> ${LOGFILE}
+}
+updateCron() {
+    # Update to required crontab (Update user if required)
+    crontab $SJCRON
+    rm -f $SJCRON
+}
+
+# Setup CRON Tab entry
+fetchCron
+addEntryToCronTable "5 0 * * * ${BASE_PATH}/scripts/storagenodeupdate.sh ${CONFIG_FILE} "
+updateCron
+# ------- cron setup ------------------------------
+
+echo `date ` " post install COMPLETED (ver $QPKG_VER) "  >> $LOGFILE
+
 }

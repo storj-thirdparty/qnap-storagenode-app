@@ -1,19 +1,19 @@
 #!/bin/bash
 # This script starts storagenode 
-PKGNAME="StorJ"
+PKGNAME="STORJ"
 LOG="/var/log/$PKGNAME"
 echo `date` "Storagenode is starting" >> $LOG
 
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 IPADDR=$(ip -4 -o addr show eth0 | awk '{print $4}' | cut -d "/" -f 1)
+PORTADDR=$(sed -e 's#.*:\(\)#\1#' <<< "${1}")
+CONTAINER_NAME=storjlabsSnContainer
 
-cmd="docker run -d --restart no -p \"${1}\":28967 -p 14002:14002 -e WALLET=\"${2}\" -e EMAIL=\"${3}\" -e ADDRESS=\"${IPADDR}:${1}\" -e BANDWIDTH=\"${4}TB\" -e STORAGE=\"${5}TB\" -v ${6}:/app/identity -v ${7}:/app/config --name storagenode storjlabs/storagenode:beta "
-echo `date` " Starting Storagenode ---> " >> $LOG
+echo `date` " Starting Storagenode ${CONTAINER_NAME} ---> " >> $LOG
 docker ps -a  >> $LOG
-echo "$cmd" >> $LOG 
-
-
-docker run -d --restart no -p "${1}":28967 -p 14002:14002 -e WALLET="${2}" -e EMAIL="${3}" -e ADDRESS="${IPADDR}:${1}" -e BANDWIDTH="${4}TB" -e STORAGE="${5}TB" -v ${6}:/app/identity -v ${7}:/app/config --name storagenode storjlabs/storagenode:beta 
+cmd="docker run -d --restart no -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e EMAIL=${3} -e ADDRESS=${1} -e STORAGE=${4}GB -v ${5}:/app/identity -v ${6}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta " 
+echo "$cmd" >> $LOG
+$cmd >> $LOG 2>&1 
 echo $output >> $LOG 
 echo $output 
 output=`docker ps -a `
