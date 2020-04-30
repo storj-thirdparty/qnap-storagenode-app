@@ -13,9 +13,23 @@ const app = new Vue({
 		directory: '',
 		host: '',
 		identity: '',
+		authkey: '',
 
 	},
+
+	created () {
+        this.email = document.querySelector(".email").value
+        this.address = document.querySelector(".address").value
+        this.storage = document.querySelector(".storage").value
+        this.directory = document.querySelector(".directory").value
+        this.host = document.querySelector(".host").value
+        this.identity = document.querySelector(".identity").value
+
+        this.authkey = document.querySelector("#authkey").value
+    },
+
 	computed: {
+
 		stepClass() {
 			const obj = {};
 
@@ -55,15 +69,19 @@ const app = new Vue({
 			}
 
 			return true;
+		},
+
+		identityValid() {
+			return this.identity.length > 1;
 		}
 	},
 	methods: {
 		async generateIdentity() {
 			var authkey = $("#authkey").val();
-			var identitypath = "/root/.local/share/storj/identity/storagenode";
-			this.identity = identitypath;
+			// var identitypath = "/root/.local/share/storj/identity/storagenode";
+			// this.identity = identitypath;
 			if(authkey !== ""){
-				createidentifyToken(authkey,identitypath);
+				createidentifyToken(authkey,this.identity);
 				this.identityStep++;
 
 
@@ -98,7 +116,6 @@ const app = new Vue({
 		}
 	}
 });
-
 
  // Create identity.
 function createidentifyToken(createidval,identitypath){

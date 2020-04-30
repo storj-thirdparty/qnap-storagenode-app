@@ -15,6 +15,7 @@ $Path = "/root/.local/share/storj/identity/storagenode/";
 $identityFilePath = "/root/.local/share/storj/identity/storagenode/identity.key" ;
 $urlToFetch = "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip" ;
 $centralLogFile = "/var/log/STORJ" ;
+$identitypidFile   = $moduleBase  . DIRECTORY_SEPARATOR . 'identity.pid' ;
 
 # ------------------------------------------------------------------------
 
@@ -72,8 +73,10 @@ function identityExists() {
 		}
 		$identityString = $_POST["identityString"] ;
 		logMessage("value of identityString($identityString)");
+		$identityPath = $_POST["identitypath"] ;
+		logMessage("value of identityPath($identityPath)");
 
-		$cmd = "$identityGenScriptPath $identityString > ${logFile}.a 2>&1 & "; 
+		$cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile}.a 2>&1 & "; 
 	
 		$programStartTime = Date('Y-m-d H:i:s');
 		logMessage("Launching command $cmd and capturing log in $logFile ");
@@ -138,16 +141,23 @@ function identityExists() {
 		logMessage("(file_exist) File $identityFilePath or others don't exists !");
     		echo "1";	# FILE NOT FOUND
     	}
+    } else if(isset($_POST['isstopAjax']) && ($_POST['isstopAjax'] == 1)){
+	// Stop Identity
+	if(file_exists($identitypidFile)) {
+                $pid = file_get_contents($identitypidFile);
+		$pid = (int)$pid ;
+		// Stop Identity
+		$output = shell_exec("kill -9 $pid");
+		$msg = "Identity creation stopped (no identity generated)!\n$output";
+	} else {
+		$msg = "Identity creation process not found";
+	}
+	logMessage($msg);
+	echo $msg ;
+    } else {
+	logMessage("Identity php called (PURPOSE NOT CLEAR)!");
     }
-
-    else if(isset($_POST['isstopAjax']) && ($_POST['isstopAjax'] == 1)){
-	    // Stop Identity
-  	}
-
-    else {
-		logMessage("Identity php called (PURPOSE NOT CLEAR)!");
-    }
-    return (0);
+return (0);
 
 function logEnvironment() {
 	logMessage( "POST is : " . print_r($_POST, true));

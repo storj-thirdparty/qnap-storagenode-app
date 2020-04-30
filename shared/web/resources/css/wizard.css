@@ -6,11 +6,11 @@ body {
 }
 
 #app {
-	width: 1400px;
+	/*width: 1400px;
 	height: 900px;
 	position: relative;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto;*/
 }
 
 .back {
@@ -27,8 +27,8 @@ body {
 	background: white;
 	display: block;
 
-	width: 1400px;
-	height: 900px;
+	/*width: 1400px;
+	height: 900px;*/
 
 	font-family: 'Inter';
 }
@@ -189,6 +189,7 @@ body {
 	align-items: center;
 
 	color: #384B65;
+	width: 200px;
 }
 
 .step-2 .email {
@@ -319,6 +320,9 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+
+	width: 200px;
 }
 
 .step-3 .address {
@@ -429,6 +433,8 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+	width: 200px;
 }
 
 .step-4 .storage {
@@ -565,6 +571,8 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+	width: 200px;
 }
 
 .step-5 .directory {
@@ -677,6 +685,8 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+	width: 200px;
 }
 
 .step-6 .host {
@@ -791,6 +801,8 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+	width: 200px;
 }
 
 .identity-step-1 .identity {
@@ -937,10 +949,12 @@ body {
 
 .identity-step-2 .warning {
 	position: absolute;
-	left: 33.96%;
+	/*left: 33.96%;*/
 	right: 31.18%;
 	/*top: 61.33%;*/
-	top: 70.33%;
+
+	left: 38%;
+	top: 97%;
 	bottom: 34.11%;
 
 	font-family: Inter;
@@ -1581,4 +1595,36 @@ body {
 	align-items: center;
 
 	color: #384B65;
+
+	width: 200px;
+}
+
+.homeicon{
+	position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 30px ! important;
+    color: #2683FF;
+}
+
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+
+	.step{position: absolute;left: 130px;width: 80%;}
+}
+
+@media (min-width: 1919px) and (max-width: 2200px) {
+
+	.step{position: absolute;left: 300px;width: 80%;}
+
+}
+
+@media (min-width: 2200px) and (max-width: 3000px) {
+
+	.step{position: absolute;left: 500px;width: 80%;}
+}
+
+@media (min-width: 3000px) and (max-width: 8000px) {
+
+	.step{position: absolute;left: 1000px;width: 80%;}
 }

@@ -86,7 +86,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 	    'Directory' => "$_directory"
 	    );
     file_put_contents($file, json_encode($properties));
-    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_emailId $_storage $_identity_directory $_directory 2>&1 ");
+    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_emailId $_storage $_identity_directory/storagenode $_directory 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
@@ -151,7 +151,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     $rootBase = $prop['Identity'] ;
 
     if($prop['Identity'] == "" && $prop['Identity'] == null && $prop['Port'] == "" && $prop['Port'] == null && $prop['Wallet'] == "" && $prop['Wallet'] == null && $prop['Allocation'] == "" && $prop['Allocation'] == null && $prop['Email'] == "" && $prop['Email'] == null && $prop['Directory'] == "" && $prop['Directory'] == null){
-      echo "<script>location.href = 'wizard.html';</script>";
+      echo "<script>location.href = 'wizard.php';</script>";
     }
 
   }
@@ -271,7 +271,7 @@ code {
                             <button class="modal-btn" data-dismiss="modal">Close</button>
                             <!--  Replace Set Identity Path to Create Identity -->
                             <button class="modal-btn" id="create_identity"> Create Identity</button>
-                            <button class="modal-btn" id="stop_identity"> Stop Identity</button>
+                            <button class="modal-btn" id="stop_identity" disabled style="cursor: not-allowed;"> Stop Identity</button>
                           </div>
                         </div>
                       </div>
@@ -471,6 +471,35 @@ code {
           <?php }
         } ?>
   </div>
+
+  <div class="container">
+      <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Config</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+             <p>Identity creating at <b>/root/.local/share/storj/identity/storagenode</b></p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+  
+</div>
+
 <?php include 'footer.php';?>
 <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php

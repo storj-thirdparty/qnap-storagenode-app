@@ -47,6 +47,11 @@ jQuery(function() {
                 }
               }else{
                   readidentitystatus();
+
+                  $("#create_identity").attr("disabled",true);
+                  $("#create_identity").css("cursor","not-allowed")
+                  $("#stop_identity").removeAttr("disabled");
+                  $("#stop_identity").css("cursor","pointer");
               }
 
               identitydataval = 1;
@@ -245,8 +250,15 @@ jQuery(function() {
                     data: {file_exist : "file_exist"},
                     success: function (result) {
                       if(result==1){
+
                         createidentifyToken(identitydata,identitypath);
                         readidentitystatus();
+
+                        $("#create_identity").attr("disabled",true);
+                        $("#create_identity").css("cursor","not-allowed")
+                        $("#stop_identity").removeAttr("disabled");
+                        $("#stop_identity").css("cursor","pointer");
+
                       }else if(result==0){
                         $("#identity_status").html("<b>Identity files exist.</b>");
                       }else{
@@ -263,6 +275,9 @@ jQuery(function() {
                 }
               }else{
                   readidentitystatus();
+
+                  $("#create_identity").attr("disabled").css("cursor","not-allowed");
+                  $("#stop_identity").removeAttr("disabled").css("cursor","pointer");
               }
 
               identitydataval = 1;
@@ -537,21 +552,23 @@ if(jQuery("#identity_token").val() ==null || jQuery("#host_address").val() =="" 
   
   // Create identity.
 function createidentifyToken(createidval,identitypath){
-   jQuery.ajax({
+
+  jQuery.ajax({
       type: "POST",
       url: "identity.php",
       data: {
-    createidval : createidval,
-    identitypath : identitypath,
-    identityString: createidval 
-        },
-      success: function (result) {
-        $("#identity_status").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
+        createidval : createidval,
+        identitypath : identitypath,
+        identityString: createidval 
       },
-      error: function () {
-        console.log("Error during create Identitfy operation");
-      }
+          success: function (result) {
+            $("#identity_status").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
+          },
+          error: function () {
+            console.log("Error during create Identitfy operation");
+          }
     });
+
 }
 
 
