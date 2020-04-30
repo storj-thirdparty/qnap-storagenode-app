@@ -95,7 +95,7 @@ then
 	# ------------------------------------------------------------------
 	# Re-start new container with related params
 	# ------------------------------------------------------------------
-	docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${port}  -e STORAGE="${size}GB" -v ${id}:/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
+	docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${port}  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
 	echo `date` "Iamge $IMAGE updated (And running container $CONTAINER_NAME updated)" >> $LOG
     else
 	echo `date` "Image $IMAGE updated (And no container was running)" >> $LOG

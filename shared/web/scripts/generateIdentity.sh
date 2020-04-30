@@ -19,7 +19,7 @@ scriptDir=`dirname $0`
 identityFileDir=`dirname $scriptDir`
 
 logMessage "==== Generate Identity called ($@) ============"
-if [[ $# -lt 1 ]] 
+if [[ $# -lt 2 ]] 
 then
     logMessage "ERROR($selfName): sufficient params not supplied ($@)"
     logMessage "Usage($selfName): $selfName <IdentityKeyString>  "
@@ -29,7 +29,9 @@ identityString=$1
 user=www
 home=/root
 identityBase=/share/Public/identity
-keyBase=${home}/.local/share/storj/identity
+#keyBase=${home}/.local/share/storj/identity
+keyBase=$2
+
 
 identityLogFile=${identityBase}/logs/storj_identity.log
 #identityPidFile=${identityBase}/logs/identity.pid
@@ -50,7 +52,9 @@ fi
 
 logMessage "Launching Identity generation program "
 logMessage "Running $identityBinary create storagenode "
+mkdir -p ${keyBase}
 $identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 & 
+
 BG_PID=$!
 echo ${BG_PID} > ${identityPidFile}
 logMessage "$identityBinary launched with PID ${BG_PID}. Going to wait for it to complete"
