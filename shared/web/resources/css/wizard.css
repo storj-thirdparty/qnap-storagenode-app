@@ -37,6 +37,15 @@ body {
 	border: 1px solid #EB5757 !important;
 }
 
+.head {
+	position: absolute;
+	width: 176px;
+	height: 176px;
+	left: 632px;
+	top: 50px;
+}
+
+
 /* Step 1 */
 
 .step-1 .logo {

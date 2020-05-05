@@ -20,7 +20,7 @@
 			<img class="back" src="resources/img/back.png" v-if="step > 1" v-on:click="step--">
 
 			<div v-if="step === 1">
-				<img class="logo" src="resources/img/logo.png">
+			<div class="head"><img src="resources/img/wizard/step-1-head.png"></div>
 				<h1 class="title">Welcome to Storj!</h1>
 				<p>Monetize your excess capacity on the Storj Network</p>
 
@@ -28,7 +28,7 @@
 			</div>
 
 			<div v-if="step === 2">
-				<div class="profile"></div>
+				<div class="head"><img src="resources/img/wizard/step-2-head.png" /></div>
 				<h1 class="title">Connect your Email Address</h1>
 
 				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
@@ -41,7 +41,7 @@
 			</div>
 
 			<div v-if="step === 3">
-				<div class="profile"></div>
+			<div class="head"><img src="resources/img/wizard/step-3-head.png" /></div>
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
 
 				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
@@ -53,7 +53,7 @@
 			</div>
 
 			<div v-if="step === 4">
-				<div class="profile"></div>
+			<div class="head"><img src="resources/img/wizard/step-4-head.png" /></div>
 				<h1 class="title">Set Your Storage Allocation</h1>
 
 				<p class="tagline">How much disk space you want to allocate to the Storj network</p>
@@ -66,7 +66,7 @@
 			</div>
 
 			<div v-if="step === 5">
-				<div class="profile"></div>
+			<div class="head"><img src="resources/img/wizard/step-5-head.png" /></div>
 				<h1 class="title">Set Storage Directory</h1>
 
 				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
@@ -78,7 +78,7 @@
 			</div>
 
 			<div v-if="step === 6">
-				<div class="profile"></div>
+			<div class="head"><img src="resources/img/wizard/step-6-head.png" /></div>
 				<h1 class="title">Configure Your External Port Forwarding</h1>
 
 				<p class="tagline">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected</p>
@@ -91,7 +91,7 @@
 
 			<div v-if="step === 7">
 				<div class="identity-step-1" v-if="identityStep === 1">
-					<div class="profile"></div>
+				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
 					<h1 class="title">Setup Your Identity Path</h1>
 
 					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
@@ -104,7 +104,7 @@
 				</div>
 
 				<div class="identity-step-2" v-if="identityStep === 2">
-					<div class="profile"></div>
+				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
 					<h1 class="title">Generate Your Identity</h1>
 
 					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
@@ -120,7 +120,7 @@
 				</div>
 
 				<div class="identity-step-3" v-if="identityStep === 3">
-					<div class="profile"></div>
+				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
 					<h1 class="title">Identity Generation Started</h1>
 
 					<p class="tagline">Creating identity can take several hours or even days, depending on your machines processing power & probability. You will be able to track your progress after configuring the rest</p>
@@ -133,7 +133,7 @@
 			</div>
 
 			<div v-if="step === 8">
-				<div class="profile"></div>
+			<div class="head"><img src="resources/img/wizard/step-8-head.png" /></div>
 				<h1 class="title">Congratulations!</h1>
 
 				<p class="tagline">You finished the quest and ready to go</p>
