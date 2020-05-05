@@ -38,11 +38,12 @@ body {
 }
 
 .head {
-	position: absolute;
+	position: absolute;	
+	top: 100px;
 	width: 176px;
-	height: 176px;
-	left: 632px;
-	top: 50px;
+    height: 176px;
+    left: 632px;
+	text-align: center;
 }
 
 
