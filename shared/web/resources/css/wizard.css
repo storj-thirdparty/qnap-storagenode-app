@@ -6,11 +6,15 @@ body {
 }
 
 #app {
-	/*width: 1400px;
+	width: 1400px;
 	height: 900px;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;*/
+	position: absolute;
+
+	transform: scale(1);
+	transform-origin: top left;
+
+	left: 0;
+	top: 0;
 }
 
 .back {
@@ -38,7 +42,7 @@ body {
 }
 
 .head {
-	position: absolute;	
+	position: absolute;
 	top: 100px;
 	width: 176px;
     height: 176px;

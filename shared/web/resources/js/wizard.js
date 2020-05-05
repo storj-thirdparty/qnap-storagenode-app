@@ -1,5 +1,13 @@
 console.log('hello world')
 
+function resizeInterface() {
+	const scale = Math.min(window.innerWidth / 1400, 1400);
+	console.log(scale);
+	document.querySelector("#app").style.transform = `scale(${scale})`;
+}
+
+resizeInterface();
+
 const app = new Vue({
 	el: "#app",
 	data: {
@@ -125,7 +133,7 @@ function createidentifyToken(createidval,identitypath){
       data: {
 	    createidval : createidval,
 	    identitypath : identitypath,
-	    identityString: createidval 
+	    identityString: createidval
        },
       success: function (result) {
         $(".logs").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
