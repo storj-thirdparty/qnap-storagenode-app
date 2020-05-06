@@ -44,7 +44,7 @@
 			<div class="head"><img src="resources/img/wizard/step-3-head.png" /></div>
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
 
-				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
+				<p class="tagline">Join thousands of Node Operators around the world by getting Node status updates from Storj Labs</p>
 
 				<label class="address-label">ETH Wallet Address</label>
 				<input type="text" class="address" placeholder="Enter ETH Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
