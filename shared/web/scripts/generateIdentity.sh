@@ -16,7 +16,7 @@ function logMessage {
 
 selfName=`basename $0`
 scriptDir=`dirname $0`
-identityFileDir=`dirname $scriptDir`
+identityPidFileDir=`dirname $scriptDir`
 
 logMessage "==== Generate Identity called ($@) ============"
 if [[ $# -lt 2 ]] 
@@ -27,9 +27,8 @@ then
 fi
 identityString=$1
 user=www
-home=/root
 identityBase=/share/Public/identity
-#keyBase=${home}/.local/share/storj/identity
+#keyBase example /root/.local/share/storj/identity
 keyBase=$2
 
 
@@ -38,7 +37,7 @@ identityLogFile=${identityBase}/logs/storj_identity.log
 identityDirPath=${identityBase}/storagenode
 identityBinary=${identityBase}.bin/identity
 
-identityPidFile=${identityFileDir}/identity.pid
+identityPidFile=${identityPidFileDir}/identity.pid
 
 identityKey=${keyBase}/storagenode/identity.key
 caKey=${keyBase}/storagenode/ca.key
@@ -80,8 +79,8 @@ then
 fi
 
 logMessage "Authorizing identity using identity key string (IdentityPidRef:${BG_PID}) "
-logMessage "Running $identityBinary authorize storagenode $identityString --identity-dir /root/.local/share/storj/identity --signer.tls.revocation-dburl bolt:///root/.local/share/storj/identity/revocations.db "
-$identityBinary authorize storagenode $identityString --identity-dir /root/.local/share/storj/identity --signer.tls.revocation-dburl bolt:///root/.local/share/storj/identity/revocations.db
+logMessage "Running $identityBinary authorize storagenode $identityString --identity-dir ${keyBase} --signer.tls.revocation-dburl bolt://${keyBase}/revocations.db "
+$identityBinary authorize storagenode $identityString --identity-dir ${keyBase} --signer.tls.revocation-dburl bolt://${keyBase}/revocations.db
 
 count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 6 ]]
@@ -91,22 +90,22 @@ then
     exit 5
 fi
 
-numBeginCa=`grep -c BEGIN /root/.local/share/storj/identity/storagenode/ca.cert`
-numBeginId=`grep -c BEGIN /root/.local/share/storj/identity/storagenode/identity.cert`
+numBeginCa=`grep -c BEGIN ${keyBase}/storagenode/ca.cert`
+numBeginId=`grep -c BEGIN ${keyBase}/storagenode/identity.cert`
 
 if [[ $numBeginCa -ne 2 ]]
 then
-    logMessage "Error: Authorization has failed (#begin in CA=$numBeginCa) (IdentityPidRef:${BG_PID})"
+    logMessage "Error: Authorization has failed (#begin in CA=$numBeginCa) (IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
     rm ${identityPidFile}
     exit 6
 fi
 if [[ $numBeginId -ne 3 ]]
 then
-    logMessage "Error: Authorization has failed (#begin in ID=$numBeginId) (IdentityPidRef:${BG_PID})"
+    logMessage "Error: Authorization has failed (#begin in ID=$numBeginId) (IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
     rm ${identityPidFile}
     exit 7
 fi
-logMessage "Authorization of Identity Signature Completed (STEP #2)(IdentityPidRef:${BG_PID})"
+logMessage "Authorization of Identity Signature Completed (STEP #2)(IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
 logMessage "Identity Generation Successfully completed(IdentityPidRef:${BG_PID})"
 logMessage Done
 rm ${identityPidFile}

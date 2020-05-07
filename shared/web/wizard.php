@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <head>
 	<link href="resources/css/wizard.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -44,7 +43,9 @@
 			<div class="head"><img src="resources/img/wizard/step-3-head.png" /></div>
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
 
+				
 				<p class="tagline">Join thousands of Node Operators around the world by getting Node status updates from Storj Labs</p>
+			
 
 				<label class="address-label">ETH Wallet Address</label>
 				<input type="text" class="address" placeholder="Enter ETH Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
@@ -110,10 +111,12 @@
 					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
 
 					<label>Authorization Token</label>
-					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>" :value="authkey"><br><br><br><br>
+					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }"><br><br><br><br>
 
 
-					<button class="generate" v-on:click="generateIdentity">Generate</button>
+					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
+
+
 
 					<div class="warning-icon"><img src="resources/img/i.png"></img></div>
 					<p class="warning">Creating identity can take several hours or even days, depending on your machines processing power.</p>
@@ -125,7 +128,7 @@
 
 					<p class="tagline">Creating identity can take several hours or even days, depending on your machines processing power & probability. You will be able to track your progress after configuring the rest</p>
 
-					<div class="logs">{{identityLogs}}</div>
+					<div class="logs" v-html="message">{{identityLogs}}</div>
 
 
 					<button class="finish" v-on:click="step++">Finish</button>
@@ -182,32 +185,5 @@
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/wizard.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
-	<div class="container">
-	  <!-- Modal -->
-	  <div class="modal fade" id="myModal" role="dialog">
-	    <div class="modal-dialog">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">Wizard</h4>
-	        </div>
-	        <div class="modal-body">
-	          <p>Identity creating at <b>/root/.local/share/storj/identity/storagenode</b></p>
-	        </div>
-	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        </div>
-	      </div>
-	      
-	    </div>
-	  </div>
-	  
-	</div>
 
 </body>

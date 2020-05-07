@@ -22,6 +22,7 @@ const app = new Vue({
 		host: '',
 		identity: '',
 		authkey: '',
+		message: ''
 
 	},
 
@@ -81,32 +82,19 @@ const app = new Vue({
 
 		identityValid() {
 			return this.identity.length > 1;
+		},
+
+		authkeyValid() {
+			return this.authkey.length > 1;
 		}
 	},
 	methods: {
 		async generateIdentity() {
-			var authkey = $("#authkey").val();
-			// var identitypath = "/root/.local/share/storj/identity/storagenode";
-			// this.identity = identitypath;
-			if(authkey !== ""){
-				createidentifyToken(authkey,this.identity);
-				this.identityStep++;
-
-
-				readidentitystatus();
-
-				setInterval(() => readidentitystatus(), 60000);
-
-			}
+			 this.identityStep++;
+			 this.createidentifyToken();
+			 setInterval(() => this.updateLog(), 60000);
 		},
 
-		async updateLog() {
-			const {data} = await axios.post('identity.php', {
-				status: true
-			});
-
-			this.log = data;
-		},
 
 		async finish() {
 			const data = {
@@ -121,47 +109,26 @@ const app = new Vue({
 			await axios.post('config.php', data);
 
 			location.href = 'config.php';
-		}
+		},
+
+			async createidentifyToken() {
+
+				const {data} = await axios.post('identity.php', {
+					authkey: this.authkey,
+					identity: this.identity,
+				});
+
+				this.message = data;
+
+        	},
+
+        	async updateLog() {
+				const {data} = await axios.post('identity.php', {
+					status: true
+				});
+
+				this.message = data;
+			},
+
 	}
 });
-
- // Create identity.
-function createidentifyToken(createidval,identitypath){
-   jQuery.ajax({
-      type: "POST",
-      url: "identity.php",
-      data: {
-	    createidval : createidval,
-	    identitypath : identitypath,
-	    identityString: createidval
-       },
-      success: function (result) {
-        $(".logs").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
-      },
-      error: function () {
-        console.log("Error during create Identitfy operation");
-      }
-    });
-}
-
-
-
-// Read status from identity.php file.
-function readidentitystatus(){
-   jQuery.ajax({
-      type: "POST",
-      url: "identity.php",
-      data: {status : "status",},
-      success: function (result) {
-        if(result == "identity available at /root/.local/share/storj/identity"){
-          $(".logs").html("<b>"+result+"</b>");
-          identitydataval = 1;
-        }else{
-           $(".logs").html("<b>Identity creation process is running.</b><br><p>"+result+"</p>");
-        }
-      },
-      error: function () {
-        console.log("In tehre wrong on create Identitfy");
-      }
-    });
-}
