@@ -1,4 +1,5 @@
 <?php
+include "identityLib.php";
 # ------------------------------------------------------------------------
 #  Set variables
 # ------------------------------------------------------------------------
@@ -9,59 +10,49 @@ $scriptsBase    = $moduleBase . '/scripts' ;
 $identityGenBinary = "/share/Public/identity.bin/identity" ;
 $logFile = "/share/Public/identity/logs/storj_identity.log" ;
 
-$data = json_decode(file_get_contents("${moduleBase}/config.json"), TRUE);
+$data = loadConfig("${moduleBase}/config.json");
+# Update config json file if updates provided
+$inputs = loadConfig("php://input");
+if (isset($inputs['authkey']) || isset($inputs['identity'])){
+	// Saving Identity Path and Auth Key in JSON file.
+	if(isset($inputs["authkey"])) { $data['AuthKey'] = $inputs["authkey"]; }
+	if(isset($inputs["identity"])) { $data['Identity'] = $inputs["identity"]; }
+	storeConfig($data, "config.json");
+}
+
 $identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh' ;
 $Path = $data["Identity"] . "/storagenode";
-$identityFilePath = "${path}/identity.key" ;
+$identityFilePath = "${Path}/identity.key" ;
 $urlToFetch = "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip" ;
-$centralLogFile = "/var/log/STORJ" ;
 $identitypidFile   = $moduleBase  . DIRECTORY_SEPARATOR . 'identity.pid' ;
 
 # ------------------------------------------------------------------------
 
-function validateExistence() {
-	global $Path ;
-	$fileList = [ 
-	    "ca.key",
-	    "identity.key",
-	    "ca.cert",
-	    "identity.cert"
-	];
-	$allReqdFilesAvailable = 1 ;
-	foreach( $fileList as $file ) {
-	    if(!file_exists("$Path/$file")) {
-		$allReqdFilesAvailable = 0 ;
-	    }
-	}
-	return $allReqdFilesAvailable ;
-}
-
-
-function identityExists() {
-    	global $identityFilePath ;
-	return file_exists($identityFilePath);
-}
 
     date_default_timezone_set('Asia/Kolkata');
     $date = Date('Y-m-d H:i:s');
     $output = "" ;
     $configFile = "config.json";
 
-    $data = json_decode(file_get_contents("php://input"), TRUE);
+    $inputs = loadConfig("php://input");
 
 
     logMessage( "================== identity.php invoked ================== ");
     if (isset($_POST["createidval"])){
 		logMessage("Identity php called for creation purpose identityString : " . $_POST['identityString']);
+                if( checkIdentityProcessRunning($identitypidFile) == true )  {
+                    logMessage("Identity process is already running!!\n");
+                    echo "Identity Process is already running!\n" ;
+		    return ;
+                } else {
+                    logMessage("Identity process not found running, STARTING a new one!!\n");
+		}
 		// Saving Identity Path and Auth Key in JSON file.
-		$jsonString = file_get_contents($configFile);
-		$data = json_decode($jsonString, true);
 		$data['AuthKey'] = $_POST["identityString"];
 		$data['Identity'] = $_POST["identitypath"];
-		$newJsonString = json_encode($data);
-		file_put_contents($configFile, $newJsonString);		
+		storeConfig($data, $configFile);
 		
-		if(identityExists() && validateExistence()) {
+		if(identityExists($data) && validateExistence($data)) {
 		    logMessage("Identity Key File and others already available");
 		    echo "Identity Key File and others already available";
 		    return ;
@@ -86,33 +77,27 @@ function identityExists() {
 		exec($cmd, $output );
 		logMessage("Launched command (@ $programStartTime) ");
 
-		$jsonString = file_get_contents($configFile);
-		$data = json_decode($jsonString, true);
 		$data['LogFilePath'] = $logFile;
-		
 		$data['idGenStartTime'] = $programStartTime ;
-		$newJsonString = json_encode($data);
-		$file = $data['LogFilePath'];
-		$file = escapeshellarg($file);
-	    $lastline = `tail -c 59 $file `;
-		file_put_contents($configFile, $newJsonString);
+		updateConfig($data, $configFile);
+
+		$file = escapeshellarg($logFile);
+		$lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
+
 
 	    logMessage("Invoked identity generation program ($identityGenScriptPath) ");
 	    echo $lastline;
 
-    } else if (isset($_POST["status"]) || isset($data['status'])) {
-		logMessage("Identity php called for fetching STATUS!");
+    } else if (isset($_POST["status"]) || isset($inputs['status'])) {
+	    logMessage("Identity php called for fetching STATUS!");
 
-	    $jsonString = file_get_contents($configFile);
-	    $data = json_decode($jsonString, true);
 	    $file = $data['LogFilePath'];
-	    // $pid =  $data['idGenPid']  ;
 	    $pid = file_get_contents("identity.pid");
 	    $prgStartTime = $data['idGenStartTime'] ;
 	    $file = escapeshellarg($file);
 	    $lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
 
-	    if( identityExists() && validateExistence()) {
+	    if( identityExists($data) && validateExistence($data)) {
 		logMessage("STATUS: Identity exists ! returning message");
 		    logMessage("identity available at ${identityFilePath}");
 		echo "identity available at $identityFilePath " ;
@@ -128,23 +113,12 @@ function identityExists() {
 			    "Started at:  $prgStartTime <BR>" . $lastline ;
 	    }
 
-    } 
-
-
-   
-    else if (isset($data['authkey']) || isset($data['identity'])){
-    	$authkey = $data["authkey"];
-    	$identity = $data["identity"];
+    }
+    else if (isset($inputs['authkey']) || isset($inputs['identity'])){
+    	$authkey = $inputs["authkey"];
+    	$identity = $inputs["identity"];
 		logMessage("Identity php called for creation purpose identityString : " . $authkey);
-		// Saving Identity Path and Auth Key in JSON file.
-		$jsonString = file_get_contents($configFile);
-		$data = json_decode($jsonString, true);
-		$data['AuthKey'] = $authkey;
-		$data['Identity'] = $identity;
-		$newJsonString = json_encode($data);
-		file_put_contents($configFile, $newJsonString);		
-		
-		if(identityExists() && validateExistence()) {
+		if(identityExists($data) && validateExistence($data)) {
 		    logMessage("Identity Key File and others already available");
 		    echo "Identity Key File and others already available";
 		    return ;
@@ -161,6 +135,14 @@ function identityExists() {
 		logMessage("value of identityString($identityString)");
 		$identityPath = $identity ;
 		logMessage("value of identityPath($identityPath)");
+
+                if( checkIdentityProcessRunning($identitypidFile) == true )  {
+                    logMessage("Identity process is already running!!\n");
+                    echo "Identity Process is already running!\n" ;
+		    return ;
+                } else {
+                    logMessage("Identity process not found running, STARTING a new one!!\n");
+		}
 
 		$cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile}.a 2>&1 & "; 
 	
@@ -180,56 +162,25 @@ function identityExists() {
 	    $lastline = `tail -c 59 $file `;
 		file_put_contents($configFile, $newJsonString);
 
-	    logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+		echo "<b>Identity creation process is starting.</b><br>";
 	    echo $lastline;
 
     }
-
-
-
-    else if (isset($_POST["validateIdentity"])) {
-	$val = isset($_POST["identityString"]) ? $_POST["identityString"] : "NOT SET" ;
-	logMessage("<<< DEPRECATED RUN >>> Identity php called for authorizing IDENTITY (id string : $val)!");
-    }else if (isset($_POST["file_exist"])) {
+    else if (isset($data['identityCreationProcessCheck'])){
+        echo checkIdentityProcessRunning($identitypidFile) ? "true" : "false" ;
+    }
+    else if (isset($_POST["file_exist"])) {
 	logMessage("Identity php called for finding file existence");
-    	// Checking file if exist or not.
-    	if(validateExistence())
-	{
-		logMessage("(file_exist) File $identityFilePath and others already exist !");
-    		echo "0";	# NORMAL
-    	}else{
-		logMessage("(file_exist) File $identityFilePath or others don't exists !");
-    		echo "1";	# FILE NOT FOUND
-    	}
+	checkIdentityFileExistence($data);
     } else if(isset($_POST['isstopAjax']) && ($_POST['isstopAjax'] == 1)){
 	// Stop Identity
-	if(file_exists($identitypidFile)) {
-                $pid = file_get_contents($identitypidFile);
-		$pid = (int)$pid ;
-		// Stop Identity
-		$output = shell_exec("kill -9 $pid");
-		$msg = "Identity creation stopped (no identity generated)!\n$output";
-	} else {
-		$msg = "Identity creation process not found";
-	}
-	logMessage($msg);
-	echo $msg ;
+	killIdentityProcess($identitypidFile);
+        exec("echo > $logFile ");
     } else {
 	logMessage("Identity php called (PURPOSE NOT CLEAR)!");
     }
 return (0);
 
-function logEnvironment() {
-	logMessage( "POST is : " . print_r($_POST, true));
-}
-
-function logMessage($message) {
-    global $centralLogFile ;
-    $file = $centralLogFile ;
-    $message = preg_replace('/\n$/', '', $message);
-    $date = `date` ; $timestamp = str_replace("\n", " ", $date);
-    $timestamp .= " (identity.php)  "  ;
-    file_put_contents($file, $timestamp . $message . "\n", FILE_APPEND);
-}
 
 ?>

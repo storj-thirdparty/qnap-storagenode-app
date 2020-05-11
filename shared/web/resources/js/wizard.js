@@ -22,7 +22,8 @@ const app = new Vue({
 		host: '',
 		identity: '',
 		authkey: '',
-		message: ''
+		message: '',
+		processrun:false
 
 	},
 
@@ -85,7 +86,9 @@ const app = new Vue({
 		},
 
 		authkeyValid() {
-			return this.authkey.length > 1;
+			if(this.processrun ==false){
+				return this.authkey.length > 1;
+			}
 		}
 	},
 	methods: {
@@ -120,6 +123,10 @@ const app = new Vue({
 
 				this.message = data;
 
+				if(data !== "Identity Key File and others already available"){
+					this.message = "<b>Identity creation process is starting.</b><br><p>"+data+"</p>";
+				}
+
         	},
 
         	async updateLog() {
@@ -128,6 +135,15 @@ const app = new Vue({
 				});
 
 				this.message = data;
+			},
+
+			async processCheck() {
+				this.identityStep++;
+				const {data} = await axios.post('identity.php', {
+					identityCreationProcessCheck: true
+				});
+
+				this.processrun = data;
 			},
 
 	}

@@ -109,4 +109,6 @@ logMessage "Authorization of Identity Signature Completed (STEP #2)(IdentityPidR
 logMessage "Identity Generation Successfully completed(IdentityPidRef:${BG_PID})"
 logMessage Done
 rm ${identityPidFile}
+logFile=/share/Public/identity/logs/storj_identity.log
+echo > $logFile
 exit 0
