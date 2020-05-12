@@ -17,6 +17,11 @@ body {
 	top: 0;
 }
 
+a {
+	color: inherit;
+	text-decoration: underline;
+}
+
 .back {
 	position: absolute;
 	width: 32px;
@@ -55,19 +60,18 @@ body {
 
 .step-1 .logo {
 	position: absolute;
-	top: 295px;
-	left: 685.2px;
+	top: 302px;
+	left: 669px;
 
 	width: 67.78px;
 	height: 76.36px;
-
 }
 
 .step-1 .title {
 	position: absolute;
-	width: 278px;
+	width: 315px;
 	height: 32px;
-	left: 580px;
+	left: 562px;
 	top: 440px;
 
 	font-family: Inter;
@@ -114,7 +118,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	font-family: Inter;
@@ -150,7 +154,7 @@ body {
 	width: 445px;
 	height: 32px;
 	left: 498px;
-	top: 274px;
+	top: 234px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -168,10 +172,10 @@ body {
 
 .step-2 .tagline {
 	position: absolute;
-	width: 711px;
+	width: 551px;
 	height: 52px;
-	left: 364px;
-	top: 330px;
+	left: 444px;
+	top: 290px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -233,7 +237,7 @@ body {
 	top: 552px;
 	bottom: 300px;
 
-	border: 1px solid #2683FF;
+	border: 1px solid #0059D0;
 	box-sizing: border-box;
 	border-radius: 6px;
 
@@ -247,7 +251,7 @@ body {
 	line-height: 135%;
 
 
-	color: #2683FF;
+	color: #0059D0;
 	background-color: #fff;
 }
 
@@ -260,7 +264,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	height: 48px;
@@ -300,10 +304,10 @@ body {
 
 .step-3 .tagline {
 	position: absolute;
-	width: 711px;
+	width: 551px;
 	height: 52px;
-	left: 364px;
-	top: 330px;
+	left: 444px;
+	top: 340px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -369,7 +373,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -507,7 +511,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -621,7 +625,7 @@ body {
 	top: 552px;
 	bottom: 300px;
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	font-family: Inter;
@@ -644,10 +648,10 @@ body {
 
 .step-6 .title {
 	position: absolute;
-	width: 632px;
-	height: 32px;
-	left: 403px;
-	top: 274px;
+	width: 548px;
+	height: 84px;
+	left: 445px;
+	top: 234px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -665,10 +669,10 @@ body {
 
 .step-6 .tagline {
 	position: absolute;
-	width: 795px;
-	height: 52px;
-	left: 322px;
-	top: 330px;
+	width: 551px;
+	height: 104px;
+	left: 444px;
+	top: 340px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -687,7 +691,7 @@ body {
 	height: 22px;
 	left: 445px;
 	right: 735px;
-	top: 434px;
+	top: 474px;
 
 	font-family: Inter;
 	font-style: normal;
@@ -708,8 +712,8 @@ body {
 	position: absolute;
 	left: 445px;
 	right: 445px;
-	top: 464px;
-	bottom: 384px;
+	top: 504px;
+	bottom: 344px;
 
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
@@ -732,12 +736,13 @@ body {
 	position: absolute;
 	left: 618px;
 	right: 617px;
-	top: 552px;
-	bottom: 300px;
+	top: 592px;
+	bottom: 260px;
+
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -851,7 +856,7 @@ body {
 	top: 578px;
 	bottom: 274px;
 
-	border: 1px solid #2683FF;
+	border: 1px solid #0059D0;
 	box-sizing: border-box;
 	border-radius: 6px;
 
@@ -867,7 +872,7 @@ body {
 
 	text-align: center;
 
-	color: #2683FF;
+	color: #0059D0;
 }
 
 .identity-step-1 .finish {
@@ -879,7 +884,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -945,7 +950,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -995,7 +1000,7 @@ body {
 
 	border-radius: 12px;
 
-	background: #2683FF;
+	background: #0059D0;
 }
 
 .identity-step-2 .warning-icon img {
@@ -1081,7 +1086,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	width: 205px;
@@ -1159,7 +1164,7 @@ body {
 
 	/* acnt-1 */
 
-	background: #2683FF;
+	background: #0059D0;
 	border-radius: 6px;
 
 	font-family: Inter;
@@ -1227,7 +1232,7 @@ body {
 }
 
 .progress .bar-active {
-	background: #2683FF !important;
+	background: #0059D0 !important;
 }
 
 .progress .point-1 {
@@ -1428,7 +1433,7 @@ body {
 }
 
 .progress .point-active {
-	background: #2683FF;
+	background: #0059D0;
 }
 
 .progress .label-active {
@@ -1619,7 +1624,7 @@ body {
     top: 30px;
     left: 30px;
     font-size: 30px ! important;
-    color: #2683FF;
+    color: #0059D0;
 }
 
 

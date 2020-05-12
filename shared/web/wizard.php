@@ -16,21 +16,22 @@
 		<a href="config.php"><i class="fa fa-home homeicon"></i></a>
 		<div v-bind:class="stepClass">
 
-			<img class="back" src="resources/img/back.png" v-if="step > 1" v-on:click="step--">
+			<img class="back" src="resources/img/back.png" v-if="step > 1 && (step !== 7 || identity-step === 1)" v-on:click="step--">
+			<img class="back" src="resources/img/back.png" v-else v-on:click="identityStep--">
 
 			<div v-if="step === 1">
 			<div class="head"><img src="resources/img/wizard/step-1-head.png"></div>
-				<h1 class="title">Welcome to Storj!</h1>
+				<h1 class="title">Storage Node Setup</h1>
 				<p>Monetize your excess capacity on the Storj Network</p>
 
-				<button class="start" v-on:click="step++">Start</button>
+				<button class="start" v-on:click="step++">Get Started</button>
 			</div>
 
 			<div v-if="step === 2">
 				<div class="head"><img src="resources/img/wizard/step-2-head.png" /></div>
 				<h1 class="title">Connect your Email Address</h1>
 
-				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
+				<p class="tagline">Join thousands of Node Operators around the world by getting  Node status updates from Storj Labs.</p>
 
 				<label class="email-label">Email Address</label>
 				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>">
@@ -42,10 +43,8 @@
 			<div v-if="step === 3">
 			<div class="head"><img src="resources/img/wizard/step-3-head.png" /></div>
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
+				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
 
-				
-				<p class="tagline">Join thousands of Node Operators around the world by getting Node status updates from Storj Labs</p>
-			
 
 				<label class="address-label">ETH Wallet Address</label>
 				<input type="text" class="address" placeholder="Enter ETH Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
@@ -82,7 +81,7 @@
 			<div class="head"><img src="resources/img/wizard/step-6-head.png" /></div>
 				<h1 class="title">Configure Your External Port Forwarding</h1>
 
-				<p class="tagline">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected</p>
+				<p class="tagline">This is how a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our documentation.</p>
 
 				<label class="host-label">Host Address</label>
 				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>">
@@ -95,7 +94,7 @@
 				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
 					<h1 class="title">Setup Your Identity Path</h1>
 
-					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
+					<p class="tagline">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/">authorization token</a>.</p>
 
 					<label class="identity-label">Identity Path</label>
 					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">

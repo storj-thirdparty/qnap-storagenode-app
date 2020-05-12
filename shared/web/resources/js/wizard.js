@@ -1,8 +1,7 @@
 console.log('hello world')
 
 function resizeInterface() {
-	const scale = Math.min(window.innerWidth / 1400, 1400);
-	console.log(scale);
+	const scale = Math.min(window.innerWidth / 1400, window.innerHeight / 900);
 	document.querySelector("#app").style.transform = `scale(${scale})`;
 }
 
