@@ -16,7 +16,7 @@ const app = new Vue({
 
 		email: '',
 		address: '',
-		storage: 1000,
+		storage: 10000,
 		directory: '',
 		host: '',
 		identity: '',
