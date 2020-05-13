@@ -94,6 +94,7 @@
 				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
 					<h1 class="title">Setup Your Identity Path</h1>
 
+
 					<p class="tagline">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
 
 					<label class="identity-label">Identity Path</label>
@@ -108,16 +109,10 @@
 					<h1 class="title">Enter Authorization Token</h1>
 
 
-
 					<label>Authorization Token</label>
 					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }"><br><br><br><br>
 
-
 					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
-
-
-
-
 				</div>
 
 				<div class="identity-step-3" v-if="identityStep === 3">
