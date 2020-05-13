@@ -43,11 +43,11 @@
 			<div v-if="step === 3">
 			<div class="head"><img src="resources/img/wizard/step-3-head.png" /></div>
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
-				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address</p>
+				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address</a></p>
 
 
-				<label class="address-label">ETH Wallet Address</label>
-				<input type="text" class="address" placeholder="Enter ETH Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
+				<label class="address-label">ERC-20 Token Compatible Wallet Address</label>
+				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
 			</div>
