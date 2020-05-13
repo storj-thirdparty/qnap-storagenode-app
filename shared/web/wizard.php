@@ -105,9 +105,9 @@
 
 				<div class="identity-step-2" v-if="identityStep === 2">
 				<div class="head"><img src="resources/img/wizard/step-7-head.png" /></div>
-					<h1 class="title">Generate Your Identity</h1>
+					<h1 class="title">Enter Authorization Token</h1>
 
-					<p class="tagline">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS</p>
+					
 
 					<label>Authorization Token</label>
 					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }"><br><br><br><br>
@@ -117,8 +117,7 @@
 
 
 
-					<div class="warning-icon"><img src="resources/img/i.png"></img></div>
-					<p class="warning">Creating identity can take several hours or even days, depending on your machines processing power.</p>
+			
 				</div>
 
 				<div class="identity-step-3" v-if="identityStep === 3">
