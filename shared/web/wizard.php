@@ -59,7 +59,7 @@
 				<p class="tagline">How much disk space you want to allocate to the Storj network</p>
 
 				<label class="storage-label">Storage Allocation</label>
-				<input class="storage" type="number" min="1" max="1000" value="1000000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>">
+				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>">
 				<span class="unit">GB</span>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!storageValid">Continue</button>
