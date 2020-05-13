@@ -56,7 +56,7 @@
 			<div class="head"><img src="resources/img/wizard/step-4-head.png" /></div>
 				<h1 class="title">Set Your Storage Allocation</h1>
 
-				<p class="tagline">How much disk space you want to allocate to the Storj network</p>
+				<p class="tagline">How much disk space do you want to allocate to the Storj Network?</p>
 
 				<label class="storage-label">Storage Allocation</label>
 				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>">
