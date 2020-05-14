@@ -22,8 +22,7 @@ const app = new Vue({
 		identity: '',
 		authkey: '',
 		message: '',
-		processrun:false
-
+		processrun: false
 	},
 
 	created () {
@@ -88,6 +87,10 @@ const app = new Vue({
 			if(this.processrun ==false){
 				return this.authkey.length > 1;
 			}
+		},
+
+		identityGenerationFinished() {
+			return this.message.toLowerCase().includes('found');
 		}
 	},
 	methods: {

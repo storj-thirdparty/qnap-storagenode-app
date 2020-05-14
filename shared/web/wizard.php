@@ -124,7 +124,7 @@
 					<div class="logs" v-html="message">{{identityLogs}}</div>
 
 
-					<button class="finish" v-on:click="step++">Finish</button>
+					<button class="finish" v-bind:disabled="!identityGenerationFinished" v-on:click="step++">Finish</button>
 				</div>
 			</div>
 
