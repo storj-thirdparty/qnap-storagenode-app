@@ -7,6 +7,7 @@ body {
 
 button {
 	cursor: pointer;
+	border: 0;
 }
 
 #app {
