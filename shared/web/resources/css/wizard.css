@@ -5,6 +5,10 @@ body {
 	font-family: 'Inter';
 }
 
+button {
+	cursor: pointer;
+}
+
 #app {
 	width: 1400px;
 	height: 900px;
