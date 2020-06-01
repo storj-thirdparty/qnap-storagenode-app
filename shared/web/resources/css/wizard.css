@@ -1649,6 +1649,12 @@ a {
 	left: 738px;
 	top: 434px;
 }
+.address-error {
+	position: absolute;
+	height: 22px;
+	left: 720px;
+	top: 434px;
+}
 
 
 @media (min-width: 1600px) and (max-width: 1919px) {
