@@ -1202,7 +1202,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 195px;
+	left: 196px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1212,7 +1212,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 411px;
+	left: 412px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1222,7 +1222,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 627px;
+	left: 628px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1232,7 +1232,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 843px;
+	left: 844px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1242,7 +1242,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 1059px;
+	left: 1060px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1266,8 +1266,8 @@ a {
 .progress .checkmark img {
 	width: 16px;
 	height: auto;
-	position: relative;
-	left: -4px;
+  position: relative;
+  left: -4px;
 	top: -1px;
 }
 
