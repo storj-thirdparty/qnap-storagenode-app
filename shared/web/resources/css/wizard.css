@@ -1263,6 +1263,14 @@ a {
 	border-radius: 16px;
 }
 
+.progress .checkmark img {
+	width: 16px;
+	height: auto;
+	position: relative;
+	left: -4px;
+	top: -1px;
+}
+
 .progress .label-1 {
 	position: absolute;
 	width: 8px;
