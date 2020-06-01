@@ -46,6 +46,7 @@
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
 				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address</a></p>
 
+				<span class="error-msg address-error">Please enter a valid ERC-20 address</span>
 				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
