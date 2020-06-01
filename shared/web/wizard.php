@@ -34,6 +34,7 @@
 				<p class="tagline">Join thousands of Node Operators around the world by getting  Node status updates from Storj Labs.</p>
 
 				<label class="email-label">Email Address</label>
+				<span class="email-error error-msg">Please enter a valid email address</span>
 				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>" required>
 
 				<button class="skip" v-on:click="step++">Skip this step</button>
