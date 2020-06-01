@@ -103,7 +103,7 @@
 					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
 
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
-					<button class="finish" v-on:click="step++" v-bind:disabled="!identityValid">Finish</button>
+					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
 				</div>
 
 				<div class="identity-step-2" v-if="identityStep === 2">
@@ -127,17 +127,8 @@
 					<div class="logs" v-html="message">{{identityLogs}}</div>
 
 
-					<button class="finish" v-bind:disabled="!identityGenerationFinished" v-on:click="step++">Finish</button>
+					<button class="finish" v-bind:disabled="!identityGenerationFinished" v-on:click="finish">Finish</button>
 				</div>
-			</div>
-
-			<div v-if="step === 8">
-			<div class="head"><img src="resources/img/wizard/step-8-head.png" /></div>
-				<h1 class="title">Congratulations!</h1>
-
-				<p class="tagline">You finished the quest and ready to go</p>
-
-				<button class="finish" v-on:click="finish">Finish</button>
 			</div>
 
 			<div class="progress" v-if="step > 1" style="-webkit-box-shadow: 0px;box-shadow: inset 0 1px 2px #fff;background-color: white;">
