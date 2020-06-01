@@ -1633,6 +1633,24 @@ a {
 }
 
 
+.error-msg {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	text-align: right;
+	color: #EA0000;
+}
+.email-error {
+	position: absolute;
+	height: 22px;
+	left: 738px;
+	top: 434px;
+}
+
+
 @media (min-width: 1600px) and (max-width: 1919px) {
 
 	.step{position: absolute;left: 130px;width: 80%;}
