@@ -1661,6 +1661,13 @@ a {
 	left: 759px;
 	top: 408px;
 }
+.host-error {
+	position: absolute;
+	height: 22px;
+	left: 782px;
+	top: 474px;
+}
+
 
 @media (min-width: 1600px) and (max-width: 1919px) {
 
