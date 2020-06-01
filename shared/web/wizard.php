@@ -59,6 +59,7 @@
 				<p class="tagline">How much disk space do you want to allocate to the Storj Network?</p>
 
 				<label class="storage-label">Storage Allocation</label>
+				<span class="error-msg storage-error">Invalid Entry</span>
 				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" required>
 				<span class="unit">GB</span>
 
