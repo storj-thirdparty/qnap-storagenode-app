@@ -17,7 +17,7 @@
 		<div v-bind:class="stepClass">
 
 			<img class="back" src="resources/img/back.png" v-if="step > 1 && (step !== 7 || identityStep === 1)" v-on:click="step--">
-			<img class="back" src="resources/img/back.png" v-else v-on:click="identityStep--">
+			<img class="back" src="resources/img/back.png" v-else-if="identityStep > 1" v-on:click="identityStep--">
 
 			<div v-if="step === 1">
 			<div class="head"><img src="resources/img/wizard/step-1-head.png"></div>
