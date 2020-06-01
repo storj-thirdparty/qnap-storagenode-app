@@ -1667,6 +1667,12 @@ a {
 	left: 782px;
 	top: 474px;
 }
+.authkey-error {
+	position: absolute;
+	height: 22px;
+	left: 694px;
+	top: 445px;
+}
 
 
 @media (min-width: 1600px) and (max-width: 1919px) {
