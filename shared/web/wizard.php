@@ -133,37 +133,47 @@
 
 			<div class="progress" v-if="step > 1" style="-webkit-box-shadow: 0px;box-shadow: inset 0 1px 2px #fff;background-color: white;">
 				<div class="point-1" v-bind:class="{ 'point-active': step > 1 }"></div>
-				<div class="label-1" v-bind:class="{ 'label-active': step > 1 }">1</div>
+				<div class="label-1" v-if="step === 2" v-bind:class="{ 'label-active': step > 1 }">1</div>
+				<div class="label-1" v-if="step > 2" v-bind:class="{ 'checkmark': step > 1 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-1" v-bind:class="{ 'text-active': step === 2 }">Email Address</div>
 
 				<div class="bar-1" v-bind:class="{ 'bar-active': step > 2 }"></div>
 
 				<div class="point-2" v-bind:class="{ 'point-active': step > 2 }"></div>
-				<div class="label-2" v-bind:class="{ 'label-active': step > 2 }">2</div>
+				<div class="label-2" v-if="step === 3" v-bind:class="{ 'label-active': step > 2 }">2</div>
+				<div class="label-2" v-if="step > 3" v-bind:class="{ 'checkmark': step > 2 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-2" v-bind:class="{ 'text-active': step === 3 }">ETH Wallet Address</div>
 
 				<div class="bar-2" v-bind:class="{ 'bar-active': step > 3 }"></div>
 
 				<div class="point-3" v-bind:class="{ 'point-active': step > 3 }"></div>
-				<div class="label-3" v-bind:class="{ 'label-active': step > 3 }">3</div>
+
+				<div class="label-3" v-if="step === 4" v-bind:class="{ 'label-active': step > 3 }">3</div>
+				<div class="label-3" v-if="step > 4" v-bind:class="{ 'checkmark': step > 3 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-3" v-bind:class="{ 'text-active': step === 4 }">Storage Allocation</div>
 
 				<div class="bar-3" v-bind:class="{ 'bar-active': step > 4 }"></div>
 
 				<div class="point-4" v-bind:class="{ 'point-active': step > 4 }"></div>
-				<div class="label-4" v-bind:class="{ 'label-active': step > 4 }">4</div>
+
+				<div class="label-4" v-if="step === 5" v-bind:class="{ 'label-active': step > 4 }">4</div>
+				<div class="label-4" v-if="step > 5" v-bind:class="{ 'checkmark': step > 4 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-4" v-bind:class="{ 'text-active': step === 5 }">Storage Directory</div>
 
 				<div class="bar-4" v-bind:class="{ 'bar-active': step > 5 }"></div>
 
 				<div class="point-5" v-bind:class="{ 'point-active': step > 5 }"></div>
-				<div class="label-5" v-bind:class="{ 'label-active': step > 5 }">5</div>
+
+				<div class="label-5" v-if="step === 6" v-bind:class="{ 'label-active': step > 5 }">5</div>
+				<div class="label-5" v-if="step > 6" v-bind:class="{ 'checkmark': step > 5 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-5" v-bind:class="{ 'text-active': step === 6 }">Port Forwarding</div>
 
 				<div class="bar-5" v-bind:class="{ 'bar-active': step > 6 }"></div>
 
 				<div class="point-6" v-bind:class="{ 'point-active': step > 6 }"></div>
-				<div class="label-6" v-bind:class="{ 'label-active': step > 6 }">6</div>
+
+				<div class="label-6" v-if="step === 7" v-bind:class="{ 'label-active': step > 6 }">6</div>
+				<div class="label-6" v-if="step > 7" v-bind:class="{ 'checkmark': step > 6 }"><img src="resources/img/wizard/checkmark.png"></div>
 				<div class="text-6" v-bind:class="{ 'text-active': step === 7 }">Identity</div>
 			</div>
 		</div>
