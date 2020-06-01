@@ -72,6 +72,14 @@ a {
 	height: 76.36px;
 }
 
+.step-1 .head {
+	position: absolute;
+	width: 102px;
+	height: 102px;
+	left: 669px;
+	top: 302px;
+}
+
 .step-1 .title {
 	position: absolute;
 	width: 315px;
@@ -91,6 +99,8 @@ a {
 	text-align: center;
 
 	color: #0D1826;
+
+	margin-top: 0;
 }
 
 .step-1 p {
@@ -112,6 +122,8 @@ a {
 	text-align: center;
 
 	color: #384B65;
+
+	margin-top: 0;
 }
 
 .step-1 .start {
