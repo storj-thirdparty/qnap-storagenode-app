@@ -85,6 +85,7 @@
 				<p class="tagline">How a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our <a href="https://documentation.storj.io/dependencies/port-forwarding" target="_blank">documentation.</a> </p>
 
 				<label class="host-label">Host Address</label>
+				<span class="error-msg host-error">Please enter a valid address</span>
 				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
