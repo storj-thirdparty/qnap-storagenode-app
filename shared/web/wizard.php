@@ -34,7 +34,7 @@
 				<p class="tagline">Join thousands of Node Operators around the world by getting  Node status updates from Storj Labs.</p>
 
 				<label class="email-label">Email Address</label>
-				<span class="email-error error-msg">Please enter a valid email address</span>
+				<span class="email-error error-msg" v-if="!emailValid">Please enter a valid email address</span>
 				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>" required>
 
 				<button class="skip" v-on:click="step++">Skip this step</button>
@@ -46,7 +46,7 @@
 				<h1 class="title">Connect your Ethereum Wallet Address</h1>
 				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address</a></p>
 
-				<span class="error-msg address-error">Please enter a valid ERC-20 address</span>
+				<span class="error-msg address-error" v-if="!addressValid">Please enter a valid ERC-20 address</span>
 				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
@@ -59,7 +59,7 @@
 				<p class="tagline">How much disk space do you want to allocate to the Storj Network?</p>
 
 				<label class="storage-label">Storage Allocation</label>
-				<span class="error-msg storage-error">Invalid Entry</span>
+				<span class="error-msg storage-error" v-if="!storageValid">Invalid Entry</span>
 				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" required>
 				<span class="unit">GB</span>
 
@@ -85,7 +85,7 @@
 				<p class="tagline">How a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our <a href="https://documentation.storj.io/dependencies/port-forwarding" target="_blank">documentation.</a> </p>
 
 				<label class="host-label">Host Address</label>
-				<span class="error-msg host-error">Please enter a valid address</span>
+				<span class="error-msg host-error" v-if="!hostValid">Please enter a valid address</span>
 				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
@@ -112,7 +112,7 @@
 
 
 					<label>Authorization Token</label>
-					<span class="error-msg authkey-error">Please enter a valid authorization token</span>
+					<span class="error-msg authkey-error" v-if="!authkeyValid">Please enter a valid authorization token</span>
 					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }" required><br><br><br><br>
 
 					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
