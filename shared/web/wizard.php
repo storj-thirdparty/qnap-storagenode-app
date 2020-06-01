@@ -13,7 +13,7 @@
 	?>
 
 	<div id="app">
-		<a href="config.php"><i class="fa fa-home homeicon"></i></a>
+		<a href="config.php" v-if="step > 1"><i class="fa fa-home homeicon"></i></a>
 		<div v-bind:class="stepClass">
 
 			<img class="back" src="resources/img/back.png" v-if="step > 1 && (step !== 7 || identityStep === 1)" v-on:click="step--">
