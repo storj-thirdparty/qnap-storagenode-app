@@ -1655,7 +1655,12 @@ a {
 	left: 720px;
 	top: 434px;
 }
-
+.storage-error {
+	position: absolute;
+	height: 22px;
+	left: 759px;
+	top: 408px;
+}
 
 @media (min-width: 1600px) and (max-width: 1919px) {
 
