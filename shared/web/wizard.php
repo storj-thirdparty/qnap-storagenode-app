@@ -34,7 +34,7 @@
 				<p class="tagline">Join thousands of Node Operators around the world by getting  Node status updates from Storj Labs.</p>
 
 				<label class="email-label">Email Address</label>
-				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>">
+				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>" required>
 
 				<button class="skip" v-on:click="step++">Skip this step</button>
 				<button class="continue" v-on:click="step++" v-bind:disabled="!emailValid">Continue</button>
@@ -47,7 +47,7 @@
 
 
 				<label class="address-label">ERC-20 Token Compatible Wallet Address</label>
-				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>">
+				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
 			</div>
@@ -59,7 +59,7 @@
 				<p class="tagline">How much disk space do you want to allocate to the Storj Network?</p>
 
 				<label class="storage-label">Storage Allocation</label>
-				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>">
+				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" required>
 				<span class="unit">GB</span>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!storageValid">Continue</button>
@@ -72,7 +72,7 @@
 				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
 
 				<label class="directory-label">Storage Directory</label>
-				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>">
+				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 			</div>
@@ -84,7 +84,7 @@
 				<p class="tagline">How a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our <a href="https://documentation.storj.io/dependencies/port-forwarding" target="_blank">documentation.</a> </p>
 
 				<label class="host-label">Host Address</label>
-				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>">
+				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>" required>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
 			</div>
@@ -110,7 +110,7 @@
 
 
 					<label>Authorization Token</label>
-					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }"><br><br><br><br>
+					<input  type="text" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }" required><br><br><br><br>
 
 					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
 				</div>
