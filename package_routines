@@ -184,6 +184,11 @@ updateCron
 #
 PKG_POST_REMOVE="{
 echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
+IDENTITY_BIN_DIR=/share/Public/identity.bin
+IDENTITY_DIR=/share/Public/identity
+echo Running rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
+rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
+echo \`date \` '----------- Installation REMOVED ------ ' >> \$LOGFILE
 }"
 #
 ######################################################################
@@ -191,6 +196,7 @@ echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
 # before the package is installed.
 ######################################################################
 pkg_init(){
+echo `date ` "======= NEW INSTALL (ver $QPKG_VER) ======" >> $LOGFILE
 echo `date ` "RUNNING pkg_init (ver $QPKG_VER) " >> $LOGFILE
 }
 #
@@ -233,7 +239,6 @@ $CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux
 $CMD_MKDIR -p /share/Public/identity
 $CMD_MKDIR -p /share/Public/identity/logs
 $CMD_MKDIR /share/Public/identity.bin
-#$CMD_RM -rf /share/Public/identity
 $CMD_MKDIR -p /root/.local/share/storj/identity
 
 $CMD_CHOWN -R httpdusr /share/Public/identity /share/Public/identity.bin
@@ -243,12 +248,6 @@ $CMD_CHMOD a+rx /root/.local/share/storj/identity
 $CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/identity.bin
 $CMD_CHMOD +x /share/Public/identity.bin/identity*
 $CMD_RM /share/Public/identity_linux_amd64.zip
-#/share/Public/identity_linux_amd64 create storagenode --identity-dir /share/Public/identity  2>&1 | tee /share/Public/output.txt
-$CMD_MKDIR /id
-$CMD_CHMOD -R 777 /id
-#$CMD_CP /share/Public/identity/storagenode/ca.key /ca.key
-#$CMD_RM /share/Public/identity_linux_amd64
-#$CMD_MKDIR /share/Public/Demo_Routine
 
 # ------- cron setup ------------------------------
 BASE_PATH="/share/Web/STORJ"
