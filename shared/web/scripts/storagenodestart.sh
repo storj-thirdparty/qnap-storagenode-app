@@ -11,14 +11,7 @@ CONTAINER_NAME=storjlabsSnContainer
 
 echo `date` " Starting Storagenode ${CONTAINER_NAME} ---> " >> $LOG
 docker ps -a  >> $LOG
-
-if [[ $# -eq 6 ]]
-then
-    cmd="docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e EMAIL=${6} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta "
-else
-    cmd="docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta "
-fi
-
+cmd="docker run -d --restart no -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e EMAIL=${3} -e ADDRESS=${1} -e STORAGE=${4}GB -v ${5}:/app/identity -v ${6}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta " 
 echo "$cmd" >> $LOG
 $cmd >> $LOG 2>&1 
 echo $output >> $LOG 
@@ -26,3 +19,4 @@ echo $output
 output=`docker ps -a | grep ${CONTAINER_NAME} `
 echo $output >> $LOG 
 cat <<< $output
+

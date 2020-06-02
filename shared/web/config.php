@@ -86,7 +86,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 	    'Directory' => "$_directory"
 	    );
     file_put_contents($file, json_encode($properties));
-    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_storage $_identity_directory/storagenode $_directory $_emailId 2>&1 ");
+    $output = shell_exec("/bin/bash $startScript $_address $_wallet $_emailId $_storage $_identity_directory/storagenode $_directory 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
@@ -111,7 +111,7 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
 
     logMessage("config called up with isUpdateAjax 1 ");
     $server_address = $_SERVER['SERVER_ADDR'] ;
-    $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_storage $_identity_directory $_directory $server_address $_emailId 2>&1 ");
+    $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_emailId $_storage $_identity_directory $_directory $server_address 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
