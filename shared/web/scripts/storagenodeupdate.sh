@@ -75,9 +75,6 @@ BASE_IMAGE="storjlabs/storagenode:beta"
 CONTAINER_NAME=storjlabsSnContainer
 REGISTRY=""
 IMAGE="$BASE_IMAGE"
-#REGISTRY="registry.hub.docker.com"
-#IMAGE="storjlabs/storagenode:beta"
-#IMAGE="$REGISTRY/$BASE_IMAGE"
 CID=$(docker ps | grep ${CONTAINER_NAME} | awk '{print $1}')
 
 OLD=`docker inspect --format "{{.Id}}" $IMAGE`
@@ -95,7 +92,13 @@ then
 	# ------------------------------------------------------------------
 	# Re-start new container with related params
 	# ------------------------------------------------------------------
-	docker run -d --restart unless-stopped -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${port}  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
+	if [[ "x$email" == "x" ]]
+    then
+        docker run -d --restart=always -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e ADDRESS=${port}  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
+    else
+        docker run -d --restart=always -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${port}  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
+    fi
+    
 	echo `date` "Iamge $IMAGE updated (And running container $CONTAINER_NAME updated)" >> $LOG
     else
 	echo `date` "Image $IMAGE updated (And no container was running)" >> $LOG
