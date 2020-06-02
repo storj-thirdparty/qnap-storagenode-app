@@ -72,6 +72,14 @@ a {
 	height: 76.36px;
 }
 
+.step-1 .head {
+	position: absolute;
+	width: 102px;
+	height: 102px;
+	left: 669px;
+	top: 302px;
+}
+
 .step-1 .title {
 	position: absolute;
 	width: 315px;
@@ -91,6 +99,8 @@ a {
 	text-align: center;
 
 	color: #0D1826;
+
+	margin-top: 0;
 }
 
 .step-1 p {
@@ -112,6 +122,8 @@ a {
 	text-align: center;
 
 	color: #384B65;
+
+	margin-top: 0;
 }
 
 .step-1 .start {
@@ -1190,7 +1202,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 195px;
+	left: 196px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1200,7 +1212,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 411px;
+	left: 412px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1210,7 +1222,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 627px;
+	left: 628px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1220,7 +1232,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 843px;
+	left: 844px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1230,7 +1242,7 @@ a {
 	position: absolute;
 	width: 186px;
 	height: 2px;
-	left: 1059px;
+	left: 1060px;
 	top: 803px;
 
 	background: #DEE4ED;
@@ -1249,6 +1261,14 @@ a {
 	background: #DEE4ED;
 
 	border-radius: 16px;
+}
+
+.progress .checkmark img {
+	width: 16px;
+	height: auto;
+  position: relative;
+  left: -4px;
+	top: -1px;
 }
 
 .progress .label-1 {
@@ -1630,6 +1650,48 @@ a {
     left: 30px;
     font-size: 30px ! important;
     color: #0059D0;
+}
+
+
+.error-msg {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	text-align: right;
+	color: #EA0000;
+}
+.email-error {
+	position: absolute;
+	height: 22px;
+	left: 738px;
+	top: 434px;
+}
+.address-error {
+	position: absolute;
+	height: 22px;
+	left: 720px;
+	top: 434px;
+}
+.storage-error {
+	position: absolute;
+	height: 22px;
+	left: 759px;
+	top: 408px;
+}
+.host-error {
+	position: absolute;
+	height: 22px;
+	left: 782px;
+	top: 474px;
+}
+.authkey-error {
+	position: absolute;
+	height: 22px;
+	left: 694px;
+	top: 445px;
 }
 
 
