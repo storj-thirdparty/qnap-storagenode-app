@@ -11,7 +11,7 @@ CONTAINER_NAME=storjlabsSnContainer
 
 echo `date` " Starting Storagenode ${CONTAINER_NAME} ---> " >> $LOG
 docker ps -a  >> $LOG
-cmd="docker run -d --restart no -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e EMAIL=${3} -e ADDRESS=${1} -e STORAGE=${4}GB -v ${5}:/app/identity -v ${6}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta " 
+cmd="docker run -d --restart=always -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -e WALLET=${2} -e EMAIL=${3} -e ADDRESS=${1} -e STORAGE=${4}GB -v ${5}:/app/identity -v ${6}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:beta " 
 echo "$cmd" >> $LOG
 $cmd >> $LOG 2>&1 
 echo $output >> $LOG 
