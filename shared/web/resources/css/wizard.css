@@ -2,7 +2,12 @@
 
 body {
 	/*background: #E5E5E5;*/
-	font-family: 'Inter';
+	font-family: 'Inter', Arial, sans-serif;
+}
+
+button {
+	cursor: pointer;
+	border: 0;
 }
 
 #app {
