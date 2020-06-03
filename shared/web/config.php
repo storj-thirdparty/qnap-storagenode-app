@@ -60,28 +60,18 @@ if(isset($_POST['isajax']) && ($_POST['isajax'] == 1)) {
     $_address  = $_POST["address"];
     $_wallet   = $_POST["wallet"];
     $_storage  = $_POST["storage"];
-    // $_bandwidth      = $_POST["bandwidth"];
-    $_bandwidth      = "20";
 
     $_emailId      = $_POST["email_val"];
     $_directory      = $_POST["directory"];
-    // $_identity_directory = "/root/.local/share/storj/identity/storagenode" ;
     $_identity_directory = $_POST["identity"];
     $_authKey = $_POST['authKey'];
-   
-    //Changing permissions of the shell script
-    shell_exec("chmod 777 $startScript 2>&1");
-    shell_exec("chmod 777 $stopScript 2>&1");
-    // shell_exec("chmod 666 $file 2>&1");
 
-    // set_time_limit(300);
     $properties = array(
 	    'Identity'	=> "$_identity_directory",
 	    'AuthKey'	=> $_authKey,
 	    'Port'	=> $_address,
 	    'Wallet'	=> $_wallet,
 	    'Allocation'=> $_storage,
-	    'Bandwidth'	=> $_bandwidth,
 	    'Email'	=> $_emailId,
 	    'Directory' => "$_directory"
 	    );
