@@ -74,8 +74,8 @@ count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 4 ]]
 then
     logMessage "ERROR: All Identity files not generated on run" 
-    #rm ${identityPidFile}
-    #exit 4
+    rm ${identityPidFile}
+    exit 4
 fi
 
 logMessage "Authorizing identity using identity key string (IdentityPidRef:${BG_PID}) "
