@@ -3,14 +3,14 @@
 #===========================================================================
 # Generate Identity
 # Authorize Identity
-# 
+#
 # num of files checks only minimal number of files being present
 #===========================================================================
 
 
 function logMessage {
-    logFile="/var/log/STORJ" 
-    echo `date` ": (generateIdentity) $@" >> $logFile 
+    logFile="/var/log/STORJ"
+    echo `date` ": (generateIdentity) $@" >> $logFile
     echo $@
 }
 
@@ -19,21 +19,18 @@ scriptDir=`dirname $0`
 identityPidFileDir=`dirname $scriptDir`
 
 logMessage "==== Generate Identity called ($@) ============"
-if [[ $# -lt 2 ]] 
+if [[ $# -lt 2 ]]
 then
     logMessage "ERROR($selfName): sufficient params not supplied ($@)"
     logMessage "Usage($selfName): $selfName <IdentityKeyString>  "
-    exit 1 
+    exit 1
 fi
 identityString=$1
-user=www
 identityBase=/share/Public/identity
-#keyBase example /root/.local/share/storj/identity
 keyBase=$2
 
 
 identityLogFile=${identityBase}/logs/storj_identity.log
-#identityPidFile=${identityBase}/logs/identity.pid
 identityDirPath=${identityBase}/storagenode
 identityBinary=${identityBase}.bin/identity
 
@@ -43,16 +40,16 @@ identityKey=${keyBase}/storagenode/identity.key
 caKey=${keyBase}/storagenode/ca.key
 fileList="ca.key identity.key ca.cert identity.cert"
 
-if [[ -f $identityKey ]] 
+if [[ -f $identityKey ]]
 then
-    logMessage "Identity key $identityKey already exists" 
+    logMessage "Identity key $identityKey already exists"
     exit 2
 fi
 
 logMessage "Launching Identity generation program "
 logMessage "Running $identityBinary create storagenode "
 mkdir -p ${keyBase}
-$identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 & 
+$identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 &
 
 BG_PID=$!
 echo ${BG_PID} > ${identityPidFile}
@@ -65,15 +62,15 @@ logMessage "Identity key generation (${identityBinary}:${BG_PID} completed (STEP
 
 if [[ ! -f $identityKey  ]]
 then
-    logMessage "ERROR: Identity key not generated on run" 
+    logMessage "ERROR: Identity key not generated on run"
     rm ${identityPidFile}
-    exit 3 
+    exit 3
 fi
 
 count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 4 ]]
 then
-    logMessage "ERROR: All Identity files not generated on run" 
+    logMessage "ERROR: All Identity files not generated on run"
     #rm ${identityPidFile}
     #exit 4
 fi
