@@ -53,6 +53,11 @@ $identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFil
 
 BG_PID=$!
 echo ${BG_PID} > ${identityPidFile}
+function cleanup {
+    rm -f ${identityPidFile}
+}
+trap cleanup EXIT
+
 logMessage "$identityBinary launched with PID ${BG_PID}. Going to wait for it to complete"
 while  [ -d "/proc/${BG_PID}" ]
 do
@@ -63,14 +68,16 @@ logMessage "Identity key generation (${identityBinary}:${BG_PID} completed (STEP
 if [[ ! -f $identityKey  ]]
 then
     logMessage "ERROR: Identity key not generated on run"
-    rm ${identityPidFile}
-    exit 3
+    
+    
+    exit 3 
 fi
 
 count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 4 ]]
 then
     logMessage "ERROR: All Identity files not generated on run"
+
     #rm ${identityPidFile}
     #exit 4
 fi
@@ -83,7 +90,6 @@ count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 6 ]]
 then
     logMessage "Error: Authorization of Identity Signature has possibly failed (Only $count files found)(IdentityPidRef:${BG_PID})!!"
-    rm ${identityPidFile}
     exit 5
 fi
 
@@ -93,19 +99,16 @@ numBeginId=`grep -c BEGIN ${keyBase}/storagenode/identity.cert`
 if [[ $numBeginCa -ne 2 ]]
 then
     logMessage "Error: Authorization has failed (#begin in CA=$numBeginCa) (IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
-    rm ${identityPidFile}
     exit 6
 fi
 if [[ $numBeginId -ne 3 ]]
 then
     logMessage "Error: Authorization has failed (#begin in ID=$numBeginId) (IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
-    rm ${identityPidFile}
     exit 7
 fi
 logMessage "Authorization of Identity Signature Completed (STEP #2)(IdentityPidRef:${BG_PID}) folder (keybase:$keyBase)"
 logMessage "Identity Generation Successfully completed(IdentityPidRef:${BG_PID})"
 logMessage Done
-rm ${identityPidFile}
 logFile=/share/Public/identity/logs/storj_identity.log
 echo > $logFile
 exit 0
