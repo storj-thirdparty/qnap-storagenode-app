@@ -35,6 +35,7 @@ then
     echo "GOT ONLINE params: cfgfile address wallet size id config myIP email " >> $LOG
     echo " $cfgfile $address $wallet $size $id $config $myIP $email " >> $LOG
 elif [ $# -ge 1 ]
+then
     #This should be processed as a parameter to this script (by calling party)
     CONFIG_FILE=$1
     IPADDR=$(ip -4 -o addr show eth0 | awk '{print $4}' | cut -d "/" -f 1)
@@ -91,7 +92,7 @@ then
           docker run -d --restart=always -p ${PORTADDR}:28967 -p ${myIP}:14002:14002 -e WALLET=${wallet} -e EMAIL="${email}" -e ADDRESS=${address}  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v ${config}:/app/config --name ${CONTAINER_NAME} ${IMAGE} >> $LOG 2>&1
         fi
     
-	echo `date` "Iamge $IMAGE updated (And running container $CONTAINER_NAME updated)" >> $LOG
+	echo `date` "Image $IMAGE updated (And running container $CONTAINER_NAME updated)" >> $LOG
     else
 	echo `date` "Image $IMAGE updated (And no container was running)" >> $LOG
     fi
