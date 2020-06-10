@@ -116,7 +116,7 @@ PKG_PRE_REMOVE="{
 # -----------------------------------------------------------
 # Cleanup docker containers and images
 # -----------------------------------------------------------
-export PATH=\$PATH:\$SYS_QPKG_INSTALL_PATH/container-station/bin
+export PATH=\$PATH:$SYS_QPKG_INSTALL_PATH/container-station/bin
 BASE_IMAGE=storjlabs/storagenode:beta
 CONTAINER_NAME=storjlabsSnContainer
 LOGFILE=$LOGFILE
@@ -176,6 +176,7 @@ fetchCron
 removeEntryFromCronTable \"5\\s0.*\$BASE_PATH/scripts/storagenodeupdate.sh\\s\$BASE_PATH/config.json\"
 updateCron
 # -----------------------------------------------------------
+echo \`date \` 'pre remove done (ver $QPKG_VER) ' >> \$LOGFILE
 
 }"
 #
@@ -184,8 +185,8 @@ updateCron
 #
 PKG_POST_REMOVE="{
 echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
-IDENTITY_BIN_DIR=\$SYS_PUBLIC_PATH/identity.bin
-IDENTITY_DIR=\$SYS_PUBLIC_PATH/identity
+IDENTITY_BIN_DIR=$SYS_PUBLIC_PATH/identity.bin
+IDENTITY_DIR=$SYS_PUBLIC_PATH/identity
 echo Running rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
 rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
 echo \`date \` '----------- Installation REMOVED ------ ' >> \$LOGFILE
@@ -220,31 +221,50 @@ echo `date ` " pre install completed (ver $QPKG_VER) " >> $LOGFILE
 }
 #
 pkg_install(){
+
 echo `date ` "INSTALL run completed (ver $QPKG_VER) " >> $LOGFILE
-echo "---------- Variables Definitions ------------ " >> $LOGFILE
-echo "SYS_QPKG_BASE => $SYS_QPKG_BASE " >> $LOGFILE
-echo "SYS_QPKG_INSTALL_PATH => $SYS_QPKG_INSTALL_PATH " >> $LOGFILE
-echo "SYS_QPKG_DIR => $SYS_QPKG_DIR " >> $LOGFILE
-echo "SYS_PUBLIC_SHARE => $SYS_PUBLIC_SHARE " >> $LOGFILE
-echo "SYS_PUBLIC_PATH => $SYS_PUBLIC_PATH " >> $LOGFILE
-echo "SYS_DOWNLOAD_SHARE => $SYS_DOWNLOAD_SHARE " >> $LOGFILE
-echo "SYS_DOWNLOAD_PATH => $SYS_DOWNLOAD_PATH " >> $LOGFILE
-echo "SYS_WEB_SHARE => $SYS_WEB_SHARE " >> $LOGFILE
-echo "SYS_WEB_PATH => $SYS_WEB_PATH " >> $LOGFILE
-echo "SYS_EXTRACT_DIR => $SYS_EXTRACT_DIR " >> $LOGFILE
-echo "SYS_QPKG_DATA_PACKAGES_FILE => $SYS_QPKG_DATA_PACKAGES_FILE" >> $LOGFILE
-echo "SYS_HOSTNAME => $SYS_HOSTNAME" >> $LOGFILE
 }
 #
 pkg_post_install(){
-echo `date ` " RUNNING post install " >> $LOGFILE
+echo `date ` " RUNNING post install @ $SYS_PKG_DIR/ " >> $LOGFILE
+
+# ------------------- Capture All System defined resource paths --------------------------- 
+COMMONFILE=$SYS_QPKG_DIR/web/scripts/common.sh
+RESOURCEFILE=$SYS_QPKG_DIR/web/scripts/resource.sh
+echo "#==============================================" >> $RESOURCEFILE
+echo "export PATH=\$PATH:$SYS_QPKG_INSTALL_PATH/container-station/bin" >> $RESOURCEFILE
+echo "export PATH=\$PATH:$SYS_QPKG_DIR/web/scripts" >> $RESOURCEFILE
+echo "# ---------- System Environment Variables ------------" >> $RESOURCEFILE
+echo "SYS_QPKG_BASE=$SYS_QPKG_BASE" >> $RESOURCEFILE
+echo "SYS_QPKG_INSTALL_PATH=$SYS_QPKG_INSTALL_PATH" >> $RESOURCEFILE
+echo "SYS_QPKG_DIR=$SYS_QPKG_DIR" >> $RESOURCEFILE
+echo "SYS_PUBLIC_SHARE=$SYS_PUBLIC_SHARE" >> $RESOURCEFILE
+echo "SYS_PUBLIC_PATH=$SYS_PUBLIC_PATH" >> $RESOURCEFILE
+echo "SYS_DOWNLOAD_SHARE=$SYS_DOWNLOAD_SHARE" >> $RESOURCEFILE
+echo "SYS_DOWNLOAD_PATH=$SYS_DOWNLOAD_PATH" >> $RESOURCEFILE
+echo "SYS_WEB_SHARE=$SYS_WEB_SHARE" >> $RESOURCEFILE
+echo "SYS_WEB_PATH=$SYS_WEB_PATH" >> $RESOURCEFILE
+echo "SYS_EXTRACT_DIR=$SYS_EXTRACT_DIR" >> $RESOURCEFILE
+echo "SYS_QPKG_DATA_PACKAGES_FILE=$SYS_QPKG_DATA_PACKAGES_FILE" >> $RESOURCEFILE
+echo "SYS_HOSTNAME=$SYS_HOSTNAME" >> $RESOURCEFILE
+# ------------ Capture STORJ specific STANDARDIZED variables ------------
+echo "# ---------- STORJ Environment Variables ------------" >> $RESOURCEFILE
+echo "PKG_INSTALL_PATH=$SYS_QPKG_INSTALL_PATH" >> $RESOURCEFILE
+echo "PKG_DIR=$SYS_QPKG_DIR" >> $RESOURCEFILE
+echo "PUBLIC_PATH=$SYS_PUBLIC_PATH" >> $RESOURCEFILE
+echo "DOWNLOAD_PATH=$SYS_DOWNLOAD_PATH" >> $RESOURCEFILE
+echo "WEB_PATH=$SYS_WEB_PATH" >> $RESOURCEFILE
+echo "EXTRACT_DIR=$SYS_EXTRACT_DIR" >> $RESOURCEFILE
+echo "INSTALL_HOSTNAME=$SYS_HOSTNAME" >> $RESOURCEFILE
+echo "#==============================================" >> $RESOURCEFILE
+
 #Changing the file permissions for retentive parameters
-$CMD_CHMOD 666 $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/config.json
-$CMD_CHOWN -R httpdusr $SYS_QPKG_INSTALL_PATH/$PKGNAME
-$CMD_CHMOD 777 $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/conf
-$CMD_CHOWN admin $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
-$CMD_CHMOD a+rx $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
-$CMD_CHMOD u+s $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
+$CMD_CHMOD 666 $SYS_QPKG_DIR/web/config.json
+$CMD_CHOWN -R httpdusr $SYS_QPKG_DIR
+$CMD_CHMOD 777 $SYS_QPKG_DIR/web/conf
+$CMD_CHOWN admin $SYS_QPKG_DIR/web/scripts/*.sh
+$CMD_CHMOD a+rx $SYS_QPKG_DIR/web/scripts/*.sh
+$CMD_CHMOD u+s $SYS_QPKG_DIR/web/scripts/*.sh
 
 #------------------Identity Creation----------------------------------------------
 $CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P $SYS_PUBLIC_PATH/

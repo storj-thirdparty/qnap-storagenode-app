@@ -39,7 +39,7 @@ keyBase="$2"
 
 identityLogFile="${identityBase}"/logs/storj_identity.log
 identityDirPath="${identityBase}"/storagenode
-identityBinary="${identityBase}"".bin/identity
+identityBinary="${identityBase}".bin/identity
 
 identityPidFile="${identityPidFileDir}"/identity.pid
 
@@ -70,7 +70,7 @@ while  [ -d "/proc/${BG_PID}" ]
 do
     sleep 1
 done
-logMessage "Identity key generation (${identityBinary}:${BG_PID} completed (STEP#1) "
+logMessage "Identity key generation ${identityBinary}:${BG_PID} completed (STEP#1) "
 
 if [[ ! -f $identityKey  ]]
 then
