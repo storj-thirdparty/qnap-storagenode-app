@@ -3,53 +3,60 @@
 #===========================================================================
 # Generate Identity
 # Authorize Identity
-#
+# 
 # num of files checks only minimal number of files being present
 #===========================================================================
 
+function setupEnv() {
+    dirpath=$(dirname $0)
+    export PATH=$PATH:$dirpath
+    . common.sh
+}
+setupEnv 
 
 function logMessage {
-    logFile="/var/log/STORJ"
-    echo `date` ": (generateIdentity) $@" >> $logFile
-    echo $@
+    logFile="/var/log/STORJ" 
+    echo $(date) ": (generateIdentity) $@" >> $logFile 
+    echo "$@"
 }
 
-selfName=`basename $0`
-scriptDir=`dirname $0`
-identityPidFileDir=`dirname $scriptDir`
+selfName=$(basename $0)
+scriptDir=$(dirname $0)
+identityPidFileDir=$(dirname $scriptDir)
 
 logMessage "==== Generate Identity called ($@) ============"
-if [[ $# -lt 2 ]]
+if [[ $# -lt 2 ]] 
 then
     logMessage "ERROR($selfName): sufficient params not supplied ($@)"
     logMessage "Usage($selfName): $selfName <IdentityKeyString>  "
-    exit 1
+    exit 1 
 fi
-identityString=$1
+identityString="$1"
+user=www
 identityBase=/share/Public/identity
-keyBase=$2
+keyBase="$2"
 
 
-identityLogFile=${identityBase}/logs/storj_identity.log
-identityDirPath=${identityBase}/storagenode
-identityBinary=${identityBase}.bin/identity
+identityLogFile="${identityBase}"/logs/storj_identity.log
+identityDirPath="${identityBase}"/storagenode
+identityBinary="${identityBase}"".bin/identity
 
-identityPidFile=${identityPidFileDir}/identity.pid
+identityPidFile="${identityPidFileDir}"/identity.pid
 
-identityKey=${keyBase}/storagenode/identity.key
-caKey=${keyBase}/storagenode/ca.key
+identityKey="${keyBase}"/storagenode/identity.key
+caKey="${keyBase}"/storagenode/ca.key
 fileList="ca.key identity.key ca.cert identity.cert"
 
-if [[ -f $identityKey ]]
+if [[ -f $identityKey ]] 
 then
-    logMessage "Identity key $identityKey already exists"
+    logMessage "Identity key $identityKey already exists" 
     exit 2
 fi
 
 logMessage "Launching Identity generation program "
 logMessage "Running $identityBinary create storagenode "
 mkdir -p ${keyBase}
-$identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 &
+$identityBinary create storagenode --identity-dir ${keyBase}  > ${identityLogFile} 2>&1 & 
 
 BG_PID=$!
 echo ${BG_PID} > ${identityPidFile}
@@ -67,18 +74,14 @@ logMessage "Identity key generation (${identityBinary}:${BG_PID} completed (STEP
 
 if [[ ! -f $identityKey  ]]
 then
-    logMessage "ERROR: Identity key not generated on run"
-    
-    
+    logMessage "ERROR: Identity key not generated on run" 
     exit 3 
 fi
 
 count=$(/bin/ls $identityDirPath | wc -l)
 if [[ $count -lt 4 ]]
 then
-    logMessage "ERROR: All Identity files not generated on run"
-
-    #rm ${identityPidFile}
+    logMessage "ERROR: All Identity files not generated on run" 
     #exit 4
 fi
 
@@ -110,5 +113,5 @@ logMessage "Authorization of Identity Signature Completed (STEP #2)(IdentityPidR
 logMessage "Identity Generation Successfully completed(IdentityPidRef:${BG_PID})"
 logMessage Done
 logFile=/share/Public/identity/logs/storj_identity.log
-echo > $logFile
+echo > "$logFile"
 exit 0

@@ -2,25 +2,32 @@
 
 # This script updates the storagenode docker image
 # Assumption: # It needs CONFIG_FILE path as a parameter for 
+function setupEnv() {
+    dirpath=$(dirname $0)
+    export PATH=$PATH:$dirpath
+    . common.sh
+}
+setupEnv 
 
-PKGNAME="STORJ"
-LOG="/var/log/$PKGNAME"
-echo `date` $PKGNAME  " docker container updater script running " >> $LOG
+
+LOG=$LOGFILE
+echo $(date) $PKGNAME  " docker container updater script running " >> $LOG
+export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
 export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 
 # ------------------------------------------------------------------
 # Figure out parameters for container
 # ------------------------------------------------------------------
-jq=`which jq`
+jq=$(which jq)
 if [[ "x$jq" == "x" ]]
 then
 function jsonval {
-    temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $1 `
+    temp=$(echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $1 )
     echo ${temp##*|}
 }
 else
 function jsonval {
-	echo `echo $json | jq .$1 | sed 's/"//g' `
+	echo $(echo $json | jq .$1 | sed 's/"//g' )
 }
 fi
 
@@ -47,7 +54,6 @@ then
     size=`jsonval Allocation`
     id=`jsonval Identity`
     config=`jsonval Directory`
-    # TODO: To be fixed so that myIP is available from config file
     myIP=${IPADDR}
     email=`jsonval Email`
     bw=`jsonval Bandwidth`
