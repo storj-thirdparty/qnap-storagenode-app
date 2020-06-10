@@ -116,7 +116,7 @@ PKG_PRE_REMOVE="{
 # -----------------------------------------------------------
 # Cleanup docker containers and images
 # -----------------------------------------------------------
-export PATH=\$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
+export PATH=\$PATH:\$SYS_QPKG_INSTALL_PATH/container-station/bin
 BASE_IMAGE=storjlabs/storagenode:beta
 CONTAINER_NAME=storjlabsSnContainer
 LOGFILE=$LOGFILE
@@ -129,7 +129,7 @@ docker rm -f \$CONTAINER_NAME	>> \$LOGFILE
 # -----------------------------------------------------------
 # Cleanup cron entries
 # -----------------------------------------------------------
-BASE_PATH=/share/Web/STORJ
+BASE_PATH=\$SYS_WEB_PATH/\$PKGNAME
 CONFIG_FILE=\$BASE_PATH/config.json
 SJCRON=\`mktemp\`
 NEWCRON=\`mktemp\`
@@ -184,8 +184,8 @@ updateCron
 #
 PKG_POST_REMOVE="{
 echo \`date \` 'RUNNING post remove (ver $QPKG_VER) ' >> \$LOGFILE
-IDENTITY_BIN_DIR=/share/Public/identity.bin
-IDENTITY_DIR=/share/Public/identity
+IDENTITY_BIN_DIR=\$SYS_PUBLIC_PATH/identity.bin
+IDENTITY_DIR=\$SYS_PUBLIC_PATH/identity
 echo Running rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
 rm -rf \$IDENTITY_DIR \$IDENTITY_BIN_DIR >> \$LOGFILE
 echo \`date \` '----------- Installation REMOVED ------ ' >> \$LOGFILE
@@ -221,36 +221,48 @@ echo `date ` " pre install completed (ver $QPKG_VER) " >> $LOGFILE
 #
 pkg_install(){
 echo `date ` "INSTALL run completed (ver $QPKG_VER) " >> $LOGFILE
+echo "---------- Variables Definitions ------------ " >> $LOGFILE
+echo "SYS_QPKG_BASE => $SYS_QPKG_BASE " >> $LOGFILE
+echo "SYS_QPKG_INSTALL_PATH => $SYS_QPKG_INSTALL_PATH " >> $LOGFILE
+echo "SYS_QPKG_DIR => $SYS_QPKG_DIR " >> $LOGFILE
+echo "SYS_PUBLIC_SHARE => $SYS_PUBLIC_SHARE " >> $LOGFILE
+echo "SYS_PUBLIC_PATH => $SYS_PUBLIC_PATH " >> $LOGFILE
+echo "SYS_DOWNLOAD_SHARE => $SYS_DOWNLOAD_SHARE " >> $LOGFILE
+echo "SYS_DOWNLOAD_PATH => $SYS_DOWNLOAD_PATH " >> $LOGFILE
+echo "SYS_WEB_SHARE => $SYS_WEB_SHARE " >> $LOGFILE
+echo "SYS_WEB_PATH => $SYS_WEB_PATH " >> $LOGFILE
+echo "SYS_EXTRACT_DIR => $SYS_EXTRACT_DIR " >> $LOGFILE
+echo "SYS_QPKG_DATA_PACKAGES_FILE => $SYS_QPKG_DATA_PACKAGES_FILE" >> $LOGFILE
+echo "SYS_HOSTNAME => $SYS_HOSTNAME" >> $LOGFILE
 }
 #
 pkg_post_install(){
 echo `date ` " RUNNING post install " >> $LOGFILE
-#$cd /share/Public/
 #Changing the file permissions for retentive parameters
-$CMD_CHMOD 666 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/config.json
-$CMD_CHOWN -R httpdusr /share/CACHEDEV1_DATA/.qpkg/STORJ
-$CMD_CHMOD 777 /share/CACHEDEV1_DATA/.qpkg/STORJ/web/conf
-$CMD_CHOWN admin /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
-$CMD_CHMOD a+rx /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
-$CMD_CHMOD u+s /share/CACHEDEV1_DATA/.qpkg/STORJ/web/scripts/*.sh
+$CMD_CHMOD 666 $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/config.json
+$CMD_CHOWN -R httpdusr $SYS_QPKG_INSTALL_PATH/$PKGNAME
+$CMD_CHMOD 777 $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/conf
+$CMD_CHOWN admin $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
+$CMD_CHMOD a+rx $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
+$CMD_CHMOD u+s $SYS_QPKG_INSTALL_PATH/$PKGNAME/web/scripts/*.sh
 
 #------------------Identity Creation----------------------------------------------
-$CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P /share/Public/
-$CMD_MKDIR -p /share/Public/identity
-$CMD_MKDIR -p /share/Public/identity/logs
-$CMD_MKDIR /share/Public/identity.bin
+$CMD_WGET https://github.com/storj/storj/releases/download/v1.1.1/identity_linux_amd64.zip --secure-protocol=TLSv1_2 -P $SYS_PUBLIC_PATH/
+$CMD_MKDIR -p $SYS_PUBLIC_PATH/identity
+$CMD_MKDIR -p $SYS_PUBLIC_PATH/identity/logs
+$CMD_MKDIR $SYS_PUBLIC_PATH/identity.bin
 $CMD_MKDIR -p /root/.local/share/storj/identity
 
-$CMD_CHOWN -R httpdusr /share/Public/identity /share/Public/identity.bin
+$CMD_CHOWN -R httpdusr $SYS_PUBLIC_PATH/identity $SYS_PUBLIC_PATH/identity.bin
 $CMD_CHOWN -R httpdusr /root/.local/share/storj/identity
 $CMD_CHMOD a+rx /root/.local/share/storj/identity
 
-$CMD_UNZIP /share/Public/identity_linux_amd64.zip -d /share/Public/identity.bin
-$CMD_CHMOD +x /share/Public/identity.bin/identity*
-$CMD_RM /share/Public/identity_linux_amd64.zip
+$CMD_UNZIP $SYS_PUBLIC_PATH/identity_linux_amd64.zip -d $SYS_PUBLIC_PATH/identity.bin
+$CMD_CHMOD +x $SYS_PUBLIC_PATH/identity.bin/identity*
+$CMD_RM $SYS_PUBLIC_PATH/identity_linux_amd64.zip
 
 # ------- cron setup ------------------------------
-BASE_PATH="/share/Web/STORJ"
+BASE_PATH="$SYS_WEB_PATH/STORJ"
 CONFIG_FILE="${BASE_PATH}/config.json"
 SJCRON="/tmp/sjcrontable"
 
