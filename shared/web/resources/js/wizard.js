@@ -126,7 +126,7 @@ const app = new Vue({
 				this.message = data;
 
 				if(data !== "Identity Key File and others already available"){
-					this.message = "<b>Identity creation process is starting.</b><br><p>"+data+"</p>";
+					this.message = "<p>"+data+"</p>";
 				}
 
         	},
