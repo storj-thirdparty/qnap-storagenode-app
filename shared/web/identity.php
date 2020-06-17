@@ -28,8 +28,6 @@ $identitypidFile   = $moduleBase  . DIRECTORY_SEPARATOR . 'identity.pid' ;
 
 # ------------------------------------------------------------------------
 
-
-    date_default_timezone_set('Asia/Kolkata');
     $date = Date('Y-m-d H:i:s');
     $output = "" ;
     $configFile = "config.json";
