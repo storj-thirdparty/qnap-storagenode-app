@@ -8,7 +8,6 @@
 	$platformBase   = $_SERVER['DOCUMENT_ROOT'];
 	$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 	$scriptsBase    = $moduleBase . '/scripts' ;
-	// $rootBase	= "/root/.local/share/storj/identity" ;
 
 
 	$file           = $moduleBase  . DIRECTORY_SEPARATOR . $filename  ;

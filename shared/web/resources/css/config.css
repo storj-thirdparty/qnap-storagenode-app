@@ -10,7 +10,7 @@
 }
 
 .header-link {
-  color: #245AC3;
+  color: #245ac3;
   font-size: 14px;
   float: right;
   position: relative;
@@ -20,7 +20,7 @@
 }
 
 .segment {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   width: 95%;
   margin: 10px auto;
   padding: 20px;
@@ -33,11 +33,13 @@
   border-radius: 10px;
   margin: 10% auto;
 }
+
 .segment .identity_icon {
   background-image: url(./../img/identity.png);
   background-repeat: round;
 }
-.segment .port-icon{
+
+.segment .port-icon {
   background-image: url(./../img/port-forwarding.png);
   background-repeat: round;
 }
@@ -47,25 +49,27 @@
   font-size: 16px;
 }
 
-.segment .email-icon{
+.segment .email-icon {
   background-image: url(./../img/email.png);
   background-repeat: round;
 }
-.segment .wallet-icon{
+
+.segment .wallet-icon {
   background-image: url(./../img/wallet-addr.png);
   background-repeat: round;
 }
 
-.segment .storage-icon{
+.segment .storage-icon {
   background-image: url(./../img/storage-alloc.png);
   background-repeat: round;
 }
 
-.segment .bandwidth-icon{
+.segment .bandwidth-icon {
   background-image: url(./../img/bandwidth-alloc.png);
   background-repeat: round;
 }
-.segment .directory-icon{
+
+.segment .directory-icon {
   background-image: url(./../img/storage-directory.png);
   background-repeat: round;
 }
@@ -76,7 +80,7 @@
 }
 
 .segment .segment-btn {
-  border-color: #245AC3;
+  border-color: #245ac3;
   color: #245AC3;
   padding: 4px 10px;
   font-size: 14px;
@@ -89,7 +93,7 @@
 .segment .modal-input-title {
   display: inline;
   margin-right: 20px;
-  color: #6B6B6B;
+  color: #6b6b6b;
   font-size: 14px;
 }
 
@@ -118,12 +122,10 @@
 
 .bottom-buttons {
   margin-top: 40px;
-  /*display: flex; */
-  /*justify-content: center;*/
 }
 
 .start-button {
-  background: #245AC3;
+  background: #245ac3;
   border-radius: 2px;
   border: none;
   margin: 0 auto;
@@ -132,52 +134,56 @@
   padding: 10px;
 }
 
-
 .stop-button {
-  background: #D94C44;
+  background: #d94c44;
   border-radius: 2px;
   border: none;
   margin: 10px;
   color: #fff;
   padding: 10px;
 }
-.msg{
-text-align: center;
-color: red;
-font-size: 15px;
-margin-right: 50px;
-font-weight: bold;
+
+.msg {
+  text-align: center;
+  color: red;
+  font-size: 15px;
+  margin-right: 50px;
+  font-weight: bold;
 }
+
 .stopnodebtn{
   margin-right: 15px;
 }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .quantity::-webkit-inner-spin-button,
 .quantity::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-#editidentitybtn,#editexternalAddressbtn,#editwallettbtn,#editstoragebtn,#editbandwidthbtn,#editemailAddressbtn,#editdirectorybtn{margin-left:10px;}
-.identity_token_msg{margin-left: 6%;}
-.host_token_msg{margin-right: 15%;}
-.wallet_token_msg{margin-right: 17%;}
-.storage_token_msg{margin-left: 15%;}
-.bandwidth_token_msg{margin-left: 16%;}
-#idetityval,#externalAddressval,#wallettbtnval,#storagebtnval,#bandwidthbtnval,#emailAddressval{color: #245AC3}
-#idetityval .identity_text{font-weight: 600;}
-.identity_note{display:inline-block;font-size: 14px; margin-top: 18px; color: #245AC3}
+
+#editidentitybtn,#editexternalAddressbtn,#editwallettbtn,#editstoragebtn,#editbandwidthbtn,#editemailAddressbtn,#editdirectorybtn{ margin-left: 10px; }
+.identity_token_msg{ margin-left: 6%; }
+.host_token_msg{ margin-right: 15%; }
+.wallet_token_msg{ margin-right: 17%; }
+.storage_token_msg{ margin-left: 15%; }
+.bandwidth_token_msg{ margin-left: 16%; }
+#idetityval,#externalAddressval,#wallettbtnval,#storagebtnval,#bandwidthbtnval,#emailAddressval{ color: #245AC3 }
+#idetityval .identity_text{ font-weight: 600; }
+.identity_note{ display: inline-block;font-size: 14px; margin-top: 18px; color: #245AC3 }
 .identity_note span{font-weight: bold;}
 #startbtn{height: 46px;}
 #stopbtn{height: 46px;}
 #updatebtn{margin-left: 35px;}
 
- /*log message*/
+ /* log message */
 iframe{
-  width:95%;
+  width: 95%;
   height: 120px;
   margin: 5px;		
   margin-left: 35px;
@@ -186,36 +192,40 @@ iframe{
   padding: 5px;			
 }
 
-/*RClone*/
+/* RClone */
 .segment .name_icon {
   background-image: url(./../img/identity.png);
   background-repeat: round;
 }
-.segment .scope-icon{
+
+.segment .scope-icon {
   background-image: url(./../img/storage-alloc.png);
   background-repeat: round;
 }
-.segment .viewaccess-icon{
+
+.segment .viewaccess-icon {
   background-image: url(./../img/port-forwarding.png);
   background-repeat: round;
 }
-.segment .defaults-icon{
+
+.segment .defaults-icon {
   background-image: url(./../img/wallet-addr.png);
   background-repeat: round;
 }
-#nameval{color: #245AC3}
-#nameval .name_text{font-weight: 600;}
-#viewaccessval{color: #245AC3}
-#scopeval{color: #245AC3}
-#defaultsval{color: #245AC3}
-#defaultsval .defaults_text{font-weight: 600;}
-.rclonebtns{width: 175px;padding: 10px;}
+
+#nameval{ color: #245AC3; }
+#nameval .name_text{ font-weight: 600; }
+#viewaccessval{ color: #245AC3 }
+#scopeval{ color: #245AC3 }
+#defaultsval{ color: #245AC3 }
+#defaultsval .defaults_text{ font-weight: 600; }
+.rclonebtns{ width: 175px;padding: 10px; }
 .configbtns{width: 215px;padding: 10px;}
-.rcloneloader{font-size:24px;position: absolute;margin-left: 60px;display: none;}
-.runrcloneloader{font-size:24px;position: absolute;margin-left: 30px;display:none ;}
+.rcloneloader{ font-size: 24px;position: absolute;margin-left: 60px;display: none; }
+.runrcloneloader{ font-size: 24px;position: absolute;margin-left: 30px;display:none ; }
 
- /*log message*/
-iframe{width:95%;height: 120px;margin: 5px;   margin-left: 35px;border: 1px solid #E5E5E5;border-radius: 10px;}
+ /* log message */
+iframe{ width: 95%;height: 120px;margin: 5px;   margin-left: 35px;border: 1px solid #E5E5E5;border-radius: 10px; }
 
-/*identity status*/
-#identity_status{width: 100%;height: 69px;position: relative;margin: 0px;left: 8px;border: 1px solid #E5E5E5;border-radius: 10px;padding: 10px;white-space: normal;}
+/* identity status */
+#identity_status{ width: 100%;height: 69px;position: relative;margin: 0px;left: 8px;border: 1px solid #E5E5E5;border-radius: 10px;padding: 10px;white-space: normal; }
