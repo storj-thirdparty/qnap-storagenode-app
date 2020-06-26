@@ -117,7 +117,7 @@ PKG_PRE_REMOVE="{
 # Cleanup docker containers and images
 # -----------------------------------------------------------
 export PATH=\$PATH:$SYS_QPKG_INSTALL_PATH/container-station/bin
-BASE_IMAGE=storjlabs/storagenode:beta
+BASE_IMAGE=storjlabs/storagenode:latest
 CONTAINER_NAME=storjlabsSnContainer
 LOGFILE=$LOGFILE
 IMAGE=\$BASE_IMAGE
