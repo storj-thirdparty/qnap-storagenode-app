@@ -474,6 +474,7 @@
 }
 
 function logEnvironment() {
+  global $_ENV;
   logMessage(
   "\n----------------------------------------------\n"
   . "ENV is : " . print_r($_ENV, true)
@@ -485,7 +486,6 @@ function logEnvironment() {
 
 function logMessage($message) {
   $file = "/var/log/STORJ" ;
-  // $file = "test" ;
   $message = preg_replace('/\n$/', '', $message);
   $date = `date` ; $timestamp = str_replace("\n", " ", $date);
   file_put_contents($file, $timestamp . $message . "\n", FILE_APPEND);

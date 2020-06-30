@@ -14,8 +14,10 @@ jQuery(function() {
   var directoryAllocation = jQuery("#storage_directory").val();
   var regex = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   var createVal = 0;
+  var identityfile = $("#identityfile").text();
+  var fileexists = $("#file_exists").text();
 
-
+function Identity() {
   if(identitypath === "") {
     jQuery(".identity_path_msg").show();
     jQuery("#editidentitybtn").hide();
@@ -27,8 +29,6 @@ jQuery(function() {
     jQuery("#identitybtn").hide();
     jQuery("#identity .close").trigger("click");
     jQuery("#editidentitybtn").show();
-    var identityfile = $("#identityfile").text();
-    var fileexists = $("#file_exists").text();
     if(identityfile ==="false"){
       if(fileexists ==="1"){
         jQuery.ajax({
@@ -38,8 +38,10 @@ jQuery(function() {
           success: function (result) {
             if(result==="1"){
               $("#identity_status").html("<b>The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.</b>");
+              createVal = 1;
             }else{
               $("#identity_status").html("<b>Identity files exist.</b>");
+              createVal = 0;
             }
           },
           error: function () {
@@ -49,6 +51,7 @@ jQuery(function() {
 
       }else{
         $("#identity_status").html("<b>Identity files exist.</b>");
+        createVal = 0;
       }
     }else{
       readidentitystatus();
@@ -68,6 +71,8 @@ jQuery(function() {
   identityPath = identitypath;
   jQuery("#idetityval").html(identityText+identitydata);
   showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
+
+}
 
 function Address(){
   if( createAddress === "" ){
@@ -181,7 +186,7 @@ function Directory(){
   showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
 
 }
-
+Identity();
 Address();
 Wallet();
 Storage();
@@ -220,77 +225,15 @@ Directory();
   jQuery("#create_identity").click(function(){
     identitydata = jQuery("#identity_token").val();
     identitypath = jQuery("#identity_path").val();
-    var identityfile = $("#identityfile").text();
+    identityfile = $("#identityfile").text();
+    fileexists = $("#file_exists").text();
+    Identity();
 
-    if(identitydata === "") {
-      jQuery(".identity_path_msg").show();
-      jQuery("#editidentitybtn").hide();
-      jQuery("#identitybtn").show();
-      identitydataval = 0;
-      identityText = "";
-    } else {
-      if(identitypath === "") {
-        jQuery(".identity_path_msg").show();
-        jQuery("#editidentitybtn").hide();
-        jQuery("#identitybtn").show();
-        identitydataval = 0;
-        identityText = "";
-      }else{
-        jQuery(".identity_path_msg").hide();
-        jQuery("#identitybtn").hide();
-        jQuery("#identity .close").trigger("click");
-        jQuery("#editidentitybtn").show();
-        var fileexists = $("#file_exists").text();
-
-        if(identityfile ==="false"){
-          if(fileexists ==="1"){
-
-            jQuery.ajax({
-              type: "POST",
-              url: "identity.php",
-              data: {file_exist : "file_exist"},
-              success: function (result) {
-                if(result==="1"){
-                  createidentifyToken(identitydata,identitypath);
-                  readidentitystatus();
-
-                  $("#create_identity").attr("disabled",true);
-                  $("#create_identity").css("cursor","not-allowed")
-                  $("#stop_identity").removeAttr("disabled");
-                  $("#stop_identity").css("cursor","pointer");
-
-                }else if(result==="0"){
-                  $("#identity_status").html("<b>Identity files exist.</b>");
-                }else{
-                  $("#identity_status").html("<p>"+result+"</p>");
-                }
-              },
-              error: function () {
-                console.log("In tehre wrong on create Identitfy");
-              }
-            });
-
-          }else{
-            $("#identity_status").html("<b>Identity files exist.</b>");
-          }
-        }else{
-          readidentitystatus();
-
-          $("#create_identity").attr("disabled").css("cursor","not-allowed");
-          $("#stop_identity").removeAttr("disabled").css("cursor","pointer");
-        }
-
-        identitydataval = 1;
-        identityText = "<span class='identity_text'>Identity Generated: </span>";
-      }
+    if(createVal===1){
+      createidentifyToken(identitydata,identitypath);
+      readidentitystatus();
     }
 
-
-    jQuery("#idetityval").html("");
-    identityVal = identitydata;
-    identityPath = identitypath;
-    jQuery("#idetityval").html(identityText+identitydata);
-    showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
   });
 
 

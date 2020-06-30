@@ -1,7 +1,6 @@
 @import url('https://rsms.me/inter/inter.css');
 
 body {
-	/*background: #E5E5E5;*/
 	font-family: 'Inter', Arial, sans-serif;
 }
 
@@ -14,10 +13,8 @@ button {
 	width: 1400px;
 	height: 900px;
 	position: absolute;
-
 	transform: scale(1);
 	transform-origin: top left;
-
 	left: 0;
 	top: 0;
 }
@@ -33,30 +30,25 @@ a {
 	height: 32px;
 	left: 144px;;
 	top: 80px;
-
 	cursor: pointer;
 }
 
 .step {
 	background: white;
 	display: block;
-
-	/*width: 1400px;
-	height: 900px;*/
-
 	font-family: 'Inter';
 }
 
 .invalid {
-	border: 1px solid #EB5757 !important;
+	border: 1px solid #eb5757 !important;
 }
 
 .head {
 	position: absolute;
 	top: 100px;
 	width: 176px;
-    height: 176px;
-    left: 632px;
+	height: 176px;
+	left: 632px;
 	text-align: center;
 }
 
@@ -67,7 +59,6 @@ a {
 	position: absolute;
 	top: 302px;
 	left: 669px;
-
 	width: 67.78px;
 	height: 76.36px;
 }
@@ -86,14 +77,11 @@ a {
 	height: 32px;
 	left: 562px;
 	top: 440px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
@@ -109,20 +97,15 @@ a {
 	height: 24px;
 	left: 488px;
 	top: 496px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 135%;
-	/* or 24px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #384B65;
-
 	margin-top: 0;
 }
 
@@ -132,22 +115,15 @@ a {
 	right: 618px;
 	top: 556px;
 	bottom: 296px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-
 	text-align: center;
-
 	color: #FFFFFF;
-
 	width: 205px;
 	height: 48px;
 }
@@ -158,9 +134,7 @@ a {
 	height: 176px;
 	left: 632px;
 	top: 50px;
-
 	border-radius: calc(176px / 2);
-
 	background: #DEE4ED;
 }
 
@@ -172,14 +146,11 @@ a {
 	height: 32px;
 	left: 498px;
 	top: 234px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
@@ -193,16 +164,12 @@ a {
 	height: 52px;
 	left: 444px;
 	top: 290px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -212,17 +179,13 @@ a {
 	left: 445px;
 	right: 735px;
 	top: 434px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
 	width: 200px;
 }
@@ -233,17 +196,13 @@ a {
 	right: 445px;
 	top: 464px;
 	bottom: 384px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 550px;
 	height: 52px;
-
 	padding-left: 20px;
-
 	font-size: 16px;
 }
 
@@ -253,21 +212,16 @@ a {
 	right: 730px;
 	top: 552px;
 	bottom: 300px;
-
 	border: 1px solid #0059D0;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	height: 48px;
 	width: 205px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 135%;
-
-
 	color: #0059D0;
 	background-color: #fff;
 }
@@ -278,21 +232,15 @@ a {
 	right: 505px;
 	top: 552px;
 	bottom: 300px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	height: 48px;
 	width: 205px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 135%;
-
 	color: #FFFFFF;
 }
 
@@ -304,18 +252,14 @@ a {
 	height: 32px;
 	left: 411px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -325,16 +269,12 @@ a {
 	height: 52px;
 	left: 444px;
 	top: 340px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -344,20 +284,14 @@ a {
 	left: 445px;
 	right: 735px;
 	top: 434px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
-
 	width: 400px;
 }
 
@@ -367,17 +301,13 @@ a {
 	right: 445px;
 	top: 464px;
 	bottom: 384px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 550px;
 	height: 52px;
-
 	padding-left: 20px;
-
 	font-size: 16px;
 }
 
@@ -387,25 +317,17 @@ a {
 	right: 617px;
 	top: 552px;
 	bottom: 300px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-	/* identical to box height, or 22px */
-
 	align-items: center;
 	text-align: center;
-
 	color: #FFFFFF;
 }
 
@@ -417,18 +339,14 @@ a {
 	height: 32px;
 	left: 505px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -438,16 +356,12 @@ a {
 	height: 26px;
 	left: 364px;
 	top: 330px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -457,19 +371,14 @@ a {
 	left: 588px;
 	right: 662px;
 	top: 408px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	width: 200px;
 }
 
@@ -484,12 +393,9 @@ a {
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 225px;
 	height: 52px;
-
 	padding-left: 20px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -503,19 +409,14 @@ a {
 	right: 590px;
 	top: 453px;
 	bottom: 425px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	z-index: 1000;
 }
 
@@ -525,25 +426,17 @@ a {
 	right: 617px;
 	top: 526px;
 	bottom: 326px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-	/* identical to box height, or 22px */
-
 	align-items: center;
 	text-align: center;
-
 	color: #FFFFFF;
 }
 
@@ -555,18 +448,14 @@ a {
 	height: 32px;
 	left: 551px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -576,16 +465,12 @@ a {
 	height: 52px;
 	left: 387px;
 	top: 330px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -595,19 +480,14 @@ a {
 	left: 445px;
 	right: 735px;
 	top: 434px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	width: 200px;
 }
 
@@ -617,21 +497,17 @@ a {
 	right: 445px;
 	top: 464px;
 	bottom: 384px;
-
 	width: 550px;
 	height: 52px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-
 	padding: 20px;
 }
 
@@ -641,24 +517,17 @@ a {
 	right: 617px;
 	top: 552px;
 	bottom: 300px;
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-
 	text-align: center;
-
 	color: #FFFFFF;
-
 	width: 205px;
 	height: 48px;
-
-
 }
 
 /* Step 5 */
@@ -669,18 +538,14 @@ a {
 	height: 84px;
 	left: 445px;
 	top: 234px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -690,16 +555,12 @@ a {
 	height: 104px;
 	left: 444px;
 	top: 340px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -709,19 +570,14 @@ a {
 	left: 445px;
 	right: 735px;
 	top: 474px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	width: 200px;
 }
 
@@ -731,17 +587,13 @@ a {
 	right: 445px;
 	top: 504px;
 	bottom: 344px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 550px;
 	height: 52px;
-
 	padding-left: 20px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -755,26 +607,17 @@ a {
 	right: 617px;
 	top: 592px;
 	bottom: 260px;
-
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-	/* identical to box height, or 22px */
-
 	align-items: center;
 	text-align: center;
-
 	color: #FFFFFF;
 }
 
@@ -786,18 +629,14 @@ a {
 	height: 32px;
 	left: 530px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -807,16 +646,12 @@ a {
 	height: 78px;
 	left: 322px;
 	top: 330px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -826,19 +661,14 @@ a {
 	left: 446px;
 	right: 734px;
 	top: 460px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	width: 200px;
 }
 
@@ -848,21 +678,17 @@ a {
 	right: 445px;
 	top: 490px;
 	bottom: 358px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 550px;
 	height: 52px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-
 	padding-left: 25px;
 }
 
@@ -872,23 +698,17 @@ a {
 	right: 726px;
 	top: 578px;
 	bottom: 274px;
-
 	border: 1px solid #0059D0;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 135%;
-	/* identical to box height, or 22px */
-
 	text-align: center;
-
 	color: #0059D0;
 }
 
@@ -898,21 +718,15 @@ a {
 	right: 509px;
 	top: 578px;
 	bottom: 274px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-
 	text-align: center;
 	color: #FFFFFF;
 }
@@ -923,18 +737,13 @@ a {
 	height: 32px;
 	left: 543px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
-	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -944,16 +753,12 @@ a {
 	height: 78px;
 	left: 322px;
 	top: 330px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -961,49 +766,34 @@ a {
 	position: absolute;
 	left: 618px;
 	right: 617px;
-	/*top: 444px;*/
 	top: 549px;
 	bottom: 408px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-	/* identical to box height, or 22px */
-
 	text-align: center;
 	color: #FFFFFF;
 }
 
 .identity-step-2 .warning {
 	position: absolute;
-	/*left: 33.96%;*/
 	right: 31.18%;
-	/*top: 61.33%;*/
-
 	left: 489px;
-    top: 635px;
+	top: 635px;
 	bottom: 34.11%;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 145%;
-	/* or 20px */
-
 	display: flex;
 	align-items: center;
-
 	color: #657181;
 }
 
@@ -1012,11 +802,8 @@ a {
 	width: 24px;
 	height: 24px;
 	left: 445px;
-	/*top: 561px;*/
 	top: 635px;
-
 	border-radius: 12px;
-
 	background: #0059D0;
 }
 
@@ -1024,9 +811,7 @@ a {
 	position: absolute;
 	left: 10.29px;
 	top: 6.86px;
-
 	height: 10.97px;
-
 	z-index: 1000;
 }
 
@@ -1036,18 +821,14 @@ a {
 	height: 32px;
 	left: 505px;
 	top: 274px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #0D1826;
 }
 
@@ -1057,16 +838,12 @@ a {
 	height: 52px;
 	left: 314px;
 	top: 330px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
-
 	color: #384B65;
 }
 
@@ -1076,22 +853,18 @@ a {
 	height: 174px;
 	left: 470px;
 	top: 418px;
-
 	background: #FCFCFD;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 8px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 135%;
-
 	color: #0D1826;
-
 	padding: 15px;
-    overflow-x: auto;
+	overflow-x: auto;
 }
 
 .identity-step-3 .finish {
@@ -1100,23 +873,16 @@ a {
 	right: 618px;
 	top: 644px;
 	bottom: 208px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	width: 205px;
 	height: 48px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-
 	text-align: center;
-
 	color: #FFFFFF;
 }
 
@@ -1128,7 +894,6 @@ a {
 	height: 176px;
 	left: 631px;
 	top: 255px;
-
 	background: #DEE4ED;
 }
 
@@ -1138,14 +903,11 @@ a {
 	height: 32px;
 	left: 588px;
 	top: 479px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 32px;
 	line-height: 100%;
-	/* identical to box height, or 32px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
@@ -1159,14 +921,11 @@ a {
 	height: 26px;
 	left: 387px;
 	top: 535px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 145%;
-	/* or 26px */
-
 	text-align: center;
 
 	color: #384B65;
@@ -1178,22 +937,15 @@ a {
 	right: 618px;
 	top: 597px;
 	bottom: 255px;
-
-	/* acnt-1 */
-
 	background: #0059D0;
 	border-radius: 6px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 135%;
-
 	text-align: center;
-
 	color: #FFFFFF;
-
 	width: 205px;
 	height: 48px;
 }
@@ -1204,7 +956,6 @@ a {
 	height: 2px;
 	left: 196px;
 	top: 803px;
-
 	background: #DEE4ED;
 }
 
@@ -1214,7 +965,6 @@ a {
 	height: 2px;
 	left: 412px;
 	top: 803px;
-
 	background: #DEE4ED;
 }
 
@@ -1224,7 +974,6 @@ a {
 	height: 2px;
 	left: 628px;
 	top: 803px;
-
 	background: #DEE4ED;
 }
 
@@ -1234,7 +983,6 @@ a {
 	height: 2px;
 	left: 844px;
 	top: 803px;
-
 	background: #DEE4ED;
 }
 
@@ -1244,7 +992,6 @@ a {
 	height: 2px;
 	left: 1060px;
 	top: 803px;
-
 	background: #DEE4ED;
 }
 
@@ -1259,15 +1006,14 @@ a {
 	left: 164px;
 	top: 787px;
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
 .progress .checkmark img {
 	width: 16px;
 	height: auto;
-  position: relative;
-  left: -4px;
+	position: relative;
+	left: -4px;
 	top: -1px;
 }
 
@@ -1277,18 +1023,14 @@ a {
 	height: 21px;
 	left: 176px;
 	top: 793px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #FFFFFF;
 }
 
@@ -1298,9 +1040,7 @@ a {
 	height: 32px;
 	left: 380px;
 	top: 787px;
-
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
@@ -1310,18 +1050,14 @@ a {
 	height: 21px;
 	left: 391px;
 	top: 793px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #929DAA;
 }
 
@@ -1331,9 +1067,7 @@ a {
 	height: 32px;
 	left: 596px;
 	top: 787px;
-
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
@@ -1343,18 +1077,14 @@ a {
 	height: 21px;
 	left: 606px;
 	top: 793px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #929DAA;
 }
 
@@ -1364,9 +1094,7 @@ a {
 	height: 32px;
 	left: 812px;
 	top: 787px;
-
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
@@ -1376,18 +1104,14 @@ a {
 	height: 21px;
 	left: 822px;
 	top: 793px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #929DAA;
 }
 
@@ -1397,9 +1121,7 @@ a {
 	height: 32px;
 	left: 1028px;
 	top: 787px;
-
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
@@ -1409,18 +1131,14 @@ a {
 	height: 21px;
 	left: 1038px;
 	top: 793px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #929DAA;
 }
 
@@ -1430,9 +1148,7 @@ a {
 	height: 32px;
 	left: 1244px;
 	top: 787px;
-
 	background: #DEE4ED;
-
 	border-radius: 16px;
 }
 
@@ -1448,12 +1164,9 @@ a {
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: #929DAA;
 }
 
@@ -1475,18 +1188,14 @@ a {
 	height: 21px;
 	left: 126px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4)
 }
 
@@ -1496,18 +1205,14 @@ a {
 	height: 21px;
 	left: 319px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4);
 }
 
@@ -1517,18 +1222,14 @@ a {
 	height: 21px;
 	left: 542px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4);
 }
 
@@ -1538,18 +1239,14 @@ a {
 	height: 21px;
 	left: 759px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4);
 }
 
@@ -1559,18 +1256,14 @@ a {
 	height: 21px;
 	left: 982px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4);
 }
 
@@ -1580,18 +1273,14 @@ a {
 	height: 21px;
 	left: 1230px;
 	top: 831px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* or 21px */
-
 	display: flex;
 	align-items: center;
 	text-align: center;
-
 	color: rgba(56, 75, 101, 0.4);
 }
 
@@ -1602,23 +1291,17 @@ a {
 	right: 617px;
 	top: 475px;
 	bottom: 408px;
-
-	/* acnt-1 */
-
 	width: 550px;
 	height: 52px;
-
 	background: #FFFFFF;
 	border: 1px solid #DEE4ED;
 	box-sizing: border-box;
 	border-radius: 6px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-
 	padding: 20px;
 }
 
@@ -1628,28 +1311,23 @@ a {
 	left: 445px;
 	right: 735px;
 	top: 445px;
-
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 134.09%;
-	/* identical to box height, or 21px */
-
 	display: flex;
 	align-items: center;
-
 	color: #384B65;
-
 	width: 200px;
 }
 
 .homeicon{
 	position: absolute;
-    top: 30px;
-    left: 30px;
-    font-size: 30px ! important;
-    color: #0059D0;
+	top: 30px;
+	left: 30px;
+	font-size: 30px !important;
+	color: #0059D0;
 }
 
 
@@ -1663,30 +1341,35 @@ a {
 	text-align: right;
 	color: #EA0000;
 }
+
 .email-error {
 	position: absolute;
 	height: 22px;
 	left: 738px;
 	top: 434px;
 }
+
 .address-error {
 	position: absolute;
 	height: 22px;
 	left: 720px;
 	top: 434px;
 }
+
 .storage-error {
 	position: absolute;
 	height: 22px;
 	left: 759px;
 	top: 408px;
 }
+
 .host-error {
 	position: absolute;
 	height: 22px;
 	left: 782px;
 	top: 474px;
 }
+
 .authkey-error {
 	position: absolute;
 	height: 22px;

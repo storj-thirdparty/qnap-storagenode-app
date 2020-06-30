@@ -16,7 +16,6 @@
 	$updateScript	= $scriptsBase . DIRECTORY_SEPARATOR . 'storagenodeupdate.sh' ;
 	$checkScript    = $scriptsBase . DIRECTORY_SEPARATOR . 'checkStorj.sh' ;
 	$isRunning      = $scriptsBase . DIRECTORY_SEPARATOR . 'isRunning.sh' ;
-	$storageBinary  = $scriptsBase . DIRECTORY_SEPARATOR . 'storagenode' ;
 
 	$identityFile   = $moduleBase  . DIRECTORY_SEPARATOR . 'identity.pid' ;
 
