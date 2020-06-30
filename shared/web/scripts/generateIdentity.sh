@@ -28,7 +28,7 @@ logMessage "==== Generate Identity called ($@) ============"
 if [[ $# -lt 2 ]] 
 then
     logMessage "ERROR($selfName): sufficient params not supplied ($@)"
-    logMessage "Usage($selfName): $selfName <IdentityKeyString>  "
+    logMessage "Usage($selfName): $selfName <IdentityKeyString> <keyBase> "
     exit 1 
 fi
 identityString="$1"
@@ -38,7 +38,7 @@ keyBase="$2"
 
 
 identityLogFile="${identityBase}"/logs/storj_identity.log
-identityDirPath="${identityBase}"/storagenode
+identityDirPath="${keyBase}"/storagenode
 identityBinary="${identityBase}".bin/identity
 
 identityPidFile="${identityPidFileDir}"/identity.pid
