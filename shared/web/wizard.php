@@ -4,12 +4,14 @@
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<?php
+	<?php 
+		// @codingStandardsIgnoreStart
 		$file = "config.json";
 		if(file_exists($file)){
 		  	$content = file_get_contents($file);
 		  	$prop = json_decode($content, true);
 		  }
+		   // @codingStandardsIgnoreEnd
 	?>
 
 	<div id="app">
@@ -35,7 +37,9 @@
 
 				<label class="email-label">Email Address</label>
 				<span class="email-error error-msg" v-if="!emailValid">Please enter a valid email address</span>
+				<!-- codingStandardsIgnoreStart -->
 				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>" required>
+				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="skip" v-on:click="step++">Skip this step</button>
 				<button class="continue" v-on:click="step++" v-bind:disabled="!emailValid">Continue</button>
@@ -47,7 +51,9 @@
 				<p class="tagline">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address</a></p>
 
 				<span class="error-msg address-error" v-if="!addressValid">Please enter a valid ERC-20 address</span>
+				<!-- codingStandardsIgnoreStart -->
 				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
+				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
 			</div>
@@ -60,7 +66,9 @@
 
 				<label class="storage-label">Storage Allocation</label>
 				<span class="error-msg storage-error" v-if="!storageValid">Invalid Entry</span>
+				<!-- codingStandardsIgnoreStart -->
 				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" required>
+				<!-- @codingStandardsIgnoreEnd -->
 				<span class="unit">GB</span>
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!storageValid">Continue</button>
@@ -73,7 +81,9 @@
 				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
 
 				<label class="directory-label">Storage Directory</label>
+				<!-- codingStandardsIgnoreStart -->
 				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 			</div>
@@ -86,8 +96,9 @@
 
 				<label class="host-label">Host Address</label>
 				<span class="error-msg host-error" v-if="!hostValid">Please enter a valid address</span>
+				<!-- codingStandardsIgnoreStart -->
 				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>" required>
-
+				<!-- @codingStandardsIgnoreEnd -->
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
 			</div>
 
@@ -100,8 +111,9 @@
 					<p class="tagline">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
 
 					<label class="identity-label">Identity Path</label>
+					<!-- codingStandardsIgnoreStart -->
 					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
-
+					<!-- @codingStandardsIgnoreEnd -->
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
 				</div>
@@ -113,8 +125,9 @@
 
 					<label>Authorization Token</label>
 					<span class="error-msg authkey-error" v-if="!authkeyValid">Please enter a valid authorization token</span>
+					<!-- codingStandardsIgnoreStart -->
 					<input  type="text" placeholder="your@email.com:1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }" required><br><br><br><br>
-
+					<!-- @codingStandardsIgnoreEnd -->
 					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
 				</div>
 

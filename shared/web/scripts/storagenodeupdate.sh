@@ -71,7 +71,7 @@ fi
 #       Container Updation logic 
 # ------------------------------------------------------------------------------
 set -e
-BASE_IMAGE="storjlabs/storagenode:latest"
+BASE_IMAGE="storjlabs/storagenode:beta"
 CONTAINER_NAME=storjlabsSnContainer
 REGISTRY=""
 IMAGE="$BASE_IMAGE"

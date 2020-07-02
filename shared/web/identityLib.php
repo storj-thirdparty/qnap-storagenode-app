@@ -4,8 +4,10 @@
 #  Set environment variables
 # ------------------------------------------------------------------------
 $centralLogFile = "/var/log/STORJ" ;
+// $centralLogFile = "test" ;
 
 function checkIdentityProcessRunning($identityPidFile) {
+    // @codingStandardsIgnoreStart
     if(file_exists($identityPidFile)) {
 	$pid = file_get_contents($identityPidFile);
 	$pid = (int)$pid ;
@@ -26,9 +28,12 @@ function checkIdentityProcessRunning($identityPidFile) {
 	// echo false;
 	return false ;
     }
+
+     // @codingStandardsIgnoreEnd
 }
 
 function killIdentityProcess($identityPidFile) {
+    // @codingStandardsIgnoreStart
     if(file_exists($identityPidFile)) {
 	    $pid = file_get_contents($identityPidFile);
 	    $pid = (int)$pid ;
@@ -40,11 +45,14 @@ function killIdentityProcess($identityPidFile) {
     }
     logMessage($msg);
     echo $msg ;
+
+    // @codingStandardsIgnoreEnd
 }
 
 function checkIdentityFileExistence($data) {
     // Checking file if exist or not.
     $identityFilePath = $data["Identity"] . "/storagenode/identity.key" ;
+     // @codingStandardsIgnoreStart
     if(validateExistence($data))
     {
 	logMessage("(file_exist) File $identityFilePath and others already exist !");
@@ -53,6 +61,7 @@ function checkIdentityFileExistence($data) {
 	logMessage("(file_exist) File $identityFilePath or others don't exists !");
 	echo "1";	# FILE NOT FOUND
     }
+    // @codingStandardsIgnoreEnd
 }
 
 function validateExistence($data) {
@@ -64,6 +73,7 @@ function validateExistence($data) {
 }
 
 function validatePathExistence($Path) {
+     // @codingStandardsIgnoreStart
     $fileList = [ 
 	"ca.key",
 	"identity.key",
@@ -77,10 +87,12 @@ function validatePathExistence($Path) {
 	}
     }
     return $allReqdFilesAvailable ;
+    // @codingStandardsIgnoreEnd
 }
 
 
 function identityExists($data) {
+     // @codingStandardsIgnoreStart
     #global $identityFilePath ;
     if(!isset($data) || (!isset($data['Identity'])) ) {
 	return False ;
@@ -88,26 +100,35 @@ function identityExists($data) {
     $Path = $data["Identity"] . "/storagenode";
     $identityFilePath = "${Path}/identity.key" ;
     return file_exists($identityFilePath);
+    // @codingStandardsIgnoreEnd
 }
 
 function logEnvironment() {
+      // @codingStandardsIgnoreStart
 	logMessage( "POST is : " . print_r($_POST, true));
+     // @codingStandardsIgnoreEnd
 }
 
 function logMessage($message) {
+    // @codingStandardsIgnoreStart
     global $centralLogFile ;
     $message = preg_replace('/\n$/', '', $message);
     $date = `date` ; $timestamp = str_replace("\n", " ", $date);
     $timestamp .= " (identityLib)  "  ;
     file_put_contents($centralLogFile, $timestamp . $message . "\n", FILE_APPEND);
+    // @codingStandardsIgnoreEnd
 }
 
 function loadConfig($filePath) {
+     // @codingStandardsIgnoreStart
     return json_decode(file_get_contents($filePath), TRUE);
+     // @codingStandardsIgnoreEnd
 } 
 
 function storeConfig($data, $filePath) {
+    // @codingStandardsIgnoreStart
     return file_put_contents($filePath, json_encode($data));
+    // @codingStandardsIgnoreEnd
 } 
 
 function updateConfig($dataNew, $filePath) {
