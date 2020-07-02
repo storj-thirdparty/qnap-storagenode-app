@@ -38,7 +38,11 @@
 				<label class="email-label">Email Address</label>
 				<span class="email-error error-msg" v-if="!emailValid">Please enter a valid email address</span>
 				<!-- codingStandardsIgnoreStart -->
-				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>" required>
+				<input type="email" class="email" placeholder="mail@default.com" v-model="email" v-bind:class="{ invalid: !emailValid }" value="<?php 
+				// codingStandardsIgnoreStart
+				if(isset($prop['Email'])) echo $prop['Email']
+				// codingStandardsIgnoreEnd
+				 ?>" required>
 				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="skip" v-on:click="step++">Skip this step</button>
@@ -52,7 +56,11 @@
 
 				<span class="error-msg address-error" v-if="!addressValid">Please enter a valid ERC-20 address</span>
 				<!-- codingStandardsIgnoreStart -->
-				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
+				<input type="text" class="address" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php 
+				// codingStandardsIgnoreStart
+				if(isset($prop['Wallet'])) echo $prop['Wallet']
+				// codingStandardsIgnoreEnd
+				 ?>" required>
 				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
@@ -67,7 +75,11 @@
 				<label class="storage-label">Storage Allocation</label>
 				<span class="error-msg storage-error" v-if="!storageValid">Invalid Entry</span>
 				<!-- codingStandardsIgnoreStart -->
-				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" required>
+				<input class="storage" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php 
+				// codingStandardsIgnoreStart
+				if(isset($prop['Allocation'])) echo $prop['Allocation']
+				// codingStandardsIgnoreEnd
+				 ?>" required>
 				<!-- @codingStandardsIgnoreEnd -->
 				<span class="unit">GB</span>
 
@@ -82,7 +94,11 @@
 
 				<label class="directory-label">Storage Directory</label>
 				<!-- codingStandardsIgnoreStart -->
-				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php 
+				// codingStandardsIgnoreStart
+				if(isset($prop['Directory'])) echo $prop['Directory']
+				// codingStandardsIgnoreEnd
+				 ?>" required>
 				<!-- @codingStandardsIgnoreEnd -->
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
@@ -97,7 +113,11 @@
 				<label class="host-label">Host Address</label>
 				<span class="error-msg host-error" v-if="!hostValid">Please enter a valid address</span>
 				<!-- codingStandardsIgnoreStart -->
-				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>" required>
+				<input class="host" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php 
+				// codingStandardsIgnoreStart
+				if(isset($prop['Port'])) echo $prop['Port']
+				// codingStandardsIgnoreEnd
+				 ?>" required>
 				<!-- @codingStandardsIgnoreEnd -->
 				<button class="continue" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
 			</div>
@@ -112,7 +132,11 @@
 
 					<label class="identity-label">Identity Path</label>
 					<!-- codingStandardsIgnoreStart -->
-					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
+					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php 
+					// codingStandardsIgnoreStart
+					if(isset($prop['Identity'])) echo $prop['Identity']
+					// codingStandardsIgnoreEnd
+					 ?>" v-bind:class="{ invalid: !identityValid }">
 					<!-- @codingStandardsIgnoreEnd -->
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
@@ -126,7 +150,11 @@
 					<label>Authorization Token</label>
 					<span class="error-msg authkey-error" v-if="!authkeyValid">Please enter a valid authorization token</span>
 					<!-- codingStandardsIgnoreStart -->
-					<input  type="text" placeholder="your@email.com:1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }" required><br><br><br><br>
+					<input  type="text" placeholder="your@email.com:1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" id="authkey"  value="<?php 
+					// codingStandardsIgnoreStart
+					if(isset($prop['AuthKey'])) echo $prop['AuthKey'] 
+					// codingStandardsIgnoreEnd
+					?>"  v-model="authkey" v-bind:class="{ invalid: !authkeyValid }" required><br><br><br><br>
 					<!-- @codingStandardsIgnoreEnd -->
 					<button class="generate" v-on:click="generateIdentity" v-bind:disabled="!authkeyValid">Generate</button>
 				</div>

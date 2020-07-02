@@ -142,7 +142,9 @@
 		logMessage("Identity php called for creation purpose identityString : " . $authkey);
 		if(identityExists($data) && validateExistence($data)) {
 			logMessage("Identity Key File and others already available");
+			// @codingStandardsIgnoreStart
 			echo "Identity Key File and others already available";
+			// @codingStandardsIgnoreEnd
 		return ;
 		} else {
 			logMessage("Identity Key doesn't exists. Going to start identity generation ");
@@ -176,10 +178,11 @@
 		logMessage("Launching command $cmd and capturing log in $logFile ");
 		exec($cmd, $output );
 		logMessage("Launched command (@ $programStartTime) ");
-
+		// @codingStandardsIgnoreStart
 		$jsonString = file_get_contents($configFile);
 		$data = json_decode($jsonString, true);
 		$data['LogFilePath'] = $logFile;
+		// @codingStandardsIgnoreEnd
 
 		$data['idGenStartTime'] = $programStartTime ;
 		$newJsonString = json_encode($data);
