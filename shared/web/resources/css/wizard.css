@@ -860,7 +860,6 @@ a {
   display: flex;
   align-items: center;
   text-align: center;
-
   color: #0d1826;
 }
 
@@ -1260,7 +1259,6 @@ a {
   color: #0059d0;
 }
 
-
 .error-msg {
   font-style: normal;
   font-weight: normal;
@@ -1306,35 +1304,34 @@ a {
   top: 445px;
 }
 
-
 @media (min-width: 1600px) and (max-width: 1919px) {
- .step {
-     position: absolute;
-     left: 130px;
-     width: 80%;
-    }
+  .step {
+    position: absolute;
+    left: 130px;
+    width: 80%;
+  }
 }
 
 @media (min-width: 1919px) and (max-width: 2200px) {
- .step {
-     position: absolute;
-     left: 300px;
-     width: 80%;
-    }
+  .step {
+    position: absolute;
+    left: 300px;
+    width: 80%;
+  }
 }
 
 @media (min-width: 2200px) and (max-width: 3000px) {
- .step {
-     position: absolute;
-     left: 500px;
-     width: 80%;
-    }
+  .step {
+    position: absolute;
+    left: 500px;
+    width: 80%;
+  }
 }
 
 @media (min-width: 3000px) and (max-width: 8000px) {
- .step {
-       position: absolute;
-       left: 1000px;
-       width: 80%;
-    }
+  .step {
+    position: absolute;
+    left: 1000px;
+    width: 80%;
+  }
 }

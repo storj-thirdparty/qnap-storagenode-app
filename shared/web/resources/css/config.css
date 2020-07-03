@@ -167,32 +167,9 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-#editidentitybtn,
-#editexternalAddressbtn,
-#editwallettbtn,
-#editstoragebtn,
-#editbandwidthbtn,
-#editemailAddressbtn,
-#editdirectorybtn { margin-left: 10px; }
-.identity_token_msg { margin-left: 6%; }
-.host_token_msg { margin-right: 15%; }
-.wallet_token_msg { margin-right: 17%; }
-.storage_token_msg { margin-left: 15%; }
-.bandwidth_token_msg { margin-left: 16%; }
+iframe { /* end-of-line comment
+  with a newline */
 
-#idetityval,
-#externalAddressval,
-#wallettbtnval,
-#storagebtnval,
-#bandwidthbtnval,
-#emailAddressval { color: #245ac3; }
-#idetityval .identity_text { font-weight: 600; }
-.identity_note span { font-weight: bold; }
-#startbtn  { height: 46px; }
-#stopbtn { height: 46px; }
-#updatebtn { margin-left: 35px; }
-
-iframe { 
   width: 95%;
   height: 120px;
   margin: 5px;
@@ -202,7 +179,9 @@ iframe {
   padding: 5px;
 }
 
-.identity_note { 
+.identity_note {/* end-of-line comment
+  with a newline */
+
   display: inline-block;
   font-size: 14px;
   margin-top: 18px;
@@ -230,19 +209,17 @@ iframe {
   background-repeat: round;
 }
 
-#nameval { color: #245ac3; }
-#nameval .name_text { font-weight: 600; }
-#viewaccessval{ color: #245ac3; }
-#scopeval { color: #245ac3; }
-#defaultsval { color: #245ac3; }
-#defaultsval .defaults_text{ font-weight: 600; }
+.rclonebtns {/* end-of-line comment
+  with a newline */
 
-.rclonebtns { 
   width: 175px;
   padding: 10px;
 }
 
-.configbtns { 
+.configbtns {
+  /* end-of-line comment
+  with a newline */
+
   width: 215px;
   padding: 10px;
 }
@@ -261,14 +238,48 @@ iframe {
   display: none;
 }
 
-#identity_status { 
+#identity_status {
+  /* end-of-line comment
+  with a newline */
+
   width: 100%;
   height: 69px;
   position: relative;
-  margin: 0px;
   left: 8px;
   border: 1px solid #e5e5e5;
   border-radius: 10px;
   padding: 10px;
   white-space: normal;
 }
+
+#editidentitybtn,
+#editexternalAddressbtn,
+#editwallettbtn,
+#editstoragebtn,
+#editbandwidthbtn,
+#editemailAddressbtn,
+#editdirectorybtn { margin-left: 10px; }
+.identity_token_msg { margin-left: 6%; }
+.host_token_msg { margin-right: 15%; }
+.wallet_token_msg { margin-right: 17%; }
+.storage_token_msg { margin-left: 15%; }
+.bandwidth_token_msg { margin-left: 16%; }
+
+#idetityval,
+#externalAddressval,
+#wallettbtnval,
+#storagebtnval,
+#bandwidthbtnval,
+#emailAddressval { color: #245ac3; }
+#idetityval .identity_text { font-weight: 600; }
+.identity_note span { font-weight: bold; }
+#startbtn { height: 46px; }
+#stopbtn { height: 46px; }
+#updatebtn { margin-left: 35px; }
+
+#nameval { color: #245ac3; }
+#nameval .name_text { font-weight: 600; }
+#viewaccessval { color: #245ac3; }
+#scopeval { color: #245ac3; }
+#defaultsval { color: #245ac3; }
+#defaultsval .defaults_text { font-weight: 600; }
