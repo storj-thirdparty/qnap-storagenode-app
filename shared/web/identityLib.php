@@ -7,36 +7,36 @@ $centralLogFile = "/var/log/STORJ" ;
 
 function checkIdentityProcessRunning($identityPidFile) {
     if(file_exists($identityPidFile)) {
-	$pid = file_get_contents($identityPidFile);
-	$pid = (int)$pid ;
+    $pid = file_get_contents($identityPidFile);
+    $pid = (int)$pid ;
 
-	// Figure out whether process is running
-	$status = exec("if [ -d '/proc/$pid' ] ; then (echo 1 ; exit 0) ; else (echo 0 ; exit 2 ) ; fi");
+    // Figure out whether process is running
+    $status = exec("if [ -d '/proc/$pid' ] ; then (echo 1 ; exit 0) ; else (echo 0 ; exit 2 ) ; fi");
 
-	if($status == 1) {
-	    // if process is running then print true.
-	    // echo true;
-	    return true ;
-	} else {
-	    // if process is not running then print false.
-	    // echo false;
-	    return false ;
-	}
+    if($status == 1) {
+        // if process is running then print true.
+        // echo true;
+        return true ;
+    } else {
+        // if process is not running then print false.
+        // echo false;
+        return false ;
+    }
     }else{
-	// echo false;
-	return false ;
+    // echo false;
+    return false ;
     }
 }
 
 function killIdentityProcess($identityPidFile) {
     if(file_exists($identityPidFile)) {
-	    $pid = file_get_contents($identityPidFile);
-	    $pid = (int)$pid ;
-	    // Stop Identity
-	    $output = shell_exec("kill -9 $pid");
-	    $msg = "Identity creation stopped (no identity generated)!\n$output";
+        $pid = file_get_contents($identityPidFile);
+        $pid = (int)$pid ;
+        // Stop Identity
+        $output = shell_exec("kill -9 $pid");
+        $msg = "Identity creation stopped (no identity generated)!\n$output";
     } else {
-	    $msg = "Identity creation process not found";
+        $msg = "Identity creation process not found";
     }
     logMessage($msg);
     echo $msg ;
@@ -47,17 +47,17 @@ function checkIdentityFileExistence($data) {
     $identityFilePath = $data["Identity"] . "/storagenode/identity.key" ;
     if(validateExistence($data))
     {
-	logMessage("(file_exist) File $identityFilePath and others already exist !");
-	echo "0";	# NORMAL
+    logMessage("(file_exist) File $identityFilePath and others already exist !");
+    echo "0";   # NORMAL
     }else{
-	logMessage("(file_exist) File $identityFilePath or others don't exists !");
-	echo "1";	# FILE NOT FOUND
+    logMessage("(file_exist) File $identityFilePath or others don't exists !");
+    echo "1";   # FILE NOT FOUND
     }
 }
 
 function validateExistence($data) {
     if(!isset($data) || (!isset($data['Identity'])) ) {
-	return False ;
+    return False ;
     }
     $Path = $data["Identity"] . "/storagenode";
     return validatePathExistence($Path);
@@ -65,16 +65,16 @@ function validateExistence($data) {
 
 function validatePathExistence($Path) {
     $fileList = [ 
-	"ca.key",
-	"identity.key",
-	"ca.cert",
-	"identity.cert"
+    "ca.key",
+    "identity.key",
+    "ca.cert",
+    "identity.cert"
     ];
     $allReqdFilesAvailable = 1 ;
     foreach( $fileList as $file ) {
-	if(!file_exists("$Path/$file")) {
-	    $allReqdFilesAvailable = 0 ;
-	}
+    if(!file_exists("$Path/$file")) {
+        $allReqdFilesAvailable = 0 ;
+    }
     }
     return $allReqdFilesAvailable ;
 }
@@ -83,7 +83,7 @@ function validatePathExistence($Path) {
 function identityExists($data) {
     #global $identityFilePath ;
     if(!isset($data) || (!isset($data['Identity'])) ) {
-	return False ;
+    return False ;
     }
     $Path = $data["Identity"] . "/storagenode";
     $identityFilePath = "${Path}/identity.key" ;
@@ -91,7 +91,7 @@ function identityExists($data) {
 }
 
 function logEnvironment() {
-	logMessage( "POST is : " . print_r($_POST, true));
+    logMessage( "POST is : " . print_r($_POST, true));
 }
 
 function logMessage($message) {

@@ -5,7 +5,7 @@
 	# ------------------------------------------------------------------------
 	$filename = "config.json";
 
-	$platformBase   = $_SERVER['DOCUMENT_ROOT'];
+	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 	$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 	$scriptsBase    = $moduleBase . '/scripts' ;
 

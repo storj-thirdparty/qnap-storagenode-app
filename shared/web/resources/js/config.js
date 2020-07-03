@@ -4,6 +4,37 @@ var identityVal,identityPath, addressVal, walletVal, storageVal, directoryVal, e
 
 var identityText,addressText, storageText;
 
+function Stopprocess (url){
+  jQuery.ajax({
+    type: "POST",
+    url,
+    data: {isstopAjax : 1},
+    success: () => {
+      window.location.reload();
+    },
+    error: () => {
+    }
+  });
+}
+
+function Startupdate (){
+ jQuery.ajax({
+    type: "POST",
+    url: "config.php",
+    data: {identity : identityPath, authKey:identityVal, address : addressVal, wallet : walletVal, storage : storageVal, emailval : emailiddataVal, directory: directoryVal,  isajax : 1},
+    success: (result) => {
+      window.location.reload();
+      // // log message
+      $("iframe").contents().find("body").html("<p>"+result+"</p>");
+    },
+    error: (result) => {
+      // log message
+      $("iframe").contents().find("body").html("<p>"+result+"</p>");
+    }
+  });
+}
+
+
 jQuery(function() {
   var identitydata = jQuery("#identity_token").val();
   var identitypath = jQuery("#identity_path").val();
@@ -16,6 +47,92 @@ jQuery(function() {
   var createVal = 0;
   var identityfile = $("#identityfile").text();
   var fileexists = $("#file_exists").text();
+
+  function Identityfilecheck (){
+    identityfile = $("#identityfile").text();
+     if(identityfile ==="false"){
+        jQuery("#startbtn").removeAttr("disabled", true);
+        jQuery("#startbtn").css("cursor", "pointer");
+      }
+  }
+
+function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
+  if(createidentitydataval ===1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && directoryAllocationvaldata === 1) {
+    var identityfile = $("#identityfile").text();
+
+   var identityfilecheck1 = new Identityfilecheck();
+  } else{
+    jQuery("#startbtn").attr("disabled", true);
+    jQuery("#startbtn").css("cursor", "not-allowed");
+  }
+}
+
+  // Create identity.
+function createidentifyToken(createidval,identitypath){
+
+  jQuery.ajax({
+    type: "POST",
+    url: "identity.php",
+    data: {
+      createidval,
+      identitypath,
+      identityString: createidval 
+    },
+    success: (result) => {
+      $("#identity_status").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
+    },
+    error: () => {
+    }
+  });
+
+}
+
+
+// Read status from identity.php file.
+function readidentitystatus(){
+  jQuery.ajax({
+    type: "POST",
+    url: "identity.php",
+    data: {status : "status",},
+    success: (result) => {
+      if(result === "identity available at /root/.local/share/storj/identity"){
+        $("#identity_status").html("<b>"+result+"</b>");
+        identitydataval = 1;
+      }else{
+        $("#identity_status").html("<b>Identity creation process is running.</b><br><p>"+result+"</p>");
+      }
+    },
+    error: () => {
+    }
+  });
+
+  setInterval(function(){
+    readidentitystatus();
+  },60000);
+  
+}
+
+
+
+jQuery("#stop_identity").click(function() {
+  var stopprocess1 = new Stopprocess("identity.php");
+});
+
+$("#identity_path").change(function(){
+  identityPath = $(this).val();
+  if(identityPath === "" || identityPath ===null){
+  identitydataval = 0;
+    jQuery(".identity_path_msg").show();
+    jQuery("#editidentitybtn").hide();
+    jQuery("#identitybtn").show();
+  }else{
+    jQuery(".identity_path_msg").hide();
+    jQuery("#editidentitybtn").hide();
+    jQuery("#identitybtn").show();
+    identitydataval = 1;
+  }
+  showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
+});
 
 function Identity() {
   if(identitypath === "") {
@@ -34,8 +151,8 @@ function Identity() {
         jQuery.ajax({
           type: "POST",
           url: "identity.php",
-          data: {file_exist : "file_exist"},
-          success: function (result) {
+          data: {fileexist : "file_exist"},
+          success: (result) => {
             if(result==="1"){
               $("#identity_status").html("<b>The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.</b>");
               createVal = 1;
@@ -44,8 +161,8 @@ function Identity() {
               createVal = 0;
             }
           },
-          error: function () {
-            console.log("In tehre wrong on create Identitfy");
+          error: () => {
+           
           }
         });
 
@@ -57,7 +174,7 @@ function Identity() {
       readidentitystatus();
 
       $("#create_identity").attr("disabled",true);
-      $("#create_identity").css("cursor","not-allowed")
+      $("#create_identity").css("cursor","not-allowed");
       $("#stop_identity").removeAttr("disabled");
       $("#stop_identity").css("cursor","pointer");
     }
@@ -122,7 +239,7 @@ function Storage(){
   if(jQuery.isNumeric(storageallocate) && Number.isInteger(storageallocate) &&  storageallocate >= 500){
     jQuery(".storage_token_msg").hide();
     jQuery("#addstoragebtn").hide();
-    jQuery("#storageAllocation .close").trigger('click');
+    jQuery("#storageAllocation .close").trigger("click");
     jQuery("#editstoragebtn").show();
     storageallocateval = 1;
     storageText = "GB";
@@ -174,7 +291,7 @@ function Directory(){
   } else {
     jQuery(".directory_token_msg").hide();
     jQuery("#adddirectorybtn").hide();
-    jQuery("#directory .close").trigger('click');
+    jQuery("#directory .close").trigger("click");
     jQuery("#editdirectorybtn").show();
     directoryAllocationval = 1;
   }
@@ -186,40 +303,35 @@ function Directory(){
   showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
 
 }
-Identity();
-Address();
-Wallet();
-Storage();
-Email();
-Directory();
+ var identity = new Identity();
+ var address = new Address();
+ var wallet = new Wallet();
+ var storage = new Storage();
+ var email = new Email();
+ var directory = new Directory();
 
 
   if(identitydata === "" &&  createAddress === "" && createWallet === "" &&  storageallocate === ""  && directoryAllocation === "" && emailiddata === ""){
     jQuery("#startbtn").attr("disabled", true);
     jQuery("#startbtn").css("cursor", "not-allowed");
   }else {
-    identityfile = $("#identityfile").text();
-      if(identityfile ==="false"){
-        jQuery("#startbtn").removeAttr("disabled", true);
-        jQuery("#startbtn").css("cursor", "pointer");
-      }
+    var identityfilecheck = new Identityfilecheck();
   }
 
   jQuery.ajax({
     type: "POST",
     url: "config.php",
     data: { isstartajax : 1},
-    success: function (resposnse) {
-      if(resposnse) {
+      success: (resposnse) => {
+        if(resposnse) {
+          // log message
+          $("iframe").contents().find("body").html("<p>"+resposnse+"</p>");
+        }
+      },
+      error: (resposnse) => {
         // log message
-        $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
+        $("iframe").contents().find("body").html("<p>"+resposnse+"</p>");
       }
-    },
-    error: function (resposnse) {
-      console.log("In There check runing or not");
-      // log message
-      $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
-    }
   });
 
   jQuery("#create_identity").click(function(){
@@ -227,7 +339,7 @@ Directory();
     identitypath = jQuery("#identity_path").val();
     identityfile = $("#identityfile").text();
     fileexists = $("#file_exists").text();
-    Identity();
+    var identity1 = new Identity();
 
     if(createVal===1){
       createidentifyToken(identitydata,identitypath);
@@ -237,109 +349,73 @@ Directory();
   });
 
 
-  jQuery('#create_address').click(function(){
+  jQuery("#create_address").click(function(){
     createAddress = jQuery("#host_address").val();
-    Address();
+    var address1 = new Address();
   });
 
   jQuery("#create_address").click();
 
-  jQuery('#create_wallet').click(function(){
+  jQuery("#create_wallet").click(function(){
     createWallet = jQuery("#wallet_address").val();
-    Wallet();
+    var wallet1 = new Wallet();
   });
 
-  jQuery('#allocate_storage').click(function(){
+  jQuery("#allocate_storage").click(function(){
     storageallocate = Number(jQuery("#storage_allocate").val());
-    Storage();
-  })
+    var storage1 = new Storage();
+  });
 
 
-  jQuery('#create_emailaddress').click(function(){
+  jQuery("#create_emailaddress").click(function(){
     emailiddata = jQuery("#email_address").val();
-    Email();
+    var email1 = new Email();
 
   });
 
-  jQuery('#create_directory').click(function(){
+  jQuery("#create_directory").click(function(){
     directoryAllocation = jQuery("#storage_directory").val();
-    Directory();
+    var directory1 = new Directory();
   });
 
   jQuery("#editidentitybtn button").click(function(){
-    jQuery('#storjrows').hide();
-  })
+    jQuery("#storjrows").hide();
+  });
 });
 
 
-function showstartbutton(createidentitydataval,createAddressvaldata,createWalletvaldata,storageallocatevaldata,emailAddressvaldata,directoryAllocationvaldata,){
-  if(createidentitydataval ===1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && directoryAllocationvaldata === 1) {
-    var identityfile = $("#identityfile").text();
-    if(identityfile ==="false"){
-      jQuery("#startbtn").removeAttr("disabled", true);
-      jQuery("#startbtn").css("cursor", "pointer");
-    }
-  } else{
-    jQuery("#startbtn").attr("disabled", true);
-    jQuery("#startbtn").css("cursor", "not-allowed");
-  }
-}
+
 
 jQuery("#startbtn").click(function() {
-  jQuery.ajax({
-    type: "POST",
-    url: "config.php",
-    data: {identity : identityPath, authKey:identityVal, address : addressVal, wallet : walletVal, storage : storageVal, email_val : emailiddataVal, directory: directoryVal, isajax : 1},
-    success: function (result) {
-      window.location.reload();
-      // // log message
-      $('iframe').contents().find('body').html('<p>'+result+'</p>');
-    },
-    error: function (result) {
-      // log message
-      $('iframe').contents().find('body').html('<p>'+result+'</p>');
-      console.log("In there wrong");
-    }
-  });
+  var startupdate = new Startupdate();
 });
 
 jQuery("#stopbtn").click(function() {
-  jQuery.ajax({
-    type: "POST",
-    url: "config.php",
-    data: {isstopAjax : 1},
-    success: function () {
-      window.location.reload();
-    },
-    error: function () {
-      console.log("In There wrong on Stop Button");
-    }
-  });
+  var stopprocess = new Stopprocess("config.php");
 });
 
 jQuery("#updatebtn").click(function() {
   jQuery.ajax({
     type: "POST",
     url: "config.php",
-    data: {identity : identityPath, authKey:identityVal, address : addressVal, wallet : walletVal, storage : storageVal, email_val : emailiddataVal, directory: directoryVal, isUpdateAjax : 1},
-      success: function () {
+    data: { isUpdateAjax : 1 },
+      success: () => {
         window.location.reload();
       },
-      error: function () {
-        console.log("Something wrong with stop button");
+      error: () => {
       }
     });
 });
 
 
 if(jQuery("#identity_token").val() ===null || jQuery("#host_address").val() ==="" || jQuery("#host_address").val() ===null || jQuery("#wallet_address").val() ==="" || jQuery("#wallet_address").val() ===null || Number(jQuery("#storage_allocate").val()) ==="" || Number(jQuery("#storage_allocate").val()) ===null  || jQuery("#email_address").val() ===null || jQuery("#storage_directory").val() ==="" || jQuery("#storage_directory").val() ===null){
-  console.log("All parameters is null");
+ $("iframe").contents().find("body").html("<p></p>");
 }else{
   jQuery.ajax({
     type: "POST",
     url: "config.php",
     data: { isrun : 1},
-    success: function (resposnse) {
+    success: (resposnse) => {
       if(resposnse) {
         // log message
         if(resposnse ==="1"){
@@ -354,90 +430,11 @@ if(jQuery("#identity_token").val() ===null || jQuery("#host_address").val() ==="
 
       }
     },
-    error: function (resposnse) {
-      console.log("error");
+    error: (resposnse) => {
       // log message
-      $('iframe').contents().find('body').html('<p>'+resposnse+'</p>');
+      $("iframe").contents().find("body").html("<p>"+resposnse+"</p>");
     }
   });
 }
 
 
-// Create identity.
-function createidentifyToken(createidval,identitypath){
-
-  jQuery.ajax({
-    type: "POST",
-    url: "identity.php",
-    data: {
-      createidval : createidval,
-      identitypath : identitypath,
-      identityString: createidval 
-    },
-    success: function (result) {
-      $("#identity_status").html("<b>Identity creation process is starting.</b><br><p>"+result+"</p>");
-    },
-    error: function () {
-      console.log("Error during create Identitfy operation");
-    }
-  });
-
-}
-
-
-// Read status from identity.php file.
-function readidentitystatus(){
-  jQuery.ajax({
-    type: "POST",
-    url: "identity.php",
-    data: {status : "status",},
-    success: function (result) {
-      if(result === "identity available at /root/.local/share/storj/identity"){
-        $("#identity_status").html("<b>"+result+"</b>");
-        identitydataval = 1;
-      }else{
-        $("#identity_status").html("<b>Identity creation process is running.</b><br><p>"+result+"</p>");
-      }
-    },
-    error: function () {
-      console.log("In tehre wrong on create Identitfy");
-    }
-  });
-
-  setInterval(function(){
-    readidentitystatus();
-  },60000);
-  
-}
-
-
-
-jQuery("#stop_identity").click(function() {
-  jQuery.ajax({
-    type: "POST",
-    url: "identity.php",
-    data: {isstopAjax : 1},
-    success: function () {
-      window.location.reload();
-    },
-    error: function () {
-      console.log("In There wrong on Stop Button");
-    }
-  });
-});
-
-$("#identity_path").change(function(){
-  identityPath = $(this).val();
-  if(identityPath === "" || identityPath ===null){
-  identitydataval = 0;
-    jQuery(".identity_path_msg").show();
-    jQuery("#editidentitybtn").hide();
-    jQuery("#identitybtn").show();
-  }else{
-    jQuery(".identity_path_msg").hide();
-    jQuery("#editidentitybtn").hide();
-    jQuery("#identitybtn").show();
-    identitydataval = 1;
-  }
-  showstartbutton(identitydataval,createAddressval,createWalletval,storageallocateval,emailiddataval,directoryAllocationval);
-});

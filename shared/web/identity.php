@@ -172,7 +172,7 @@
 		echo checkIdentityProcessRunning($identitypidFile) ? "true" : "false" ;
 	}
 
-	else if (filter_input(INPUT_POST, 'file_exist')) {
+	else if (filter_input(INPUT_POST, 'fileexist')) {
 		logMessage("Identity php called for finding file existence");
 		checkIdentityFileExistence($data);
 	} else if(filter_input(INPUT_POST, 'isstopAjax') && filter_input(INPUT_POST, 'isstopAjax')){

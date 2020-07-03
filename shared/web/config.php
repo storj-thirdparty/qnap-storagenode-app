@@ -39,18 +39,18 @@
     $_address  = filter_input(INPUT_POST, 'address');
     $_wallet   = filter_input(INPUT_POST, 'wallet');
     $_storage  = filter_input(INPUT_POST, 'storage');
-    $_emailId      = filter_input(INPUT_POST, 'email_val');
+    $_emailId      = filter_input(INPUT_POST, 'emailval');
     $_directory      = filter_input(INPUT_POST, 'directory');
     $_identity_directory = filter_input(INPUT_POST, 'identity');
     $_authKey = filter_input(INPUT_POST, 'authKey');
 
     $properties = array(
-    'Identity'	=> "$_identity_directory",
-    'AuthKey'	=> $_authKey,
-    'Port'	=> $_address,
-    'Wallet'	=> $_wallet,
+    'Identity'  => "$_identity_directory",
+    'AuthKey' => $_authKey,
+    'Port'  => $_address,
+    'Wallet'  => $_wallet,
     'Allocation'=> $_storage,
-    'Email'	=> $_emailId,
+    'Email' => $_emailId,
     'Directory' => "$_directory"
     );
     file_put_contents($file, json_encode($properties));
@@ -76,7 +76,7 @@
     $properties = json_decode($content, true);
 
     logMessage("config called up with isUpdateAjax 1 ");
-    $server_address = $_SERVER['SERVER_ADDR'] ;
+    $server_address   = filter_input(INPUT_SERVER, 'SERVER_ADDR');
     $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_storage $_identity_directory $_directory $server_address $_emailId 2>&1 ");
 
     /* Update File again with Log value as well */
