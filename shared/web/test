@@ -12752,3 +12752,214 @@ Thu Jul  2 16:20:34 IST 2020 Run status of container is
 Thu Jul  2 16:20:34 IST 2020 ------------------------------------------------------------------------------
 Thu Jul  2 16:20:34 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
 Thu Jul  2 16:20:34 IST 2020 config called up with isstartajax 1 
+Fri Jul  3 10:07:37 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:37 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:37 IST 2020 config called up with for loading 
+Fri Jul  3 10:07:37 IST 2020 Loaded properties : Array
+(
+    [Identity] => dgsh/dskj00
+    [AuthKey] => hdghj008
+    [Port] => 173.225.183.161:28967
+    [Wallet] => 0x9318Ee545bC1b05859ac714682684A4F08EDF762
+    [Allocation] => 10000
+    [Email] => shd@khd.djs
+    [Directory] => dshgds/ds007
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+)
+Fri Jul  3 10:07:38 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:38 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:38 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:38 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:38 IST 2020 config called up with isstartajax 1 
+Fri Jul  3 10:07:38 IST 2020 Run status of container is  
+Fri Jul  3 10:07:57 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:57 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:57 IST 2020 config called up with for loading 
+Fri Jul  3 10:07:57 IST 2020 Loaded properties : Array
+(
+    [Identity] => dgsh/dskj00
+    [AuthKey] => hdghj008
+    [Port] => 173.225.183.161:28967
+    [Wallet] => 0x9318Ee545bC1b05859ac714682684A4F08EDF762
+    [Allocation] => 10000
+    [Email] => shd@khd.djs
+    [Directory] => dshgds/ds007
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+)
+Fri Jul  3 10:07:57 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:57 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:57 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:07:57 IST 2020  (identityLib)  Identity php called for finding file existence
+Fri Jul  3 10:07:57 IST 2020 Run status of container is  
+Fri Jul  3 10:07:57 IST 2020  (identityLib)  (file_exist) File dgsh/dskj00/storagenode/identity.key or others don't exists !
+Fri Jul  3 10:07:57 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:07:57 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:07:57 IST 2020 config called up with isstartajax 1 
+Fri Jul  3 10:08:29 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:08:29 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:08:29 IST 2020 config called up with for loading 
+Fri Jul  3 10:08:29 IST 2020 Loaded properties : Array
+(
+    [Identity] => 
+    [AuthKey] => 
+    [Port] => 
+    [Wallet] => 
+    [Allocation] => 
+    [Email] => 
+    [Directory] => 
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+)
+Fri Jul  3 10:08:43 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:08:43 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:08:43 IST 2020 config called up with for loading 
+Fri Jul  3 10:08:43 IST 2020 Loaded properties : Array
+(
+    [Identity] => ss
+    [AuthKey] => 
+    [Port] => 
+    [Wallet] => 
+    [Allocation] => 
+    [Email] => 
+    [Directory] => 
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+)
+Fri Jul  3 10:08:44 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:08:44 IST 2020  (identityLib)  Identity php called for finding file existence
+Fri Jul  3 10:08:44 IST 2020  (identityLib)  (file_exist) File ss/storagenode/identity.key or others don't exists !
+Fri Jul  3 10:08:44 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:08:44 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:08:44 IST 2020 config called up with isstartajax 1 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Identity php called for finding file existence
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Identity php called for creation purpose identityString : sssss
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Identity php called for fetching STATUS!
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Identity process not found running, STARTING a new one!!
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  (file_exist) File ss/storagenode/identity.key or others don't exists !
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Identity Key doesn't exists. Going to start identity generation 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  value of identityString(sssss)
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  value of identityPath(sssssss)
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Launching command /opt/lampp/htdocs/web/scripts/generateIdentity.sh sssss sssssss > /share/Public/identity/logs/storj_identity.log.a 2>&1 &  and capturing log in /share/Public/identity/logs/storj_identity.log 
+Fri Jul  3 10:12:13 IST 2020  (identityLib)  Launched command (@ 2020-07-03 06:42:13) 
+Fri Jul  3 10:12:14 IST 2020  (identityLib)  Invoked identity generation program (/opt/lampp/htdocs/web/scripts/generateIdentity.sh) 
+Fri Jul  3 10:12:14 IST 2020  (identityLib)  STATUS: Identity generation in progress (LOG: )
+Fri Jul  3 10:12:27 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:12:27 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:12:27 IST 2020 config called up with for loading 
+Fri Jul  3 10:12:27 IST 2020 Loaded properties : Array
+(
+    [Identity] => sssssss
+    [AuthKey] => sssss
+    [Port] => 
+    [Wallet] => 
+    [Allocation] => 
+    [Email] => 
+    [Directory] => 
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+    [LogFilePath] => /share/Public/identity/logs/storj_identity.log
+    [idGenStartTime] => 2020-07-03 06:42:13
+)
+Fri Jul  3 10:12:27 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:12:27 IST 2020  (identityLib)  Identity php called for finding file existence
+Fri Jul  3 10:12:27 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:12:27 IST 2020  (identityLib)  (file_exist) File sssssss/storagenode/identity.key or others don't exists !
+Fri Jul  3 10:12:27 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:12:27 IST 2020 config called up with isstartajax 1 
+Fri Jul  3 10:13:53 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:13:53 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:13:53 IST 2020 config called up with isajax 1 
+Fri Jul  3 10:13:53 IST 2020 
+----------------------------------------------
+ENV is : Array
+(
+)
+POST is : Array
+(
+    [identity] => sssssss
+    [authKey] => sssss
+    [address] => 37837.007
+    [wallet] => fgkd007
+    [storage] => 700
+    [emailval] => 
+    [directory] => dshk/dskh
+    [isajax] => 1
+)
+SERVER is : Array
+(
+    [UNIQUE_ID] => Xv63iRgXIAQ1JqKa8uRyyAAAAAM
+    [HTTP_HOST] => localhost
+    [HTTP_CONNECTION] => keep-alive
+    [CONTENT_LENGTH] => 116
+    [HTTP_ACCEPT] => */*
+    [HTTP_X_REQUESTED_WITH] => XMLHttpRequest
+    [HTTP_USER_AGENT] => Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36
+    [CONTENT_TYPE] => application/x-www-form-urlencoded; charset=UTF-8
+    [HTTP_ORIGIN] => http://localhost
+    [HTTP_SEC_FETCH_SITE] => same-origin
+    [HTTP_SEC_FETCH_MODE] => cors
+    [HTTP_REFERER] => http://localhost/web/config.php
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_ACCEPT_LANGUAGE] => en-GB,en-US;q=0.9,en;q=0.8,da;q=0.7
+    [HTTP_COOKIE] => PHPSESSID=cfe4f8873fa35a085b139b786d6017d6
+    [PATH] => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+    [LD_LIBRARY_PATH] => /opt/lampp/lib:/opt/lampp/lib
+    [SERVER_SIGNATURE] => 
+    [SERVER_SOFTWARE] => Apache/2.4.39 (Unix) OpenSSL/1.0.2r PHP/7.2.18 mod_perl/2.0.8-dev Perl/v5.16.3
+    [SERVER_NAME] => localhost
+    [SERVER_ADDR] => ::1
+    [SERVER_PORT] => 80
+    [REMOTE_ADDR] => ::1
+    [DOCUMENT_ROOT] => /opt/lampp/htdocs
+    [REQUEST_SCHEME] => http
+    [CONTEXT_PREFIX] => 
+    [CONTEXT_DOCUMENT_ROOT] => /opt/lampp/htdocs
+    [SERVER_ADMIN] => you@example.com
+    [SCRIPT_FILENAME] => /opt/lampp/htdocs/web/config.php
+    [REMOTE_PORT] => 38146
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [REQUEST_METHOD] => POST
+    [QUERY_STRING] => 
+    [REQUEST_URI] => /web/config.php
+    [SCRIPT_NAME] => /web/config.php
+    [PHP_SELF] => /web/config.php
+    [REQUEST_TIME_FLOAT] => 1593751433.783
+    [REQUEST_TIME] => 1593751433
+)
+----------------------------------------------
+Fri Jul  3 10:13:54 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:13:54 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:13:54 IST 2020 config called up with for loading 
+Fri Jul  3 10:13:54 IST 2020 Loaded properties : Array
+(
+    [Identity] => sssssss
+    [AuthKey] => sssss
+    [Port] => 37837.007
+    [Wallet] => fgkd007
+    [Allocation] => 700
+    [Email] => 
+    [Directory] => dshk/dskh
+    [last_log] => /opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: syntax error near unexpected token `$'{\r''
+/opt/lampp/htdocs/web/scripts/storagenodestart.sh: line 3: `function setupEnv() {'
+
+)
+Fri Jul  3 10:13:54 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:13:54 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:13:54 IST 2020 Run status of container is  
+Fri Jul  3 10:13:54 IST 2020  (identityLib)  ================== identity.php invoked ================== 
+Fri Jul  3 10:13:54 IST 2020  (identityLib)  Identity php called for finding file existence
+Fri Jul  3 10:13:54 IST 2020  (identityLib)  (file_exist) File sssssss/storagenode/identity.key or others don't exists !
+Fri Jul  3 10:13:54 IST 2020 ------------------------------------------------------------------------------
+Fri Jul  3 10:13:54 IST 2020 Platform Base(/opt/lampp/htdocs), ModuleBase(/opt/lampp/htdocs/web) scriptBase(/opt/lampp/htdocs/web/scripts)
+Fri Jul  3 10:13:54 IST 2020 config called up with isstartajax 1 

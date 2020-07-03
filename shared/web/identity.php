@@ -1,14 +1,14 @@
 <?php
-	// @codingStandardsIgnoreStart
+	
 	require_once("identityLib.php");
-	// @codingStandardsIgnoreEnd
+	
 	# ------------------------------------------------------------------------
 	#  Set variables
 	# ------------------------------------------------------------------------
 	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-	// @codingStandardsIgnoreStart
+	
 	$moduleBase     = $platformBase . dirname(filter_input(INPUT_SERVER, 'PHP_SELF')) ;
-	// @codingStandardsIgnoreEnd
+	
 	$scriptsBase    = $moduleBase . '/scripts' ;
 	$identityGenBinary = "/share/Public/identity.bin/identity" ;
 	$logFile = "/share/Public/identity/logs/storj_identity.log" ;
@@ -44,9 +44,9 @@
 		logMessage("Identity php called for creation purpose identityString : " . filter_input(INPUT_POST, 'identityString'));
 		if( checkIdentityProcessRunning($identitypidFile) == true )  {
 			logMessage("Identity process is already running!!\n");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity Process is already running!\n" ;
-			// @codingStandardsIgnoreEnd
+			
 			return ;
 		} else {
 			logMessage("Identity process not found running, STARTING a new one!!\n");
@@ -59,9 +59,9 @@
 
 		if(identityExists($data) && validateExistence($data)) {
 			logMessage("Identity Key File and others already available");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity Key File and others already available";
-			// @codingStandardsIgnoreEnd
+			
 			return ;
 		} else {
 			logMessage("Identity Key doesn't exists. Going to start identity generation ");
@@ -69,9 +69,9 @@
 
 		if(!filter_input(INPUT_POST, 'identityString'))  {
 			logMessage("Identity String not provided");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity String not provided";
-			// @codingStandardsIgnoreEnd
+			
 			return ;
 		}
 
@@ -90,49 +90,49 @@
 		$data['LogFilePath'] = $logFile;
 		$data['idGenStartTime'] = $programStartTime ;
 		updateConfig($data, $configFile);
-		// @codingStandardsIgnoreStart
+		
 		$file = escapeshellarg($logFile);
 		$lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
-		// @codingStandardsIgnoreEnd
+		
 
 		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
-		// @codingStandardsIgnoreStart
+		
 		echo $lastline;
-		// @codingStandardsIgnoreEnd
+		
 
 	} else if (filter_input(INPUT_POST, 'status') || isset($inputs['status'])) {
 		logMessage("Identity php called for fetching STATUS!");
 
 		$file = $data['LogFilePath'];
-		// @codingStandardsIgnoreStart
+		
 		$pid = file_get_contents("identity.pid");
-		// @codingStandardsIgnoreEnd
+		
 		$prgStartTime = $data['idGenStartTime'] ;
-		// @codingStandardsIgnoreStart
+		
 		$file = escapeshellarg($file);
 		$lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
-		// @codingStandardsIgnoreEnd
+		
 
 		if( identityExists($data) && validateExistence($data)) {
 			logMessage("STATUS: Identity exists ! returning message");
 			logMessage("identity available at ${identityFilePath}");
-			// @codingStandardsIgnoreStart
+			
 			echo "identity available at $identityFilePath " ;
-			// @codingStandardsIgnoreEnd
+			
 		} else if($lastline == "Done"){	# EXACT Check to be figured out 
 			logMessage("STATUS: Identity generation completed. Returning message");
 			logMessage("identity available at ${identityFilePath}");
-			// @codingStandardsIgnoreStart
+			
 			echo "identity available at ${identityFilePath}" ;
-			// @codingStandardsIgnoreEnd
+			
 		}else{
 			$lastline = preg_replace('/\n$/', '', $lastline);
 			logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity generation STATUS($date):<BR> " .
 			"Process ID: $pid , " .
 			"Started at:  $prgStartTime <BR>" . $lastline ;
-			// @codingStandardsIgnoreEnd
+			
 		}
 
 	}
@@ -142,9 +142,9 @@
 		logMessage("Identity php called for creation purpose identityString : " . $authkey);
 		if(identityExists($data) && validateExistence($data)) {
 			logMessage("Identity Key File and others already available");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity Key File and others already available";
-			// @codingStandardsIgnoreEnd
+			
 		return ;
 		} else {
 			logMessage("Identity Key doesn't exists. Going to start identity generation ");
@@ -152,9 +152,9 @@
 
 		if(!isset($authkey))  {
 			logMessage("Identity String not provided");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity String not provided";
-			// @codingStandardsIgnoreEnd
+			
 			return ;
 		}
 		$identityString = $authkey ;
@@ -164,9 +164,9 @@
 
 		if( checkIdentityProcessRunning($identitypidFile) == true )  {
 			logMessage("Identity process is already running!!\n");
-			// @codingStandardsIgnoreStart
+			
 			echo "Identity Process is already running!\n" ;
-			// @codingStandardsIgnoreEnd
+			
 			return ;
 		} else {
 			logMessage("Identity process not found running, STARTING a new one!!\n");
@@ -178,44 +178,44 @@
 		logMessage("Launching command $cmd and capturing log in $logFile ");
 		exec($cmd, $output );
 		logMessage("Launched command (@ $programStartTime) ");
-		// @codingStandardsIgnoreStart
+		
 		$jsonString = file_get_contents($configFile);
 		$data = json_decode($jsonString, true);
 		$data['LogFilePath'] = $logFile;
-		// @codingStandardsIgnoreEnd
+		
 
 		$data['idGenStartTime'] = $programStartTime ;
 		$newJsonString = json_encode($data);
 		$file = $data['LogFilePath'];
-		// @codingStandardsIgnoreStart
+		
 		$file = escapeshellarg($file);
 		$lastline = `tail -c 59 $file `;
 		file_put_contents($configFile, $newJsonString);
-		// @codingStandardsIgnoreEnd
+		
 
 		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
-		// @codingStandardsIgnoreStart
+		
 		echo "<b>Identity creation process is starting.</b><br>";
 		echo $lastline;
-		// @codingStandardsIgnoreEnd
+		
 
 	}
 
 	else if (isset($data['identityCreationProcessCheck'])){
-		// @codingStandardsIgnoreStart
+		
 		echo checkIdentityProcessRunning($identitypidFile) ? "true" : "false" ;
-		// @codingStandardsIgnoreEnd
+		
 	}
 
-	else if (filter_input(INPUT_POST, 'file_exist')) {
+	else if (filter_input(INPUT_POST, 'fileexist')) {
 		logMessage("Identity php called for finding file existence");
 		checkIdentityFileExistence($data);
 	} else if(filter_input(INPUT_POST, 'isstopAjax') && filter_input(INPUT_POST, 'isstopAjax')){
 		// Stop Identity
 		killIdentityProcess($identitypidFile);
-		// @codingStandardsIgnoreStart
+		
 		exec("echo > $logFile ");
-		// @codingStandardsIgnoreEnd
+		
 	} else {
 		logMessage("Identity php called (PURPOSE NOT CLEAR)!");
 	}

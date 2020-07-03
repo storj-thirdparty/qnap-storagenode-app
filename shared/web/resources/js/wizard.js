@@ -93,13 +93,12 @@ const app = new Vue({
 		}
 	},
 	methods: {
+
 		async generateIdentity() {
-		 this.identityStep++;
-		 this.createidentifyToken();
-		 setInterval(() => this.updateLog(), 60000);
+			this.identityStep++;
+			this.createidentifyToken();
+			setInterval(() => this.updateLog(), 60000);
 		},
-
-
 		async finish() {
 			const data = {
 				email: this.email,
@@ -114,7 +113,6 @@ const app = new Vue({
 
 			location.href = "config.php";
 		},
-
 		async createidentifyToken() {
 			const {data} = await axios.post("identity.php", {
 				authkey: this.authkey,
@@ -127,7 +125,6 @@ const app = new Vue({
 				this.message = "<p>"+data+"</p>";
 			}
     	},
-
     	async updateLog() {
 			const {data} = await axios.post("identity.php", {
 				status: true
@@ -135,7 +132,6 @@ const app = new Vue({
 
 			this.message = data;
 		},
-
 		async processCheck() {
 			this.identityStep++;
 			const {data} = await axios.post("identity.php", {
@@ -144,6 +140,5 @@ const app = new Vue({
 
 			this.processrun = data;
 		},
-
 	}
 });

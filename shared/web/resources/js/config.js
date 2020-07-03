@@ -52,7 +52,7 @@ function showstartbutton(createidentitydataval,createAddressvaldata,createWallet
   if(createidentitydataval ===1 && createAddressvaldata === 1 && createWalletvaldata === 1 && storageallocatevaldata === 1  && directoryAllocationvaldata === 1) {
     var identityfile = $("#identityfile").text();
 
-    Identityfilecheck();
+   var identityfilecheck1 = new Identityfilecheck();
   } else{
     jQuery("#startbtn").attr("disabled", true);
     jQuery("#startbtn").css("cursor", "not-allowed");
@@ -94,7 +94,7 @@ function readidentitystatus(){
         $("#identity_status").html("<b>Identity creation process is running.</b><br><p>"+result+"</p>");
       }
     },
-    error: function () {
+    error: () => {
     }
   });
 
@@ -143,7 +143,7 @@ function Identity() {
         jQuery.ajax({
           type: "POST",
           url: "identity.php",
-          data: {file_exist : "file_exist"},
+          data: {fileexist : "file_exist"},
           success: (result) => {
             if(result==="1"){
               $("#identity_status").html("<b>The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.</b>");

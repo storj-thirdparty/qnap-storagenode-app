@@ -6,9 +6,7 @@
 	$filename = "config.json";
 
 	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-	// @codingStandardsIgnoreStart
 	$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
-	 // @codingStandardsIgnoreEnd
 	$scriptsBase    = $moduleBase . '/scripts' ;
 	// $rootBase	= "/root/.local/share/storj/identity" ;
 

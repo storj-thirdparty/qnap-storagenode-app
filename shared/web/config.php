@@ -1,7 +1,7 @@
 <?php
-  // @codingStandardsIgnoreStart
+  
   require_once("environment.php");
-  // @codingStandardsIgnoreEnd
+  
 
   logMessage("------------------------------------------------------------------------------");
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
@@ -9,9 +9,9 @@
 
 
   $output = "";
-  // @codingStandardsIgnoreStart
+  
   $data = json_decode(file_get_contents("php://input"), TRUE);
-  // @codingStandardsIgnoreEnd
+  
   $email = $data['email'];
   $address = $data['address'];
   $host = $data['host'];
@@ -20,10 +20,10 @@
   $identity = $data['identity'];
 
   if($data){
-    // @codingStandardsIgnoreStart
+    
     $jsonString = file_get_contents($file);
     $data = json_decode($jsonString, true);
-    // @codingStandardsIgnoreEnd
+    
 
     $data['Identity'] = $identity;
     $data['Port'] = $host;
@@ -32,9 +32,9 @@
     $data['Email'] = $email;
     $data['Directory'] = $directory;
     $newJsonString = json_encode($data);
-    // @codingStandardsIgnoreStart
+    
     file_put_contents($file, $newJsonString);
-    // @codingStandardsIgnoreEnd
+    
   }
 
 
@@ -59,37 +59,37 @@
     'Email'	=> $_emailId,
     'Directory' => "$_directory"
     );
-    // @codingStandardsIgnoreStart
+    
     file_put_contents($file, json_encode($properties));
-     // @codingStandardsIgnoreEnd
+     
     $output = shell_exec("/bin/bash $startScript $_address $_wallet $_storage $_identity_directory/storagenode $_directory $_emailId 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
-     // @codingStandardsIgnoreStart
+     
     file_put_contents($file, json_encode($properties));
-     // @codingStandardsIgnoreEnd
+     
 
   }else if(filter_input(INPUT_POST, 'isstopAjax') && filter_input(INPUT_POST, 'isstopAjax') == 1) {
-    // @codingStandardsIgnoreStart
+    
     $content = file_get_contents($file);
     $properties = json_decode($content, true);
-    // @codingStandardsIgnoreEnd
+    
 
     logMessage("config called up with isStopAjax 1 ");
     $output = shell_exec("bash $stopScript 2>&1 ");
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
-    // @codingStandardsIgnoreStart
+    
     file_put_contents($file, json_encode($properties));
-    // @codingStandardsIgnoreEnd
+    
 
      }else if(filter_input(INPUT_POST, 'isUpdateAjax') && filter_input(INPUT_POST, 'isUpdateAjax') == 1) {
-      // @codingStandardsIgnoreStart
+      
       $content = file_get_contents($file);
       $properties = json_decode($content, true);
-      // @codingStandardsIgnoreEnd
+      
 
     logMessage("config called up with isUpdateAjax 1 ");
     $server_address   = filter_input(INPUT_SERVER, 'SERVER_ADDR');
@@ -97,30 +97,30 @@
 
     /* Update File again with Log value as well */
     $properties['last_log'] = $output ;
-     // @codingStandardsIgnoreStart
+     
     file_put_contents($file, json_encode($properties));
-    // @codingStandardsIgnoreEnd
+    
 
     } else if(filter_input(INPUT_POST, 'isstartajax') && filter_input(INPUT_POST, 'isstartajax') == 1) {
     logMessage("config called up with isstartajax 1 ");
-    // @codingStandardsIgnoreStart
+    
     $content = file_get_contents($file);
     $prop = json_decode($content, true);
-    // @codingStandardsIgnoreEnd
+    
     $output = "<br><b>LATEST LOG :</b> <br><code>" . $prop['last_log'] . "</code>";
     $output = preg_replace('/\n/m', '<br>', $output);
-    // @codingStandardsIgnoreStart
+    
     echo trim($output);
-    // @codingStandardsIgnoreEnd
+    
   } 
 
   // checking is storagenode is running.
   else if(filter_input(INPUT_POST, 'isrun') && filter_input(INPUT_POST, 'isrun') == 1) {
     $output = shell_exec("/bin/bash $isRunning ");
     logMessage("Run status of container is $output ");
-    // @codingStandardsIgnoreStart
+    
     echo $output ;
-    // @codingStandardsIgnoreEnd
+    
   }
 
   else {
@@ -128,22 +128,22 @@
     logMessage("config called up with for loading ");
     //
     // checking if file exists.
-    // @codingStandardsIgnoreStart
+    
     if(file_exists($file)){
-    // @codingStandardsIgnoreStart
+    
       $content = file_get_contents($file);
       $prop = json_decode($content, true);
-       // @codingStandardsIgnoreStart
+       
       logMessage("Loaded properties : " . print_r($prop, true));
-       // @codingStandardsIgnoreEnd
+       
 
       // Identity Path
       $rootBase = $prop['Identity'] ;
 
       if($prop['Identity'] == "" && $prop['Identity'] == null && $prop['Port'] == "" && $prop['Port'] == null && $prop['Wallet'] == "" && $prop['Wallet'] == null && $prop['Allocation'] == "" && $prop['Allocation'] == null && $prop['Email'] == "" && $prop['Email'] == null && $prop['Directory'] == "" && $prop['Directory'] == null){
-         // @codingStandardsIgnoreStart
+         
         header("Location: wizard.php");
-         // @codingStandardsIgnoreEnd
+         
       }
 
     }
@@ -152,9 +152,9 @@
 
 ?>
 <?php 
-   // @codingStandardsIgnoreStart
+   
   require_once('header.php');
-   // @codingStandardsIgnoreEnd
+   
 ?>
 <style>
   code {
@@ -169,21 +169,21 @@
     </nav>
     <div class="row">
     <?php 
-      // @codingStandardsIgnoreStart 
+       
         require_once('menu.php');
-      // @codingStandardsIgnoreStart
+      
     ?>
       <?php
         // TODO: REMOVE this once this works OK
         if ( $output ){
         } else {
-          // @codingStandardsIgnoreStart
+          
           if(file_exists($identityFile))
-          // @codingStandardsIgnoreEnd
+          
           {
-            // @codingStandardsIgnoreStart
+            
             $pid = file_get_contents($identityFile);
-            // @codingStandardsIgnoreEnd
+            
             $pid = (int)$pid ;
 
             // Figure out whether process is running
@@ -191,20 +191,20 @@
 
             if($status == 1) {
               // if process is running then print true.
-              // @codingStandardsIgnoreStart
+              
               echo "<span id='identityfile' style='display:none;'>true</span>";
-               // @codingStandardsIgnoreEnd
+               
             } else {
               // if process is not running then print false.
-              // @codingStandardsIgnoreStart
+              
               echo "<span id='identityfile' style='display:none;'>false</span>";
-               // @codingStandardsIgnoreEnd
+               
             }
 
           }else{
-            // @codingStandardsIgnoreStart
+            
             echo "<span id='identityfile' style='display:none;'>false</span>";
-            // @codingStandardsIgnoreEnd
+            
           }
 
           $file1 = "${rootBase}/storagenode/ca.cert";
@@ -215,21 +215,21 @@
 
           if(
           ($numFiles == 6) and 
-          // @codingStandardsIgnoreStart
+          
           file_exists($file1) and
           file_exists($file2) and
           file_exists($file3) and
           file_exists($file4)
-          // @codingStandardsIgnoreEnd
+          
           ) 
           {
-            // @codingStandardsIgnoreStart
+            
             echo "<span id='file_exists' style='display:none;'>0</span>";
-            // @codingStandardsIgnoreEnd
+            
           }else{
-            // @codingStandardsIgnoreStart
+            
             echo "<span id='file_exists' style='display:none;'>1</span>";
-             // @codingStandardsIgnoreEnd
+             
           }
 
         ?>
@@ -270,14 +270,22 @@
                   <div class="modal-body">
 
                     <p class="modal-input-title">Authorization Token</p>
-                    <!-- @codingStandardsIgnoreStart -->
-                    <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
+                    
+                    <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php 
+                    
+                    if(isset($prop['AuthKey'])) echo $prop['AuthKey'] 
+                    
+                    ?>"/>
 
                     <p class="modal-input-title">Identity Path</p>
 
-                    <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
+                    <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php 
+                    
+                    if(isset($prop['Identity'])) echo $prop['Identity']
+                    
+                     ?>" style="position: relative;left: 45px;margin-top: 15px;" />
                     <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
-                    <!--  @codingStandardsIgnoreEnd -->
+                    
 
                     <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                   </div>
@@ -315,13 +323,13 @@
                   </div>
                   <div class="modal-body">
                     <p class="modal-input-title">Host Address</p>
-                    <!-- @codingStandardsIgnoreStart -->
+                    
                     <input class="modal-input" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php 
-                    // @codingStandardsIgnoreStart
+                    
                     if(isset($prop['Port'])) echo $prop['Port'] 
-                    // @codingStandardsIgnoreEnd
+                    
                     ?>"/>
-                     <!--  @codingStandardsIgnoreEnd -->
+                     
                     <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
                   </div>
                   <div class="modal-footer">
@@ -357,14 +365,14 @@
                 </div>
                 <div class="modal-body">
                   <p class="modal-input-title">Wallet Address</p>
-                  <!-- @codingStandardsIgnoreStart -->
+                  
                   <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address" value="<?php 
-                  // @codingStandardsIgnoreStart
+                  
                   if(isset($prop['Wallet'])) echo $prop['Wallet'] 
-                  // @codingStandardsIgnoreEnd
+                  
 
                   ?>"/>
-                   <!--  @codingStandardsIgnoreEnd -->
+                   
                   <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
                 </div>
                 <div class="modal-footer">
@@ -400,13 +408,13 @@
                 </div>
                 <div class="modal-body">
                   <p class="modal-input-title">Storage Allocation</p>
-                  <!-- @codingStandardsIgnoreStart -->
+                  
                   <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php 
-                  // @codingStandardsIgnoreStart
+                  
                   if(isset($prop['Allocation'])) echo $prop['Allocation']
-                  // @codingStandardsIgnoreEnd
+                  
                    ?>"/>
-                  <!--  @codingStandardsIgnoreEnd -->
+                  
                   <p class="modal-input-metric">GB</p>
                   <p class="storage_token_msg msg" style="display:none;">Minimum 500 GB is required</p>
                </div>
@@ -443,13 +451,13 @@
                 </div>
                 <div class="modal-body">
                   <p class="modal-input-title">Email Address</p>
-                  <!-- @codingStandardsIgnoreStart -->
+                  
                   <input class="modal-input" id="email_address" name="email_address" type="email" placeholder="Email Address" value="<?php 
-                  // @codingStandardsIgnoreStart
+                  
                   if(isset($prop['Email'])) echo $prop['Email']
-                  // @codingStandardsIgnoreEnd
+                  
                    ?>"/>
-                   <!--  @codingStandardsIgnoreEnd -->
+                   
                   <p class="email_token_msg msg" style="display:none;">Enter a Valid Email address</p>
                 </div>
                 <div class="modal-footer">
@@ -485,13 +493,13 @@
                   </div>
                   <div class="modal-body">
                     <p class="modal-input-title">Storage Directory</p>
-                    <!-- @codingStandardsIgnoreStart -->
+                    
                     <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php 
-                    // @codingStandardsIgnoreStart
+                    
                     if(isset($prop['Directory'])) echo $prop['Directory']
-                    // @codingStandardsIgnoreEnd
+                    
                      ?>"  />
-                   <!--  @codingStandardsIgnoreEnd -->
+                   
                     <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
                   </div>
                   <div class="modal-footer">
@@ -552,9 +560,9 @@
   </div>
 
   <?php
-    // @codingStandardsIgnoreStart
+    
     require_once('footer.php');
-    // @codingStandardsIgnoreEnd
+    
 
    ?>
   <script type="text/javascript" src="./resources/js/config.js"></script>
@@ -562,12 +570,14 @@
 
 }
 
- // @codingStandardsIgnoreStart
+ 
 function logEnvironment() {
-  // @codingStandardsIgnoreStart
+  
   $server = $_SERVER;
   $post = $_POST;
+  
   $env = $_ENV;
+  
   logMessage(
   "\n----------------------------------------------\n"
   . "ENV is : " . print_r($env, true)
@@ -575,18 +585,18 @@ function logEnvironment() {
   . "SERVER is : " . print_r($server, true)
   . "----------------------------------------------\n"
   );
-   // @codingStandardsIgnoreEnd
+   
 }
-// @codingStandardsIgnoreEnd
+
 
 function logMessage($message) {
   $file = "/var/log/STORJ" ;
    // $file = "test" ;
   $message = preg_replace('/\n$/', '', $message);
-  // @codingStandardsIgnoreStart
+  
   $date = `date` ; $timestamp = str_replace("\n", " ", $date);
   file_put_contents($file, $timestamp . $message . "\n", FILE_APPEND);
-  // @codingStandardsIgnoreEnd
+  
 }
 
 ?>
