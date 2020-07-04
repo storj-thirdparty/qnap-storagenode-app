@@ -18,7 +18,7 @@ then
 fi
 
 export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
-IPADDR=$(ip -4 -o addr show eth0 | awk '{print "$4"}' | cut -d "/" -f 1)
+IPADDR=$(ip -4 -o addr show eth0 | awk '{print $4}' | cut -d "/" -f 1)
 PORTADDR=$(sed -e 's#.*:\(\)#\1#' <<< "${1}")
 CONTAINER_NAME=storjlabsSnContainer
 
@@ -32,7 +32,7 @@ else
 fi
  
 echo "$cmd" >> "$LOG"
-"$cmd" >> "$LOG" 2>&1 
+$cmd >> "$LOG" 2>&1 
 echo "$output" >> "$LOG" 
 echo "$output" 
 output=$(docker ps -a | grep "${CONTAINER_NAME}" )

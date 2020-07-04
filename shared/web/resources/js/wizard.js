@@ -83,7 +83,7 @@ const app = new Vue({
 		},
 
 		authkeyValid() {
-			if(this.processrun ===false){
+			if(this.processrun ==false){
 				return this.authkey.length > 1;
 			}
 		},
