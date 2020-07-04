@@ -418,11 +418,11 @@ if(jQuery("#identity_token").val() ===null || jQuery("#host_address").val() ==="
     success: (resposnse) => {
       if(resposnse) {
         // log message
-        if(resposnse ==="1"){
+        if(resposnse ==1){
           $(".editbtn").attr("disabled",true).css("cursor","not-allowed");
           $("#startbtn").attr("disabled",true).css("cursor","not-allowed");
           $("#stopbtn").attr("disabled",false).css("cursor","pointer");
-        }else if(resposnse ==="0"){
+        }else if(resposnse ==0){
           $(".editbtn").attr("disabled",false).css("cursor","pointer");
           $("#stopbtn").attr("disabled",true).css("cursor","not-allowed");
           $("#startbtn").attr("disabled",false).css("cursor","pointer");
