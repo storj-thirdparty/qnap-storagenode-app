@@ -1,4 +1,3 @@
-console.log('hello world')
 
 function resizeInterface() {
 	const scale = Math.min(window.innerWidth / 1400, window.innerHeight / 900);
@@ -12,28 +11,28 @@ const app = new Vue({
 	data: {
 		step: 1,
 		identityStep: 1,
-		identityLogs: '',
+		identityLogs: "",
 
-		email: '',
-		address: '',
+		email: "",
+		address: "",
 		storage: 10000,
-		directory: '',
-		host: '',
-		identity: '',
-		authkey: '',
-		message: '',
+		directory: "",
+		host: "",
+		identity: "",
+		authkey: "",
+		message: "",
 		processrun: false
 	},
 
 	created () {
-        this.email = document.querySelector(".email").value
-        this.address = document.querySelector(".address").value
-        this.storage = document.querySelector(".storage").value
-        this.directory = document.querySelector(".directory").value
-        this.host = document.querySelector(".host").value
-        this.identity = document.querySelector(".identity").value
+        this.email = document.querySelector(".email").value;
+        this.address = document.querySelector(".address").value;
+        this.storage = document.querySelector(".storage").value;
+        this.directory = document.querySelector(".directory").value;
+        this.host = document.querySelector(".host").value;
+        this.identity = document.querySelector(".identity").value;
 
-        this.authkey = document.querySelector("#authkey").value
+        this.authkey = document.querySelector("#authkey").value;
     },
 
 	computed: {
@@ -41,7 +40,7 @@ const app = new Vue({
 		stepClass() {
 			const obj = {};
 
-			obj['step'] = true;
+			obj["step"] = true;
 			obj[`step-${this.step}`] = true;
 
 			return obj;
@@ -66,9 +65,9 @@ const app = new Vue({
 		},
 
 		hostValid() {
-			const [host, port] = this.host.split(':');
+			const [host, port] = this.host.split(":");
 
-			if(typeof port !== 'string' || port.length === 0) {
+			if(typeof port !== "string" || port.lenth === 0) {
 				return false;
 			}
 
@@ -90,17 +89,16 @@ const app = new Vue({
 		},
 
 		identityGenerationFinished() {
-			return this.message.toLowerCase().includes('found');
+			return this.message.toLowerCase().includes("found");
 		}
 	},
 	methods: {
+
 		async generateIdentity() {
-			 this.identityStep++;
-			 this.createidentifyToken();
-			 setInterval(() => this.updateLog(), 60000);
+			this.identityStep++;
+			this.createidentifyToken();
+			setInterval(() => this.updateLog(), 60000);
 		},
-
-
 		async finish() {
 			const data = {
 				email: this.email,
@@ -111,42 +109,36 @@ const app = new Vue({
 				identity: this.identity
 			};
 
-			await axios.post('config.php', data);
+			await axios.post("config.php", data);
 
-			location.href = 'config.php';
+			location.href = "config.php";
 		},
+		async createidentifyToken() {
+			const {data} = await axios.post("identity.php", {
+				authkey: this.authkey,
+				identity: this.identity,
+			});
 
-			async createidentifyToken() {
+			this.message = data;
 
-				const {data} = await axios.post('identity.php', {
-					authkey: this.authkey,
-					identity: this.identity,
-				});
+			if(data !== "Identity Key File and others already available"){
+				this.message = "<p>"+data+"</p>";
+			}
+    	},
+    	async updateLog() {
+			const {data} = await axios.post("identity.php", {
+				status: true
+			});
 
-				this.message = data;
+			this.message = data;
+		},
+		async processCheck() {
+			this.identityStep++;
+			const {data} = await axios.post("identity.php", {
+				identityCreationProcessCheck: true
+			});
 
-				if(data !== "Identity Key File and others already available"){
-					this.message = "<p>"+data+"</p>";
-				}
-
-        	},
-
-        	async updateLog() {
-				const {data} = await axios.post('identity.php', {
-					status: true
-				});
-
-				this.message = data;
-			},
-
-			async processCheck() {
-				this.identityStep++;
-				const {data} = await axios.post('identity.php', {
-					identityCreationProcessCheck: true
-				});
-
-				this.processrun = data;
-			},
-
+			this.processrun = data;
+		},
 	}
 });

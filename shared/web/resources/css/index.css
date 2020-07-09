@@ -1,6 +1,6 @@
 
 .navbar {
-  background: #133E9C;
+  background: #133e9c;
 }
 
 .navbar-brand img {
@@ -8,7 +8,7 @@
 }
 
 .side-nav.col-2 {
-  border: 1px solid #DEDEDE;
+  border: 1px solid #dedede;
   padding-right: 0;
   height: 100vh;
 }
@@ -18,20 +18,19 @@
   line-height: 38px;
   font-size: 14px;
   border-radius: 0;
-  color: #A9A9A9;
+  color: #a9a9a9;
 }
 
 .side-nav .nav-pills .nav-link .nav-link-icon {
   width: 20px;
   height: 20px;
-  background: #B3B3B3;
+  background: #b3b3b3;
   border-radius: 6px;
   display: inline-block;
   position: relative;
   top: 3px;
   margin-right: 10px;
 }
-
 
 .welcome-container {
   text-align: center;
@@ -41,7 +40,7 @@
 .welcome-container .welcome-icon {
   width: 170px;
   height: 170px;
-  background: #C4C4C4;
+  background: #c4c4c4;
   border-radius: 136px;
   margin: 0 auto;
 }
@@ -63,10 +62,10 @@
 }
 
 .welcome-container .welcome-btn {
-  background: #245AC3;
+  background: #245ac3;
   border-radius: 2px;
-  color: #FFF;
+  color: #fff;
   border: none;
   padding: 10px 20px;
 }
-.container-fluid.dashboard-view{height: 100%}
+.container-fluid.dashboard-view { height: 100% }
