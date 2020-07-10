@@ -75,7 +75,11 @@
 				<label class="directory-label">Storage Directory</label>
 				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
 
+				<file-browser v-if="directoryBrowse" v-on:selected="setDirectory"></file-browser>
+
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
+
+				<button class="browse" v-on:click="directoryBrowse = true">Browse</button>
 			</div>
 
 			<div v-if="step === 6">

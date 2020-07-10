@@ -10,6 +10,68 @@ button {
 	border: 0;
 }
 
+.file-browser {
+	background: white;
+
+	position: absolute;
+	z-index: 1000;
+
+	width: 1200px;
+	top: 50px;
+	left: 100px;
+	right: 100px;
+	height: 650px;
+
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+}
+
+.file-browser-container {
+	margin: 50px;
+}
+
+.file-browser-path {
+	font-size: 50px;
+}
+
+.file-browser-list {
+	height: 300px;
+	overflow-y: scroll;
+	padding: 0;
+	margin: 0;
+}
+
+.file-browser-file {
+	list-style-type: none;
+
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.file-browser-file:hover {
+	background: #eee;
+}
+
+.file-browser-selected {
+	background: #ddd;
+}
+
+.file-browser-done {
+    background: #0059D0;
+    border-radius: 6px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 135%;
+    text-align: center;
+    color: #FFFFFF;
+    width: 205px;
+    height: 48px;
+
+	margin-top: 25px;
+}
+
 #app {
 	width: 1400px;
 	height: 900px;
@@ -658,6 +720,31 @@ a {
 	width: 205px;
 	height: 48px;
 
+
+}
+
+.step-5 .browse {
+	position: absolute;
+	left: 618px;
+	right: 617px;
+	top: 625px;
+	bottom: 300px;
+
+	background: #0059D0;
+	border-radius: 6px;
+
+	font-family: Inter;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 135%;
+
+	text-align: center;
+
+	color: #FFFFFF;
+
+	width: 205px;
+	height: 48px;
 
 }
 

@@ -1,5 +1,3 @@
-console.log('hello world')
-
 function resizeInterface() {
 	const scale = Math.min(window.innerWidth / 1400, window.innerHeight / 900);
 	document.querySelector("#app").style.transform = `scale(${scale})`;
@@ -7,10 +5,104 @@ function resizeInterface() {
 
 resizeInterface();
 
+let debug = false;
+
+const getFolders = debug
+	? async path => {
+		if(path === '/') {
+			return [
+				'test/',
+				'a/',
+				'b/',
+				'c/'
+			]
+		}
+
+		if(path === '/a/') {
+			return [
+				'photos/',
+				'documents/'
+			]
+		}
+
+		if(path === '/a/photos/') {
+			return [
+				'holiday/',
+				'mountains/'
+			]
+		}
+
+		return new Promise(resolve => {});
+	}
+	: async path => {
+		const {data} = await axios.get('api.php', {
+			params: {
+				action: 'folders',
+				path
+			}
+		});
+
+		return data;
+	};
+
+Vue.component(`file-browser`, {
+	template: `<div class='file-browser'>
+		<div class='file-browser-container'>
+			<h2 class='file-browser-path'>{{path}}</h2>
+
+			<ul class='file-browser-list'>
+				<li class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/') + '/'">../</li>
+
+				<li
+					v-for="file in files" v-on:dblclick="path += file"
+					v-on:click="selectFile(file)"
+					v-bind:class="{
+						'file-browser-file': true,
+						'file-browser-selected': selectedPath === path + file
+					}"
+				>{{file}}</li>
+			</ul>
+
+			<button class='file-browser-done' v-on:click="done">Done</button>
+		</div>
+	</div>`,
+	data: () => ({
+		path: '/',
+		files: [],
+		selectedPath: '',
+		loading: false
+	}),
+	methods: {
+		async loadFiles() {
+			this.loading = true;
+			this.files = (await getFolders(this.path)).filter(file => file !== '../');
+			this.loading = false;
+		},
+
+		selectFile(file) {
+			if(this.loading === false) {
+				this.selectedPath = this.path + file;
+			}
+		},
+
+		done() {
+			this.$emit('selected', this.selectedPath);
+		}
+	},
+	watch: {
+		path() {
+			this.loadFiles();
+		}
+	},
+	async created() {
+		this.loadFiles();
+	}
+});
+
 const app = new Vue({
 	el: "#app",
 	data: {
-		step: 1,
+		step: 5,
 		identityStep: 1,
 		identityLogs: '',
 
@@ -18,6 +110,7 @@ const app = new Vue({
 		address: '',
 		storage: 10000,
 		directory: '',
+		directoryBrowse: false,
 		host: '',
 		identity: '',
 		authkey: '',
@@ -100,6 +193,10 @@ const app = new Vue({
 			 setInterval(() => this.updateLog(), 60000);
 		},
 
+		setDirectory(selected) {
+			this.directory = selected;
+			this.directoryBrowse = false;
+		},
 
 		async finish() {
 			const data = {
