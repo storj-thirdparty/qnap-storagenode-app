@@ -41,8 +41,7 @@ const getFolders = debug
 				path
 			}
 		});
-
-		return data;
+		return data.folders;
 	};
 
 Vue.component(`file-browser`, {
@@ -102,7 +101,7 @@ Vue.component(`file-browser`, {
 const app = new Vue({
 	el: "#app",
 	data: {
-		step: 1,
+		step: 5,
 		identityStep: 1,
 		identityLogs: "",
 

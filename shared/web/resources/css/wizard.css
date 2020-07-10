@@ -571,12 +571,12 @@ a {
 
 .step-5 .browse {
 	position: absolute;
-	left: 618px;
+	left: 850px;
 	right: 617px;
-	top: 625px;
+	top: 465px;
 	bottom: 300px;
 
-	background: #0059D0;
+	background: none;
 	border-radius: 6px;
 
 	font-family: Inter;
@@ -590,8 +590,13 @@ a {
 	color: #FFFFFF;
 
 	width: 205px;
-	height: 48px;
+	height: 50px;
 
+}
+.step-5 .browse .browse-svg{
+    position: absolute;
+    top:12px;
+    left: 41px;
 }
 .step-6 .title {
   position: absolute;

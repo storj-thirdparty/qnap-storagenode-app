@@ -79,7 +79,7 @@
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 
-				<button class="browse" v-on:click="directoryBrowse = true">Browse</button>
+                                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
 			</div>
 
 			<div v-if="step === 6">
