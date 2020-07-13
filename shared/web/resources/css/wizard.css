@@ -591,6 +591,7 @@ a {
 
 	width: 205px;
 	height: 50px;
+        outline: none;
 
 }
 .step-5 .browse .browse-svg{
@@ -683,7 +684,36 @@ a {
 }
 
 /* step 6 */
+.identity-step-1 .browse {
+	position: absolute;
+	left: 850px;
+	right: 617px;
+	top: 490px;
+	bottom: 300px;
 
+	background: none;
+	border-radius: 6px;
+
+	font-family: Inter;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 135%;
+
+	text-align: center;
+
+	color: #FFFFFF;
+
+	width: 205px;
+	height: 50px;
+        outline: none;
+
+}
+.identity-step-1 .browse .browse-svg{
+    position: absolute;
+    top:12px;
+    left: 41px;
+}
 .identity-step-1 .title {
   position: absolute;
   width: 380px;

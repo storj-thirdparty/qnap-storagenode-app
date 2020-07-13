@@ -129,6 +129,7 @@
   }
 </style>
   <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
+  <div id="app">
   <div>
     <nav class="navbar">
       <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>
@@ -224,8 +225,8 @@
 
                     <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
                     <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
-
-
+                    <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
+                     <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
                     <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                   </div>
                   <div class="modal-footer">
@@ -408,6 +409,8 @@
                   <div class="modal-body">
                     <p class="modal-input-title">Storage Directory</p>
                     <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>"  />
+                     <file-browser v-if="directoryBrowse" v-on:selected="setStorageDirectory"></file-browser>
+                     <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
                     <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
                   </div>
                   <div class="modal-footer">
@@ -468,7 +471,9 @@
   </div>
 
   <?php require_once('footer.php');?>
-  <script type="text/javascript" src="./resources/js/config.js"></script>
+        <script src="resources/js/vue.js"></script>
+	<script src="resources/js/axios.min.js"></script>
+        <script type="text/javascript" src="./resources/js/config.js"></script></div>
 <?php
 
 }

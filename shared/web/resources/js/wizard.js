@@ -53,7 +53,7 @@ Vue.component(`file-browser`, {
 				<li class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/') + '/'">../</li>
 
 				<li
-					v-for="file in files" v-on:dblclick="path += file"
+					v-for="file in files" v-on:dblclick="setpath(file)"
 					v-on:click="selectFile(file)"
 					v-bind:class="{
 						'file-browser-file': true,
@@ -80,13 +80,21 @@ Vue.component(`file-browser`, {
 
 		selectFile(file) {
 			if(this.loading === false) {
-				this.selectedPath = this.path + file;
+				this.selectedPath = this.path +"/"+ file;
 			}
 		},
 
 		done() {
 			this.$emit('selected', this.selectedPath);
-		}
+		},
+                setpath(file){
+                    if(this.path != "/"){
+                        this.path +='/'+ file;
+                    }else{
+                        this.path += file;
+                    }
+                    
+                }
 	},
 	watch: {
 		path() {
@@ -101,7 +109,7 @@ Vue.component(`file-browser`, {
 const app = new Vue({
 	el: "#app",
 	data: {
-		step: 5,
+		step: 1,
 		identityStep: 1,
 		identityLogs: "",
 
@@ -194,6 +202,20 @@ const app = new Vue({
 		},
 		setDirectory(selected) {
 			this.directory = selected;
+			this.directoryBrowse = false;
+		},
+		setIdentityDirectory(selected) {
+			this.identity = selected;
+			this.directoryBrowse = false;
+		},
+		setIdentityTokenDirectory(selected) {
+                        $('#identity_path').val('');
+                        $('#identity_path').val(selected);
+			this.directoryBrowse = false;
+		},
+		setStorageDirectory(selected) {
+                        $('#storage_directory').val('');
+                        $('#storage_directory').val(selected);
 			this.directoryBrowse = false;
 		},
 		async finish() {

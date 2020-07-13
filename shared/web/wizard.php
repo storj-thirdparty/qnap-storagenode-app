@@ -105,9 +105,10 @@
 
 					<label class="identity-label">Identity Path</label>
 					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
-
+                                        <file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
+                                         <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
 				</div>
 
 				<div class="identity-step-2" v-if="identityStep === 2">

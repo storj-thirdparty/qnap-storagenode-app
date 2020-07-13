@@ -283,3 +283,94 @@ iframe { /* end-of-line comment
 #scopeval { color: #245ac3; }
 #defaultsval { color: #245ac3; }
 #defaultsval .defaults_text { font-weight: 600; }
+.file-browser {
+	background: white;
+        position: absolute;
+        z-index: 1000;
+        width: 298px;
+        top: 87px;
+        left: 164px;
+        right: 94px;
+	height: 480px;
+
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.file-browser-container {
+	margin: 50px;
+}
+
+.file-browser-path {
+	font-size: 50px;
+}
+
+.file-browser-list {
+	height: 300px;
+	overflow-y: scroll;
+	padding: 0;
+	margin: 0;
+}
+
+.file-browser-file {
+	list-style-type: none;
+
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.file-browser-file:hover {
+	background: #eee;
+}
+
+.file-browser-selected {
+	background: #ddd;
+}
+
+.file-browser-done {
+    background: #0059D0;
+    border-radius: 6px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 135%;
+    text-align: center;
+    color: #FFFFFF;
+    width: 205px;
+    height: 48px;
+
+	margin-top: 25px;
+}
+
+#identity .browse{
+    position: absolute;
+    top: 59px;
+    left: 396px;
+    border: none;
+    background: none;
+    height: 19px;
+    outline: none;
+}
+
+#identity .browse .browse-svg{
+    height: 17px;
+    position: absolute;
+    top: 5px;
+    left: -14px;
+    right: 0px;
+}
+#directory .browse {
+    position: absolute;
+    top: 16px;
+    left: 383px;
+    background: none;
+    border: none;
+    outline: none;
+    height: 12px;
+}
+#directory .browse .browse-svg {
+    position: absolute;
+    left: -14px;
+    height: 17px;
+    top: 5px;
+}
