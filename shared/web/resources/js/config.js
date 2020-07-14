@@ -550,6 +550,16 @@ const app = new Vue({
             $('#identity_path').val(selected);
             this.directoryBrowse = false;
         },
+    }
+});
+
+const app2 = new Vue({
+    el: "#app2",
+    data: {
+        directoryBrowse: false
+    },
+
+    methods: {
         setStorageDirectory(selected) {
             $('#storage_directory').val('');
             $('#storage_directory').val(selected);

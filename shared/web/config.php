@@ -129,7 +129,7 @@
   }
 </style>
   <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
-  <div id="app">
+ 
   <div>
     <nav class="navbar">
       <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>
@@ -204,7 +204,7 @@
             <br><br>
 
             <div id="identity_status" style="overflow: auto;"><B> LATEST LOG </B></div>
-
+            <div id="app">
           <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -238,6 +238,7 @@
                 </div>
               </div>
             </div>
+                </div>
           </div>
         </div>
 
@@ -385,7 +386,7 @@
         </div>
     </div>
 
-
+    <div id="app2">
     <div class="row segment">
       <div class="column col-md-2"><div class="segment-icon directory-icon"></div></div>
         <div class="column col-md-10 segment-content">
@@ -422,7 +423,7 @@
             </div>
           </div>
         </div>
-
+    </div>
 
 
       <div class="bottom-buttons">
@@ -473,7 +474,7 @@
   <?php require_once('footer.php');?>
         <script src="resources/js/vue.js"></script>
 	<script src="resources/js/axios.min.js"></script>
-        <script type="text/javascript" src="./resources/js/config.js"></script></div>
+        <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php
 
 }
