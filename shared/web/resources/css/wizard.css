@@ -1382,7 +1382,7 @@ a {
   position: absolute;
   top: 30px;
   left: 30px;
-  font-size: 30px;
+  font-size: 50px !important;
   color: #0059d0;
 }
 
