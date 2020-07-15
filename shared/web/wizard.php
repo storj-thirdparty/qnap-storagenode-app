@@ -73,13 +73,16 @@
 				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
 
 				<label class="directory-label">Storage Directory</label>
-				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				<div class="input-group">
+				  <input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				  <div class="input-group-prepend">
+						<button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+				  </div>
+				</div>
 
 				<file-browser v-if="directoryBrowse" v-on:selected="setDirectory"></file-browser>
-
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 
-                                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
 			</div>
 
 			<div v-if="step === 6">
