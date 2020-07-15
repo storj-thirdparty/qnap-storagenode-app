@@ -7,12 +7,24 @@ button {
   border: 0;
 }
 
-.file-browser {
+.step-5 .file-browser {
     background: white;
     position: absolute;
     z-index: 1000;
     width: 544px;
     top: 516px;
+    left: 449px;
+    right: 100px;
+    height: 550px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.identity-step-1 .file-browser {
+    background: white;
+    position: absolute;
+    z-index: 1000;
+    width: 544px;
+    top: 540px;
     left: 449px;
     right: 100px;
     height: 550px;

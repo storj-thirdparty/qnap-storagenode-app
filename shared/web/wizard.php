@@ -79,7 +79,7 @@
 
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 
-                                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
+                                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" class="browse-png" /></button>
 			</div>
 
 			<div v-if="step === 6">
@@ -108,7 +108,7 @@
                                         <file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
-                                         <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" /></button>
+                                        <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" class="browse-png" /></button>
 				</div>
 
 				<div class="identity-step-2" v-if="identityStep === 2">

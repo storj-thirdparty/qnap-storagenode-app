@@ -1,4 +1,4 @@
-
+@import url('https://rsms.me/inter/inter.css');
 .config-page {
   margin: 40px 0;
 }
@@ -336,10 +336,11 @@ iframe { /* end-of-line comment
     line-height: 135%;
     text-align: center;
     color: #FFFFFF;
-    width: 205px;
+    width: 150px;
     height: 48px;
-
-	margin-top: 25px;
+    margin-top: 25px;
+    cursor: pointer;
+    border: 0;
 }
 
 #identity .browse{
