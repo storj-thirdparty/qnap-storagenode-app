@@ -108,6 +108,7 @@ Vue.component(`file-browser`, {
 			this.$emit('selected', this.selectedPath);
 		},
                 outside: function (e) {
+                   this.selectedPath = "outside";
                    this.$emit('selected', this.selectedPath);
 
                 },
@@ -223,13 +224,22 @@ const app = new Vue({
 			this.createidentifyToken();
 			setInterval(() => this.updateLog(), 60000);
 		},
-		setDirectory(selected) {
-			this.directory = selected;
-			this.directoryBrowse = false;
-		},
+                setDirectory(selected) {
+                    if (selected != "outside") {
+                        this.directory = selected;
+                        this.directoryBrowse = false;
+                    } else {
+                        this.directoryBrowse = false;
+                    }
+
+                },
 		setIdentityDirectory(selected) {
-			this.identity = selected;
-			this.directoryBrowse = false;
+                    if (selected != "outside") {
+                        this.identity = selected;
+                        this.directoryBrowse = false;
+                    } else {
+                        this.directoryBrowse = false;
+                    }
 		},
 		async finish() {
 			const data = {
