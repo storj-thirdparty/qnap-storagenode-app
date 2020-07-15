@@ -82,7 +82,6 @@
 
 				<file-browser v-if="directoryBrowse" v-on:selected="setDirectory"></file-browser>
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
-
 			</div>
 
 			<div v-if="step === 6">
@@ -114,7 +113,7 @@
 						</div>
 				  </div>
 
-          <file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
+          		<file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
 
 					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>

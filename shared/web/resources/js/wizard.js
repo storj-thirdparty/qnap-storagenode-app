@@ -45,7 +45,7 @@ const getFolders = debug
 	};
 
 Vue.component(`file-browser`, {
-	template: `<div class='file-browser'>
+	template: `<div class='file-browser' v-click-outside="outside">
 		<div class='file-browser-container'>
 			<h2 class='file-browser-path'>{{path}}</h2>
 
@@ -71,6 +71,22 @@ Vue.component(`file-browser`, {
 		selectedPath: '',
 		loading: false
 	}),
+         directives: {
+            'click-outside': {
+                bind: function (el, binding, vnode) {
+                        
+                        this.event = function (event) {
+                         if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
+                            vnode.context[binding.expression](event);
+                          }
+                        };
+                        document.body.addEventListener('click', this.event)
+                      },
+                      unbind: function (el) {
+                        document.body.removeEventListener('click', this.event)
+                      },
+            }
+        },
 	methods: {
 		async loadFiles() {
 			this.loading = true;
@@ -80,13 +96,21 @@ Vue.component(`file-browser`, {
 
 		selectFile(file) {
 			if(this.loading === false) {
-				this.selectedPath = this.path +"/"+ file;
+                                 if (this.path != "/") {
+                                    this.selectedPath = this.path +"/"+ file;
+                                } else {
+                                   this.selectedPath = this.path + file;
+                                }	
 			}
 		},
 
 		done() {
 			this.$emit('selected', this.selectedPath);
 		},
+                outside: function (e) {
+                   this.$emit('selected', this.selectedPath);
+                    
+                },
                 setpath(file){
                     if(this.path != "/"){
                         this.path +='/'+ file;
@@ -135,7 +159,6 @@ const app = new Vue({
 
         this.authkey = document.querySelector("#authkey").value;
     },
-
 	computed: {
 
 		stepClass() {
@@ -206,16 +229,6 @@ const app = new Vue({
 		},
 		setIdentityDirectory(selected) {
 			this.identity = selected;
-			this.directoryBrowse = false;
-		},
-		setIdentityTokenDirectory(selected) {
-                        $('#identity_path').val('');
-                        $('#identity_path').val(selected);
-			this.directoryBrowse = false;
-		},
-		setStorageDirectory(selected) {
-                        $('#storage_directory').val('');
-                        $('#storage_directory').val(selected);
 			this.directoryBrowse = false;
 		},
 		async finish() {
