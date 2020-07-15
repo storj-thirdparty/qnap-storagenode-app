@@ -59,7 +59,7 @@ Vue.component(`file-browser`, {
 						'file-browser-file': true,
 						'file-browser-selected': selectedPath === path + file
 					}"
-				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
+				><img src="resources/img/wizard/folder.svg" class="file-browser-folder-icon" alt="Folder">{{file}}</li>
 			</ul>
 
 			<button class='file-browser-done' v-on:click="done">Done</button>
