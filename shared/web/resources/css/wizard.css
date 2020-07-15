@@ -7,29 +7,17 @@ button {
   border: 0;
 }
 
-.step-5 .file-browser {
-    background: white;
-    position: absolute;
-    z-index: 1000;
-    width: 544px;
-    top: 516px;
-    left: 449px;
-    right: 100px;
-    height: 550px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
-.identity-step-1 .file-browser {
-    background: white;
-    position: absolute;
-    z-index: 1000;
-    width: 544px;
-    top: 540px;
-    left: 449px;
-    right: 100px;
-    height: 550px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+.file-browser {
+  background: white;
+  position: absolute;
+  z-index: 1000;
+  width: 940px;
+  top: 80px;
+  left: 250px;
+  height: 582px;
+  border: 1px solid #f2f3f4;
+  box-shadow: 0 10px 20px #f2f3f4;
+  border-radius: 5px;
 }
 
 .file-browser-container {
@@ -37,11 +25,13 @@ button {
 }
 
 .file-browser-path {
-	font-size: 50px;
+  font-weight: 700;
+  color: #000;
+  font-size: 1.5rem;
 }
 
 .file-browser-list {
-	height: 300px;
+	height: 360px;
 	overflow-y: scroll;
 	padding: 0;
 	margin: 0;
@@ -49,33 +39,36 @@ button {
 
 .file-browser-file {
 	list-style-type: none;
-
-	padding: 10px;
-	border-radius: 5px;
+  cursor: pointer;
+	padding: 16px;
+	border-radius: 4px;
+  font-weight: 300;
+  color: #000;
 }
 
 .file-browser-file:hover {
-	background: #eee;
+	background: #f9f9f9;
+  color: #0059d0;
 }
 
 .file-browser-selected {
-	background: #ddd;
+	background: #0059D0;
+  color: #fff;
 }
 
 .file-browser-done {
-    background: #0059D0;
-    border-radius: 6px;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 135%;
-    text-align: center;
-    color: #FFFFFF;
-    width: 205px;
-    height: 48px;
-
-	margin-top: 25px;
+  background: #0059D0;
+  border-radius: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 135%;
+  text-align: center;
+  color: #FFFFFF;
+  width: 205px;
+  height: 48px;
+  margin-top: 24px;
 }
 
 #app {
@@ -550,6 +543,28 @@ a {
   font-size: 16px;
   line-height: 134.09%;
   padding: 20px;
+  padding-right: 130px;
+}
+
+.step-5 .input-group-prepend {
+  position: absolute;
+  left: 865px;
+  top: 465px;
+  z-index: 9;
+}
+
+.step-5 .input-group-prepend button {
+  color: #2683ff;
+  text-decoration: none;
+  font-size: 16px;
+  background: none;
+  padding: 8px 20px 14px 32px;
+}
+
+.step-5 .input-group-prepend img {
+  top: 5px;
+  left: -10px;
+  position: relative;
 }
 
 .step-5 .continue {
@@ -574,40 +589,9 @@ a {
 
 	width: 205px;
 	height: 48px;
-
-
 }
 
-.step-5 .browse {
-	position: absolute;
-	left: 850px;
-	right: 617px;
-	top: 465px;
-	bottom: 300px;
 
-	background: none;
-	border-radius: 6px;
-
-	font-family: Inter;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 135%;
-
-	text-align: center;
-
-	color: #FFFFFF;
-
-	width: 205px;
-	height: 50px;
-        outline: none;
-
-}
-.step-5 .browse .browse-svg{
-    position: absolute;
-    top:12px;
-    left: 41px;
-}
 .step-6 .title {
   position: absolute;
   width: 548px;
@@ -693,36 +677,7 @@ a {
 }
 
 /* step 6 */
-.identity-step-1 .browse {
-	position: absolute;
-	left: 850px;
-	right: 617px;
-	top: 490px;
-	bottom: 300px;
 
-	background: none;
-	border-radius: 6px;
-
-	font-family: Inter;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 135%;
-
-	text-align: center;
-
-	color: #FFFFFF;
-
-	width: 205px;
-	height: 50px;
-        outline: none;
-
-}
-.identity-step-1 .browse .browse-svg{
-    position: absolute;
-    top:12px;
-    left: 41px;
-}
 .identity-step-1 .title {
   position: absolute;
   width: 380px;
@@ -786,7 +741,30 @@ a {
   font-size: 16px;
   line-height: 134.09%;
   padding-left: 25px;
+  padding-right: 130px;
 }
+
+.identity-step-1 .input-group-prepend {
+  position: absolute;
+  left: 865px;
+  top: 491px;
+  z-index: 9;
+}
+
+.identity-step-1 .input-group-prepend button {
+  color: #2683ff;
+  text-decoration: none;
+  font-size: 16px;
+  background: none;
+  padding: 8px 20px 14px 32px;
+}
+
+.identity-step-1 .input-group-prepend img {
+  top: 5px;
+  left: -10px;
+  position: relative;
+}
+
 
 .identity-step-1 .no-identity {
   position: absolute;
