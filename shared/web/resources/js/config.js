@@ -540,6 +540,7 @@ Vue.component(`file-browser`, {
             this.$emit('selected', this.selectedPath);
         },
         outside: function (e) {
+            this.selectedPath = "outside";
             this.$emit('selected', this.selectedPath);
 
         },
@@ -569,9 +570,14 @@ const app = new Vue({
     },
     methods: {
         setIdentityTokenDirectory(selected) {
-            $('#identity_path').val('');
-            $('#identity_path').val(selected);
-            this.directoryBrowse = false;
+            if (selected != "outside") {
+                $('#identity_path').val('');
+                $('#identity_path').val(selected);
+                this.directoryBrowse = false;
+            } else {
+                this.directoryBrowse = false;
+            }
+
         },
     }
 });
@@ -584,9 +590,14 @@ const app2 = new Vue({
 
     methods: {
         setStorageDirectory(selected) {
-            $('#storage_directory').val('');
-            $('#storage_directory').val(selected);
-            this.directoryBrowse = false;
+            if (selected != "outside") {
+                $('#storage_directory').val('');
+                $('#storage_directory').val(selected);
+                this.directoryBrowse = false;
+            } else {
+                this.directoryBrowse = false;
+            }
+            
         },
     }
 });
