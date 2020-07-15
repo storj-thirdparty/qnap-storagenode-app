@@ -8,16 +8,16 @@ button {
 }
 
 .file-browser {
-    background: white;
-    position: absolute;
-    z-index: 1000;
-    width: 544px;
-    top: 516px;
-    left: 449px;
-    right: 100px;
-    height: 550px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+  background: white;
+  position: absolute;
+  z-index: 1000;
+  width: 940px;
+  top: 80px;
+  left: 250px;
+  height: 570px;
+  border: 1px solid #f2f3f4;
+  box-shadow: 0 10px 20px #f2f3f4;
+  border-radius: 5px;
 }
 
 .file-browser-container {
