@@ -59,7 +59,7 @@ Vue.component(`file-browser`, {
 						'file-browser-file': true,
 						'file-browser-selected': selectedPath === path + file
 					}"
-				>{{file}}</li>
+				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
 			</ul>
 
 			<button class='file-browser-done' v-on:click="done">Done</button>
@@ -74,7 +74,7 @@ Vue.component(`file-browser`, {
          directives: {
             'click-outside': {
                 bind: function (el, binding, vnode) {
-                        
+
                         this.event = function (event) {
                          if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
                             vnode.context[binding.expression](event);
@@ -100,7 +100,7 @@ Vue.component(`file-browser`, {
                                     this.selectedPath = this.path +"/"+ file;
                                 } else {
                                    this.selectedPath = this.path + file;
-                                }	
+                                }
 			}
 		},
 
@@ -109,7 +109,7 @@ Vue.component(`file-browser`, {
 		},
                 outside: function (e) {
                    this.$emit('selected', this.selectedPath);
-                    
+
                 },
                 setpath(file){
                     if(this.path != "/"){
@@ -117,7 +117,7 @@ Vue.component(`file-browser`, {
                     }else{
                         this.path += file;
                     }
-                    
+
                 }
 	},
 	watch: {
