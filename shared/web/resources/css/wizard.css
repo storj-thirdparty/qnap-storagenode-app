@@ -672,36 +672,7 @@ a {
 }
 
 /* step 6 */
-.identity-step-1 .browse {
-	position: absolute;
-	left: 850px;
-	right: 617px;
-	top: 490px;
-	bottom: 300px;
 
-	background: none;
-	border-radius: 6px;
-
-	font-family: Inter;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 135%;
-
-	text-align: center;
-
-	color: #FFFFFF;
-
-	width: 205px;
-	height: 50px;
-        outline: none;
-
-}
-.identity-step-1 .browse .browse-svg{
-    position: absolute;
-    top:12px;
-    left: 41px;
-}
 .identity-step-1 .title {
   position: absolute;
   width: 380px;
@@ -765,7 +736,30 @@ a {
   font-size: 16px;
   line-height: 134.09%;
   padding-left: 25px;
+  padding-right: 130px;
 }
+
+.identity-step-1 .input-group-prepend {
+  position: absolute;
+  left: 865px;
+  top: 491px;
+  z-index: 9;
+}
+
+.identity-step-1 .input-group-prepend button {
+  color: #2683ff;
+  text-decoration: none;
+  font-size: 16px;
+  background: none;
+  padding: 8px 20px 14px 32px;
+}
+
+.identity-step-1 .input-group-prepend img {
+  top: 5px;
+  left: -10px;
+  position: relative;
+}
+
 
 .identity-step-1 .no-identity {
   position: absolute;
