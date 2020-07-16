@@ -55,6 +55,10 @@ button {
 	background: #0059D0;
   color: #fff;
 }
+.file-browser-selected:hover {
+	background: #0059D0;
+  color: #fff;
+}
 
 .file-browser-done {
   background: #0059D0;
