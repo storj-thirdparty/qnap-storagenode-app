@@ -115,7 +115,7 @@
 
           		<file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
 
-					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
+					<button class="no-identity" v-on:click="processCheck">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
 				</div>
 
