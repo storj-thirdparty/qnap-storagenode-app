@@ -73,8 +73,14 @@
 				<p class="tagline">The local directory where you want files to be stored on your hard drive for the network</p>
 
 				<label class="directory-label">Storage Directory</label>
-				<input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				<div class="input-group">
+				  <input class="directory" type="text" placeholder="/path/to/folder_to_share" v-model="directory" v-bind:class="{ invalid: !directoryValid }" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>" required>
+				  <div class="input-group-prepend">
+						<button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+				  </div>
+				</div>
 
+				<file-browser v-if="directoryBrowse" v-on:selected="setDirectory"></file-browser>
 				<button class="continue" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
 			</div>
 
@@ -99,10 +105,17 @@
 
 					<p class="tagline">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
 
-					<label class="identity-label">Identity Path</label>
-					<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
+					<label class="identity-label" for="identityPath">Identity Path</label>
+					<div class="input-group">
+						<input class="identity" type="text" placeholder="/path/to/identity" v-model="identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" v-bind:class="{ invalid: !identityValid }">
+				    <div class="input-group-prepend">
+							<button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+						</div>
+				  </div>
 
-					<button class="no-identity" v-on:click="processCheck" v-bind:disabled="!identityValid">I don't have an identity</button>
+          		<file-browser v-if="directoryBrowse" v-on:selected="setIdentityDirectory"></file-browser>
+
+					<button class="no-identity" v-on:click="processCheck">I don't have an identity</button>
 					<button class="finish" v-on:click="finish" v-bind:disabled="!identityValid">Finish</button>
 				</div>
 

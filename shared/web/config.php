@@ -129,6 +129,7 @@
   }
 </style>
   <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
+ 
   <div>
     <nav class="navbar">
       <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>
@@ -203,7 +204,7 @@
             <br><br>
 
             <div id="identity_status" style="overflow: auto;"><B> LATEST LOG </B></div>
-
+            <div id="app">
           <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -224,8 +225,8 @@
 
                     <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
                     <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
-
-
+                    <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
+                     <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" class="browse-png"/></button>
                     <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
                   </div>
                   <div class="modal-footer">
@@ -237,6 +238,7 @@
                 </div>
               </div>
             </div>
+                </div>
           </div>
         </div>
 
@@ -384,7 +386,7 @@
         </div>
     </div>
 
-
+    <div id="app2">
     <div class="row segment">
       <div class="column col-md-2"><div class="segment-icon directory-icon"></div></div>
         <div class="column col-md-10 segment-content">
@@ -408,6 +410,8 @@
                   <div class="modal-body">
                     <p class="modal-input-title">Storage Directory</p>
                     <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>"  />
+                     <file-browser v-if="directoryBrowse" v-on:selected="setStorageDirectory"></file-browser>
+                     <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/><img src="resources/img/wizard/Browse.png" class="browse-png"/></button>
                     <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
                   </div>
                   <div class="modal-footer">
@@ -419,7 +423,7 @@
             </div>
           </div>
         </div>
-
+    </div>
 
 
       <div class="bottom-buttons">
@@ -468,7 +472,9 @@
   </div>
 
   <?php require_once('footer.php');?>
-  <script type="text/javascript" src="./resources/js/config.js"></script>
+        <script src="resources/js/vue.js"></script>
+	<script src="resources/js/axios.min.js"></script>
+        <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php
 
 }

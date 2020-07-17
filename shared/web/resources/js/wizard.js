@@ -1,10 +1,135 @@
-
 function resizeInterface() {
 	const scale = Math.min(window.innerWidth / 1400, window.innerHeight / 900);
 	document.querySelector("#app").style.transform = `scale(${scale})`;
 }
 
 resizeInterface();
+
+let debug = false;
+
+const getFolders = debug
+	? async path => {
+		if(path === '/') {
+			return [
+				'test/',
+				'a/',
+				'b/',
+				'c/'
+			]
+		}
+
+		if(path === '/a/') {
+			return [
+				'photos/',
+				'documents/'
+			]
+		}
+
+		if(path === '/a/photos/') {
+			return [
+				'holiday/',
+				'mountains/'
+			]
+		}
+
+		return new Promise(resolve => {});
+	}
+	: async path => {
+		const {data} = await axios.get('api.php', {
+			params: {
+				action: 'folders',
+				path
+			}
+		});
+		return data.folders;
+	};
+
+Vue.component(`file-browser`, {
+	template: `<div class='file-browser' v-click-outside="outside">
+		<div class='file-browser-container'>
+			<h2 class='file-browser-path'>{{path}}</h2>
+
+			<ul class='file-browser-list'>
+				<li class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/') + '/'"><img src="resources/img/wizard/back.svg" alt="Back">../</li>
+
+				<li
+					v-for="file in files" v-on:dblclick="setpath(file)"
+					v-on:click="selectFile(file)"
+					v-bind:class="{
+						'file-browser-file': true,
+						'file-browser-selected': selectedPath === path + file
+					}"
+				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
+			</ul>
+
+			<button class='file-browser-done' v-on:click="done">Done</button>
+		</div>
+	</div>`,
+	data: () => ({
+		path: '/',
+		files: [],
+		selectedPath: '',
+		loading: false
+	}),
+         directives: {
+            'click-outside': {
+                bind: function (el, binding, vnode) {
+
+                        this.event = function (event) {
+                         if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
+                            vnode.context[binding.expression](event);
+                          }
+                        };
+                        document.body.addEventListener('click', this.event)
+                      },
+                      unbind: function (el) {
+                        document.body.removeEventListener('click', this.event)
+                      },
+            }
+        },
+	methods: {
+		async loadFiles() {
+			this.loading = true;
+			this.files = (await getFolders(this.path)).filter(file => file !== '../');
+			this.loading = false;
+		},
+
+		selectFile(file) {
+			if(this.loading === false) {
+                                 if (this.path != "/") {
+                                    this.selectedPath = this.path +"/"+ file;
+                                } else {
+                                   this.selectedPath = this.path + file;
+                                }
+			}
+		},
+
+		done() {
+			this.$emit('selected', this.selectedPath);
+		},
+                outside: function (e) {
+                   this.selectedPath = "outside";
+                   this.$emit('selected', this.selectedPath);
+
+                },
+                setpath(file){
+                    if(this.path != "/"){
+                        this.path +='/'+ file;
+                    }else{
+                        this.path += file;
+                    }
+
+                }
+	},
+	watch: {
+		path() {
+			this.loadFiles();
+		}
+	},
+	async created() {
+		this.loadFiles();
+	}
+});
 
 const app = new Vue({
 	el: "#app",
@@ -16,11 +141,12 @@ const app = new Vue({
 		email: "",
 		address: "",
 		storage: 10000,
-		directory: "",
-		host: "",
-		identity: "",
-		authkey: "",
-		message: "",
+		directory: '',
+		directoryBrowse: false,
+		host: '',
+		identity: '',
+		authkey: '',
+		message: '',
 		processrun: false
 	},
 
@@ -34,7 +160,6 @@ const app = new Vue({
 
         this.authkey = document.querySelector("#authkey").value;
     },
-
 	computed: {
 
 		stepClass() {
@@ -98,6 +223,23 @@ const app = new Vue({
 			this.identityStep++;
 			this.createidentifyToken();
 			setInterval(() => this.updateLog(), 60000);
+		},
+                setDirectory(selected) {
+                    if (selected != "outside") {
+                        this.directory = selected;
+                        this.directoryBrowse = false;
+                    } else {
+                        this.directoryBrowse = false;
+                    }
+
+                },
+		setIdentityDirectory(selected) {
+                    if (selected != "outside") {
+                        this.identity = selected;
+                        this.directoryBrowse = false;
+                    } else {
+                        this.directoryBrowse = false;
+                    }
 		},
 		async finish() {
 			const data = {
