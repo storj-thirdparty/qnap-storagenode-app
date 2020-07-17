@@ -8,7 +8,7 @@
 	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 	$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
 	$scriptsBase    = $moduleBase . '/scripts' ;
-	$configBase		= '/share/Public/storagenodeconfig';
+	$configBase		= '/share/Public/storagenode.conf';
 
 
 	$file           = $configBase  . DIRECTORY_SEPARATOR . $filename  ;

@@ -5,7 +5,7 @@
 	# ------------------------------------------------------------------------
 	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 	$moduleBase     = $platformBase . dirname(filter_input(INPUT_SERVER, 'PHP_SELF')) ;
-	$configBase     = '/share/Public/storagenodeconfig';
+	$configBase     = '/share/Public/storagenode.conf';
 	$scriptsBase    = $moduleBase . '/scripts' ;
 	$identityGenBinary = "/share/Public/identity.bin/identity" ;
 	$logFile = "/share/Public/identity/logs/storj_identity.log" ;
