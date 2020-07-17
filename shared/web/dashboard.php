@@ -1,4 +1,13 @@
-<?php include 'header.php';?>
+<?php include 'header.php';
+$previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+session_start();
+$_SESSION['previous_location'] = $previous_location;
+$authPass = $_SESSION['authPass'];
+if (is_null($authPass) || $authPass == "0") {
+    header("Location: login.php");
+}
+?>
+
   <div>
     <nav class="navbar">
       <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>

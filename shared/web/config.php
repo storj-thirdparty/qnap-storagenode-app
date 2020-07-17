@@ -6,7 +6,13 @@
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
   # ------------------------------------------------------------------------
 
-
+  $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  session_start();
+  $_SESSION['previous_location'] = $previous_location;
+  $authPass = $_SESSION['authPass'];
+  if (is_null($authPass) || $authPass == "0") {
+    header("Location: login.php");
+  }
   $output = "";
   $data = json_decode(file_get_contents("php://input"), TRUE);
   $email = $data['email'];

@@ -5,7 +5,15 @@
 </head>
 <body>
 	<?php
-		$file = "config.json";
+                $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                session_start();
+                $_SESSION['previous_location'] = $previous_location;
+                $authPass = $_SESSION['authPass'];
+                if (is_null($authPass) || $authPass == "0") 
+                {
+                    header("Location: login.php");
+                }
+                $file = "config.json";
 		if(file_exists($file)){
 		  	$content = file_get_contents($file);
 		  	$prop = json_decode($content, true);
