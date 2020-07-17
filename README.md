@@ -68,12 +68,8 @@ Cloning the repository.
 ```bash
 $ git clone https://github.com/storj/qnap-storagenode-app.git
 $ cd qnap-storagenode-app
-```
-You may copy private key and certificate to the project folder ( `qnap-storagenode-app`) to build a signed package, before running the following command. (Only required for signed package)
-``bash
 $ qbuild
 ```
-
 The qpkg file is found at qnap-storagenode-app/build](qnap-storagenode-app/build)
 
 [QPKG Building Instructions](https://edhongcy.gitbooks.io/qdk-quick-start-guide/content/build-your-own-qpkg.html)
@@ -86,7 +82,6 @@ The qpkg file is found at qnap-storagenode-app/build](qnap-storagenode-app/build
 - Change version number(QPKG_VER) in [qpkg.cfg](qpkg.cfg)
 - [To add new icons](https://github.com/qnap-dev/QDK#how-to-add-icons-in-qpkg)
 - Add html/php files in the [web folder (shared/web)](shared/web)
-- Copy certificate and associated private key (If available) to the project folder root to build a signed package.
 
 <br /><br />
 
@@ -108,8 +103,6 @@ The qpkg file is found at qnap-storagenode-app/build](qnap-storagenode-app/build
 
 - *dashboard.php* will check if the docker is running or not which is queried from STORJ.sh. If the docker is running it will give stop button and show you the dashboard, else it will show a form for wallet, email, port, storage and bandwidth and let you start the container.
   start and stop commands are fired to STORJ.sh
-
-- The configuration (config.json) for the storagenode is saved in `/share/Public/storagenode.conf` folder. This folder is retained even after the uninstallation.
 
   <br /><br />
 
