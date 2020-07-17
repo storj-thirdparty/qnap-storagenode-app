@@ -5,11 +5,12 @@
 	# ------------------------------------------------------------------------
 	$platformBase   = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 	$moduleBase     = $platformBase . dirname(filter_input(INPUT_SERVER, 'PHP_SELF')) ;
+	$configBase     = '/share/Public/storagenodeconfig';
 	$scriptsBase    = $moduleBase . '/scripts' ;
 	$identityGenBinary = "/share/Public/identity.bin/identity" ;
 	$logFile = "/share/Public/identity/logs/storj_identity.log" ;
 
-	$data = loadConfig("${moduleBase}/config.json");
+	$data = loadConfig("${configBase}/config.json");
 	# Update config json file if updates provided
 	$inputs = loadConfig("php://input");
 	if (isset($inputs['authkey']) || isset($inputs['identity'])){
