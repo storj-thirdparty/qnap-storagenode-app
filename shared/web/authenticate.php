@@ -4,11 +4,9 @@ $data = json_decode(file_get_contents("php://input"), TRUE);
 
 $cURLConnection = curl_init();
 
-if ($_SERVER['HTTP_ORIGIN'] == "http://127.0.0.1") {
-    $host = "http://173.225.183.161:8080";
-} else {
-    $host = $_SERVER['HTTP_ORIGIN'];
-}
+
+$host =  "http://$_SERVER[HTTP_HOST]";
+
 
 $url = $host . '/cgi-bin/authLogin.cgi?user=' . $data['username'] . '&pwd=' . $data['password'] . '&remme=1';
 
