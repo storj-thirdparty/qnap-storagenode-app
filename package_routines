@@ -261,7 +261,6 @@ echo "#==============================================" >> $RESOURCEFILE
 #Changing the file permissions for retentive parameters
 $CMD_CHMOD 666 $SYS_QPKG_DIR/web/config.json
 $CMD_CHOWN -R httpdusr $SYS_QPKG_DIR
-$CMD_CHMOD 777 $SYS_QPKG_DIR/web/conf
 $CMD_CHOWN admin $SYS_QPKG_DIR/web/scripts/*.sh
 $CMD_CHMOD a+rx $SYS_QPKG_DIR/web/scripts/*.sh
 $CMD_CHMOD u+s $SYS_QPKG_DIR/web/scripts/*.sh
@@ -272,18 +271,23 @@ $CMD_MKDIR -p $SYS_PUBLIC_PATH/identity
 $CMD_MKDIR -p $SYS_PUBLIC_PATH/identity/logs
 $CMD_MKDIR $SYS_PUBLIC_PATH/identity.bin
 $CMD_MKDIR -p /root/.local/share/storj/identity
+$CMD_MKDIR $SYS_PUBLIC_PATH/storagenode.conf
 
 $CMD_CHOWN -R httpdusr $SYS_PUBLIC_PATH/identity $SYS_PUBLIC_PATH/identity.bin
 $CMD_CHOWN -R httpdusr /root/.local/share/storj/identity
 $CMD_CHMOD a+rx /root/.local/share/storj/identity
+$CMD_CHOWN -R httpdusr $SYS_PUBLIC_PATH/storagenode.conf
 
 $CMD_UNZIP $SYS_PUBLIC_PATH/identity_linux_amd64.zip -d $SYS_PUBLIC_PATH/identity.bin
 $CMD_CHMOD +x $SYS_PUBLIC_PATH/identity.bin/identity*
 $CMD_RM $SYS_PUBLIC_PATH/identity_linux_amd64.zip
+yes n | $CMD_CP -i $SYS_QPKG_DIR/web/config.json $SYS_PUBLIC_PATH/storagenode.conf
+$CMD_CHMOD 666 $SYS_PUBLIC_PATH/storagenode.conf/config.json
+
 
 # ------- cron setup ------------------------------
 BASE_PATH="$SYS_WEB_PATH/STORJ"
-CONFIG_FILE="${BASE_PATH}/config.json"
+CONFIG_FILE="$SYS_PUBLIC_PATH/storagenode.conf/config.json"
 SJCRON="/tmp/sjcrontable"
 
 fetchCron() {
