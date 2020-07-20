@@ -482,7 +482,7 @@ Vue.component(`file-browser`, {
 			<h2 class='file-browser-path'>{{path}}</h2>
 
 			<ul class='file-browser-list'>
-				<li class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/') + '/'">../</li>
+				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img src="resources/img/wizard/back.svg" alt="Back">../</li>
 
 				<li
 					v-for="file in files" v-on:dblclick="setpath(file)"
@@ -494,7 +494,7 @@ Vue.component(`file-browser`, {
 				>{{file}}</li>
 			</ul>
 
-			<button class='file-browser-done' v-on:click="done">Done</button>
+			<button class='file-browser-done' v-on:click="done">Select this directory</button>
 		</div>
 	</div>`,
     data: () => ({
@@ -597,9 +597,7 @@ const app2 = new Vue({
             } else {
                 this.directoryBrowse = false;
             }
-            
+
         },
     }
 });
-
-
