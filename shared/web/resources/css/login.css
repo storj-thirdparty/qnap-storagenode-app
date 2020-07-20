@@ -2,7 +2,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(to right, #b92b27, #1565c0)
 }
 
 .box {
@@ -11,8 +10,6 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    background: #191919;
-    ;
     text-align: center;
     transition: 0.25s;
     margin-top: 100px
@@ -29,49 +26,53 @@ body {
     padding: 10px 10px;
     width: 250px;
     outline: none;
-    color: white;
     border-radius: 24px;
     transition: 0.25s
 }
 
 .box h1 {
-    color: white;
-    text-transform: uppercase;
-    font-weight: 500
+   font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 100%;
+  color: #0d1826;
+  margin-top: 40px;
 }
 
 .box input[type="text"]:focus,
 .box input[type="password"]:focus {
     width: 300px;
-    border-color: #2ecc71
+    border-color: #3498db;
 }
 .box input[type="button"] {
     border: 0;
-    background: none;
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid #2ecc71;
     padding: 14px 40px;
     outline: none;
-    color: white;
     border-radius: 24px;
     transition: 0.25s;
-    cursor: pointer
-}
-
-.box input[type="button"]:hover {
-    background: #2ecc71
+    cursor: pointer;
+    background: #0059d0;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 135%;
+    color: #fff;
+    width: 205px;
+    height: 48px;
 }
 .error-msg {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  text-align: right;
-  color: #ea0000;
-  margin-left: 120px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #ea0000;
+    margin-left: 120px;
 }
 #wrongdetails{
     display: none;
@@ -80,20 +81,27 @@ body {
     margin-left: 100px !important;
 }
 .loader {
-  border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-  margin-left: 180px;
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    margin-left: 160px;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
+.head {
+    position: absolute;
+    width: 102px;
+    height: 102px;
+    left: 200px;
+    top: -40px;
+}
 
 
 

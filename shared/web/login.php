@@ -5,13 +5,13 @@
 <body>
     <div id="app">
         
-        
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
                         <form class="box">
-                            <h1>Login</h1>
+                            <div class="head"><img src="resources/img/wizard/step-1-head.png"></div>
+                            <h1 class="title">Login</h1>
                             <p class="text-muted">Please enter your login and password!</p> 
                             <span class="error-msg" id="wrongdetails">Invalid Username or Password</span>
                             <input type="text" name="username" id="username" placeholder="Username" required="" v-model="username" v-bind:class="{ invalid: !usernameValid }"> 

@@ -5,19 +5,19 @@
 </head>
 <body>
 	<?php
-                $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                session_start();
-                $_SESSION['previous_location'] = $previous_location;
-                $authPass = $_SESSION['authPass'];
+                
+                $authPass = $_COOKIE['authPass'];
                 if (is_null($authPass) || $authPass == "0") 
                 {
-                    header("Location: login.php");
+                    $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
+                    echo '<script>window.location.href = "login.php";</script>';
                 }
                 $file = "config.json";
 		if(file_exists($file)){
 		  	$content = file_get_contents($file);
 		  	$prop = json_decode($content, true);
-		  }
+		}
 	?>
 
 	<div id="app">
