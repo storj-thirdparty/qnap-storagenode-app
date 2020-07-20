@@ -375,3 +375,10 @@ iframe { /* end-of-line comment
     height: 17px;
     top: 5px;
 }
+.input-group-prepend{
+    color: #2683ff;
+    text-decoration: none;
+    font-size: 16px;
+    background: none;
+    padding: 3px 19px 16px 8px;
+}

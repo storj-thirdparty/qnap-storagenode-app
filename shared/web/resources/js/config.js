@@ -508,7 +508,7 @@ Vue.component(`file-browser`, {
             bind: function (el, binding, vnode) {
 
                 this.event = function (event) {
-                    if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
+                    if (!(el == event.target || el.contains(event.target) || event.target.className == "browse input-group-prepend" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
                         vnode.context[binding.expression](event);
                     }
                 };
