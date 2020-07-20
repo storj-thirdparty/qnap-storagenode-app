@@ -62,7 +62,7 @@ Vue.component(`file-browser`, {
 				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
 			</ul>
 
-			<button class='file-browser-done' v-on:click="done">Done</button>
+			<button class='file-browser-done' v-on:click="done">Choose this directory</button>
 		</div>
 	</div>`,
 	data: () => ({
