@@ -17,22 +17,21 @@
 			}
 
 			if ( !is_dir( $path ) ) {
-				error("Invalid directory path"); 
-			}else{
-				$dir = dir($path);
-				while (false !== ($entry = $dir->read())) {
-				    if ($entry != '.' && $entry != '..') {
-				       if (is_dir($path . '/' .$entry)) {
-				            $dirs[] = $entry; 
-				       }
-				    }
-				}
-				$arr = array ( 
-			        "cd" => $path, 
-			        "folders" => $dirs
-				); 
+				$path = "/";
 			}
-		}
+                        $dir = dir($path);
+                        while (false !== ($entry = $dir->read())) {
+                            if ($entry != '.' && $entry != '..') {
+                                if (is_dir($path . '/' . $entry)) {
+                                    $dirs[] = $entry;
+                                }
+                            }
+                        }
+                        $arr = array(
+                            "cd" => $path,
+                            "folders" => $dirs
+                        );
+                    }
 			
 	}
 

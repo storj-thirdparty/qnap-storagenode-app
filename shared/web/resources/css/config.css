@@ -323,7 +323,12 @@ iframe { /* end-of-line comment
 }
 
 .file-browser-selected {
-	background: #ddd;
+	background: #0059D0;
+  color: #fff;
+}
+.file-browser-selected:hover {
+	background: #0059D0;
+  color: #fff;
 }
 
 .file-browser-done {
