@@ -10,8 +10,8 @@
                 <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-5 text-center">
                   <form v-on:submit.prevent="authenticate">
                       <img class="head" src="resources/img/wizard/step-1-head.png">
-                      <h1 class="title mb-4">Login</h1>
-                      <p class="description text-muted mb-4">Please enter your username and password</p>
+                      <h1 class="title mb-4">Log In</h1>
+                      <p class="description text-muted mb-4">Please enter your QNAP username and password</p>
                       <span class="error-msg invalid-feedback" id="wrongdetails">Invalid Username or Password</span>
 
                       <div class="form-group text-left">
