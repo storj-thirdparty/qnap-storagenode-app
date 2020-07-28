@@ -7,8 +7,9 @@
   # ------------------------------------------------------------------------
 
   $authPass = $_COOKIE['authPass'];
+  $loginMode =  json_decode(file_get_contents("logindata.json"), TRUE);
   
-  if (is_null($authPass) || $authPass == "0") 
+  if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true") 
   {
     $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
@@ -431,6 +432,24 @@
           </div>
         </div>
     </div>
+    
+    <div class="row segment">
+        <div class="column col-md-2">
+            <div class="segment-icon lock-icon"> 
+            </div>
+        </div>
+        <div class="column col-md-10 segment-content">
+          <h4 class="segment-title">Security</h4>
+          <p class="segment-msg">Enable or Disable Login Functionality to access app</p>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>>
+                <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+          </div>
+    </div>      
 
 
       <div class="bottom-buttons">

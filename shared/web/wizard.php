@@ -7,7 +7,9 @@
 	<?php
                 
                 $authPass = $_COOKIE['authPass'];
-                if (is_null($authPass) || $authPass == "0") 
+                $loginMode =  json_decode(file_get_contents("logindata.json"), TRUE);
+  
+                if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true")
                 {
                     $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day

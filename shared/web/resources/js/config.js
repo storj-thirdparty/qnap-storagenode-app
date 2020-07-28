@@ -436,6 +436,20 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
         }
     });
 }
+$('#myonoffswitch').change(function(){
+  var mode= $(this).prop('checked');
+  console.log(mode);
+  $.ajax({
+    type:'POST',
+    dataType:'JSON',
+    url:'authswitch.php',
+    data:'mode='+mode,
+    success:function(data)
+    {
+      var data=eval(data);
+    }
+  });
+});
 let debug = false;
 
 const getFolders = debug
