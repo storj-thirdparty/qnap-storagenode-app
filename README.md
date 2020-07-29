@@ -18,7 +18,7 @@
 
 ## App Use
 
-Currently the application must be manually installed via the QNAP App Center application provided with your QNAP.  The App Center is accessable from the Web UI (Desktop) provided from your device.  The app is a local web application that makes it easier to install and configure the Storj *storagenode* service, which include the SNO Dashboard for monitoring your node.We have also added extra security layer to authenticate through QNAP application.So once you start app then it will ask for the login details and for that need to enter main QNAP application credentials to authenticate and continue use tha app.
+Currently the application must be manually installed via the QNAP App Center application provided with your QNAP.  The App Center is accessable from the Web UI (Desktop) provided from your device.  The app is a local web application that makes it easier to install and configure the Storj *storagenode* service, which include the SNO Dashboard for monitoring your node.We have also added extra security layer to authenticate through QNAP application.So once you start app then it will ask for the login details and for that need to enter main QNAP application credentials to authenticate and continue use the app.We have added the feature to enable/disable this login functionality in config screen with switch on-off. If its sets on then only app will ask for the authenticaion otherwise it will allow to access app without authenticaion through login screen.By default its off.
 
 <br />
 
