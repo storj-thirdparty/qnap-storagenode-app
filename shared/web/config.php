@@ -130,12 +130,6 @@
 
 ?>
 <?php require_once('header.php');?>
-<style>
-  code {
-    white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
-    /* white-space: pre-line; /* collapse WS, preserve LB */
-  }
-</style>
   <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
  
   <div>
@@ -232,7 +226,7 @@
                     <p class="modal-input-title">Identity Path</p>
 
                     <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
-                    <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
+                    <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is a required field</p>
                     <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
                      <button class="browse input-group-prepend" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
                     <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>

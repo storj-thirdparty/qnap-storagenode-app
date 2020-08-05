@@ -107,11 +107,12 @@
 			logMessage("identity available at ${identityFilePath}");
 			echo "identity available at ${identityFilePath}" ;
 		}else{
+                        $data = loadConfig("config.json");
 			$lastline = preg_replace('/\n$/', '', $lastline);
 			logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
 			echo "Identity generation STATUS($date):<BR> " .
 			"Process ID: $pid , " .
-			"Started at:  $prgStartTime <BR>" . $lastline ;
+			"Started at: ". $data['idGenStartTime'] ."<BR>" . $lastline ;
 		}
 
 	}
