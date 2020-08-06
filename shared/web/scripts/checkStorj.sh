@@ -17,7 +17,7 @@ then
 	status=$(eval "$statuscmd")
 
 	echo "Container named $container launched <br> "
-	echo "$status "
+	
 else
 	echo "Container named $container not running "
 fi
