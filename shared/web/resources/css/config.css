@@ -396,6 +396,10 @@ iframe { /* end-of-line comment
     background-image: url(./../img/lock.png);
     background-repeat: round;
 }
+.segment .info-icon {
+    background-image: url(./../img/info.png);
+    background-repeat: round;
+}
 /* css for the switch */
 
 .onoffswitch {

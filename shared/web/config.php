@@ -443,7 +443,40 @@
                 </label>
             </div>
           </div>
-    </div>      
+    </div>  
+    
+    <div class="row segment">
+        <div class="column col-md-2">
+            <div class="segment-icon info-icon"> 
+            </div>
+        </div>
+        <div class="column col-md-10 segment-content">
+          <h4 class="segment-title">Storj Status</h4>
+          <?php
+		$platformBase   = $_SERVER['DOCUMENT_ROOT'];
+		$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
+		$scriptsBase    = $moduleBase . '/scripts' ;
+		$checkRunning	= $scriptsBase . '/checkStorj.sh' ;
+
+              $output = shell_exec("/bin/bash $checkRunning");
+              $err = shell_exec("/bin/bash $checkRunning 2>&1 ");
+	      if (!trim($output) == "") { ?>
+		       <p class="segment-msg"><?php echo $output ?></p><br>
+                        <?php
+			$port = ":14002" ;
+			$url =  "http://{$_SERVER['SERVER_NAME']}${port}";
+			$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+			$_finalUrl = $escaped_url ;
+	?>
+		      Please click here for more detailed information <a href="<?php echo $_finalUrl;?>" target="_blank">Storj storagenode Stats </a>
+       <?php 
+	      }  else {
+	?>
+		<frame width="40%" height="20%">  <H2> STORJ Status is: </H2> <?php echo $err ;?> </frame>
+	<?php
+	      }
+	?>
+    </div>
 
 
       <div class="bottom-buttons">

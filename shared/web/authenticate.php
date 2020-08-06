@@ -22,13 +22,13 @@ $xmlArr = json_decode($xmlJson, 1);
 $username = $xmlArr['username'];
 
 if ($username == $data['username']) {
-    setcookie("authPass","1", time() + (86400 * 30), "/"); // 86400 = 1 day
+    setcookie("authPass", "1", time() + (86400 * 30), "/"); // 86400 = 1 day
     $arr = array(
         "authPass" => "1",
         "previous_location" => $_COOKIE['previous_location']
     );
 } else {
-    setcookie("authPass","0", time() + (86400 * 30), "/"); // 86400 = 1 day
+    setcookie("authPass", "0", time() + (86400 * 30), "/"); // 86400 = 1 day
     $arr = array(
         "authPass" => "0",
         "previous_location" => $_COOKIE['previous_location']
