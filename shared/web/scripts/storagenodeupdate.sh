@@ -90,9 +90,9 @@ then
 	# ------------------------------------------------------------------
 	if [[ "x$email" == "x" ]]
         then
-          docker run -d --restart=always -p "${PORTADDR}":28967 -p "${myIP}":14002:14002 -e WALLET="${wallet}" -e ADDRESS="${address}"  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v "${config}":/app/config --name ${CONTAINER_NAME} ${IMAGE} >> "$LOG" 2>&1
+          docker run -d --restart=always -p "${PORTADDR}":28967 -p "${myIP}":14002:14002 -p "${myIP}":9000:9000 -e WALLET="${wallet}" -e ADDRESS="${address}"  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v "${config}":/app/config --name ${CONTAINER_NAME} ${IMAGE} >> "$LOG" 2>&1
         else
-          docker run -d --restart=always -p "${PORTADDR}":28967 -p "${myIP}":14002:14002 -e WALLET="${wallet}" -e EMAIL="${email}" -e ADDRESS="${address}"  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v "${config}":/app/config --name ${CONTAINER_NAME} ${IMAGE} >> "$LOG" 2>&1
+          docker run -d --restart=always -p "${PORTADDR}":28967 -p "${myIP}":14002:14002 -p "${myIP}":9000:9000 -e WALLET="${wallet}" -e EMAIL="${email}" -e ADDRESS="${address}"  -e STORAGE="${size}GB" -v "${id}/storagenode":/app/identity -v "${config}":/app/config --name ${CONTAINER_NAME} ${IMAGE} >> "$LOG" 2>&1
         fi
     
 	echo "$(date)" "Image $IMAGE updated (And running container $CONTAINER_NAME updated)" >> "$LOG"
