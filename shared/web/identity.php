@@ -113,6 +113,7 @@
 			echo "Identity generation STATUS($date):<BR> " .
 			"Process ID: $pid , " .
 			"Started at: ". $data['idGenStartTime'] ."<BR>" . $lastline ;
+                        ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
 		}
 
 	}
@@ -166,6 +167,7 @@
 
 		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
 		echo "<b>Identity creation process is starting.</b><br>";
+                ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
 		echo $lastline;
 
 	}
