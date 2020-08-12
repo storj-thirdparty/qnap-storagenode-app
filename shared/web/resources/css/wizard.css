@@ -117,6 +117,7 @@ a {
 
 .invalid {
   border: 1px solid #eb5757;
+  outline: 1px solid #eb5757;
 }
 
 .head {
@@ -263,7 +264,6 @@ a {
   top: 464px;
   bottom: 384px;
   background: #fff;
-  border: 1px solid #dee4ed;
   box-sizing: border-box;
   border-radius: 6px;
   width: 550px;
