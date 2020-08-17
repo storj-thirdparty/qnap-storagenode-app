@@ -51,8 +51,10 @@ jQuery(function () {
     function Identityfilecheck() {
         identityfile = $("#identityfile").text();
         if (identityfile === "false") {
-            jQuery("#startbtn").removeAttr("disabled", true);
-            jQuery("#startbtn").css("cursor", "pointer");
+            jQuery("#stopbtn").hide();
+            jQuery("#startbtn").show();
+            jQuery(".nodeonline").hide();
+            jQuery(".nodeoffline").show();
         }
     }
 
@@ -62,8 +64,10 @@ jQuery(function () {
 
             var identityfilecheck1 = new Identityfilecheck();
         } else {
-            jQuery("#startbtn").attr("disabled", true);
-            jQuery("#startbtn").css("cursor", "not-allowed");
+            jQuery("#startbtn").hide();
+            jQuery("#stopbtn").show();
+            jQuery(".nodeoffline").hide();
+            jQuery(".nodeonline").show();
         }
     }
 
@@ -154,10 +158,10 @@ jQuery(function () {
                         data: {fileexist: "file_exist"},
                         success: (result) => {
                             if (result === "1") {
-                                $("#identity_status").html("<b>The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.</b>");
+                                $("#identity_status").html("The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.");
                                 createVal = 1;
                             } else {
-                                $("#identity_status").html("<b>Identity files exist.</b>");
+                                $("#identity_status").html("Identity files exist.");
                                 createVal = 0;
                             }
                         },
@@ -167,7 +171,7 @@ jQuery(function () {
                     });
 
                 } else {
-                    $("#identity_status").html("<b>Identity files exist.</b>");
+                    $("#identity_status").html("Identity files exist.");
                     createVal = 0;
                 }
             } else {
@@ -312,8 +316,10 @@ jQuery(function () {
 
 
     if (identitydata === "" && createAddress === "" && createWallet === "" && storageallocate === "" && directoryAllocation === "" && emailiddata === "") {
-        jQuery("#startbtn").attr("disabled", true);
-        jQuery("#startbtn").css("cursor", "not-allowed");
+        jQuery("#startbtn").hide();
+        jQuery("#stopbtn").show();
+        jQuery(".nodeoffline").hide();
+        jQuery(".nodeonline").show();
     } else {
         var identityfilecheck = new Identityfilecheck();
     }
@@ -420,12 +426,16 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
                 // log message
                 if (resposnse == 1) {
                     $(".editbtn").attr("disabled", true).css("cursor", "not-allowed");
-                    $("#startbtn").attr("disabled", true).css("cursor", "not-allowed");
-                    $("#stopbtn").attr("disabled", false).css("cursor", "pointer");
+                    $("#startbtn").hide();
+                    $("#stopbtn").show();
+                    $(".nodeoffline").hide();
+                    $(".nodeonline").show();
                 } else if (resposnse == 0) {
                     $(".editbtn").attr("disabled", false).css("cursor", "pointer");
-                    $("#stopbtn").attr("disabled", true).css("cursor", "not-allowed");
-                    $("#startbtn").attr("disabled", false).css("cursor", "pointer");
+                    $("#stopbtn").hide();
+                    $("#startbtn").show();
+                    $(".nodeonline").hide();
+                    $(".nodeoffline").show();
                 }
 
             }

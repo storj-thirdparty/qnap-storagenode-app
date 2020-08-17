@@ -1,10 +1,3 @@
-function resizeInterface() {
-	const scale = Math.min(window.innerWidth / 1400, window.innerHeight / 900);
-	document.querySelector("#app").style.transform = `scale(${scale})`;
-}
-
-resizeInterface();
-
 let debug = false;
 
 const getFolders = debug

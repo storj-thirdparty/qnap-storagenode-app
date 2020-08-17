@@ -6,14 +6,7 @@
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
   # ------------------------------------------------------------------------
 
-  $authPass = $_COOKIE['authPass'];
-  
-  if (is_null($authPass) || $authPass == "0") 
-  {
-    $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
-    echo '<script>window.location.href = "login.php";</script>';
-  }
+
   $output = "";
   $data = json_decode(file_get_contents("php://input"), TRUE);
   $email = $data['email'];
@@ -94,10 +87,10 @@
     logMessage("config called up with isstartajax 1 ");
     $content = file_get_contents($file);
     $prop = json_decode($content, true);
-    $output = "<br><b>LATEST LOG :</b> <br><code>" . $prop['last_log'] . "</code>";
+    $output = "<code>" . $prop['last_log'] . "</code>";
     $output = preg_replace('/\n/m', '<br>', $output);
     echo trim($output);
-  } 
+  }
 
   // checking is storagenode is running.
   else if(filter_input(INPUT_POST, 'isrun') && filter_input(INPUT_POST, 'isrun') == 1) {
@@ -129,20 +122,52 @@
 
 ?>
 <?php require_once('header.php');?>
-<style>
-  code {
-    white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
-    /* white-space: pre-line; /* collapse WS, preserve LB */
-  }
-</style>
-  <link href="./resources/css/config.css" type="text/css" rel="stylesheet">
- 
-  <div>
-    <nav class="navbar">
-      <a class="navbar-brand" href="index.php"><img src="./resources/img/logo.svg" /></a>
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+		<link href="resources/css/lib/bootstrap.min.css" rel="stylesheet">
+
+    <link href="./resources/css/style.css" type="text/css" rel="stylesheet">
+
+		<title>Storj - Storage Node</title>
+
+	</head>
+
+	<body class="config">
+
+    <nav class="navbar navbar-expand-sm">
+      <div class="container">
+        <router-link to="/" class="navbar-brand">
+          <img src="./resources/img/logo.svg" class="logo">
+          <p class="logo-text">Storage Node</p>
+        </router-link>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav ">
+            <li class="nav-item">
+              <a href="" class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link"><img src="./resources/img/icon-setup.svg" class="nav-icon" alt="Setup">Setup</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-    <div class="row">
-    <?php require_once('menu.php'); ?>
+
+
+     <?php require_once('menu.php'); ?>
       <?php
         // TODO: REMOVE this once this works OK
         if ( $output ){
@@ -175,12 +200,12 @@
           $numFiles = `ls ${rootBase}/storagenode | wc -l ` ;
 
           if(
-          ($numFiles == 6) and 
+          ($numFiles == 6) and
           file_exists($file1) and
           file_exists($file2) and
           file_exists($file3) and
           file_exists($file4)
-          ) 
+          )
           {
             echo "<span id='file_exists' style='display:none;'>0</span>";
           }else{
@@ -188,300 +213,368 @@
           }
 
         ?>
-      <div class="col-10 config-page">
-        <div class="container-fluid">
-          <h2>Setup</h2>
-          <a href="https://documentation.storj.io/" target="_blank"><p class="header-link">Documentation ></p></a>
-          <div class="row segment" id="identityrow">
-            <div class="column col-md-2">
-              <div class="segment-icon identity_icon"></div>
-          </div>
-          <div class="column col-md-10">
-            <h4 class="segment-title">Identity</h4>
-            <p class="segment-msg">Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS.</p>
 
-            <span style="display:none;" id="editidentitybtn"><button class="segment-btn" data-toggle="modal" data-target="#identity">
-            Edit Authorization Token
-            </button></span>
-            <button class="segment-btn" data-toggle="modal" data-target="#identity" id="identitybtn">
-
-            Enter Authorization Token
-            </button>
-
-            <br><br>
-
-            <div id="identity_status" style="overflow: auto;"><B> LATEST LOG </B></div>
-            <div id="app">
-          <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-
-                    <h5 class="modal-title">Identity</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-
-                    <p class="modal-input-title">Authorization Token</p>
-
-                    <input class="modal-input" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
-
-                    <p class="modal-input-title">Identity Path</p>
-
-                    <input class="modal-input" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>" style="position: relative;left: 45px;margin-top: 15px;" />
-                    <p class="identity_path_msg msg" style="display:;position: relative;left: 15px;">This is required Fields</p>
-                    <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
-                     <button class="browse input-group-prepend" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
-                    <span class="identity_note"><span>Note:</span> Creating identity can take several hours or even days, depending on your machines processing power & luck.</span>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="modal-btn" data-dismiss="modal">Close</button>
-                    <!--  Replace Set Identity Path to Create Identity -->
-                    <button class="modal-btn" id="create_identity"> Create Identity</button>
-                    <button class="modal-btn" id="stop_identity" disabled style="cursor: not-allowed;"> Stop Identity</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-                </div>
-          </div>
-        </div>
-
-      <div class="row segment">
-        <div class="column col-md-2"><div class="segment-icon port-icon"></div></div>
-          <div class="column col-md-10 segment-content">
-            <h4 class="segment-title">Port Forwarding</h4>
-            <p class="segment-msg">How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected.</p>
-            <span id="externalAddressval"></span><span style="display:none;" id="editexternalAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#externalAddress">
-            Edit External Address
-            </button></span>
-           <button class="segment-btn" data-toggle="modal" data-target="#externalAddress" id="externalAddressbtn">
-            Add External Address
-            </button>
-           <div class="modal fade" id="externalAddress" tabindex="-1" role="dialog" aria-labelledby="externalAddress" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Port Forwarding</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p class="modal-input-title">Host Address</p>
-                    <input class="modal-input" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>"/>
-                    <p class="host_token_msg msg" style="display:none;">Enter Valid Host Address</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="modal-btn" data-dismiss="modal">Close</button>
-                    <button class="modal-btn" id="create_address">Set External Address</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-         </div>
-      </div>
-
-
-    <div class="row segment">
-      <div class="column col-md-2"><div class="segment-icon wallet-icon"></div></div>
-        <div class="column col-md-10 segment-content">
-          <h4 class="segment-title">Ethereum Wallet Address</h4>
-          <p class="segment-msg">In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address.</p>
-          <span id="wallettbtnval"></span><span style="display:none;" id="editwallettbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#walletAddress">
-          Edit Wallet Address
-          </button></span>
-          <button class="segment-btn" data-toggle="modal" data-target="#walletAddress" id="addwallettbtn">
-          Add Wallet Address
-          </button>
-          <div class="modal fade" id="walletAddress" tabindex="-1" role="dialog" aria-labelledby="walletAddress" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Ethereum Wallet Address</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="modal-input-title">Wallet Address</p>
-                  <input class="modal-input" name="Wallet Address" id="wallet_address" placeholder="Enter Wallet Address" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>"/>
-                  <p class="wallet_token_msg msg" style="display:none;">This is required Field</p>
-                </div>
-                <div class="modal-footer">
-                  <button class="modal-btn" data-dismiss="modal">Close</button>
-                  <button class="modal-btn" id="create_wallet">Set Wallet Address</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-
-    <div class="row segment">
-      <div class="column col-md-2"><div class="segment-icon storage-icon"></div></div>
-        <div class="column col-md-10 segment-content">
-          <h4 class="segment-title">Storage Allocation</h4>
-          <p class="segment-msg">How much disk space you want to allocate to the Storj network</p>
-          <span id="storagebtnval"></span><span style="display:none;" id="editstoragebtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#storageAllocation">
-          Edit Storage Capacity
-          </button></span>
-          <button class="segment-btn" data-toggle="modal" data-target="#storageAllocation" id="addstoragebtn">
-          Set Storage Capacity
-          </button>
-          <div class="modal fade" id="storageAllocation" tabindex="-1" role="dialog" aria-labelledby="storageAllocation" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Storage Allocation</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="modal-input-title">Storage Allocation</p>
-                  <input class="modal-input shorter" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" placeholder="Please enter only valid number" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>"/>
-                  <p class="modal-input-metric">GB</p>
-                  <p class="storage_token_msg msg" style="display:none;">Minimum 500 GB is required</p>
-               </div>
-              <div class="modal-footer">
-                <button class="modal-btn" data-dismiss="modal">Close</button>
-                <button class="modal-btn" id="allocate_storage">Set Storage Capacity</button>
-              </div>
-            </div>
-          </div>
-       </div>
-      </div>
-    </div>
-
-
-    <div class="row segment">
-      <div class="column col-md-2"><div class="segment-icon email-icon"></div></div>
-        <div class="column col-md-10 segment-content">
-          <h4 class="segment-title">Email Address</h4>
-          <p class="segment-msg">Email address so that you can recieve notification you when a new version is  released.</p>
-          <span id="emailAddressval"></span><span style="display:none;" id="editemailAddressbtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#emailAddress">
-          Edit Email Address
-          </button></span>
-          <button class="segment-btn" data-toggle="modal" data-target="#emailAddress" id="emailAddressbtn">
-          Add Email Address
-          </button>
-          <div class="modal fade" id="emailAddress" tabindex="-1" role="dialog" aria-labelledby="email_address" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Email Address</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="modal-input-title">Email Address</p>
-                  <input class="modal-input" id="email_address" name="email_address" type="email" placeholder="Email Address" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>"/>
-                  <p class="email_token_msg msg" style="display:none;">Enter a Valid Email address</p>
-                </div>
-                <div class="modal-footer">
-                  <button class="modal-btn" data-dismiss="modal">Close</button>
-                  <button class="modal-btn" id="create_emailaddress">Set Email Address</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <div id="app2">
-    <div class="row segment">
-      <div class="column col-md-2"><div class="segment-icon directory-icon"></div></div>
-        <div class="column col-md-10 segment-content">
-          <h4 class="segment-title">Storage Directory</h4>
-          <p class="segment-msg">The local directory where you want files to be stored on your hard drive for the network</p>
-          <span id="directorybtnval"></span><span style="display:none;" id="editdirectorybtn"><button class="segment-btn editbtn" data-toggle="modal" data-target="#directory">
-          Edit Storage Directory
-          </button></span>
-          <button class="segment-btn" data-toggle="modal" data-target="#directory" id="adddirectorybtn">
-          Set Storage Directory
-          </button>
-          <div class="modal fade" id="directory" tabindex="-1" role="dialog" aria-labelledby="directory" aria-hidden="true">
-           <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                 <div class="modal-header">
-                    <h5 class="modal-title" id="identity">Storage Directory</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p class="modal-input-title">Storage Directory</p>
-                    <input class="modal-input" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>"  />
-                     <file-browser v-if="directoryBrowse" v-on:selected="setStorageDirectory"></file-browser>
-                     <button class="browse input-group-prepend" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
-                    <p class="directory_token_msg msg" style="display:none;">This is required Field</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="modal-btn" data-dismiss="modal">Close</button>
-                    <button class="modal-btn" id="create_directory">Set Directory</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-
-      <div class="bottom-buttons">
-        <button type="button" class="btn btn-primary configbtns" id="updatebtn">Update My Storage Node</button>
-        <div style="position: absolute;display: inline-block;left: 40%;">
-          <button type="button" disabled  id="stopbtn" class="btn btn-primary configbtns" style="cursor: not-allowed;">Stop My Storage Node</button>&nbsp;&nbsp;
-          <button type="button"  id="startbtn" class="btn btn-primary configbtns">Start My Storage Node</button>
-        </div><br><br>
-        <!-- log message -->
-        <iframe>
-         <p  id="msg"></p>
-        </iframe>  
-      </div>
-
-    </div>
-    <?php }
-  } ?>
-</div>
 
   <div class="container">
-    <!-- The Modal -->
+
+    <div class="row mb-4">
+      <div class="col">
+          <h3 class="font-light">Dashboard</h3>
+      </div>
+      <div class="col text-right">
+          <a href="https://documentation.storj.io/" target="_blank" class="documentation-link">Documentation</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col">
+              <p class="card-title">Node Status</p>
+              <p class="node-status">
+                <span class="offline" id="nodeoffline">Offline</span>
+                <span class="online" id="nodeonline">Online</span>
+              </p>
+            </div>
+            <div class="col">
+              <button type="button" id="startbtn" class="btn btn-primary btn-block">Start</button>
+              <button type="button" id="stopbtn" class="btn btn-primary btn-block">Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col">
+              <p class="card-title">Version <span id="version">3.5.1</span></p>
+              <p class="text-muted">Latest version installed</p>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary btn-block" id="updatebtn">Update Node</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card">
+
+          <a class="dropdown-toggle logs-toggle" data-toggle="collapse" href="#collapseLogs" role="button" aria-expanded="false" aria-controls="collapseLogs">
+          Latest Log<span class="expand-caret caret"></span>
+          </a>
+
+          <div class="collapse" id="collapseLogs">
+            <div class="card-body logs">
+              <!-- log message -->
+              <iframe>
+               <p id="msg"></p>
+              </iframe>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-identity.svg" class="card-img img-fluid" alt="Identity">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Identity <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS."></p>
+              <p class="text-muted mb-3" id="identity_status"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#identity">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-port.svg" class="card-img img-fluid" alt="Port Forwarding">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Port Forwarding <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected."></p>
+              <p class="text-muted mb-3" id="externalAddressval"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#externalAddress">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-wallet.svg" class="card-img img-fluid" alt="Wallet Address">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Wallet Address <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address."></p>
+              <p class="text-muted mb-3 truncate" id="wallettbtnval"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#walletAddress">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-storage.svg" class="card-img img-fluid" alt="Storage Allocation">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Storage Allocation <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="How much disk space you want to allocate to the Storj network"></p>
+              <p class="text-muted mb-3" id="storagebtnval"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#storageAllocation">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-directory.svg" class="card-img img-fluid" alt="Storage Directory">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Storage Directory <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="The local directory where you want files to be stored on your hard drive for the network"></p>
+              <p class="text-muted mb-3" id="directorybtnval"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#directory" data-toggle="modal" data-target="#directory">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+              <img src="./resources/img/icon-email.svg" class="card-img img-fluid" alt="Email Address">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Email Address <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Email address so that you can recieve notification you when a new version is released."></p>
+              <p class="text-muted mb-3" id="emailAddressval"></p>
+              <button class="btn btn-light" data-toggle="modal" data-target="#emailAddress">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Identity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
+            <p class="modal-input-title mb-2">Authorization Token</p>
+            <input class="modal-input form-control mb-4" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
+            <p class="modal-input-title mb-2">Identity Path</p>
+            <div class="input-group">
+              <input class="modal-input form-control directory" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
+              <div class="input-group-prepend">
+                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+              </div>
+            </div>
+            <p class="identity_path_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+            <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
+            <p class="identity_note text-muted small mt-4">Note: Creating identity can take several hours or even days, depending on your machines processing power & luck.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-dismiss="modal">Close</button>
+            <!--  Replace Set Identity Path to Create Identity -->
+            <button class="btn btn-primary" id="create_identity"> Create Identity</button>
+            <button class="btn btn-primary" id="stop_identity" disabled style="cursor: not-allowed;"> Stop Identity</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="externalAddress" tabindex="-1" role="dialog" aria-labelledby="externalAddress" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Configure Your External Port Forwarding</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">How a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our <a href="https://documentation.storj.io/dependencies/port-forwarding" target="_blank">documentation.</a> </p>
+            <label for="host_address">Host Address</label>
+            <input class="modal-input form-control" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if(isset($prop['Port'])) echo $prop['Port'] ?>"/>
+            <p class="host_token_msg msg small text-danger mt-2" style="display:none;">Invalid host address.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" id="create_address">Set External Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="walletAddress" tabindex="-1" role="dialog" aria-labelledby="walletAddress" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ethereum Wallet Address</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address.</a></p>
+            <label for="wallet_address">Wallet Address</label>
+            <input class="modal-input form-control" name="Wallet Address" id="wallet_address" placeholder="Enter ERC-20 Token Compatible Wallet Address" value="<?php if(isset($prop['Wallet'])) echo $prop['Wallet'] ?>"/>
+            <p class="wallet_token_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" id="create_wallet">Set Wallet Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="storageAllocation" tabindex="-1" role="dialog" aria-labelledby="storageAllocation" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Storage Allocation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">How much disk space do you want to allocate to the Storj Network?</p>
+            <label for="storage_allocate">Storage Allocation</label>
+
+            <div class="input-group">
+              <input class="modal-input shorter storage form-control" id="storage_allocate" name="storage_allocate" type="number" step="1" min="1" class="quantity" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>"/>
+              <div class="input-group-append">
+                <span class="modal-input-metric input-group-text unit">GB</span>
+              </div>
+            </div>
+            <p class="storage_token_msg msg small text-danger mt-2" style="display:none;">Minimum 500 GB is required.</p>
+         </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" id="allocate_storage">Set Storage Capacity</button>
+          </div>
+        </div>
+      </div>
+   </div>
+
+    <div class="modal fade" id="emailAddress" tabindex="-1" role="dialog" aria-labelledby="email_address" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Connect Your Email Address</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">Join thousands of Node Operators around the world by getting Node status updates from Storj Labs.</p>
+            <label for="email_address">Email Address</label>
+            <input class="modal-input form-control" id="email_address" name="email_address" type="email" placeholder="mail@default.com" value="<?php if(isset($prop['Email'])) echo $prop['Email'] ?>"/>
+            <p class="email_token_msg msg small text-danger mt-2" style="display:none;">Enter a valid Email address.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" id="create_emailaddress">Set Email Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="directory" tabindex="-1" role="dialog" aria-labelledby="directory" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="identity">Storage Directory</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="text-muted mb-4">The local directory where you want files to be stored on your hard drive for the network.</p>
+              <label for="storage_directory">Storage Directory</label>
+              <div class="input-group">
+                <input class="modal-input form-control directory" id="storage_directory" name="storage_directory" placeholder="/path/to/folder_to_share" value="<?php if(isset($prop['Directory'])) echo $prop['Directory'] ?>"  />
+                <div class="input-group-prepend">
+                  <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+                </div>
+              </div>
+               <file-browser v-if="directoryBrowse" v-on:selected="setStorageDirectory"></file-browser>
+              <p class="directory_token_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-light" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" id="create_directory">Set Directory</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal" id="myModal">
       <div class="modal-dialog">
         <div class="modal-content">
-
-          <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Config</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-
-          <!-- Modal body -->
           <div class="modal-body">
             <p>Identity creating at <b>/root/.local/share/storj/identity/storagenode</b></p>
           </div>
-
-          <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-
+				  	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        	</div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <?php require_once('footer.php');?>
-        <script src="resources/js/vue.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+	</body>
+</html>
+
+<?php require_once('footer.php');?>
+  <script src="resources/js/vue.js"></script>
 	<script src="resources/js/axios.min.js"></script>
-        <script type="text/javascript" src="./resources/js/config.js"></script>
+  <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php
 
 }

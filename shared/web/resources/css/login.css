@@ -2,9 +2,10 @@
 
 body {
   font-family: 'inter', arial, sans-serif;
+  color: #0D1826;
 }
 
-.head {
+.login-logo {
   width: 80px;
   height: 80px;
 }
@@ -55,16 +56,20 @@ input {
   color: #fff;
   height: 48px;
 }
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #82ade5;
+  border-color: #82ade5;
+  cursor: default;
+}
 
 .loader {
-  border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid #3498db; /* Blue */
+  border: 2px solid #f2f4f6;
+  border-top: 2px solid #0059d0;
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 32px;
+  height: 32px;
   animation: spin 2s linear infinite;
-  margin-left: 138px;
-  margin-top: 10px;
+  margin: 20px auto;
 }
 
 @keyframes spin {
