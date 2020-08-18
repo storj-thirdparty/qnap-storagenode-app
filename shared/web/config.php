@@ -6,7 +6,7 @@
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
   # ------------------------------------------------------------------------
 
-  if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true") 
+  if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true")
   {
     $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
@@ -383,13 +383,13 @@
         <div class="card">
           <div class="row">
             <div class="col-3 col-sm-2 col-lg-3 text-center">
-                <img src="./resources/img/lock.png" class="card-img img-fluid" alt="Security">
+                <img src="./resources/img/icon-security.svg" class="card-img img-fluid" alt="Security">
             </div>
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Security <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Enable or Disable Login Functionality to access app"></p>
               <p class="text-muted mb-3" id="directorybtnval"></p>
               <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>>
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>
                 <label class="onoffswitch-label" for="myonoffswitch">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
@@ -399,8 +399,8 @@
           </div>
         </div>
       </div>
-    </div>     
-      
+    </div>
+
     <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
       <div id="app">
             <div class="modal-dialog" role="document">
