@@ -53,8 +53,8 @@ jQuery(function () {
         if (identityfile === "false") {
             jQuery("#stopbtn").hide();
             jQuery("#startbtn").show();
-            jQuery(".nodeonline").hide();
-            jQuery(".nodeoffline").show();
+            jQuery("#nodeonline").hide();
+            jQuery("#nodeoffline").show();
         }
     }
 
@@ -66,8 +66,8 @@ jQuery(function () {
         } else {
             jQuery("#startbtn").hide();
             jQuery("#stopbtn").show();
-            jQuery(".nodeoffline").hide();
-            jQuery(".nodeonline").show();
+            jQuery("#nodeoffline").hide();
+            jQuery("#nodeonline").show();
         }
     }
 
@@ -318,8 +318,8 @@ jQuery(function () {
     if (identitydata === "" && createAddress === "" && createWallet === "" && storageallocate === "" && directoryAllocation === "" && emailiddata === "") {
         jQuery("#startbtn").hide();
         jQuery("#stopbtn").show();
-        jQuery(".nodeoffline").hide();
-        jQuery(".nodeonline").show();
+        jQuery("#nodeoffline").hide();
+        jQuery("#nodeonline").show();
     } else {
         var identityfilecheck = new Identityfilecheck();
     }
@@ -428,14 +428,14 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
                     $(".editbtn").attr("disabled", true).css("cursor", "not-allowed");
                     $("#startbtn").hide();
                     $("#stopbtn").show();
-                    $(".nodeoffline").hide();
-                    $(".nodeonline").show();
+                    $("#nodeoffline").hide();
+                    $("#nodeonline").show();
                 } else if (resposnse == 0) {
                     $(".editbtn").attr("disabled", false).css("cursor", "pointer");
                     $("#stopbtn").hide();
                     $("#startbtn").show();
-                    $(".nodeonline").hide();
-                    $(".nodeoffline").show();
+                    $("#nodeonline").hide();
+                    $("#nodeoffline").show();
                 }
 
             }
@@ -446,6 +446,19 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
         }
     });
 }
+$('#myonoffswitch').change(function(){
+  var mode= $(this).prop('checked');
+  $.ajax({
+    type:'POST',
+    dataType:'JSON',
+    url:'authswitch.php',
+    data:'mode='+mode,
+    success:function(data)
+    {
+      var data=eval(data);
+    }
+  });
+});
 let debug = false;
 
 const getFolders = debug
@@ -518,7 +531,7 @@ Vue.component(`file-browser`, {
             bind: function (el, binding, vnode) {
 
                 this.event = function (event) {
-                    if (!(el == event.target || el.contains(event.target) || event.target.className == "browse input-group-prepend" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
+                    if (!(el == event.target || el.contains(event.target) || event.target.className == "browse input-group-prepend" || event.target.className == "browse-svg" || event.target.className == "browse")) {
                         vnode.context[binding.expression](event);
                     }
                 };

@@ -9,7 +9,6 @@ $host = "http://$_SERVER[HTTP_HOST]";
 
 
 $url = $host . '/cgi-bin/authLogin.cgi?user=' . $data['username'] . '&pwd=' . $data['password'] . '&remme=1';
-
 curl_setopt($cURLConnection, CURLOPT_URL, $url);
 curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
 
@@ -20,18 +19,18 @@ $xml = simplexml_load_string($curlResponse, 'SimpleXMLElement', LIBXML_NOCDATA);
 $xmlJson = json_encode($xml);
 $xmlArr = json_decode($xmlJson, 1);
 
-$authPass = $xmlArr['authPassed'];
+$username = $xmlArr['username'];
 
-if ($authPass == "1") {
-    setcookie("authPass", $authPass, time() + (86400 * 30), "/"); // 86400 = 1 day
+if ($username == $data['username']) {
+    setcookie("authPass", "1", time() + (86400 * 30), "/"); // 86400 = 1 day
     $arr = array(
-        "authPass" => $authPass,
+        "authPass" => "1",
         "previous_location" => $_COOKIE['previous_location']
     );
 } else {
-    setcookie("authPass", $authPass, time() + (86400 * 30), "/"); // 86400 = 1 day
+    setcookie("authPass", "0", time() + (86400 * 30), "/"); // 86400 = 1 day
     $arr = array(
-        "authPass" => $authPass,
+        "authPass" => "0",
         "previous_location" => $_COOKIE['previous_location']
     );
 }

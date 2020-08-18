@@ -107,11 +107,13 @@
 			logMessage("identity available at ${identityFilePath}");
 			echo "identity available at ${identityFilePath}" ;
 		}else{
+                        $data = loadConfig("config.json");
 			$lastline = preg_replace('/\n$/', '', $lastline);
 			logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
 			echo "Identity generation STATUS($date):<BR> " .
 			"Process ID: $pid , " .
-			"Started at:  $prgStartTime <BR>" . $lastline ;
+			"Started at: ". $data['idGenStartTime'] ."<BR>" . $lastline ;
+                        ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
 		}
 
 	}
@@ -165,6 +167,7 @@
 
 		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
 		echo "<b>Identity creation process is starting.</b><br>";
+                ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
 		echo $lastline;
 
 	}

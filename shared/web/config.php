@@ -6,7 +6,12 @@
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
   # ------------------------------------------------------------------------
 
-
+  if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true") 
+  {
+    $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
+    echo '<script>window.location.href = "login.php";</script>';
+  }
   $output = "";
   $data = json_decode(file_get_contents("php://input"), TRUE);
   $email = $data['email'];
@@ -159,7 +164,7 @@
               <a href="" class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link"><img src="./resources/img/icon-setup.svg" class="nav-icon" alt="Setup">Setup</a>
+                <a href="wizard.php" class="nav-link"><img src="./resources/img/icon-setup.svg" class="nav-icon" alt="Setup">Setup</a>
             </li>
           </ul>
         </div>
@@ -249,7 +254,7 @@
         <div class="card">
           <div class="row">
             <div class="col">
-              <p class="card-title">Version <span id="version">3.5.1</span></p>
+              <p class="card-title">Version <span id="version">1.1.0</span></p>
               <p class="text-muted">Latest version installed</p>
             </div>
             <div class="col">
@@ -373,39 +378,62 @@
         </div>
       </div>
     </div>
-
-
-    <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Identity</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p class="text-muted mb-4">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
-            <p class="modal-input-title mb-2">Authorization Token</p>
-            <input class="modal-input form-control mb-4" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
-            <p class="modal-input-title mb-2">Identity Path</p>
-            <div class="input-group">
-              <input class="modal-input form-control directory" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
-              <div class="input-group-prepend">
-                <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 col-sm-2 col-lg-3 text-center">
+                <img src="./resources/img/lock.png" class="card-img img-fluid" alt="Security">
+            </div>
+            <div class="col-9 col-sm-10 col-lg-9">
+              <p class="card-title mb-2">Security <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Enable or Disable Login Functionality to access app"></p>
+              <p class="text-muted mb-3" id="directorybtnval"></p>
+              <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>>
+                <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
               </div>
             </div>
-            <p class="identity_path_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
-            <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
-            <p class="identity_note text-muted small mt-4">Note: Creating identity can take several hours or even days, depending on your machines processing power & luck.</p>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light" data-dismiss="modal">Close</button>
-            <!--  Replace Set Identity Path to Create Identity -->
-            <button class="btn btn-primary" id="create_identity"> Create Identity</button>
-            <button class="btn btn-primary" id="stop_identity" disabled style="cursor: not-allowed;"> Stop Identity</button>
           </div>
         </div>
+      </div>
+    </div>     
+      
+    <div class="modal fade" id="identity" tabindex="-1" role="dialog" aria-labelledby="identity" aria-hidden="true">
+      <div id="app">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Identity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="text-muted mb-4">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
+                <p class="modal-input-title mb-2">Authorization Token</p>
+                <input class="modal-input form-control mb-4" type="text" id="identity_token" name="identity_token" placeholder="your@email.com: 1BTJeyYWAquvfQWscG9VndHjyYk8PSzQvrJ5DC" value="<?php if(isset($prop['AuthKey'])) echo $prop['AuthKey'] ?>"/>
+                <p class="modal-input-title mb-2">Identity Path</p>
+                <div class="input-group">
+                  <input class="modal-input form-control directory" type="text" id="identity_path" name="identity_path" placeholder="/path/to/identity" value="<?php if(isset($prop['Identity'])) echo $prop['Identity'] ?>"/>
+                  <div class="input-group-prepend">
+                    <button class="browse" v-on:click="directoryBrowse = true"><img src="resources/img/wizard/folder.svg" class="browse-svg"/>Browse</button>
+                  </div>
+                </div>
+                <p class="identity_path_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+                <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
+                <p class="identity_note text-muted small mt-4">Note: Creating identity can take several hours or even days, depending on your machines processing power & luck.</p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-light" data-dismiss="modal">Close</button>
+                <!--  Replace Set Identity Path to Create Identity -->
+                <button class="btn btn-primary" id="create_identity"> Create Identity</button>
+                <button class="btn btn-primary" id="stop_identity" disabled style="cursor: not-allowed;"> Stop Identity</button>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
 
@@ -511,7 +539,8 @@
     </div>
 
     <div class="modal fade" id="directory" tabindex="-1" role="dialog" aria-labelledby="directory" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div id="app2">
+        <div class="modal-dialog" role="document">
         <div class="modal-content">
            <div class="modal-header">
               <h5 class="modal-title" id="identity">Storage Directory</h5>
@@ -537,6 +566,7 @@
             </div>
         </div>
       </div>
+          </div>
     </div>
 
     <div class="modal" id="myModal">
@@ -557,7 +587,8 @@
     </div>
 
   </div>
-
+ <?php }
+  } ?>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -573,7 +604,7 @@
 
 <?php require_once('footer.php');?>
   <script src="resources/js/vue.js"></script>
-	<script src="resources/js/axios.min.js"></script>
+  <script src="resources/js/axios.min.js"></script>
   <script type="text/javascript" src="./resources/js/config.js"></script>
 <?php
 

@@ -13,11 +13,11 @@ numLines=$(eval "$cmd")
 
 if [[ $numLines -gt 1 ]]
 then
-	statuscmd="docker ps -a --filter name=\"^/${container}$\"  | cut -c86-109 "
+	statuscmd="docker ps -a --filter name=\"^/${container}$\" "
 	status=$(eval "$statuscmd")
 
 	echo "Container named $container launched <br> "
-	echo "$status "
+	
 else
 	echo "Container named $container not running "
 fi

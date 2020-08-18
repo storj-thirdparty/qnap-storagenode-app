@@ -1,0 +1,451 @@
+@import url('https://rsms.me/inter/inter.css');
+code {
+    white-space: pre-wrap; /* preserve WS, wrap as necessary, preserve LB */
+    /* white-space: pre-line; /* collapse WS, preserve LB */
+}
+.config-page {
+    margin: 40px 0;
+}
+
+.config-page h2 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.header-link {
+    color: #245ac3;
+    font-size: 14px;
+    float: right;
+    position: relative;
+    bottom: 30px;
+    right: 35px;
+    text-decoration: underline;
+}
+
+.segment {
+    border: 1px solid #e5e5e5;
+    width: 95%;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.segment .segment-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin: 10% auto;
+}
+
+.segment .identity_icon {
+    background-image: url(./../img/identity.png);
+    background-repeat: round;
+}
+
+.segment .port-icon {
+    background-image: url(./../img/port-forwarding.png);
+    background-repeat: round;
+}
+
+.segment .segment-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.segment .email-icon {
+    background-image: url(./../img/email.png);
+    background-repeat: round;
+}
+
+.segment .wallet-icon {
+    background-image: url(./../img/wallet-addr.png);
+    background-repeat: round;
+}
+
+.segment .storage-icon {
+    background-image: url(./../img/storage-alloc.png);
+    background-repeat: round;
+}
+
+.segment .bandwidth-icon {
+    background-image: url(./../img/bandwidth-alloc.png);
+    background-repeat: round;
+}
+
+.segment .directory-icon {
+    background-image: url(./../img/storage-directory.png);
+    background-repeat: round;
+}
+
+.segment .segment-msg {
+    font-size: 14px;
+    color: #616161;
+}
+
+.segment .segment-btn {
+    border-color: #245ac3;
+    color: #245ac3;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+
+.segment .modal-content {
+    margin-top: 30%;
+}
+
+.segment .modal-input-title {
+    display: inline;
+    margin-right: 20px;
+    color: #6b6b6b;
+    font-size: 14px;
+}
+
+.segment .modal-input {
+    width: 300px;
+    border: 1px solid #000;
+}
+
+.segment .modal-input.shorter {
+    width: 290px;
+    border: 1px solid #000;
+}
+
+.segment .modal-input-metric {
+    display: inline;
+}
+
+.segment .modal-btn {
+    border: 1px solid #707070;
+    padding: 5px 10px;
+}
+
+.segment .modal-footer {
+    border-top: none;
+}
+
+.bottom-buttons {
+    margin-top: 40px;
+}
+
+.start-button {
+    background: #245ac3;
+    border-radius: 2px;
+    border: none;
+    margin: 0 auto;
+    margin: 10px;
+    color: #fff;
+    padding: 10px;
+}
+
+.stop-button {
+    background: #d94c44;
+    border-radius: 2px;
+    border: none;
+    margin: 10px;
+    color: #fff;
+    padding: 10px;
+}
+
+.msg {
+    text-align: center;
+    color: red;
+    font-size: 15px;
+    margin-right: 50px;
+    font-weight: bold;
+}
+
+.stopnodebtn {
+    margin-right: 15px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+iframe { /* end-of-line comment
+  with a newline */
+
+    width: 95%;
+    height: 120px;
+    margin: 5px;
+    margin-left: 35px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.identity_note {/* end-of-line comment
+  with a newline */
+
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 18px;
+    color: #245ac3;
+}
+
+/* RClone */
+.segment .name_icon {
+    background-image: url(./../img/identity.png);
+    background-repeat: round;
+}
+
+.segment .scope-icon {
+    background-image: url(./../img/storage-alloc.png);
+    background-repeat: round;
+}
+
+.segment .viewaccess-icon {
+    background-image: url(./../img/port-forwarding.png);
+    background-repeat: round;
+}
+
+.segment .defaults-icon {
+    background-image: url(./../img/wallet-addr.png);
+    background-repeat: round;
+}
+
+.rclonebtns {/* end-of-line comment
+  with a newline */
+
+    width: 175px;
+    padding: 10px;
+}
+
+.configbtns {
+    /* end-of-line comment
+    with a newline */
+
+    width: 215px;
+    padding: 10px;
+}
+
+.rcloneloader {
+    font-size: 24px;
+    position: absolute;
+    margin-left: 60px;
+    display: none;
+}
+
+.runrcloneloader {
+    font-size: 24px;
+    position: absolute;
+    margin-left: 30px;
+    display: none;
+}
+
+#identity_status {
+    /* end-of-line comment
+    with a newline */
+
+    width: 100%;
+    height: 69px;
+    position: relative;
+    left: 8px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 10px;
+    white-space: normal;
+}
+
+#editidentitybtn,
+#editexternalAddressbtn,
+#editwallettbtn,
+#editstoragebtn,
+#editbandwidthbtn,
+#editemailAddressbtn,
+#editdirectorybtn { margin-left: 10px; }
+.identity_token_msg { margin-left: 6%; }
+.host_token_msg { margin-right: 15%; }
+.wallet_token_msg { margin-right: 17%; }
+.storage_token_msg { margin-left: 15%; }
+.bandwidth_token_msg { margin-left: 16%; }
+
+#idetityval,
+#externalAddressval,
+#wallettbtnval,
+#storagebtnval,
+#bandwidthbtnval,
+#emailAddressval { color: #245ac3; }
+#idetityval .identity_text { font-weight: 600; }
+.identity_note span { font-weight: bold; }
+#startbtn { height: 46px; }
+#stopbtn { height: 46px; }
+#updatebtn { margin-left: 35px; }
+
+#nameval { color: #245ac3; }
+#nameval .name_text { font-weight: 600; }
+#viewaccessval { color: #245ac3; }
+#scopeval { color: #245ac3; }
+#defaultsval { color: #245ac3; }
+#defaultsval .defaults_text { font-weight: 600; }
+.file-browser {
+    background: white;
+    position: absolute;
+    z-index: 1000;
+    width: 298px;
+    top: 87px;
+    left: 164px;
+    right: 94px;
+    height: 480px;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.file-browser-container {
+    margin: 50px;
+}
+
+.file-browser-path {
+    font-size: 50px;
+}
+
+.file-browser-list {
+    height: 300px;
+    overflow-y: scroll;
+    padding: 0;
+    margin: 0;
+}
+
+.file-browser-file {
+    list-style-type: none;
+
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.file-browser-file:hover {
+    background: #eee;
+}
+
+.file-browser-selected {
+    background: #0059D0;
+    color: #fff;
+}
+.file-browser-selected:hover {
+    background: #0059D0;
+    color: #fff;
+}
+
+.file-browser-done {
+    background: #0059D0;
+    border-radius: 6px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 135%;
+    text-align: center;
+    color: #FFFFFF;
+    width: 150px;
+    height: 48px;
+    margin-top: 25px;
+    cursor: pointer;
+    border: 0;
+}
+
+#identity .browse{
+    position: absolute;
+    top: 59px;
+    left: 396px;
+    border: none;
+    background: none;
+    height: 19px;
+    outline: none;
+}
+
+#identity .browse .browse-svg{
+    height: 17px;
+    position: absolute;
+    top: 5px;
+    left: -14px;
+    right: 0px;
+}
+#directory .browse {
+    position: absolute;
+    top: 16px;
+    left: 383px;
+    background: none;
+    border: none;
+    outline: none;
+    height: 12px;
+}
+#directory .browse .browse-svg {
+    position: absolute;
+    left: -14px;
+    height: 17px;
+    top: 5px;
+}
+.input-group-prepend{
+    color: #2683ff;
+    text-decoration: none;
+    font-size: 16px;
+    background: none;
+    padding: 3px 19px 16px 8px;
+}
+
+.segment .lock-icon {
+    background-image: url(./../img/lock.png);
+    background-repeat: round;
+}
+.segment .info-icon {
+    background-image: url(./../img/info.png);
+    background-repeat: round;
+}
+/* css for the switch */
+
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #005CBF; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #0062cc; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #005CBF; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}

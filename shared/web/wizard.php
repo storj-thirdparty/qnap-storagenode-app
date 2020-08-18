@@ -15,14 +15,16 @@
 <body class="wizard">
 
 	<?php
-        $authPass = $_COOKIE['authPass'];
-        if (is_null($authPass) || $authPass == "0")
-        {
-            $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
-            echo '<script>window.location.href = "login.php";</script>';
-        }
-        $file = "config.json";
+                $authPass = $_COOKIE['authPass'];
+                $loginMode =  json_decode(file_get_contents("logindata.json"), TRUE);
+  
+                if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true")
+                {
+                    $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    setcookie("previous_location", $previous_location, strtotime( '+7 days' ), "/"); // 86400 = 1 day
+                    echo '<script>window.location.href = "login.php";</script>';
+                }
+                $file = "config.json";
 		if(file_exists($file)){
 		  	$content = file_get_contents($file);
 		  	$prop = json_decode($content, true);
@@ -90,7 +92,7 @@
 									<label for="storageAllocation">Storage Allocation</label>
 									<div class="input-group">
 										<span class="error-msg storage-error" v-if="!storageValid">Invalid Entry</span>
-										<input class="storage form-control" id="storageAllocation" type="number" min="1" max="1000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" aria-describedby="unitGB" required>
+										<input class="storage form-control" id="storageAllocation" type="number" min="1" max="100000" value="10000" v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if(isset($prop['Allocation'])) echo $prop['Allocation'] ?>" aria-describedby="unitGB" required>
 										<div class="input-group-append">
 											<span class="input-group-text unit" id="unitGB">GB</span>
 									  </div>
@@ -179,7 +181,7 @@
 
 									<div class="logs mb-4" v-html="message">{{identityLogs}}</div>
 
-									<button class="btn btn-primary" v-bind:disabled="!identityGenerationFinished" v-on:click="finish">Finish</button>
+									<button class="btn btn-primary" v-on:click="finish">Finish</button>
 								</div>
 							</div>
 
