@@ -387,7 +387,7 @@
               <p class="card-title mb-2">Security <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Enable or disable login functionality to access the application"></p>
               <p class="text-muted mb-3"></p>
               <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" <?php echo ($loginMode['mode']== "true" ? 'checked' : '');?>>
                 <label class="onoffswitch-label" for="myonoffswitch">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
