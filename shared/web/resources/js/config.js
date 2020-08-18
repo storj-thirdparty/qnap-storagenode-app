@@ -514,7 +514,7 @@ Vue.component(`file-browser`, {
 						'file-browser-file': true,
 						'file-browser-selected': selectedPath === path + file
 					}"
-				>{{file}}</li>
+				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
 			</ul>
 
 			<button class='file-browser-done' v-on:click="done">Select this directory</button>
