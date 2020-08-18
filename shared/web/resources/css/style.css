@@ -50,9 +50,7 @@ p {
 
 
 .btn {
-  /* width: 205px; */
   height: 48px;
-  /* margin-top: 0.5em; */
   border-radius: 6px;
   font-style: normal;
   font-size: 16px;
@@ -95,6 +93,9 @@ p {
 	border: 1px solid #E8E8E8;
 	color: #566F8F;
 	padding: 0 40px;
+}
+#stopbtn {
+	margin-top: 0;
 }
 
 .font-light {
