@@ -171,8 +171,6 @@
       </div>
     </nav>
 
-
-     <?php require_once('menu.php'); ?>
       <?php
         // TODO: REMOVE this once this works OK
         if ( $output ){
