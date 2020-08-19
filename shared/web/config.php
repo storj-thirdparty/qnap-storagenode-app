@@ -6,6 +6,8 @@
   logMessage("Platform Base($platformBase), ModuleBase($moduleBase) scriptBase($scriptsBase)");
   # ------------------------------------------------------------------------
 
+  $authPass = $_COOKIE['authPass'];
+  $loginMode =  json_decode(file_get_contents("logindata.json"), TRUE);
   if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true")
   {
     $previous_location = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -157,11 +159,17 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
+        
+<?php
+$port = ":14002";
+$url = "http://{$_SERVER['SERVER_NAME']}${port}";
+$escaped_url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+$_finalUrl = $escaped_url;
+?>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav ">
             <li class="nav-item">
-              <a href="" class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
+              <a href="<?php echo $_finalUrl;?>" class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
                 <a href="wizard.php" class="nav-link"><img src="./resources/img/icon-setup.svg" class="nav-icon" alt="Setup">Setup</a>
