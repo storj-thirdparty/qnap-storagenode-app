@@ -169,7 +169,7 @@ $_finalUrl = $escaped_url;
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav ">
             <li class="nav-item">
-              <a href="<?php echo $_finalUrl;?>" class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
+                <a href="<?php echo $_finalUrl;?>" target="_blank"class="nav-link"><img src="./resources/img/icon-dashboard.svg" class="nav-icon" alt="Dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
                 <a href="wizard.php" class="nav-link"><img src="./resources/img/icon-setup.svg" class="nav-icon" alt="Setup">Setup</a>
