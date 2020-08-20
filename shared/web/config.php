@@ -269,7 +269,7 @@ $_finalUrl = $escaped_url;
           <div class="row">
             <div class="col">
                 <?php if($output !=""){?>
-              <p class="card-title">Version <span id="version"><?php echo " $output"?> </span></p>
+              <p class="card-title"><span id="version"><?php echo " $output"?> </span></p>
                 <?php }else{?>
                <p class="card-title">Please Start the node to get the version</p>
                 <?php }?>
