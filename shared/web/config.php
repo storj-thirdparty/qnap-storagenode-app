@@ -268,8 +268,12 @@ $_finalUrl = $escaped_url;
         <div class="card">
           <div class="row">
             <div class="col">
+                <?php if($output !=""){?>
               <p class="card-title">Version <span id="version"><?php echo " $output"?> </span></p>
-              <p class="text-muted">Latest version installed</p>
+                <?php }else{?>
+               <p class="card-title">Please Start the node to get the version</p>
+                <?php }?>
+<!--              <p class="text-muted">Latest version installed</p>-->
             </div>
             <div class="col">
               <button type="button" class="btn btn-primary btn-block" id="updatebtn">Update Node</button>
