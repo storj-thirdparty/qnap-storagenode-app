@@ -262,14 +262,14 @@ $_finalUrl = $escaped_url;
 		$scriptsBase    = $moduleBase . '/scripts' ;
 		$checkRunning	= $scriptsBase . '/versionStorj.sh' ;
 
-                $output = shell_exec("$checkRunning");
+                $output1 = shell_exec("$checkRunning");
         ?>
       <div class="col-sm-12 col-lg-6">
         <div class="card">
           <div class="row">
             <div class="col">
-                <?php if($output !=""){?>
-              <p class="card-title"><span id="version"><?php echo " $output"?> </span></p>
+                <?php if($output1 !=""){?>
+              <p class="card-title"><span id="version"><?php echo " $output1"?> </span></p>
                 <?php }else{?>
                <p class="card-title">Please Start the node to get the version</p>
                 <?php }?>
