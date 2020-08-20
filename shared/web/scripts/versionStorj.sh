@@ -11,6 +11,7 @@ container=storjlabsSnContainer
 
 
 
-statuscmd="docker exec -it storjlabsSnContainer ./storagenode version$\" "
+statuscmd="docker exec -it storjlabsSnContainer ./storagenode version "
 status=$(eval "$statuscmd")
+echo ${status}
 

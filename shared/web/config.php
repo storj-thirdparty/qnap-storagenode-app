@@ -262,7 +262,7 @@ $_finalUrl = $escaped_url;
 		$scriptsBase    = $moduleBase . '/scripts' ;
 		$checkRunning	= $scriptsBase . '/versionStorj.sh' ;
 
-                $output = shell_exec("/bin/bash $checkRunning");
+                $output = shell_exec("$checkRunning");
         ?>
       <div class="col-sm-12 col-lg-6">
         <div class="card">
