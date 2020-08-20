@@ -256,11 +256,19 @@ $_finalUrl = $escaped_url;
 
         </div>
       </div>
+        <?php
+                $platformBase   = $_SERVER['DOCUMENT_ROOT'];
+		$moduleBase     = $platformBase . dirname($_SERVER['PHP_SELF']) ;
+		$scriptsBase    = $moduleBase . '/scripts' ;
+		$checkRunning	= $scriptsBase . '/versionStorj.sh' ;
+
+                $output = shell_exec("/bin/bash $checkRunning");
+        ?>
       <div class="col-sm-12 col-lg-6">
         <div class="card">
           <div class="row">
             <div class="col">
-              <p class="card-title">Version <span id="version">1.1.0</span></p>
+              <p class="card-title">Version <span id="version"><?php echo " $output"?> </span></p>
               <p class="text-muted">Latest version installed</p>
             </div>
             <div class="col">
