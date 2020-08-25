@@ -55,6 +55,8 @@ jQuery(function () {
             jQuery("#startbtn").show();
             jQuery("#nodeonline").hide();
             jQuery("#nodeoffline").show();
+            $(".editbtn").removeAttr("disabled");
+            $(".editbtn").css("cursor", "pointer");
         }
     }
 
@@ -68,6 +70,8 @@ jQuery(function () {
             jQuery("#stopbtn").show();
             jQuery("#nodeoffline").hide();
             jQuery("#nodeonline").show();
+            $(".editbtn").attr( "disabled", "disabled" );
+            $(".editbtn").css("cursor", "not-allowed");
         }
     }
 
@@ -320,6 +324,8 @@ jQuery(function () {
         jQuery("#stopbtn").show();
         jQuery("#nodeoffline").hide();
         jQuery("#nodeonline").show();
+        $(".editbtn").attr( "disabled", "disabled" );
+        $(".editbtn").css("cursor", "not-allowed");
     } else {
         var identityfilecheck = new Identityfilecheck();
     }
@@ -430,12 +436,16 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
                     $("#stopbtn").show();
                     $("#nodeoffline").hide();
                     $("#nodeonline").show();
+                    $(".editbtn").attr( "disabled", "disabled" );
+                    $(".editbtn").css("cursor", "not-allowed");
                 } else if (resposnse == 0) {
                     $(".editbtn").attr("disabled", false).css("cursor", "pointer");
                     $("#stopbtn").hide();
                     $("#startbtn").show();
                     $("#nodeonline").hide();
                     $("#nodeoffline").show();
+                    $(".editbtn").removeAttr("disabled");
+                    $(".editbtn").css("cursor", "pointer");
                 }
 
             }

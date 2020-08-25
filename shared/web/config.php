@@ -314,7 +314,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Identity <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Every node is required to have a unique identifier on the network. If you haven't already, get an authorization token. Please get the authorization token and create identity on host machine other than NAS."></p>
               <p class="text-muted mb-3" id="identity_status"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#identity">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#identity">Edit</button>
             </div>
           </div>
         </div>
@@ -328,7 +328,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Port Forwarding <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="How a storage node communicates with others on the Storj network, even though it is behind a router. You need a dynamic DNS service to ensure your storage node is connected."></p>
               <p class="text-muted mb-3" id="externalAddressval"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#externalAddress">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#externalAddress">Edit</button>
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Wallet Address <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="In order to recieve and hold your STORJ token payouts, you need an ERC-20 compatible wallet address."></p>
               <p class="text-muted mb-3 truncate" id="wallettbtnval"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#walletAddress">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#walletAddress">Edit</button>
             </div>
           </div>
         </div>
@@ -359,7 +359,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Storage Allocation <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="How much disk space you want to allocate to the Storj network"></p>
               <p class="text-muted mb-3" id="storagebtnval"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#storageAllocation">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#storageAllocation">Edit</button>
             </div>
           </div>
         </div>
@@ -376,7 +376,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Storage Directory <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="The local directory where you want files to be stored on your hard drive for the network"></p>
               <p class="text-muted mb-3" id="directorybtnval"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#directory" data-toggle="modal" data-target="#directory">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#directory" data-toggle="modal" data-target="#directory">Edit</button>
             </div>
           </div>
         </div>
@@ -390,7 +390,7 @@ $_finalUrl = $escaped_url;
             <div class="col-9 col-sm-10 col-lg-9">
               <p class="card-title mb-2">Email Address <img src="./resources/img/icon-tooltip.svg" class="tooltip-icon" alt="Tooltip" data-toggle="tooltip" data-placement="top" title="Email address so that you can recieve notification you when a new version is released."></p>
               <p class="text-muted mb-3" id="emailAddressval"></p>
-              <button class="btn btn-light" data-toggle="modal" data-target="#emailAddress">Edit</button>
+              <button class="btn btn-light editbtn" data-toggle="modal" data-target="#emailAddress">Edit</button>
             </div>
           </div>
         </div>
