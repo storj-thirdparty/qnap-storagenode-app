@@ -14,7 +14,7 @@
 - 500 GB Free Disk space
 - Docker
 
-
+You can find the User Guide for this [app here](https://github.com/storj-thirdparty/qnap-storagenode-app/blob/master/docs/QNAP%20Storagenode%20User%20Guide.md)
 
 ## App Use
 
