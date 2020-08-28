@@ -28,7 +28,7 @@ Currently the application must be manually installed via the QNAP App Center app
 
 **Port Forwarding** .... contains host and port information that is required to reach the services on your NAS from the public Internet. (e.x. *mynashost.dynip.com:12345*)
 
-**Storage Directory** .... should contain the complete path to the shared folder. Make sure you give all the permissions to the folder with `chmod -R 777 </absolutepath/to/shared_folder>`. For example you create a folder with name `storj` at `/root`, this field should be populated with `/root/storj`
+**Storage Directory** .... should contain the complete path to the shared folder. Make sure you give all the permissions to the folder with `chmod -R 777 </absolutepath/to/shared_folder>`. For example you create a folder with name `storj` at `/home/username`, this field should be populated with `/home/username/storj`
 
 **Ethereum Wallet Address** .... It should be a valid ERC-20 compatible wallet address. If this path is invalid the storagenode woould not start. (ex. )
 
@@ -39,6 +39,8 @@ Currently the application must be manually installed via the QNAP App Center app
 **Update** ... During installation a cron tab is created to trigger the update script at 12:05 AM. The scripts checks if the docker container running is latest or not. If the current image is latest then the nothing is done but if it is old then the storagenode is stopped, old container is removed and updated and restarted using the same old parameters that are saved. This all process happen automatically. Also the user can trigger the same process manually whenver they want by pressing the 'Update' button on the UI. 
 
 **(Start | Stop)** ... will gracefully start and stop the container image.
+
+**Security** ... Activating this switch will cause a login page to be activated to access the config area of the app.   The authentiaction is integrated with the QNAP login so please use your QNAP login and password.
 
 <br /><br /><br />
 
