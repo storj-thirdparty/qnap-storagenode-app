@@ -244,7 +244,7 @@ const app = new Vue({
 				identity: this.identity
 			};
 
-			await axios.post("config.php", data);
+			await axios.post("saveconfigdata.php", data);
 
 			location.href = "config.php";
 		},
