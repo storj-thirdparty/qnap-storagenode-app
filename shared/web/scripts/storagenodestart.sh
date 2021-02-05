@@ -26,9 +26,11 @@ echo "$(date)" " Starting Storagenode ${CONTAINER_NAME} ---> " >> "$LOG"
 docker ps -a  >> "$LOG"
 if [[ $# -ge 6 ]]
 then
-    cmd="docker run -d --restart=always -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e EMAIL=${6} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
+#    cmd="docker run -d --restart=always -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e EMAIL=${6} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
+    cmd="systemctl start storagenode-update "
 else
-    cmd="docker run -d --restart=always -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
+    cmd="systemctl start storagenode-update "
+#    cmd="docker run -d --restart=always -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e ADDRESS=${1} -e STORAGE=${3}GB -v ${4}:/app/identity -v ${5}:/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
 fi
  
 echo "$cmd" >> "$LOG"

@@ -39,4 +39,13 @@ case "$1" in
     exit 1
 esac
 
+wget https://github.com/storj/storj/releases/download/v1.16.1/storagenode_linux_amd64.zip
+wget https://github.com/storj/storj/releases/download/v1.16.1/storagenode-updater_linux_amd64.zip
+unzip storagenode_linux_amd64.zip
+unzip storagenode-updater_linux_amd64.zip
+chmod +x storagenode
+chmod +x storagenode-updater
+mkdir -p /opt/storagenode/bin
+mv storagenode storagenode-updater /opt/storagenode/bin
+chown -R storj-storagenode:storj-storagenode /opt/storagenode
 exit 0
