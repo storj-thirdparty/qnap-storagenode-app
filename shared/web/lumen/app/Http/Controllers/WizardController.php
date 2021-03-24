@@ -27,135 +27,50 @@ class WizardController extends Controller {
             $content = file_get_contents($configFile);
             $prop = json_decode($content, true);
         }
-        return view('wizard',compact('authPass','loginMode','prop'));
+        return view('wizard', compact('authPass', 'loginMode', 'prop'));
     }
 
     /**
-     * Create a new article and return the article if successful.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Call for the list of directory
+     * 
+     * Return list of directories
      */
-    public function store(Request $request) {
-        $this->validateNew($request);
+    public function getDirectoryListing(Request $request) {
+        $data = $request->request->get('data');
+        $arr = array();
+        //Change the variable below to set the default path
+        $path = "/share/Public/";
 
-        $article = Article::create([
-                    'title' => $request->input('article.title'),
-                    'description' => $request->input('article.description'),
-                    'body' => $request->input('article.body'),
-        ]);
-
-        Auth::user()->articles()->save($article);
-
-        $inputTags = $request->input('article.tagList');
-
-        if ($inputTags && !empty($inputTags)) {
-            foreach ($inputTags as $name) {
-                $article->tags()->attach(new Tag(['name' => $name]));
+        if (isset($data['action']) == null || isset($data['action']) == "") {
+            $msg = "Invalid or Unknown API Request";
+            $arr = array("error" => $msg);
+        } else {
+            if ($data['action'] !== "folders") {
+                $msg = "Invalid or Unknown API Request";
+                $arr = array("error" => $msg);
+            } else {
+                $dirs = array();
+                if (isset($data['path'])) {
+                    $path = $data['path'];
+                }
+                if (!is_dir($path)) {
+                    $path = "/";
+                }
+                $dir = dir($path);
+                while (false !== ($entry = $dir->read())) {
+                    if ($entry != '.' && $entry != '..') {
+                        if (is_dir($path . '/' . $entry)) {
+                            $dirs[] = $entry;
+                        }
+                    }
+                }
+                $arr = array(
+                    "cd" => $path,
+                    "folders" => $dirs
+                );
             }
         }
-        return (new ArticleResource($article))
-                        ->response()
-                        ->header('Status', 201);
-    }
-
-    /**
-     * Get the article given by its slug.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function show(string $slug) {
-        $article = $this->getArticleBySlug($slug);
-        return new ArticleResource($article);
-    }
-
-    /**
-     * Update the article given by its slug and return the article if successful.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, string $slug) {
-        $this->validateUpdate($request);
-
-        if ($request->has('article')) {
-            $article = $this->getArticleBySlug($slug);
-            if ($request->user()->cannot('update-article', $article)) {
-                abort(401);
-            }
-            $article->update($request->get('article'));
-        }
-        return new ArticleResource($article);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, string $slug) {
-        $article = $this->getArticleBySlug($slug);
-        if ($request->user()->cannot('delete-article', $article)) {
-            abort(403);
-        }
-
-        $article->delete();
-        return $this->respondSuccess();
-    }
-
-    /**
-     * Get all the articles of users that are followed by the authenticated user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function feed() {
-        $articles = $this->paginate(Auth::user()->feed());
-        return ArticleResource::collection($articles);
-    }
-
-    /**
-     * Favorite the article given by its slug and return the article if successful.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $slug
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function addFavorite(Request $request, string $slug) {
-        $article = $this->getArticleBySlug($slug);
-        if ($request->user()->can('favorite-article', $article)) {
-            $request->user()->favorite($article);
-        }
-        return new ArticleResource($article);
-    }
-
-    /**
-     * Unfavorite the article given by its slug and return the article if successful.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function unFavorite(string $slug) {
-        $article = $this->getArticleBySlug($slug);
-        Auth::user()->unFavorite($article);
-        $article->save();
-
-        return new ArticleResource($article);
-    }
-
-    /**
-     * Get all the tags.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function tags() {
-        $names = Article::distinct('tags')->get()->pluck('name');
-        $tags = $names->unique()->sort()->values()->all();
-
-        return $this->respond(['tags' => $tags]);
+        echo json_encode($arr);
     }
 
 }

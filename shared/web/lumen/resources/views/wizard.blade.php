@@ -65,15 +65,17 @@
                                     <label for="storageAllocation">Storage Allocation</label>
                                     <div class="input-group">
                                         <span class="error-msg storage-error" v-if="!storageValid">Invalid Entry</span>
-                                        <input class="storage form-control" id="storageAllocation" type="number" min="1" max="100000"  v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php if (isset($prop['Allocation'])) {
-        if ($prop['Allocation'] != "") {
-            echo $prop['Allocation'];
-        } else {
-            echo "10000";
-        }
-    } else {
-        echo "10000";
-    } ?>" aria-describedby="unitGB" required>
+                                        <input class="storage form-control" id="storageAllocation" type="number" min="1" max="100000"  v-model="storage" v-bind:class="{ invalid: !storageValid }" value="<?php
+                                        if (isset($prop['Allocation'])) {
+                                            if ($prop['Allocation'] != "") {
+                                                echo $prop['Allocation'];
+                                            } else {
+                                                echo "10000";
+                                            }
+                                        } else {
+                                            echo "10000";
+                                        }
+                                        ?>" aria-describedby="unitGB" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text unit" id="unitGB">GB</span>
                                         </div>
@@ -160,7 +162,7 @@
 
                                     <p class="tagline">Creating identity can take several hours or even days, depending on your machines processing power & probability. You will be able to track your progress after configuring the rest</p>
 
-
+                                    <div class="logs mb-4" v-html="message">@{{identityLogs}}</div>
 
                                     <button class="btn btn-primary" v-on:click="finish">Finish</button>
                                 </div>

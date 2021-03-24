@@ -28,8 +28,8 @@ const getFolders = debug
 		return new Promise(resolve => {});
 	}
 	: async path => {
-		const {data} = await axios.get('api.php', {
-			params: {
+		const {data} = await axios.post('getdirectorylisting', {
+			data: {
 				action: 'folders',
 				path
 			}
@@ -43,7 +43,7 @@ Vue.component(`file-browser`, {
 			<h2 class='file-browser-path'>{{path}}</h2>
 
 			<ul class='file-browser-list'>
-				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img src="resources/img/wizard/back.svg" alt="Back">../</li>
+				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img :src="'img/wizard/back.svg'" alt="Back">../</li>
 
 				<li
 					v-for="file in files" v-on:dblclick="setpath(file)"
@@ -52,7 +52,7 @@ Vue.component(`file-browser`, {
 						'file-browser-file': true,
 						'file-browser-selected': selectedPath === path + file
 					}"
-				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
+				><img :src="'img/wizard/folder.svg'"  alt="Folder">{{file}}</li>
 			</ul>
 
 			<button class='file-browser-done' v-on:click="done">Choose this directory</button>
@@ -249,7 +249,7 @@ const app = new Vue({
 			location.href = "config.php";
 		},
 		async createidentifyToken() {
-			const {data} = await axios.post("identity.php", {
+			const {data} = await axios.post("getidentity", {
 				authkey: this.authkey,
 				identity: this.identity,
 			});
@@ -261,7 +261,7 @@ const app = new Vue({
 			}
     	},
     	async updateLog() {
-			const {data} = await axios.post("identity.php", {
+			const {data} = await axios.post("getidentity", {
 				status: true
 			});
 
@@ -269,7 +269,7 @@ const app = new Vue({
 		},
 		async processCheck() {
 			this.identityStep++;
-			const {data} = await axios.post("identity.php", {
+			const {data} = await axios.post("getidentity", {
 				identityCreationProcessCheck: true
 			});
 

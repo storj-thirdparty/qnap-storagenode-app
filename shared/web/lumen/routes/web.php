@@ -20,3 +20,5 @@ $router->get('/', function () use ($router) {
  * Wizard page
  */
 $router->get('wizard', 'WizardController@index');
+$router->post('getdirectorylisting', 'WizardController@getDirectoryListing');
+$router->post('getidentity', 'IdentityController@index');
