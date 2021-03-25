@@ -19,5 +19,8 @@ CACHE_DRIVER=file
 QUEUE_CONNECTION=sync
 
 CENTRAL_LOG_DIR="/var/log/STORJ"
+CONFIG_DIR="/share/Public/storagenode.conf"
 IDENTITY_URL="https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip"
+IDENTITY_GEN_BINARY="/share/Public/identity.bin/identity"
+IDENTITY_LOG="share/Public/identity/logs/storj_identity.log"
 

@@ -22,3 +22,4 @@ $router->get('/', function () use ($router) {
 $router->get('wizard', 'WizardController@index');
 $router->post('getdirectorylisting', 'WizardController@getDirectoryListing');
 $router->post('getidentity', 'IdentityController@index');
+$router->post('saveconfig', 'WizardController@saveConfig');

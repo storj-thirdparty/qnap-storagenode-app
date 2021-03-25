@@ -23,18 +23,16 @@ class IdentityController extends Controller {
      *
      */
     public function index(Request $request) {
-
         //  Set variables
-        $platformBase = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-        $moduleBase = $platformBase . dirname(filter_input(INPUT_SERVER, 'PHP_SELF'));
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
         $scriptsBase = url('scripts');
-        $identityGenBinary = "/share/Public/identity.bin/identity";
-        $logFile = "/share/Public/identity/logs/storj_identity.log";
+        $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
+        $logFile = env('IDENTITY_LOG', "share/Public/identity/logs/storj_identity.log");
+
 
         $data = $this->identityHelper->loadConfig("${configBase}/config.json");
         // Update config json file if updates provided
-        $inputs = $this->identityHelper->loadConfig("php://input");
+        $inputs = $request->all();
         if (isset($inputs['authkey']) || isset($inputs['identity'])) {
             // Saving Identity Path and Auth Key in JSON file.
             if (isset($inputs["authkey"])) {
@@ -50,7 +48,7 @@ class IdentityController extends Controller {
         $Path = $data["Identity"] . "/storagenode";
         $identityFilePath = "${Path}/identity.key";
         $urlToFetch = env('IDENTITY_URL', "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip");
-        $identitypidFile = $moduleBase . DIRECTORY_SEPARATOR . 'identity.pid';
+        $identitypidFile = url('identity.pid');
 
 
 
@@ -58,7 +56,7 @@ class IdentityController extends Controller {
         $output = "";
         $configFile = "${configBase}/config.json";
 
-        $inputs = $this->identityHelper->loadConfig("php://input");
+        $inputs = $request->all();
 
 
         $this->identityHelper->logMessage("================== identity.php invoked ================== ");
@@ -114,7 +112,7 @@ class IdentityController extends Controller {
 
             $this->identityHelper->logMessage("Invoked identity generation program ($identityGenScriptPath) ");
             echo $lastline;
-        } else if (filter_input(INPUT_POST, 'status') || isset($inputs['status'])) {
+        } else if (isset($inputs['status'])) {
             $this->identityHelper->logMessage("Identity php called for fetching STATUS!");
 
             $file = $data['LogFilePath'];
@@ -132,13 +130,13 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("identity available at ${identityFilePath}");
                 echo "identity available at ${identityFilePath}";
             } else {
-                $data = $this->identityHelper->loadConfig("config.json");
+                $data = $this->identityHelper->loadConfig($configFile);
                 $lastline = preg_replace('/\n$/', '', $lastline);
                 $this->identityHelper->logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
                 echo "Identity generation STATUS($date):<BR> " .
                 "Process ID: $pid , " .
                 "Started at: " . $data['idGenStartTime'] . "<BR>" . $lastline;
-                ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
+                ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
             }
         } else if (isset($inputs['authkey']) || isset($inputs['identity'])) {
             $authkey = $inputs["authkey"];
@@ -190,7 +188,7 @@ class IdentityController extends Controller {
 
             $this->identityHelper->logMessage("Invoked identity generation program ($identityGenScriptPath) ");
             echo "<b>Identity creation process is starting.</b><br>";
-            ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
+            ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
             echo $lastline;
         } else if (isset($data['identityCreationProcessCheck'])) {
             echo $this->identityHelper->checkIdentityProcessRunning($identitypidFile) ? "true" : "false";
