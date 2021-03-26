@@ -23,3 +23,5 @@ $router->get('wizard', 'WizardController@index');
 $router->post('getdirectorylisting', 'WizardController@getDirectoryListing');
 $router->post('getidentity', 'IdentityController@index');
 $router->post('saveconfig', 'WizardController@saveConfig');
+$router->get('config', 'ConfigController@index');
+$router->post('config', 'ConfigController@config');

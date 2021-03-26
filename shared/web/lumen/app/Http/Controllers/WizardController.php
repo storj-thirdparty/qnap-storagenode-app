@@ -21,7 +21,8 @@ class WizardController extends Controller {
     public function index(Request $request) {
         $authPass = $request->cookie('authPass');
         $loginMode = json_decode(file_get_contents(base_path('data/logindata.json')), TRUE);
-        $configFile = base_path('data/config.json');
+        $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+        $configFile = "${configBase}/config.json";
         //TO DO Login redirect if the mode is on   
         if (file_exists($configFile)) {
             $content = file_get_contents($configFile);

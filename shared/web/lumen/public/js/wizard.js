@@ -246,7 +246,7 @@ const app = new Vue({
 
 			await axios.post("saveconfig", data);
 
-			//location.href = "config.php";
+			location.href = "config";
 		},
 		async createidentifyToken() {
 			const {data} = await axios.post("getidentity", {

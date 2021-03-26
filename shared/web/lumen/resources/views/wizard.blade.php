@@ -1,9 +1,9 @@
 @extends('layouts.master')
+@section('class', 'wizard')
 @push('styles')
 <link href="{{ url('css/wizard.css') }}" rel="stylesheet">
 @endpush
 @section('content')
-<div class="wizard">
     <div id="app">
         <div class="wizard">
 
@@ -206,7 +206,6 @@
         </footer>
 
     </div>
-</div>
 @push('scripts')
 <script type="text/javascript" src="{{ url('js/wizard.js') }}"></script>
 @endpush

@@ -20,7 +20,7 @@ function Stopprocess(url) {
 function Startupdate() {
     jQuery.ajax({
         type: "POST",
-        url: "config.php",
+        url: "config",
         data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal, isajax: 1},
         success: (result) => {
             window.location.reload();
@@ -80,7 +80,7 @@ jQuery(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "identity.php",
+            url: "getidentity",
             data: {
                 createidval,
                 identitypath,
@@ -96,11 +96,11 @@ jQuery(function () {
     }
 
 
-// Read status from identity.php file.
+// Read status from getidentity file.
     function readidentitystatus() {
         jQuery.ajax({
             type: "POST",
-            url: "identity.php",
+            url: "getidentity",
             data: {status: "status", },
             success: (result) => {
                 if (result === "identity available at /root/.local/share/storj/identity") {
@@ -123,7 +123,7 @@ jQuery(function () {
 
 
     jQuery("#stop_identity").click(function () {
-        var stopprocess1 = new Stopprocess("identity.php");
+        var stopprocess1 = new Stopprocess("getidentity");
     });
 
     $("#identity_path").change(function () {
@@ -158,7 +158,7 @@ jQuery(function () {
                 if (fileexists === "1") {
                     jQuery.ajax({
                         type: "POST",
-                        url: "identity.php",
+                        url: "getidentity",
                         data: {fileexist: "file_exist"},
                         success: (result) => {
                             if (result === "1") {
@@ -332,7 +332,7 @@ jQuery(function () {
 
     jQuery.ajax({
         type: "POST",
-        url: "config.php",
+        url: "config",
         data: {isstartajax: 1},
         success: (resposnse) => {
             if (resposnse) {
@@ -403,13 +403,13 @@ jQuery("#startbtn").click(function () {
 });
 
 jQuery("#stopbtn").click(function () {
-    var stopprocess = new Stopprocess("config.php");
+    var stopprocess = new Stopprocess("config");
 });
 
 jQuery("#updatebtn").click(function () {
     jQuery.ajax({
         type: "POST",
-        url: "config.php",
+        url: "config",
         data: {isUpdateAjax: 1},
         success: () => {
             window.location.reload();
@@ -425,7 +425,7 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
 } else {
     jQuery.ajax({
         type: "POST",
-        url: "config.php",
+        url: "configte",
         data: {isrun: 1},
         success: (resposnse) => {
             if (resposnse) {
