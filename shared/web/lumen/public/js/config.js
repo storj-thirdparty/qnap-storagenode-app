@@ -20,10 +20,10 @@ function Stopprocess(url) {
 function Startupdate() {
     jQuery.ajax({
         type: "POST",
-        url: "config",
+        url: "startNode",
         data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal, isajax: 1},
         success: (result) => {
-            window.location.reload();
+             window.location.reload();
             // // log message
             $("iframe").contents().find("body").html("<p>" + result + "</p>");
         },
@@ -70,7 +70,7 @@ jQuery(function () {
             jQuery("#stopbtn").show();
             jQuery("#nodeoffline").hide();
             jQuery("#nodeonline").show();
-            $(".editbtn").attr( "disabled", "disabled" );
+            $(".editbtn").attr("disabled", "disabled");
             $(".editbtn").css("cursor", "not-allowed");
         }
     }
@@ -324,7 +324,7 @@ jQuery(function () {
         jQuery("#stopbtn").show();
         jQuery("#nodeoffline").hide();
         jQuery("#nodeonline").show();
-        $(".editbtn").attr( "disabled", "disabled" );
+        $(".editbtn").attr("disabled", "disabled");
         $(".editbtn").css("cursor", "not-allowed");
     } else {
         var identityfilecheck = new Identityfilecheck();
@@ -332,7 +332,7 @@ jQuery(function () {
 
     jQuery.ajax({
         type: "POST",
-        url: "config",
+        url: "isstartajax",
         data: {isstartajax: 1},
         success: (resposnse) => {
             if (resposnse) {
@@ -403,14 +403,14 @@ jQuery("#startbtn").click(function () {
 });
 
 jQuery("#stopbtn").click(function () {
-    var stopprocess = new Stopprocess("config");
+    var stopprocess = new Stopprocess("stopNode");
 });
 
 jQuery("#updatebtn").click(function () {
     jQuery.ajax({
         type: "POST",
-        url: "config",
-        data: {isUpdateAjax: 1},
+        url: "updateNode",
+        data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal,isUpdateAjax: 1},
         success: () => {
             window.location.reload();
         },
@@ -425,7 +425,7 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
 } else {
     jQuery.ajax({
         type: "POST",
-        url: "configte",
+        url: "checkRunningnode",
         data: {isrun: 1},
         success: (resposnse) => {
             if (resposnse) {
@@ -436,7 +436,7 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
                     $("#stopbtn").show();
                     $("#nodeoffline").hide();
                     $("#nodeonline").show();
-                    $(".editbtn").attr( "disabled", "disabled" );
+                    $(".editbtn").attr("disabled", "disabled");
                     $(".editbtn").css("cursor", "not-allowed");
                 } else if (resposnse == 0) {
                     $(".editbtn").attr("disabled", false).css("cursor", "pointer");
@@ -456,18 +456,18 @@ if (jQuery("#identity_token").val() === null || jQuery("#host_address").val() ==
         }
     });
 }
-$('#myonoffswitch').change(function(){
-  var mode= $(this).prop('checked');
-  $.ajax({
-    type:'POST',
-    dataType:'JSON',
-    url:'authswitch.php',
-    data:'mode='+mode,
-    success:function(data)
-    {
-      var data=eval(data);
-    }
-  });
+$('#myonoffswitch').change(function () {
+    var mode = $(this).prop('checked');
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        url: 'setauthswitch',
+        data: 'mode=' + mode,
+        success: function (data)
+        {
+            var data = eval(data);
+        }
+    });
 });
 let debug = false;
 
@@ -500,8 +500,8 @@ const getFolders = debug
             });
         }
 : async path => {
-    const {data} = await axios.get('api.php', {
-        params: {
+    const {data} = await axios.post('getdirectorylisting', {
+        data: {
             action: 'folders',
             path
         }
@@ -515,7 +515,7 @@ Vue.component(`file-browser`, {
 			<h2 class='file-browser-path'>{{path}}</h2>
 
 			<ul class='file-browser-list'>
-				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img src="resources/img/wizard/back.svg" alt="Back">../</li>
+				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img :src="'img/wizard/back.svg'" alt="Back">../</li>
 
 				<li
 					v-for="file in files" v-on:dblclick="setpath(file)"
@@ -524,7 +524,7 @@ Vue.component(`file-browser`, {
 						'file-browser-file': true,
 						'file-browser-selected': selectedPath === path + file
 					}"
-				><img src="resources/img/wizard/folder.svg" alt="Folder">{{file}}</li>
+				><img :src="'img/wizard/folder.svg'" alt="Folder">{{file}}</li>
 			</ul>
 
 			<button class='file-browser-done' v-on:click="done">Select this directory</button>
@@ -551,7 +551,7 @@ Vue.component(`file-browser`, {
                 document.body.removeEventListener('click', this.event)
             },
         }
-     },
+    },
     methods: {
         async loadFiles() {
             this.loading = true;

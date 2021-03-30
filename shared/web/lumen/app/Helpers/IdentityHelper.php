@@ -37,7 +37,7 @@ class IdentityHelper {
         } else {
             $msg = "Identity creation process not found";
         }
-        logMessage($msg);
+        $this->logMessage($msg);
         echo $msg;
     }
 
@@ -45,10 +45,10 @@ class IdentityHelper {
         // Checking file if exist or not.
         $identityFilePath = $data["Identity"] . "/storagenode/identity.key";
         if (validateExistence($data)) {
-            logMessage("(file_exist) File $identityFilePath and others already exist !");
+            $this->logMessage("(file_exist) File $identityFilePath and others already exist !");
             echo "0";   # NORMAL
         } else {
-            logMessage("(file_exist) File $identityFilePath or others don't exists !");
+            $this->logMessage("(file_exist) File $identityFilePath or others don't exists !");
             echo "1";   # FILE NOT FOUND
         }
     }
@@ -88,7 +88,7 @@ class IdentityHelper {
     }
 
     public function logEnvironment() {
-        logMessage("POST is : " . print_r($_POST, true));
+        $this->logMessage("POST is : " . print_r($_POST, true));
     }
 
     public function logMessage($message) {

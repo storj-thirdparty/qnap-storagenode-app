@@ -25,7 +25,7 @@ class IdentityController extends Controller {
     public function index(Request $request) {
         //  Set variables
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
-        $scriptsBase = url('scripts');
+        $scriptsBase = base_path('public/scripts');
         $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
         $logFile = env('IDENTITY_LOG', "share/Public/identity/logs/storj_identity.log");
 
@@ -114,7 +114,8 @@ class IdentityController extends Controller {
             echo $lastline;
         } else if (isset($inputs['status'])) {
             $this->identityHelper->logMessage("Identity php called for fetching STATUS!");
-
+            $data['LogFilePath'] = $logFile;
+            $data['idGenStartTime'] = $date;
             $file = $data['LogFilePath'];
             $pid = file_get_contents("identity.pid");
             $prgStartTime = $data['idGenStartTime'];
@@ -131,6 +132,7 @@ class IdentityController extends Controller {
                 echo "identity available at ${identityFilePath}";
             } else {
                 $data = $this->identityHelper->loadConfig($configFile);
+                $data['idGenStartTime'] = $date;
                 $lastline = preg_replace('/\n$/', '', $lastline);
                 $this->identityHelper->logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
                 echo "Identity generation STATUS($date):<BR> " .
