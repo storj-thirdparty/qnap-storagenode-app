@@ -1,0 +1,78 @@
+@import url('https://rsms.me/inter/inter.css');
+
+body {
+  font-family: 'inter', arial, sans-serif;
+  color: #0D1826;
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+}
+
+.title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 100%;
+  color: #0d1826;
+  margin-top: 40px;
+}
+
+.description {
+  font-size: 14px;
+}
+
+.error-msg {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  display: block;
+  color: #ea0000;
+  margin-bottom: 16px;
+}
+
+#wrongdetails{
+  display: none;
+}
+
+input {
+  height: 48px;
+  background: #fff;
+  border: 1px solid #dee4ed;
+  box-sizing: border-box;
+  border-radius: 6px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background: #0059d0;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  height: 48px;
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #82ade5;
+  border-color: #82ade5;
+  cursor: default;
+}
+
+.loader {
+  border: 2px solid #f2f4f6;
+  border-top: 2px solid #0059d0;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 2s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
