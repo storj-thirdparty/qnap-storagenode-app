@@ -31,3 +31,5 @@ $router->post('stopNode', 'ConfigController@stopNode');
 $router->post('startNode', 'ConfigController@startNode');
 $router->post('updateNode', 'ConfigController@updateNode');
 $router->post('setauthswitch', 'ConfigController@setAuthswitch');
+$router->get('login', 'LoginController@index');
+$router->post('authenticate', 'LoginController@authenticate');

@@ -143,7 +143,7 @@ const app = new Vue({
     methods: {
         async authenticate() {
             this.loading = true;
-            axios.post('authenticate.php',
+            axios.post('authenticate',
                     {username: this.username,password: ezEncode(utf16to8(this.password))},
                     {headers: {'Content-type': 'application/json', }
                     }).then((response) => {
@@ -152,7 +152,7 @@ const app = new Vue({
                             if(responsedata.previous_location != null){
                                 location.href = responsedata.previous_location;
                             }else{
-                                location.href = "wizard.php";
+                                location.href = "wizard";
                             }
                         }else{
                             this.loading = false;

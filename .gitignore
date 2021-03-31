@@ -4,3 +4,5 @@
 .DS_Store
 build/
 nbproject/
+shared/web/config.json
+shared/web/lumen/data/config.json

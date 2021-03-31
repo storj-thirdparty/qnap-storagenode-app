@@ -23,7 +23,13 @@ class WizardController extends Controller {
         $loginMode = json_decode(file_get_contents(base_path('data/logindata.json')), TRUE);
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
         $configFile = "${configBase}/config.json";
-        //TO DO Login redirect if the mode is on   
+        
+        //Login redirect if the mode is on 
+        if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true") {
+            $previous_location = $request->path();
+            setcookie("previous_location", $previous_location, strtotime('+7 days'), "/"); // 86400 = 1 day
+            return redirect('login');
+        }
         if (file_exists($configFile)) {
             $content = file_get_contents($configFile);
             $prop = json_decode($content, true);
