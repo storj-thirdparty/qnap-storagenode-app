@@ -17,7 +17,8 @@ then
     exit 1
 fi
 
-export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
+#export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
+export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 IPADDR=$(ip -4 -o addr show eth0 | awk '{print $4}' | cut -d "/" -f 1)
 PORTADDR=$(sed -e 's#.*:\(\)#\1#' <<< "${1}")
 CONTAINER_NAME=storjlabsSnContainer

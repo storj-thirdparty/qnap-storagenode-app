@@ -7,7 +7,8 @@ function setupEnv() {
 }
 setupEnv 
 
-export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
+#export PATH=$PATH:${SYS_QPKG_INSTALL_PATH}/container-station/bin
+export PATH=$PATH:/share/CACHEDEV1_DATA/.qpkg/container-station/bin
 CONTAINER_NAME=storjlabsSnContainer
 LOG=$LOGFILE
 echo "$(date)" "Storagenode(${CONTAINER_NAME}) being stopped " >> "$LOG"
