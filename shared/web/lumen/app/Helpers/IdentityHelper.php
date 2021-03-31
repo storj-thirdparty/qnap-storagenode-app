@@ -58,7 +58,7 @@ class IdentityHelper {
             return False;
         }
         $Path = $data["Identity"] . "/storagenode";
-        return validatePathExistence($Path);
+        return $this->validatePathExistence($Path);
     }
 
     public function validatePathExistence($Path) {
@@ -111,13 +111,13 @@ class IdentityHelper {
     public function updateConfig($dataNew, $filePath) {
         $data = loadConfig($filePath);
         $data = array_merge($data, $dataNew);
-        storeConfig($data, $filePath);
+        $this->storeConfig($data, $filePath);
     }
 
     public function updateConfigKey($key, $value, $filePath) {
         $data = loadConfig($filePath);
         $data[$key] = $value;
-        storeConfig($data, $filePath);
+        $this->storeConfig($data, $filePath);
     }
 
 }
