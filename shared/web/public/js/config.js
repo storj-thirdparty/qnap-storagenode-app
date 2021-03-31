@@ -118,7 +118,7 @@ jQuery(function () {
 
         setInterval(function () {
             readidentitystatus();
-        }, 60000);
+        }, 15 * 60 * 1000);
 
     }
 
