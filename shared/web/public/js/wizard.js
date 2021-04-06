@@ -249,7 +249,7 @@ const app = new Vue({
 			location.href = "config";
 		},
 		async createidentifyToken() {
-			const {data} = await axios.post("getidentity", {
+			const {data} = await axios.post("identity.php", {
 				authkey: this.authkey,
 				identity: this.identity,
 			});
@@ -261,7 +261,7 @@ const app = new Vue({
 			}
     	},
     	async updateLog() {
-			const {data} = await axios.post("getidentity", {
+			const {data} = await axios.post("identity.php", {
 				status: true
 			});
 
@@ -269,7 +269,7 @@ const app = new Vue({
 		},
 		async processCheck() {
 			this.identityStep++;
-			const {data} = await axios.post("getidentity", {
+			const {data} = await axios.post("identity.php", {
 				identityCreationProcessCheck: true
 			});
 
