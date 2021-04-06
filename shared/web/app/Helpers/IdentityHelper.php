@@ -44,7 +44,7 @@ class IdentityHelper {
     public function checkIdentityFileExistence($data) {
         // Checking file if exist or not.
         $identityFilePath = $data["Identity"] . "/storagenode/identity.key";
-        if (validateExistence($data)) {
+        if ($this->validateExistence($data)) {
             $this->logMessage("(file_exist) File $identityFilePath and others already exist !");
             echo "0";   # NORMAL
         } else {
@@ -109,13 +109,13 @@ class IdentityHelper {
     }
 
     public function updateConfig($dataNew, $filePath) {
-        $data = loadConfig($filePath);
+        $data = $this->loadConfig($filePath);
         $data = array_merge($data, $dataNew);
         $this->storeConfig($data, $filePath);
     }
 
     public function updateConfigKey($key, $value, $filePath) {
-        $data = loadConfig($filePath);
+        $data = $this->loadConfig($filePath);
         $data[$key] = $value;
         $this->storeConfig($data, $filePath);
     }

@@ -105,7 +105,7 @@ jQuery(function () {
             success: (result) => {
                 var str1 = result;
                 var str2 = "identity available";
-                if(str1.indexOf(str2) != -1) {
+                if (result === "identity available at /root/.local/share/storj/identity") {
                     $("#identity_status").html("<b>" + result + "</b>");
                     identitydataval = 1;
                 } else {
@@ -168,6 +168,8 @@ jQuery(function () {
                                 createVal = 1;
                             } else {
                                 $("#identity_status").html("Identity files exist.");
+                                $("#create_identity").attr("disabled", true);
+                                $("#create_identity").css("cursor", "not-allowed");
                                 createVal = 0;
                             }
                         },
@@ -183,8 +185,7 @@ jQuery(function () {
             } else {
                 readidentitystatus();
 
-                $("#create_identity").attr("disabled", true);
-                $("#create_identity").css("cursor", "not-allowed");
+                
                 $("#stop_identity").removeAttr("disabled");
                 $("#stop_identity").css("cursor", "pointer");
             }
