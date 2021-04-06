@@ -23,17 +23,16 @@ class IdentityController extends Controller {
      *
      */
     public function index(Request $request) {
-
-        $platformBase = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-        $moduleBase = $platformBase . dirname(filter_input(INPUT_SERVER, 'PHP_SELF'));
+        //  Set variables
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
-        $scriptsBase = $moduleBase . '/scripts';
+        $scriptsBase = base_path('public/scripts');
         $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
         $logFile = env('IDENTITY_LOG', "share/Public/identity/logs/storj_identity.log");
 
+
         $data = $this->identityHelper->loadConfig("${configBase}/config.json");
-        # Update config json file if updates provided
-        $inputs = $this->identityHelper->loadConfig("php://input");
+        // Update config json file if updates provided
+        $inputs = $request->all();
         if (isset($inputs['authkey']) || isset($inputs['identity'])) {
             // Saving Identity Path and Auth Key in JSON file.
             if (isset($inputs["authkey"])) {
@@ -42,22 +41,22 @@ class IdentityController extends Controller {
             if (isset($inputs["identity"])) {
                 $data['Identity'] = $inputs["identity"];
             }
-            $this->identityHelper->storeConfig($data, "config.json");
+            $this->identityHelper->storeConfig($data, "${configBase}/config.json");
         }
 
         $identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh';
         $Path = $data["Identity"] . "/storagenode";
         $identityFilePath = "${Path}/identity.key";
-        $urlToFetch = "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip";
-        $identitypidFile = $moduleBase . DIRECTORY_SEPARATOR . 'identity.pid';
+        $urlToFetch = env('IDENTITY_URL', "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip");
+        $identitypidFile = "/share/Public/identity/identity.pid";;
 
-        # ------------------------------------------------------------------------
+
 
         $date = Date('Y-m-d H:i:s');
         $output = "";
-        $configFile = "config.json";
+        $configFile = "${configBase}/config.json";
 
-        $inputs = $this->identityHelper->loadConfig("php://input");
+        $inputs = $request->all();
 
 
         $this->identityHelper->logMessage("================== identity.php invoked ================== ");
@@ -113,12 +112,12 @@ class IdentityController extends Controller {
 
             $this->identityHelper->logMessage("Invoked identity generation program ($identityGenScriptPath) ");
             echo $lastline;
-        } else if (filter_input(INPUT_POST, 'status') || isset($inputs['status'])) {
+        } else if (isset($inputs['status'])) {
             $this->identityHelper->logMessage("Identity php called for fetching STATUS!");
-
+            $data['LogFilePath'] = $logFile;
+            $data['idGenStartTime'] = $date;
             $file = $data['LogFilePath'];
-
-            $pid = file_get_contents($identitypidFile);
+            $pid = file_get_contents("$identitypidFile");
             $prgStartTime = $data['idGenStartTime'];
             $file = escapeshellarg($file);
             $lastline = `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 `;
@@ -132,10 +131,11 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("identity available at ${identityFilePath}");
                 echo "identity available at ${identityFilePath}";
             } else {
-                $data = $this->identityHelper->loadConfig("/share/Public/storagenode.conf/config.json");
+                $data = $this->identityHelper->loadConfig($configFile);
+                $data['idGenStartTime'] = $date;
                 $lastline = preg_replace('/\n$/', '', $lastline);
                 $this->identityHelper->logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
-                echo "Identity generation STATUS a($date):<BR> " .
+                echo "Identity generation STATUS($date):<BR> " .
                 "Process ID: $pid , " .
                 "Started at: " . $data['idGenStartTime'] . "<BR>" . $lastline;
                 ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
