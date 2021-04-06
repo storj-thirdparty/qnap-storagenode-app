@@ -48,7 +48,7 @@ class IdentityController extends Controller {
         $Path = $data["Identity"] . "/storagenode";
         $identityFilePath = "${Path}/identity.key";
         $urlToFetch = env('IDENTITY_URL', "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip");
-        $identitypidFile = "/share/Public/identity/identity.pid";;
+        $identitypidFile = base_path('public/identity.pid');
 
 
 
@@ -117,7 +117,7 @@ class IdentityController extends Controller {
             $data['LogFilePath'] = $logFile;
             $data['idGenStartTime'] = $date;
             $file = $data['LogFilePath'];
-            $pid = file_get_contents("$identitypidFile");
+            $pid = file_get_contents("identity.pid");
             $prgStartTime = $data['idGenStartTime'];
             $file = escapeshellarg($file);
             $lastline = `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 `;

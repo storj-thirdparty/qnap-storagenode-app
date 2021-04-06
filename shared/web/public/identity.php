@@ -17,7 +17,7 @@
 		// Saving Identity Path and Auth Key in JSON file.
 		if(isset($inputs["authkey"])) { $data['AuthKey'] = $inputs["authkey"]; }
 		if(isset($inputs["identity"])) { $data['Identity'] = $inputs["identity"]; }
-		storeConfig($data, "config.json");
+		storeConfig($data, "${configBase}/config.json");
 	}
 
 	$identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh' ;
@@ -30,7 +30,7 @@
 
 	$date = Date('Y-m-d H:i:s');
 	$output = "" ;
-	$configFile = "config.json";
+	$configFile = "${configBase}/config.json";
 
 	$inputs = loadConfig("php://input");
 
@@ -93,7 +93,8 @@
 		logMessage("Identity php called for fetching STATUS!");
 
 		$file = $data['LogFilePath'];
-		$pid = file_get_contents("identity.pid");
+               
+		$pid = file_get_contents($identitypidFile);
 		$prgStartTime = $data['idGenStartTime'] ;
 		$file = escapeshellarg($file);
 		$lastline =  `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 ` ;
@@ -107,13 +108,13 @@
 			logMessage("identity available at ${identityFilePath}");
 			echo "identity available at ${identityFilePath}" ;
 		}else{
-                        $data = loadConfig("config.json");
+                        $data = loadConfig("${configBase}/config.json");
 			$lastline = preg_replace('/\n$/', '', $lastline);
 			logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
-			echo "Identity generation STATUS($date):<BR> " .
+			echo "Identity generation STATUS a($date):<BR> " .
 			"Process ID: $pid , " .
 			"Started at: ". $data['idGenStartTime'] ."<BR>" . $lastline ;
-                        ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
+                        ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
 		}
 
 	}
@@ -167,7 +168,7 @@
 
 		logMessage("Invoked identity generation program ($identityGenScriptPath) ");
 		echo "<b>Identity creation process is starting.</b><br>";
-                ?><div style="text-align: center"><img src="resources/img/spinner.gif"></div><?php
+                ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
 		echo $lastline;
 
 	}

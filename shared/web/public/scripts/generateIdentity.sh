@@ -39,7 +39,7 @@ keyBase="$2"
 identityLogFile="${identityBase}"/logs/storj_identity.log
 identityDirPath="${keyBase}"/storagenode
 identityBinary="${identityBase}".bin/identity
-identityPidFile="${identityBase}"/identity.pid
+identityPidFile="${identityPidFileDir}"/identity.pid
 identityKey="${keyBase}"/storagenode/identity.key
 if [[ -f $identityKey ]] 
 then
