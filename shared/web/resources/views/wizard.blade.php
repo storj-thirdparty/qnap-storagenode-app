@@ -9,7 +9,7 @@
 
             <div v-bind:class="stepClass">
 
-                <a href="config.php" v-if="step > 1"><i class="fa fa-home homeicon"></i></a>
+                <a href="{{ url('config') }}" v-if="step > 1"><i class="fa fa-home homeicon"></i></a>
                 <img class="back" src="{{ url('img/icon-wizard-back.svg') }}" alt="Back" v-if="step > 1 && (step !== 7 || identityStep === 1)" v-on:click="step--">
                 <img class="back" src="{{ url('img/icon-wizard-back.svg') }}" alt="Back" v-else-if="identityStep > 1" v-on:click="identityStep--">
 

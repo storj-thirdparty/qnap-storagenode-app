@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\IdentityHelper;
+use Symfony\Component\Process\Process;
 
 class IdentityController extends Controller {
     /* $identityHelper IdentityHelper */
@@ -23,16 +24,17 @@ class IdentityController extends Controller {
      *
      */
     public function index(Request $request) {
+
         //  Set variables
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
         $scriptsBase = base_path('public/scripts');
         $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
         $logFile = env('IDENTITY_LOG', "share/Public/identity/logs/storj_identity.log");
-
-
         $data = $this->identityHelper->loadConfig("${configBase}/config.json");
+
         // Update config json file if updates provided
         $inputs = $request->all();
+        
         if (isset($inputs['authkey']) || isset($inputs['identity'])) {
             // Saving Identity Path and Auth Key in JSON file.
             if (isset($inputs["authkey"])) {
@@ -44,24 +46,20 @@ class IdentityController extends Controller {
             $this->identityHelper->storeConfig($data, "${configBase}/config.json");
         }
 
-        $identityGenScriptPath = $scriptsBase . DIRECTORY_SEPARATOR . 'generateIdentity.sh';
+
+        $identityGenScriptPath = base_path('public/scripts/generateIdentity.sh');
         $Path = $data["Identity"] . "/storagenode";
         $identityFilePath = "${Path}/identity.key";
         $urlToFetch = env('IDENTITY_URL', "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip");
         $identitypidFile = base_path('public/identity.pid');
-
-
-
         $date = Date('Y-m-d H:i:s');
         $output = "";
         $configFile = "${configBase}/config.json";
-
         $inputs = $request->all();
 
 
-        $this->identityHelper->logMessage("================== identity.php invoked ================== ");
-        if (filter_input(INPUT_POST, 'createidval')) {
-
+        $this->identityHelper->logMessage("================== Identity Controller invoked ================== ");
+        if (isset($inputs['createidval'])) {
             $this->identityHelper->logMessage("Identity php called for creation purpose identityString : " . filter_input(INPUT_POST, 'identityString'));
             if ($this->identityHelper->checkIdentityProcessRunning($identitypidFile) == true) {
                 $this->identityHelper->logMessage("Identity process is already running!!\n");
@@ -70,10 +68,10 @@ class IdentityController extends Controller {
             } else {
                 $this->identityHelper->logMessage("Identity process not found running, STARTING a new one!!\n");
             }
+            
             // Saving Identity Path and Auth Key in JSON file.
-
-            $data['AuthKey'] = filter_input(INPUT_POST, 'identityString');
-            $data['Identity'] = filter_input(INPUT_POST, 'identitypath');
+            $data['AuthKey'] = $inputs['identityString'];
+            $data['Identity'] = $inputs['identitypath'];
             $this->identityHelper->storeConfig($data, $configFile);
 
             if ($this->identityHelper->identityExists($data) && $this->identityHelper->validateExistence($data)) {
@@ -84,24 +82,29 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("Identity Key doesn't exists. Going to start identity generation ");
             }
 
-            if (!filter_input(INPUT_POST, 'identityString')) {
+            if (!isset($inputs['identityString'])) {
                 $this->identityHelper->logMessage("Identity String not provided");
                 echo "Identity String not provided";
                 return;
             }
 
-            $identityString = filter_input(INPUT_POST, 'identityString');
+            $identityString = $inputs['identityString'];
             $this->identityHelper->logMessage("value of identityString($identityString)");
-            $identityPath = filter_input(INPUT_POST, 'identitypath');
+            $identityPath = $inputs['identitypath'];
             $this->identityHelper->logMessage("value of identityPath($identityPath)");
 
-            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile}.a 2>&1 & ";
+            $cmd = "$identityGenScriptPath $identityString $identityPath 2>&1 ";
 
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
-            exec($cmd, $output);
-            $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
 
+            $process = new Process([$identityGenScriptPath, '--option', $identityString, $identityPath, ' &']);
+            $process->disableOutput();
+            $process->start();
+            $pid = $process->getPid();
+            file_put_contents($identitypidFile, $pid);
+
+            $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $data['LogFilePath'] = $logFile;
             $data['idGenStartTime'] = $programStartTime;
             $this->identityHelper->updateConfig($data, $configFile);
@@ -117,7 +120,7 @@ class IdentityController extends Controller {
             $data['LogFilePath'] = $logFile;
             $data['idGenStartTime'] = $date;
             $file = $data['LogFilePath'];
-            $pid = file_get_contents("identity.pid");
+            $pid = file_get_contents($identitypidFile);
             $prgStartTime = $data['idGenStartTime'];
             $file = escapeshellarg($file);
             $lastline = `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 `;
@@ -169,14 +172,18 @@ class IdentityController extends Controller {
             } else {
                 $this->identityHelper->logMessage("Identity process not found running, STARTING a new one!!\n");
             }
-
-            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile}.a 2>&1 & ";
-
+            
+            $cmd = "$identityGenScriptPath $identityString $identityPath 2>&1 ";
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
-            exec($cmd, $output);
-            $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
+            
+            $process = new Process([$identityGenScriptPath, '--option', $identityString, $identityPath, ' &']);
+            $process->disableOutput();
+            $process->start();
+            $pid = $process->getPid();
+            file_put_contents($identitypidFile, $pid);
 
+            $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $jsonString = file_get_contents($configFile);
             $data = json_decode($jsonString, true);
             $data['LogFilePath'] = $logFile;
@@ -194,10 +201,10 @@ class IdentityController extends Controller {
             echo $lastline;
         } else if (isset($data['identityCreationProcessCheck'])) {
             echo $this->identityHelper->checkIdentityProcessRunning($identitypidFile) ? "true" : "false";
-        } else if (filter_input(INPUT_POST, 'fileexist')) {
+        } else if (isset($inputs['fileexist'])) {
             $this->identityHelper->logMessage("Identity php called for finding file existence");
             $this->identityHelper->checkIdentityFileExistence($data);
-        } else if (filter_input(INPUT_POST, 'isstopAjax') && filter_input(INPUT_POST, 'isstopAjax')) {
+        } else if (isset($inputs['isstopAjax'])) {
             // Stop Identity
             $this->identityHelper->killIdentityProcess($identitypidFile);
             exec("echo > $logFile ");

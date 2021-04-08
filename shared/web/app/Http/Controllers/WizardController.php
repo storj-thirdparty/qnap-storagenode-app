@@ -5,25 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class WizardController extends Controller {
-
-    /**
-     * WizardController constructor.
-     *
-     */
-    public function __construct() {
-        
-    }
-
-    /**
+    /*
      * Render the wizard page.
-     *
      */
+
     public function index(Request $request) {
         $authPass = $request->cookie('authPass');
         $loginMode = json_decode(file_get_contents(base_path('data/logindata.json')), TRUE);
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
         $configFile = "${configBase}/config.json";
-        
+
         //Login redirect if the mode is on 
         if ((is_null($authPass) || $authPass == "0") && $loginMode['mode'] == "true") {
             $previous_location = $request->path();
@@ -33,17 +24,17 @@ class WizardController extends Controller {
         if (file_exists($configFile)) {
             $content = file_get_contents($configFile);
             $prop = json_decode($content, true);
-        }else{
+        } else {
             $prop = [];
         }
         return view('wizard', compact('authPass', 'loginMode', 'prop'));
     }
 
-    /**
+    /*
      * Call for the list of directory
-     * 
      * Return list of directories
      */
+
     public function getDirectoryListing(Request $request) {
         $data = $request->request->get('data');
         $arr = array();
@@ -82,10 +73,10 @@ class WizardController extends Controller {
         echo json_encode($arr);
     }
 
-    /**
+    /*
      * Save the Config Data
-     * 
      */
+
     public function saveConfig(Request $request) {
         $data = $request->all();
         $email = $data['email'];

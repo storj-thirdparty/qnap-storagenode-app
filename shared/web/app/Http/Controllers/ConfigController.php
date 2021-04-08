@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ConfigController extends Controller {
-
-    /**
-     * ConfigController constructor.
-     *
-     */
-    public function __construct() {
-        
-    }
-
-    /**
+    /*
      * Render the config page.
-     *
      */
+
     public function index(Request $request) {
         $authPass = $request->cookie('authPass');
         $loginMode = json_decode(file_get_contents(base_path('data/logindata.json')), TRUE);
@@ -46,17 +39,17 @@ class ConfigController extends Controller {
         $url = "http://{$_SERVER['SERVER_NAME']}${port}";
         $escaped_url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
         $dashboardurl = $escaped_url;
-        
+
         $versionStorj = base_path('public/scripts/versionStorj.sh');
-        $storjnodeversion = shell_exec("$versionStorj");
-        
-        return view('config', compact('authPass', 'loginMode', 'prop','dashboardurl','storjnodeversion'));
+        $storjnodeversion = $this->processShellscript($versionStorj);
+
+        return view('config', compact('authPass', 'loginMode', 'prop', 'dashboardurl', 'storjnodeversion'));
     }
 
-    /**
+    /*
      * Save the Config Data
-     * 
      */
+
     public function saveConfig(Request $request) {
         $data = $request->all();
         $email = $data['email'];
@@ -84,26 +77,26 @@ class ConfigController extends Controller {
         return true;
     }
 
-    /**
+    /*
      * Call for the checkRunningnode
-     * 
      * Check if the node is running or not
      */
+
     public function checkRunningnode(Request $request) {
         $data = $request->all();
         if (isset($data['isrun']) && $data['isrun'] == 1) {
             $isRunning = base_path('public/scripts/isRunning.sh');
-            $output = shell_exec("/bin/bash $isRunning ");
+            $output = $this->processShellscript($isRunning);
             $this->logMessage("Run status of container is $output ");
             echo $output;
         }
     }
 
-    /**
+    /*
      * Call for the isstartajax
-     * 
      * log if the config called with isstartajax
      */
+
     public function isstartajax(Request $request) {
         $data = $request->all();
         if (isset($data['isstartajax']) && $data['isstartajax'] == 1) {
@@ -122,11 +115,11 @@ class ConfigController extends Controller {
         }
     }
 
-    /**
+    /*
      * Call for the stopNode
-     * 
      * Stopnode with shell script
      */
+
     public function stopNode(Request $request) {
         $data = $request->all();
 
@@ -138,7 +131,7 @@ class ConfigController extends Controller {
             $properties = json_decode($content, true);
 
             $this->logMessage("config called up with isStopAjax 1 ");
-            $output = shell_exec("bash $stopScript 2>&1 ");
+            $output = $this->processShellscript("$stopScript 2>&1 ");
 
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
@@ -146,11 +139,11 @@ class ConfigController extends Controller {
         }
     }
 
-    /**
+    /*
      * Call for the Startnode
-     * 
      * Starnode node wit shell script
      */
+
     public function startNode(Request $request) {
         $data = $request->all();
         if (isset($data['isajax']) && $data['isajax'] == 1) {
@@ -178,7 +171,7 @@ class ConfigController extends Controller {
                 'Directory' => "$_directory"
             );
             file_put_contents($file, json_encode($properties));
-            $output = shell_exec("/bin/bash $startScript $_address $_wallet $_storage $_identity_directory/storagenode $_directory $_emailId 2>&1 ");
+            $output = $this->processShellscript("$startScript $_address $_wallet $_storage $_identity_directory/storagenode $_directory $_emailId 2>&1 ");
 
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
@@ -186,11 +179,11 @@ class ConfigController extends Controller {
         }
     }
 
-    /**
+    /*
      * Call for the updateNode
-     * 
-     * updateNode node wit shell script
+     * updateNode node with shell script
      */
+
     public function updateNode(Request $request) {
         $data = $request->all();
         if (isset($data['isUpdateAjax']) && $data['isUpdateAjax'] == 1) {
@@ -220,7 +213,7 @@ class ConfigController extends Controller {
 
             $this->logMessage("config called up with isUpdateAjax 1 ");
             $server_address = filter_input(INPUT_SERVER, 'SERVER_ADDR');
-            $output = shell_exec("/bin/bash $updateScript $file $_address $_wallet $_storage $_identity_directory $_directory $server_address $_emailId 2>&1 ");
+            $output = $this->processShellscript("$updateScript $file $_address $_wallet $_storage $_identity_directory $_directory $server_address $_emailId 2>&1 ");
 
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
@@ -228,11 +221,11 @@ class ConfigController extends Controller {
         }
     }
 
-    /**
+    /*
      * Call for the setAuthswitch
-     * 
      * set the data in the login.json file
      */
+
     public function setAuthswitch(Request $request) {
         $data = $request->all();
         $mode = $data['mode'];
@@ -240,10 +233,20 @@ class ConfigController extends Controller {
         echo json_encode($data);
     }
 
-    /**
-     * log message
-     * 
+    /*
+     * Process Shell Script with Process Class
      */
+
+    public function processShellscript($cmd) {
+        $process = new Process([$cmd]);
+        $process->run();
+        return $process->getOutput();
+    }
+
+    /*
+     * log message
+     */
+
     public function logMessage($message = "") {
         $file = env('CENTRAL_LOG_DIR', "/var/log/STORJ");
         $message = preg_replace('/\n$/', '', $message);
@@ -252,10 +255,10 @@ class ConfigController extends Controller {
         file_put_contents($file, $timestamp . $message . "\n", FILE_APPEND);
     }
 
-    /**
+    /*
      * log message
-     * 
      */
+
     public function logEnvironment() {
         global $_ENV;
         $this->logMessage(

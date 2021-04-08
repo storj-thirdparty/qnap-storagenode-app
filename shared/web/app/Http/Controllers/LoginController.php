@@ -5,19 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller {
-
-    /**
+    /*
      * Render the login Page.
-     *
      */
+
     public function index(Request $request) {
         return view('login');
     }
 
-    /**
+    /*
      * Authenticate with QNAP username and password through API.
-     *
      */
+
     public function authenticate(Request $request) {
         $data = $request->all();
         $cURLConnection = curl_init();

@@ -80,7 +80,7 @@ jQuery(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "identity.php",
+            url: "getidentity",
             data: {
                 createidval,
                 identitypath,
@@ -96,11 +96,11 @@ jQuery(function () {
     }
 
 
-// Read status from identity.php file.
+// Read status from getidentity file.
     function readidentitystatus() {
         jQuery.ajax({
             type: "POST",
-            url: "identity.php",
+            url: "getidentity",
             data: {status: "status", },
             success: (result) => {
                 var str1 = result;
@@ -125,7 +125,7 @@ jQuery(function () {
 
 
     jQuery("#stop_identity").click(function () {
-        var stopprocess1 = new Stopprocess("identity.php");
+        var stopprocess1 = new Stopprocess("getidentity");
     });
 
     $("#identity_path").change(function () {
@@ -160,7 +160,7 @@ jQuery(function () {
                 if (fileexists === "1") {
                     jQuery.ajax({
                         type: "POST",
-                        url: "identity.php",
+                        url: "getidentity",
                         data: {fileexist: "file_exist"},
                         success: (result) => {
                             if (result === "1") {
