@@ -41,7 +41,12 @@ class ConfigController extends Controller {
         $dashboardurl = $escaped_url;
 
         $versionStorj = base_path('public/scripts/versionStorj.sh');
-        $storjnodeversion = $this->processShellscript($versionStorj);
+        $process = new Process([$versionStorj]);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+        $storjnodeversion = $process->getOutput();
 
         return view('config', compact('authPass', 'loginMode', 'prop', 'dashboardurl', 'storjnodeversion'));
     }
@@ -86,7 +91,12 @@ class ConfigController extends Controller {
         $data = $request->all();
         if (isset($data['isrun']) && $data['isrun'] == 1) {
             $isRunning = base_path('public/scripts/isRunning.sh');
-            $output = $this->processShellscript($isRunning);
+            $process = new Process([$isRunning]);
+            $process->run();
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $output = $process->getOutput();
             $this->logMessage("Run status of container is $output ");
             echo $output;
         }
@@ -131,8 +141,13 @@ class ConfigController extends Controller {
             $properties = json_decode($content, true);
 
             $this->logMessage("config called up with isStopAjax 1 ");
-            $output = $this->processShellscript("$stopScript 2>&1 ");
 
+            $process = new Process([$stopScript]);
+            $process->run();
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $output = $process->getOutput();
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
             file_put_contents($file, json_encode($properties));
@@ -171,7 +186,13 @@ class ConfigController extends Controller {
                 'Directory' => "$_directory"
             );
             file_put_contents($file, json_encode($properties));
-            $output = $this->processShellscript("$startScript $_address $_wallet $_storage $_identity_directory/storagenode $_directory $_emailId 2>&1 ");
+
+            $process = new Process([$startScript, $_address, $_wallet, $_storage, "$_identity_directory/storagenode", $_directory, $_emailId, '2>&1']);
+            $process->run();
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $output = $process->getOutput();
 
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
@@ -213,7 +234,12 @@ class ConfigController extends Controller {
 
             $this->logMessage("config called up with isUpdateAjax 1 ");
             $server_address = filter_input(INPUT_SERVER, 'SERVER_ADDR');
-            $output = $this->processShellscript("$updateScript $file $_address $_wallet $_storage $_identity_directory $_directory $server_address $_emailId 2>&1 ");
+            $process = new Process([$updateScript, $file, $_address, $_wallet, $_storage, "$_identity_directory/storagenode", $_directory, $server_address, $_emailId, ' 2>&1']);
+            $process->run();
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $output = $process->getOutput();
 
             /* Update File again with Log value as well */
             $properties['last_log'] = $output;
@@ -231,16 +257,6 @@ class ConfigController extends Controller {
         $mode = $data['mode'];
         file_put_contents(base_path('data/logindata.json'), json_encode($_POST));
         echo json_encode($data);
-    }
-
-    /*
-     * Process Shell Script with Process Class
-     */
-
-    public function processShellscript($cmd) {
-        $process = new Process([$cmd]);
-        $process->run();
-        return $process->getOutput();
     }
 
     /*

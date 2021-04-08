@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\IdentityHelper;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class IdentityController extends Controller {
     /* $identityHelper IdentityHelper */
@@ -29,7 +30,7 @@ class IdentityController extends Controller {
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
         $scriptsBase = base_path('public/scripts');
         $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
-        $logFile = env('IDENTITY_LOG', "share/Public/identity/logs/storj_identity.log");
+        $logFile = env('IDENTITY_LOG', "/share/Public/identity/logs/storj_identity.log");
         $data = $this->identityHelper->loadConfig("${configBase}/config.json");
 
         // Update config json file if updates provided
@@ -98,11 +99,17 @@ class IdentityController extends Controller {
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
 
-            $process = new Process([$identityGenScriptPath, '--option', $identityString, $identityPath, ' &']);
-            $process->disableOutput();
-            $process->start();
+            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, " &"]);
+            //$process->disableOutput();
+            $process->run();
             $pid = $process->getPid();
-            file_put_contents($identitypidFile, $pid);
+            
+             if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $processoutput = $process->getOutput();
+            
+            var_dump($processoutput);exit;
 
             $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $data['LogFilePath'] = $logFile;
@@ -173,16 +180,22 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("Identity process not found running, STARTING a new one!!\n");
             }
             
-            $cmd = "$identityGenScriptPath $identityString $identityPath 2>&1 ";
+            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} 2>&1 & "; 
+            
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
             
-            $process = new Process([$identityGenScriptPath, '--option', $identityString, $identityPath, ' &']);
-            $process->disableOutput();
-            $process->start();
+            
+            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, " &"]);
+            //$process->disableOutput();
+            $process->run();
             $pid = $process->getPid();
-            file_put_contents($identitypidFile, $pid);
-
+            
+             if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            $processoutput = $process->getOutput();
+            var_dump($processoutput);exit;
             $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $jsonString = file_get_contents($configFile);
             $data = json_decode($jsonString, true);
