@@ -58,7 +58,6 @@ class IdentityController extends Controller {
         $configFile = "${configBase}/config.json";
         $inputs = $request->all();
 
-
         $this->identityHelper->logMessage("================== Identity Controller invoked ================== ");
         if (isset($inputs['createidval'])) {
             $this->identityHelper->logMessage("Identity php called for creation purpose identityString : " . filter_input(INPUT_POST, 'identityString'));
@@ -94,22 +93,15 @@ class IdentityController extends Controller {
             $identityPath = $inputs['identitypath'];
             $this->identityHelper->logMessage("value of identityPath($identityPath)");
 
-            $cmd = "$identityGenScriptPath $identityString $identityPath 2>&1 ";
-
+            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} 2>&1 & "; 
+            
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
-
-            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, " &"]);
+            
+            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
             //$process->disableOutput();
+            $process->setTimeout(36000000);
             $process->run();
-            $pid = $process->getPid();
-            
-             if (!$process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
-            $processoutput = $process->getOutput();
-            
-            var_dump($processoutput);exit;
 
             $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $data['LogFilePath'] = $logFile;
@@ -127,8 +119,6 @@ class IdentityController extends Controller {
             $data['LogFilePath'] = $logFile;
             $data['idGenStartTime'] = $date;
             $file = $data['LogFilePath'];
-            $pid = file_get_contents($identitypidFile);
-            $prgStartTime = $data['idGenStartTime'];
             $file = escapeshellarg($file);
             $lastline = `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 `;
 
@@ -141,14 +131,23 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("identity available at ${identityFilePath}");
                 echo "identity available at ${identityFilePath}";
             } else {
-                $data = $this->identityHelper->loadConfig($configFile);
-                $data['idGenStartTime'] = $date;
-                $lastline = preg_replace('/\n$/', '', $lastline);
-                $this->identityHelper->logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
-                echo "Identity generation STATUS($date):<BR> " .
-                "Process ID: $pid , " .
-                "Started at: " . $data['idGenStartTime'] . "<BR>" . $lastline;
-                ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
+                if(file_exists($identitypidFile)){
+                    
+                    $pid = file_get_contents($identitypidFile);
+                    $prgStartTime = $data['idGenStartTime'];
+                    $data = $this->identityHelper->loadConfig($configFile);
+                    $data['idGenStartTime'] = $date;
+                    $lastline = preg_replace('/\n$/', '', $lastline);
+                    $this->identityHelper->logMessage("STATUS: Identity generation in progress (LOG: $lastline)");
+                    echo "Identity generation STATUS($date):<BR> " .
+                    "Process ID: $pid , " .
+                    "Started at: " . $data['idGenStartTime'] . "<BR>" . $lastline;
+                    ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
+                }else{
+                    $this->identityHelper->logMessage("STATUS: Identity doesn't exists ! returning message");
+                    echo "The identity files don't exist at the path selected. Please create identity or copy the identity folder at the given path.";
+                }
+               
             }
         } else if (isset($inputs['authkey']) || isset($inputs['identity'])) {
             $authkey = $inputs["authkey"];
@@ -180,22 +179,17 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("Identity process not found running, STARTING a new one!!\n");
             }
             
-            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} 2>&1 & "; 
+            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} & "; 
             
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
             
-            
-            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, " &"]);
+            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
             //$process->disableOutput();
+            $process->setTimeout(36000000);
             $process->run();
-            $pid = $process->getPid();
             
-             if (!$process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
-            $processoutput = $process->getOutput();
-            var_dump($processoutput);exit;
+           
             $this->identityHelper->logMessage("Launched command (@ $programStartTime) ");
             $jsonString = file_get_contents($configFile);
             $data = json_decode($jsonString, true);
@@ -212,6 +206,9 @@ class IdentityController extends Controller {
             echo "<b>Identity creation process is starting.</b><br>";
             ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
             echo $lastline;
+            
+            
+            
         } else if (isset($data['identityCreationProcessCheck'])) {
             echo $this->identityHelper->checkIdentityProcessRunning($identitypidFile) ? "true" : "false";
         } else if (isset($inputs['fileexist'])) {

@@ -215,7 +215,7 @@ const app = new Vue({
 		async generateIdentity() {
 			this.identityStep++;
 			this.createidentifyToken();
-			setInterval(() => this.updateLog(), 5 * 60 * 1000);
+			setInterval(() => this.updateLog(), 3 * 60 * 1000);
 		},
                 setDirectory(selected) {
                     if (selected != "outside") {
@@ -249,6 +249,7 @@ const app = new Vue({
 			location.href = "config";
 		},
 		async createidentifyToken() {
+                        this.message = "<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>" ;
 			const {data} = await axios.post("getidentity", {
 				authkey: this.authkey,
 				identity: this.identity,
@@ -257,6 +258,7 @@ const app = new Vue({
 			this.message = data;
 
 			if(data !== "Identity Key File and others already available"){
+                                this.message = '';
 				this.message = "<p>"+data+"</p>";
 			}
     	},

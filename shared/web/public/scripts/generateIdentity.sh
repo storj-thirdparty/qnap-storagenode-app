@@ -41,6 +41,9 @@ identityDirPath="${keyBase}"/storagenode
 identityBinary="${identityBase}".bin/identity
 identityPidFile="${identityPidFileDir}"/identity.pid
 identityKey="${keyBase}"/storagenode/identity.key
+
+chmod -R 777 ${identityLogFile}
+chmod -R 777 ${identityDirPath}
 if [[ -f $identityKey ]] 
 then
     logMessage "Identity key $identityKey already exists" 

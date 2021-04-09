@@ -77,7 +77,7 @@ jQuery(function () {
 
     // Create identity.
     function createidentifyToken(createidval, identitypath) {
-
+        
         jQuery.ajax({
             type: "POST",
             url: "getidentity",
@@ -105,8 +105,11 @@ jQuery(function () {
             success: (result) => {
                 var str1 = result;
                 var str2 = "identity available";
-                if (result === "identity available at /root/.local/share/storj/identity") {
+                var str3 = "The identity files don't exist";
+                if (str1.indexOf(str2) != -1 || str1.indexOf(str3) != -1) {
                     $("#identity_status").html("<b>" + result + "</b>");
+                    $("#stop_identity").attr("disabled", "disabled");
+                    $("#stop_identity").css("cursor", "not-allowed");
                     identitydataval = 1;
                 } else {
                     $("#identity_status").html("<b>Identity creation process is running.</b><br><p>" + result + "</p>");
@@ -118,7 +121,7 @@ jQuery(function () {
 
         setInterval(function () {
             readidentitystatus();
-        }, 5 * 60 * 1000);
+        }, 3 * 60 * 1000);
 
     }
 
@@ -184,8 +187,8 @@ jQuery(function () {
                 }
             } else {
                 readidentitystatus();
-
-                
+                $("#create_identity").attr("disabled", true);
+                $("#create_identity").css("cursor", "not-allowed");
                 $("#stop_identity").removeAttr("disabled");
                 $("#stop_identity").css("cursor", "pointer");
             }
@@ -357,8 +360,10 @@ jQuery(function () {
         var identity1 = new Identity();
 
         if (createVal === 1) {
+            $("#identity_status").html("<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>");
             createidentifyToken(identitydata, identitypath);
             readidentitystatus();
+            window.location.reload();
         }
 
     });
