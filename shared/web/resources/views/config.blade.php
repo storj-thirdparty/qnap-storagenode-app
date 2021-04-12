@@ -80,6 +80,7 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                     <div class="col">
                         <button type="button" id="startbtn" class="btn btn-primary btn-block">Start</button>
                         <button type="button" id="stopbtn" class="btn btn-primary btn-block">Stop</button>
+                        <img src='{{ url('img/spinner.gif') }}' class="start_stop_spinner" style="display: none;">
                     </div>
                 </div>
 
@@ -98,6 +99,7 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-primary btn-block" id="updatebtn">Update Node</button>
+                        <img src='{{ url('img/spinner.gif') }}' class="update_spinner" style="display: none;"> 
                     </div>
                 </div>
             </div>

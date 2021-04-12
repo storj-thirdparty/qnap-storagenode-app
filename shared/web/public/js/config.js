@@ -28,6 +28,8 @@ function Startupdate() {
             $("iframe").contents().find("body").html("<p>" + result + "</p>");
         },
         error: (result) => {
+            jQuery("#startbtn").show()
+            jQuery(".start_stop_spinner").hide()
             // log message
             $("iframe").contents().find("body").html("<p>" + result + "</p>");
         }
@@ -407,14 +409,20 @@ jQuery(function () {
 
 
 jQuery("#startbtn").click(function () {
+    jQuery("#startbtn").hide()
+    jQuery(".start_stop_spinner").show()
     var startupdate = new Startupdate();
 });
 
 jQuery("#stopbtn").click(function () {
+    jQuery("#stopbtn").hide()
+    jQuery(".start_stop_spinner").show()
     var stopprocess = new Stopprocess("stopNode");
 });
 
 jQuery("#updatebtn").click(function () {
+    jQuery("#updatebtn").hide()
+    jQuery(".update_spinner").show() 
     jQuery.ajax({
         type: "POST",
         url: "updateNode",
@@ -423,6 +431,8 @@ jQuery("#updatebtn").click(function () {
             window.location.reload();
         },
         error: () => {
+            jQuery("#updatebtn").show()
+            jQuery(".update_spinner").hide()
         }
     });
 });
