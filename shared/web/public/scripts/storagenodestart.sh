@@ -25,7 +25,7 @@ CONTAINER_NAME=storjlabsSnContainer
 
 echo "$(date)" " Starting Storagenode ${CONTAINER_NAME} ---> " >> "$LOG"
 docker ps -a  >> "$LOG"
-docker run --rm -e SETUP="true"  --mount type=bind,source=${4},destination=/app/identity --mount type=bind,source=${5},destination=/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest
+cmd_run="docker run --rm -e SETUP="true"  --mount type=bind,source=${4},destination=/app/identity --mount type=bind,source=${5},destination=/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest"
 if [[ $# -ge 6 ]]
 then
     cmd="docker run -d --restart unless-stopped --stop-timeout 300 -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e EMAIL=${6} -e ADDRESS=${1} -e STORAGE=${3}GB --mount type=bind,source=${4},destination=/app/identity --mount type=bind,source=${5},destination=/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
@@ -33,6 +33,8 @@ else
     cmd="docker run -d --restart unless-stopped --stop-timeout 300 -p ${PORTADDR}:28967 -p ${IPADDR}:14002:14002 -p ${IPADDR}:9000:9000 -e WALLET=${2} -e ADDRESS=${1} -e STORAGE=${3}GB --mount type=bind,source=${4},destination=/app/identity --mount type=bind,source=${5},destination=/app/config --name ${CONTAINER_NAME} storjlabs/storagenode:latest "
 fi
  
+echo "$cmd_run" >> "$LOG"
+$cmd_run >> "$LOG" 2>&1 
 echo "$cmd" >> "$LOG"
 $cmd >> "$LOG" 2>&1 
 echo "$output" >> "$LOG" 
