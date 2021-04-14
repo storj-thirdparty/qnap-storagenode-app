@@ -173,8 +173,8 @@ jQuery(function () {
                                 createVal = 1;
                             } else {
                                 $("#identity_status").html("Identity files exist.");
-                                $("#create_identity").attr("disabled", true);
-                                $("#create_identity").css("cursor", "not-allowed");
+//                                $("#create_identity").attr("disabled", true);
+//                                $("#create_identity").css("cursor", "not-allowed");
                                 createVal = 0;
                             }
                         },
