@@ -126,7 +126,7 @@
                                     <h1 class="title">Setup Your Identity Path</h1>
 
                                     <p class="tagline">Every Node is required to have an identity on the Storj Network. If you’ve already generated and signed your identity for your QNAP Node, enter the path below and click Finish. If you do not have an identity you’ll need to get an <a href="https://storj.io/sign-up-node-operator/" target="_blank">authorization token</a>.</p>
-
+                                    <p><strong>If you generated a new Identity or changed the Identity path to new path from a previous path, please clean the storage folder or change the path of the storage folder</strong></p>
                                     <div class="form-group text-left mt-4 mb-4">
                                         <label for="identityPath">Identity Path</label>
                                         <div class="input-group">

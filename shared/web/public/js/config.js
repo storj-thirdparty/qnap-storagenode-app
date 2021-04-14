@@ -23,7 +23,7 @@ function Startupdate() {
         url: "startNode",
         data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal, isajax: 1},
         success: (result) => {
-             window.location.reload();
+            window.location.reload();
             // // log message
             $("iframe").contents().find("body").html("<p>" + result + "</p>");
         },
@@ -79,7 +79,7 @@ jQuery(function () {
 
     // Create identity.
     function createidentifyToken(createidval, identitypath) {
-        
+
         jQuery.ajax({
             type: "POST",
             url: "getidentity",
@@ -123,7 +123,7 @@ jQuery(function () {
 
         setInterval(function () {
             readidentitystatus();
-        }, 3 * 60 * 1000);
+        }, 1 * 60 * 1000);
 
     }
 
@@ -359,15 +359,15 @@ jQuery(function () {
         identitypath = jQuery("#identity_path").val();
         identityfile = $("#identityfile").text();
         fileexists = $("#file_exists").text();
-        var identity1 = new Identity();
+        //var identity1 = new Identity();
 
-        if (createVal === 1) {
-            $("#identity_status").html("<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>");
-            createidentifyToken(identitydata, identitypath);
+        $("#identity_status").html("<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>");
+        createidentifyToken(identitydata, identitypath);
+        jQuery("#identity .close").trigger("click");
+        setInterval(function () {
             readidentitystatus();
             window.location.reload();
-        }
-
+        }, 0.5 * 60 * 1000);
     });
 
 
@@ -422,11 +422,11 @@ jQuery("#stopbtn").click(function () {
 
 jQuery("#updatebtn").click(function () {
     jQuery("#updatebtn").hide()
-    jQuery(".update_spinner").show() 
+    jQuery(".update_spinner").show()
     jQuery.ajax({
         type: "POST",
         url: "updateNode",
-        data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal,isUpdateAjax: 1},
+        data: {identity: identityPath, authKey: identityVal, address: addressVal, wallet: walletVal, storage: storageVal, emailval: emailiddataVal, directory: directoryVal, isUpdateAjax: 1},
         success: () => {
             window.location.reload();
         },
@@ -531,10 +531,8 @@ Vue.component(`file-browser`, {
     template: `<div class='file-browser' v-click-outside="outside">
 		<div class='file-browser-container'>
 			<h2 class='file-browser-path'>{{path}}</h2>
-
 			<ul class='file-browser-list'>
 				<li v-if="path.length > 1" class="file-browser-file" v-on:dblclick="path = path.slice(0, -1).split('/').slice(0, -1).join('/')"><img :src="'img/wizard/back.svg'" alt="Back">../</li>
-
 				<li
 					v-for="file in files" v-on:dblclick="setpath(file)"
 					v-on:click="selectFile(file)"
@@ -544,7 +542,6 @@ Vue.component(`file-browser`, {
 					}"
 				><img :src="'img/wizard/folder.svg'" alt="Folder">{{file}}</li>
 			</ul>
-
 			<button class='file-browser-done' v-on:click="done">Select this directory</button>
 		</div>
 	</div>`,

@@ -265,7 +265,7 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                         </div>
                         <p class="identity_path_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
                         <file-browser v-if="directoryBrowse" v-on:selected="setIdentityTokenDirectory"></file-browser>
-                        <p class="identity_note text-muted small mt-4">Note: Creating identity can take several hours or even days, depending on your machines processing power & luck.</p>
+                        <p class="identity_note text-muted small mt-4">Note: Creating identity can take several hours or even days, depending on your machines processing power & luck.<strong>If you change the Identity path then please also clean the storage folder or change the storage path.</strong></p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-light" data-dismiss="modal">Close</button>

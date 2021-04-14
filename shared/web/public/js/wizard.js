@@ -215,7 +215,7 @@ const app = new Vue({
 		async generateIdentity() {
 			this.identityStep++;
 			this.createidentifyToken();
-			setInterval(() => this.updateLog(), 3 * 60 * 1000);
+			setInterval(() => this.updateLog(), 1 * 60 * 1000);
 		},
                 setDirectory(selected) {
                     if (selected != "outside") {
