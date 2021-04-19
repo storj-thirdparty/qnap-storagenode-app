@@ -42,8 +42,8 @@ identityBinary="${identityBase}".bin/identity
 identityPidFile="${identityPidFileDir}"/identity.pid
 identityKey="${keyBase}"/storagenode/identity.key
 
-chmod -R 777 "${identityLogFile}"
-chmod -R 777 "${identityDirPath}"
+chmod -R 777 ${identityLogFile}
+chmod -R 777 ${identityDirPath}
 if [[ -f $identityKey ]] 
 then
     logMessage "Identity key $identityKey already exists" 
@@ -82,7 +82,7 @@ fi
 
 logMessage "Authorizing identity using identity key string (IdentityPidRef:${BG_PID}) "
 logMessage "Running $identityBinary authorize storagenode $identityString --identity-dir ${keyBase} --signer.tls.revocation-dburl bolt://${keyBase}/revocations.db "
-"$identityBinary" authorize storagenode "$identityString" --identity-dir "${keyBase}" --signer.tls.revocation-dburl bolt://${keyBase}/revocations.db
+$identityBinary authorize storagenode "$identityString" --identity-dir "${keyBase}" --signer.tls.revocation-dburl bolt://${keyBase}/revocations.db
 
 count=$(/bin/ls "$identityDirPath" | wc -l)
 if [[ $count -lt 6 ]]

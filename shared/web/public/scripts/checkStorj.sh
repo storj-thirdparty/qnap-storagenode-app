@@ -15,7 +15,7 @@ if [[ $numLines -gt 1 ]]
 then
 	statuscmd="docker ps -a --filter name=\"^/${container}$\" "
 	status=$(eval "$statuscmd")
-        echo "${status}"
+
 	echo "Container named $container launched <br> "
 	
 else
