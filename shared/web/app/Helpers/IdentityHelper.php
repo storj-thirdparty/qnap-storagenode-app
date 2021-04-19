@@ -68,13 +68,13 @@ class IdentityHelper {
             "ca.cert",
             "identity.cert"
         ];
-        $allReqdFilesAvailable = 1;
+        $allReqdFiles = 1;
         foreach ($fileList as $file) {
             if (!file_exists("$Path/$file")) {
-                $allReqdFilesAvailable = 0;
+                $allReqdFiles = 0;
             }
         }
-        return $allReqdFilesAvailable;
+        return $allReqdFiles;
     }
 
     public function identityExists($data) {
@@ -87,9 +87,6 @@ class IdentityHelper {
         return file_exists($identityFilePath);
     }
 
-    public function logEnvironment() {
-        $this->logMessage("POST is : " . print_r($_POST, true));
-    }
 
     public function logMessage($message) {
         $centralLogFile = env('CENTRAL_LOG_DIR', "/var/log/STORJ");

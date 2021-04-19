@@ -28,8 +28,6 @@ class IdentityController extends Controller {
 
         //  Set variables
         $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
-        $scriptsBase = base_path('public/scripts');
-        $identityGenBinary = env('IDENTITY_GEN_BINARY', "/share/Public/identity.bin/identity");
         $logFile = env('IDENTITY_LOG', "/share/Public/identity/logs/storj_identity.log");
         $data = $this->identityHelper->loadConfig("${configBase}/config.json");
 
@@ -48,13 +46,13 @@ class IdentityController extends Controller {
         }
 
 
-        $identityGenScriptPath = base_path('public/scripts/generateIdentity.sh');
+        $identityGenPath = base_path('public/scripts/generateIdentity.sh');
         $Path = $data["Identity"] . "/storagenode";
         $identityFilePath = "${Path}/identity.key";
         $urlToFetch = env('IDENTITY_URL', "https://github.com/storj/storj/releases/latest/download/identity_linux_amd64.zip");
         $identitypidFile = base_path('public/identity.pid');
         $date = Date('Y-m-d H:i:s');
-        $output = "";
+        
         $configFile = "${configBase}/config.json";
         $inputs = $request->all();
 
@@ -93,12 +91,12 @@ class IdentityController extends Controller {
             $identityPath = $inputs['identitypath'];
             $this->identityHelper->logMessage("value of identityPath($identityPath)");
 
-            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} 2>&1 & "; 
+            $cmd = "$identityGenPath $identityString $identityPath > ${logFile} 2>&1 & "; 
             
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
             
-            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
+            $process = new Process([$identityGenPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
             //$process->disableOutput();
             $process->setTimeout(36000000);
             $process->run();
@@ -112,7 +110,7 @@ class IdentityController extends Controller {
             $lastline = `tail -c160 $file | sed -e 's#\\r#\\n#g' | tail -1 `;
 
 
-            $this->identityHelper->logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+            $this->identityHelper->logMessage("Invoked identity generation program ($identityGenPath) ");
             echo $lastline;
         } else if (isset($inputs['status'])) {
             $this->identityHelper->logMessage("Identity php called for fetching STATUS!");
@@ -134,7 +132,6 @@ class IdentityController extends Controller {
                 if(file_exists($identitypidFile)){
                     
                     $pid = file_get_contents($identitypidFile);
-                    $prgStartTime = $data['idGenStartTime'];
                     $data = $this->identityHelper->loadConfig($configFile);
                     $data['idGenStartTime'] = $date;
                     $lastline = preg_replace('/\n$/', '', $lastline);
@@ -179,12 +176,12 @@ class IdentityController extends Controller {
                 $this->identityHelper->logMessage("Identity process not found running, STARTING a new one!!\n");
             }
             
-            $cmd = "$identityGenScriptPath $identityString $identityPath > ${logFile} & "; 
+            $cmd = "$identityGenPath $identityString $identityPath > ${logFile} & "; 
             
             $programStartTime = Date('Y-m-d H:i:s');
             $this->identityHelper->logMessage("Launching command $cmd and capturing log in $logFile ");
             
-            $process = new Process([$identityGenScriptPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
+            $process = new Process([$identityGenPath, $identityString, $identityPath, "> ${logFile} 2>&1 &"]);
             //$process->disableOutput();
             $process->setTimeout(36000000);
             $process->run();
@@ -202,7 +199,7 @@ class IdentityController extends Controller {
             $lastline = `tail -c 59 $file `;
             file_put_contents($configFile, $newJsonString);
 
-            $this->identityHelper->logMessage("Invoked identity generation program ($identityGenScriptPath) ");
+            $this->identityHelper->logMessage("Invoked identity generation program ($identityGenPath) ");
             echo "<b>Identity creation process is starting.</b><br>";
             ?><div style="text-align: center"><img src="img/spinner.gif"></div><?php
             echo $lastline;

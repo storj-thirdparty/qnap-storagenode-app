@@ -36,7 +36,8 @@ class ConfigController extends Controller {
             return redirect('wizard');
         }
         $port = ":14002";
-        $url = "http://{$_SERVER['SERVER_NAME']}${port}";
+        $serverurl = request()->server('SERVER_NAME');
+        $url = "http://{$serverurl}${port}";
         $escaped_url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
         $dashboardurl = $escaped_url;
 
@@ -166,7 +167,7 @@ class ConfigController extends Controller {
             $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
             $file = "${configBase}/config.json";
             $this->logMessage("config called up with isajax 1 ");
-            $this->logEnvironment();
+            
 
             $_address = $data['address'];
             $_wallet = $data['wallet'];
@@ -211,7 +212,6 @@ class ConfigController extends Controller {
             $updateScript = base_path('public/scripts/storagenodeupdate.sh');
             $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
             $file = "${configBase}/config.json";
-            $content = file_get_contents($file);
 
             $_address = $data['address'];
             $_wallet = $data['wallet'];
@@ -254,8 +254,7 @@ class ConfigController extends Controller {
 
     public function setAuthswitch(Request $request) {
         $data = $request->all();
-        $mode = $data['mode'];
-        file_put_contents(base_path('data/logindata.json'), json_encode($_POST));
+        file_put_contents(base_path('data/logindata.json'), json_encode($data));
         echo json_encode($data);
     }
 
@@ -269,21 +268,6 @@ class ConfigController extends Controller {
         $date = `date`;
         $timestamp = str_replace("\n", " ", $date);
         file_put_contents($file, $timestamp . $message . "\n", FILE_APPEND);
-    }
-
-    /*
-     * log message
-     */
-
-    public function logEnvironment() {
-        global $_ENV;
-        $this->logMessage(
-                "\n----------------------------------------------\n"
-                . "ENV is : " . print_r($_ENV, true)
-                . "POST is : " . print_r($_POST, true)
-                . "SERVER is : " . print_r($_SERVER, true)
-                . "----------------------------------------------\n"
-        );
     }
 
 }

@@ -9,7 +9,7 @@ class LoginController extends Controller {
      * Render the login Page.
      */
 
-    public function index(Request $request) {
+    public function index() {
         return view('login');
     }
 
@@ -21,10 +21,8 @@ class LoginController extends Controller {
         $data = $request->all();
         $cURLConnection = curl_init();
 
-
-        $host = "http://$_SERVER[HTTP_HOST]";
-        $host = "http://173.225.183.161:8080";
-
+        $serverhost = request()->server('HTTP_HOST');
+        $host = "http://$serverhost";
 
         $url = $host . '/cgi-bin/authLogin.cgi?user=' . $data['username'] . '&pwd=' . $data['password'] . '&remme=1';
 
