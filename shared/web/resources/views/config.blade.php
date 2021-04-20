@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-sm">
     <div class="container">
         <router-link to="/" class="navbar-brand">
-            <img src="{{ url('img/logo.svg') }}" class="logo">
+            <img src="{{ url('img/storj_new_logo.png') }}" class="logo">
             <p class="logo-text">Storage Node</p>
         </router-link>
 
