@@ -1,6 +1,8 @@
 
 # QNAP storagenode
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7416745af7d44e11aa5d89a9d915156c)](https://app.codacy.com/gh/storj-thirdparty/qnap-storagenode-app?utm_source=github.com&utm_medium=referral&utm_content=storj-thirdparty/qnap-storagenode-app&utm_campaign=Badge_Grade_Settings)
+
 *QNAP storagenode* is an application for installing the Storj *[storagenode](https://documentation.storj.io/setup/cli/storage-node)* on QNAP NAS devices using the QNAP-native application bundle. The format of the application installed on the QNAP is .qpkg which can be built on [QDK](https://github.com/qnap-dev/QDK#installation).
 
 <br />
