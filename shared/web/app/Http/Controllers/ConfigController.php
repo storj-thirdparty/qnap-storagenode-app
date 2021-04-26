@@ -51,38 +51,6 @@ class ConfigController extends Controller {
 
         return view('config', compact('authPass', 'loginMode', 'prop', 'dashboardurl', 'storjnodeversion'));
     }
-
-    /*
-     * Save the Config Data
-     */
-
-    public function saveConfig(Request $request) {
-        $data = $request->all();
-        $email = $data['email'];
-        $address = $data['address'];
-        $host = $data['host'];
-        $storage = $data['storage'];
-        $directory = $data['directory'];
-        $identity = $data['identity'];
-
-        if ($data) {
-            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
-            $file = "${configBase}/config.json";
-            $jsonString = file_get_contents($file);
-            $data = json_decode($jsonString, true);
-
-            $data['Identity'] = $identity;
-            $data['Port'] = $host;
-            $data['Wallet'] = $address;
-            $data['Allocation'] = $storage;
-            $data['Email'] = $email;
-            $data['Directory'] = $directory;
-            $newJsonString = json_encode($data);
-            file_put_contents($file, $newJsonString);
-        }
-        return true;
-    }
-
     /*
      * Call for the checkRunningnode
      * Check if the node is running or not

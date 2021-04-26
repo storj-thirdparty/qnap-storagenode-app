@@ -74,11 +74,54 @@ class WizardController extends Controller {
     }
 
     /*
+     * Server Side Validation for the Email
+     */
+
+    public function validateemail(Request $request) {
+        $validatedData = $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+    }
+    
+    /*
+     * Server Side Validation for the Wallet Address
+     */
+
+    public function validateWalletAddress(Request $request) {
+        $validatedData = $this->validate($request, [
+             'address' => ['required', 'regex:/^0x[a-fA-F0-9]{40}$/i']
+        ]);
+    }
+    
+    /*
+     * Server Side Validation for the Storage Directory Path
+     */
+
+    public function validateStorageDirectoryPath(Request $request) {
+        $validatedData = $this->validate($request, [
+             'directory' => ['required', 'regex:/^\/$|(\/[a-zA-Z_0-9-]+)+$/']
+        ]);
+    }
+    
+    /*
+     * Server Side Validation for the Host entry
+     */
+
+    public function validateHost(Request $request) {
+        $validatedData = $this->validate($request, [
+             'host' => ['required', 'regex:/[^\:]+:[0-9]{5}/']
+        ]);
+    }
+
+    /*
      * Save the Config Data
      */
 
     public function saveConfig(Request $request) {
         $data = $request->all();
+        $validatedData = $this->validate($request, [
+             'identity' => ['required', 'regex:/^\/$|(\/[a-zA-Z_0-9-]+)+$/']
+        ]);
         $email = $data['email'];
         $address = $data['address'];
         $host = $data['host'];

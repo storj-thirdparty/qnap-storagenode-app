@@ -38,7 +38,7 @@
                                 </div>
 
                                 <button class="btn btn-outline-primary skip" v-on:click="step++">Skip this step</button>
-                                <button class="btn btn-primary continue" v-on:click="step++" v-bind:disabled="!emailValid">Continue</button>
+                                <button class="btn btn-primary continue" v-on:click="validateEmail" v-bind:disabled="!emailValid">Continue</button>
                             </div>
 
                             <div v-if="step === 3">
@@ -52,7 +52,7 @@
                                     <input type="text" id="walletAddress" class="address form-control" placeholder="Enter ERC-20 Token Compatible Wallet Address" v-model="address" v-bind:class="{ invalid: !addressValid }" value="<?php if (isset($prop['Wallet'])) echo $prop['Wallet'] ?>" required>
                                 </div>
 
-                                <button class="btn btn-primary continue" v-on:click="step++" v-bind:disabled="!addressValid">Continue</button>
+                                <button class="btn btn-primary continue" v-on:click="validateWalletAddress" v-bind:disabled="!addressValid">Continue</button>
                             </div>
 
                             <div v-if="step === 4">
@@ -102,7 +102,7 @@
                                 </div>
 
                                 <file-browser v-if="directoryBrowse" v-on:selected="setDirectory"></file-browser>
-                                <button class="btn btn-primary" v-on:click="step++" v-bind:disabled="!directoryValid">Continue</button>
+                                <button class="btn btn-primary" v-on:click="validateStorageDirectoryPath" v-bind:disabled="!directoryValid">Continue</button>
                             </div>
 
                             <div v-if="step === 6">
@@ -117,7 +117,7 @@
                                     <input class="host form-control" id="hostAddress" type="text" placeholder="hostname.ddns.net:28967" v-model="host" v-bind:class="{ invalid: !hostValid }" value="<?php if (isset($prop['Port'])) echo $prop['Port'] ?>" required>
                                 </div>
 
-                                <button class="btn btn-primary" v-on:click="step++" v-bind:disabled="!hostValid">Continue</button>
+                                <button class="btn btn-primary" v-on:click="validateHost" v-bind:disabled="!hostValid">Continue</button>
                             </div>
 
                             <div v-if="step === 7">
@@ -167,14 +167,17 @@
                                     <button class="btn btn-primary" v-on:click="finish">Finish</button>
                                 </div>
                             </div>
-
+                            <div class="common-error-msg">
+                               @{{validationerror}}
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-
+        
+       
         <footer>
             <div class="wizard-progress" v-if="step > 1">
                 <div class="wizard-progress-track"></div>

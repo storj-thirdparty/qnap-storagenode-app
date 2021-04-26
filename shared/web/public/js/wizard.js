@@ -1,44 +1,45 @@
 let debug = false;
 
 const getFolders = debug
-	? async path => {
-		if(path === '/') {
-			return [
-				'test/',
-				'a/',
-				'b/',
-				'c/'
-			]
-		}
+        ? async path => {
+            if (path === '/') {
+                return [
+                    'test/',
+                    'a/',
+                    'b/',
+                    'c/'
+                ]
+            }
 
-		if(path === '/a/') {
-			return [
-				'photos/',
-				'documents/'
-			]
-		}
+            if (path === '/a/') {
+                return [
+                    'photos/',
+                    'documents/'
+                ]
+            }
 
-		if(path === '/a/photos/') {
-			return [
-				'holiday/',
-				'mountains/'
-			]
-		}
+            if (path === '/a/photos/') {
+                return [
+                    'holiday/',
+                    'mountains/'
+                ]
+            }
 
-		return new Promise(resolve => {});
-	}
-	: async path => {
-		const {data} = await axios.post('getdirectorylisting', {
-			data: {
-				action: 'folders',
-				path
-			}
-		});
-		return data.folders;
-	};
+            return new Promise(resolve => {
+            });
+        }
+: async path => {
+    const {data} = await axios.post('getdirectorylisting', {
+        data: {
+            action: 'folders',
+            path
+        }
+    });
+    return data.folders;
+};
 
 Vue.component(`file-browser`, {
-	template: `<div class='file-browser' v-click-outside="outside">
+    template: `<div class='file-browser' v-click-outside="outside">
 		<div class='file-browser-container'>
 			<h2 class='file-browser-path'>{{path}}</h2>
 
@@ -58,92 +59,93 @@ Vue.component(`file-browser`, {
 			<button class='file-browser-done' v-on:click="done">Choose this directory</button>
 		</div>
 	</div>`,
-	data: () => ({
-		path: '/',
-		files: [],
-		selectedPath: '',
-		loading: false
-	}),
-         directives: {
-            'click-outside': {
-                bind: function (el, binding, vnode) {
+    data: () => ({
+            path: '/',
+            files: [],
+            selectedPath: '',
+            loading: false
+        }),
+    directives: {
+        'click-outside': {
+            bind: function (el, binding, vnode) {
 
-                        this.event = function (event) {
-                         if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
-                            vnode.context[binding.expression](event);
-                          }
-                        };
-                        document.body.addEventListener('click', this.event)
-                      },
-                      unbind: function (el) {
-                        document.body.removeEventListener('click', this.event)
-                      },
+                this.event = function (event) {
+                    if (!(el == event.target || el.contains(event.target) || event.target.className == "browse" || event.target.className == "browse-svg" || event.target.className == "browse-png")) {
+                        vnode.context[binding.expression](event);
+                    }
+                };
+                document.body.addEventListener('click', this.event)
+            },
+            unbind: function (el) {
+                document.body.removeEventListener('click', this.event)
+            },
+        }
+    },
+    methods: {
+        async loadFiles() {
+            this.loading = true;
+            this.files = (await getFolders(this.path)).filter(file => file !== '../');
+            this.loading = false;
+        },
+
+        selectFile(file) {
+            if (this.loading === false) {
+                if (this.path != "/") {
+                    this.selectedPath = this.path + "/" + file;
+                } else {
+                    this.selectedPath = this.path + file;
+                }
             }
         },
-	methods: {
-		async loadFiles() {
-			this.loading = true;
-			this.files = (await getFolders(this.path)).filter(file => file !== '../');
-			this.loading = false;
-		},
 
-		selectFile(file) {
-			if(this.loading === false) {
-                                 if (this.path != "/") {
-                                    this.selectedPath = this.path +"/"+ file;
-                                } else {
-                                   this.selectedPath = this.path + file;
-                                }
-			}
-		},
+        done() {
+            this.$emit('selected', this.selectedPath);
+        },
+        outside: function (e) {
+            this.selectedPath = "outside";
+            this.$emit('selected', this.selectedPath);
 
-		done() {
-			this.$emit('selected', this.selectedPath);
-		},
-                outside: function (e) {
-                   this.selectedPath = "outside";
-                   this.$emit('selected', this.selectedPath);
+        },
+        setpath(file) {
+            if (this.path != "/") {
+                this.path += '/' + file;
+            } else {
+                this.path += file;
+            }
 
-                },
-                setpath(file){
-                    if(this.path != "/"){
-                        this.path +='/'+ file;
-                    }else{
-                        this.path += file;
-                    }
-
-                }
-	},
-	watch: {
-		path() {
-			this.loadFiles();
-		}
-	},
-	async created() {
-		this.loadFiles();
-	}
+        }
+    },
+    watch: {
+        path() {
+            this.loadFiles();
+        }
+    },
+    async created() {
+        this.loadFiles();
+    }
 });
 
 const app = new Vue({
-	el: "#app",
-	data: {
-		step: 1,
-		identityStep: 1,
-		identityLogs: "",
+    el: "#app",
+    data: {
+        step: 1,
+        identityStep: 1,
+        identityLogs: "",
+        validationerror: "",
 
-		email: "",
-		address: "",
-		storage: 10000,
-		directory: '',
-		directoryBrowse: false,
-		host: '',
-		identity: '',
-		authkey: '',
-		message: '',
-		processrun: false
-	},
+        email: "",
+        address: "",
+        storage: 10000,
+        directory: '',
+        directoryBrowse: false,
+        host: '',
+        identity: '',
+        authkey: '',
+        message: '',
+        processrun: false
+    },
 
-	created () {
+    created() {
         this.email = document.querySelector(".email").value;
         this.address = document.querySelector(".address").value;
         this.storage = document.querySelector(".storage").value;
@@ -153,129 +155,205 @@ const app = new Vue({
 
         this.authkey = document.querySelector("#authkey").value;
     },
-	computed: {
+    computed: {
 
-		stepClass() {
-			const obj = {};
+        stepClass() {
+            const obj = {};
 
-			obj["step"] = true;
-			obj[`step-${this.step}`] = true;
+            obj["step"] = true;
+            obj[`step-${this.step}`] = true;
 
-			return obj;
-		},
+            return obj;
+        },
 
-		emailValid() {
-			return this.email.match(
-				/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			);
-		},
+        emailValid() {
+            return this.email.match(
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    );
+        },
 
-		addressValid() {
-			return this.address.match(/^0x[a-fA-F0-9]{40}$/g);
-		},
+        addressValid() {
+            return this.address.match(/^0x[a-fA-F0-9]{40}$/g);
+        },
 
-		storageValid() {
-			return this.storage > 0;
-		},
+        storageValid() {
+            return this.storage > 0;
+        },
 
-		directoryValid() {
-			return this.directory.length > 1;
-		},
+        directoryValid() {
+            return this.directory.length > 1;
+        },
 
-		hostValid() {
-			const [host, port] = this.host.split(":");
+        hostValid() {
+            const [host, port] = this.host.split(":");
 
-			if(typeof port !== "string" || port.lenth === 0) {
-				return false;
-			}
+            if (typeof port !== "string" || port.lenth === 0) {
+                return false;
+            }
 
-			if(isNaN(Number(port)) === true) {
-				return false;
-			}
+            if (isNaN(Number(port)) === true) {
+                return false;
+            }
 
-			return true;
-		},
+            return true;
+        },
 
-		identityValid() {
-			return this.identity.length > 1;
-		},
+        identityValid() {
+            return this.identity.length > 1;
+        },
 
-		authkeyValid() {
-			if(this.processrun ==false){
-				return this.authkey.length > 1;
-			}
-		},
+        authkeyValid() {
+            if (this.processrun == false) {
+                return this.authkey.length > 1;
+            }
+        },
 
-		identityGenerationFinished() {
-			return this.message.toLowerCase().includes("found");
-		}
-	},
-	methods: {
+        identityGenerationFinished() {
+            return this.message.toLowerCase().includes("found");
+        }
+    },
+    methods: {
 
-		async generateIdentity() {
-			this.identityStep++;
-			this.createidentifyToken();
-			setInterval(() => this.updateLog(), 1 * 60 * 1000);
-		},
-                setDirectory(selected) {
-                    if (selected != "outside") {
-                        this.directory = selected;
-                        this.directoryBrowse = false;
-                    } else {
-                        this.directoryBrowse = false;
-                    }
+        async generateIdentity() {
+            this.identityStep++;
+            this.createidentifyToken();
+            setInterval(() => this.updateLog(), 1 * 60 * 1000);
+        },
+        setDirectory(selected) {
+            if (selected != "outside") {
+                this.directory = selected;
+                this.directoryBrowse = false;
+            } else {
+                this.directoryBrowse = false;
+            }
 
-                },
-		setIdentityDirectory(selected) {
-                    if (selected != "outside") {
-                        this.identity = selected;
-                        this.directoryBrowse = false;
-                    } else {
-                        this.directoryBrowse = false;
-                    }
-		},
-		async finish() {
-			const data = {
-				email: this.email,
-				address: this.address,
-				host: this.host,
-				storage: this.storage,
-				directory: this.directory,
-				identity: this.identity
-			};
+        },
+        setIdentityDirectory(selected) {
+            if (selected != "outside") {
+                this.identity = selected;
+                this.directoryBrowse = false;
+            } else {
+                this.directoryBrowse = false;
+            }
+        },
+        async finish() {
+            const data = {
+                email: this.email,
+                address: this.address,
+                host: this.host,
+                storage: this.storage,
+                directory: this.directory,
+                identity: this.identity
+            };
+            await axios({
+                method: 'post',
+                responseType: 'json',
+                url: "saveconfig",
+                data: data
+            }).then(response => {
+                this.validationerror = "";
+                location.href = "config";
+            }).catch(error => {
+                this.validationerror = "";
+                this.validationerror = "Please enter a valid path";
+            });
+        },
+        async createidentifyToken() {
+            this.message = "<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>";
+            const {data} = await axios.post("getidentity", {
+                authkey: this.authkey,
+                identity: this.identity,
+            });
 
-			await axios.post("saveconfig", data);
+            this.message = data;
 
-			location.href = "config";
-		},
-		async createidentifyToken() {
-                        this.message = "<b>Identity creation process is starting.</b><br><div style='text-align: center'><img src='img/spinner.gif'></div>" ;
-			const {data} = await axios.post("getidentity", {
-				authkey: this.authkey,
-				identity: this.identity,
-			});
+            if (data !== "Identity Key File and others already available") {
+                this.message = '';
+                this.message = "<p>" + data + "</p>";
+            }
+        },
+        async updateLog() {
+            const {data} = await axios.post("getidentity", {
+                status: true
+            });
 
-			this.message = data;
+            this.message = data;
+        },
+        async processCheck() {
+            this.identityStep++;
+            const {data} = await axios.post("getidentity", {
+                identityCreationProcessCheck: true
+            });
 
-			if(data !== "Identity Key File and others already available"){
-                                this.message = '';
-				this.message = "<p>"+data+"</p>";
-			}
-    	},
-    	async updateLog() {
-			const {data} = await axios.post("getidentity", {
-				status: true
-			});
-
-			this.message = data;
-		},
-		async processCheck() {
-			this.identityStep++;
-			const {data} = await axios.post("getidentity", {
-				identityCreationProcessCheck: true
-			});
-
-			this.processrun = data;
-		},
-	}
+            this.processrun = data;
+        },
+        async validateEmail() {
+            const data = {
+                email: this.email
+            };
+            await axios({
+                method: 'post',
+                responseType: 'json',
+                url: "validateemail",
+                data: data
+            }).then(response => {
+                this.validationerror = "";
+                this.step++
+            }).catch(error => {
+                this.validationerror = "";
+                this.validationerror = "Please enter a valid email address";
+            });
+        },
+        async validateWalletAddress() {
+            const data = {
+                address: this.address,
+            };
+            await axios({
+                method: 'post',
+                responseType: 'json',
+                url: "validatewalletaddress",
+                data: data
+            }).then(response => {
+                this.validationerror = "";
+                this.step++
+            }).catch(error => {
+                this.validationerror = "";
+                this.validationerror = "Please enter a valid ERC-20 address";
+            });
+        },
+        async validateStorageDirectoryPath() {
+            const data = {
+                directory: this.directory,
+            };
+            await axios({
+                method: 'post',
+                responseType: 'json',
+                url: "validatestoragedirectorypath",
+                data: data
+            }).then(response => {
+                this.validationerror = "";
+                this.step++
+            }).catch(error => {
+                this.validationerror = "";
+                this.validationerror = "Please enter a valid path";
+            });
+        },
+        async validateHost() {
+            const data = {
+                host: this.host,
+            };
+            await axios({
+                method: 'post',
+                responseType: 'json',
+                url: "validatehost",
+                data: data
+            }).then(response => {
+                this.validationerror = "";
+                this.step++
+            }).catch(error => {
+                this.validationerror = "";
+                this.validationerror = "Please enter a valid hostname";
+            });
+        },
+    }
 });
