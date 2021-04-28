@@ -27,6 +27,11 @@ $router->post('validatestoragedirectorypath', 'WizardController@validateStorageD
 $router->post('validatehost', 'WizardController@validateHost');
 $router->post('getidentity', 'IdentityController@index');
 $router->post('saveconfig', 'WizardController@saveConfig');
+$router->post('updatehostaddress', 'ConfigController@updateHostAddress');
+$router->post('updatewalletaddress', 'ConfigController@updateWalletAddress');
+$router->post('updatestorageallocate', 'ConfigController@updateStorageAllocate');
+$router->post('updatestoragedirectory', 'ConfigController@updateStorageDirectory');
+$router->post('updateemailaddress', 'ConfigController@updateEmailAddress');
 $router->get('config', 'ConfigController@index');
 $router->post('config', 'ConfigController@config');
 $router->post('checkRunningnode', 'ConfigController@checkRunningnode');

@@ -372,32 +372,95 @@ jQuery(function () {
 
 
     jQuery("#create_address").click(function () {
-        createAddress = jQuery("#host_address").val();
-        var address1 = new Address();
+        jQuery.ajax({
+            type: "POST",
+            url: "updatehostaddress",
+            data: {
+                hostaddress: jQuery("#host_address").val()
+            },
+            success: (result) => {
+                jQuery("#host_error_message").hide();
+                createAddress = jQuery("#host_address").val();
+                var address1 = new Address()
+            },
+            error: (result) => {
+                jQuery("#host_error_message").show();
+            }
+        })
     });
 
-    jQuery("#create_address").click();
-
     jQuery("#create_wallet").click(function () {
-        createWallet = jQuery("#wallet_address").val();
-        var wallet1 = new Wallet();
+        jQuery.ajax({
+            type: "POST",
+            url: "updatewalletaddress",
+            data: {
+                address: jQuery("#wallet_address").val()
+            },
+            success: (result) => {
+                jQuery("#wallet_error_message").hide();
+                createWallet = jQuery("#wallet_address").val();
+                var wallet1 = new Wallet();
+            },
+            error: (result) => {
+                jQuery("#wallet_error_message").show();
+            }
+        })
+
     });
 
     jQuery("#allocate_storage").click(function () {
-        storageallocate = Number(jQuery("#storage_allocate").val());
-        var storage1 = new Storage();
-    });
-
-
-    jQuery("#create_emailaddress").click(function () {
-        emailiddata = jQuery("#email_address").val();
-        var email1 = new Email();
-
+        jQuery.ajax({
+            type: "POST",
+            url: "updatestorageallocate",
+            data: {
+                storage: jQuery("#storage_allocate").val()
+            },
+            success: (result) => {
+                jQuery("#storage_error_message").hide();
+                storageallocate = Number(jQuery("#storage_allocate").val());
+                var storage1 = new Storage();
+            },
+            error: (result) => {
+                jQuery("#storage_error_message").show();
+            }
+        })
     });
 
     jQuery("#create_directory").click(function () {
-        directoryAllocation = jQuery("#storage_directory").val();
-        var directory1 = new Directory();
+        jQuery.ajax({
+            type: "POST",
+            url: "updatestoragedirectory",
+            data: {
+                directory: jQuery("#storage_directory").val()
+            },
+            success: (result) => {
+                jQuery("#storage_directory_error_message").hide();
+                directoryAllocation = jQuery("#storage_directory").val();
+                var directory1 = new Directory();
+            },
+            error: (result) => {
+                jQuery("#storage_directory_error_message").show();
+            }
+        })
+    });
+
+    jQuery("#create_emailaddress").click(function () {
+        jQuery.ajax({
+            type: "POST",
+            url: "updateemailaddress",
+            data: {
+                email: jQuery("#email_address").val()
+            },
+            success: (result) => {
+                jQuery("#email_error_message").hide();
+                emailiddata = jQuery("#email_address").val();
+                var email1 = new Email();
+            },
+            error: (result) => {
+                jQuery("#email_error_message").show();
+            }
+        })
+
     });
 
     jQuery("#editidentitybtn button").click(function () {

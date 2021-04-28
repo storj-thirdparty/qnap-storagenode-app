@@ -292,7 +292,10 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                     <p class="text-muted mb-4">How a storage node communicates with others on the Storj Network, even though it is behind a router. Learn how to configure your DNS and port forwarding with our <a href="https://documentation.storj.io/dependencies/port-forwarding" target="_blank">documentation.</a> </p>
                     <label for="host_address">Host Address</label>
                     <input class="modal-input form-control" id="host_address" name="host_address" type="text" class="quantity" placeholder="hostname.ddns.net:28967" value="<?php if (isset($prop['Port'])) echo $prop['Port'] ?>"/>
-                    <p class="host_token_msg msg small text-danger mt-2" style="display:none;">Invalid host address.</p>
+
+                    <div class="common-error-msg" id="host_error_message" style="display: none">
+                        Invalid host address.
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" data-dismiss="modal">Close</button>
@@ -316,7 +319,9 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                     <p class="text-muted mb-4">In order to recieve and hold your STORJ token payouts, you need an <a href="https://support.storj.io/hc/en-us/articles/360026611692-How-do-I-hold-STORJ-What-is-a-valid-address-or-compatible-wallet" target="_blank">ERC-20 compatible wallet address.</a></p>
                     <label for="wallet_address">Wallet Address</label>
                     <input class="modal-input form-control" name="Wallet Address" id="wallet_address" placeholder="Enter ERC-20 Token Compatible Wallet Address" value="<?php if (isset($prop['Wallet'])) echo $prop['Wallet'] ?>"/>
-                    <p class="wallet_token_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+                    <div class="common-error-msg" id="wallet_error_message" style="display: none">
+                        Please enter a valid ERC-20 address.
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" data-dismiss="modal">Close</button>
@@ -346,7 +351,9 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                             <span class="modal-input-metric input-group-text unit">GB</span>
                         </div>
                     </div>
-                    <p class="storage_token_msg msg small text-danger mt-2" style="display:none;">Minimum 500 GB is required.</p>
+                    <div class="common-error-msg" id="storage_error_message" style="display: none">
+                        Minimum 500 GB is required.
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" data-dismiss="modal">Close</button>
@@ -369,7 +376,9 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                     <p class="text-muted mb-4">Join thousands of Node Operators around the world by getting Node status updates from Storj Labs.</p>
                     <label for="email_address">Email Address</label>
                     <input class="modal-input form-control" id="email_address" name="email_address" type="email" placeholder="mail@default.com" value="<?php if (isset($prop['Email'])) echo $prop['Email'] ?>"/>
-                    <p class="email_token_msg msg small text-danger mt-2" style="display:none;">Enter a valid Email address.</p>
+                    <div class="common-error-msg" id="email_error_message" style="display: none">
+                           Please Enter a valid Email address.
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" data-dismiss="modal">Close</button>
@@ -399,7 +408,9 @@ if (($numFiles == 6) && file_exists($file1) && file_exists($file2) && file_exist
                             </div>
                         </div>
                         <file-browser v-if="directoryBrowse" v-on:selected="setStorageDirectory"></file-browser>
-                        <p class="directory_token_msg msg small text-danger mt-2" style="display:none;">This is a required field.</p>
+                        <div class="common-error-msg" id="storage_directory_error_message" style="display: none">
+                           Please enter a valid path
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-light" data-dismiss="modal">Close</button>

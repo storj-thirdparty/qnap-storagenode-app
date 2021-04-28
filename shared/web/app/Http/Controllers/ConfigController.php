@@ -51,6 +51,7 @@ class ConfigController extends Controller {
 
         return view('config', compact('authPass', 'loginMode', 'prop', 'dashboardurl', 'storjnodeversion'));
     }
+
     /*
      * Call for the checkRunningnode
      * Check if the node is running or not
@@ -135,7 +136,7 @@ class ConfigController extends Controller {
             $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
             $file = "${configBase}/config.json";
             $this->logMessage("config called up with isajax 1 ");
-            
+
 
             $_address = $data['address'];
             $_wallet = $data['wallet'];
@@ -224,6 +225,122 @@ class ConfigController extends Controller {
         $data = $request->all();
         file_put_contents(base_path('data/logindata.json'), json_encode($data));
         echo json_encode($data);
+    }
+
+    /*
+     * Update the Host address in the config file
+     */
+
+    public function updateHostAddress(Request $request) {
+        $data = $request->all();
+        $validatedData = $this->validate($request, [
+            'hostaddress' => ['required', 'regex:/[^\:]+:[0-9]{2,5}/']
+        ]);
+
+        if ($data) {
+            $host = $data['hostaddress'];
+            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+            $file = "${configBase}/config.json";
+            $jsonString = file_get_contents($file);
+            $data = json_decode($jsonString, true);
+            $data['Port'] = $host;
+            $newJsonString = json_encode($data);
+            file_put_contents($file, $newJsonString);
+            return true;
+        }
+    }
+
+    /*
+     * Update the Wallet address in the config file
+     */
+
+    public function updatewalletaddress(Request $request) {
+        $data = $request->all();
+        $validatedData = $this->validate($request, [
+            'address' => ['required', 'regex:/^0x[a-fA-F0-9]{40}$/i']
+        ]);
+
+        if ($data) {
+            $address = $data['address'];
+            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+            $file = "${configBase}/config.json";
+            $jsonString = file_get_contents($file);
+            $data = json_decode($jsonString, true);
+            $data['Wallet'] = $address;
+            $newJsonString = json_encode($data);
+            file_put_contents($file, $newJsonString);
+            return true;
+        }
+    }
+
+    /*
+     * Update the Storage Allocation in the config file
+     */
+
+    public function updateStorageAllocate(Request $request) {
+        $data = $request->all();
+        $validatedData = $this->validate($request, [
+            'storage' => ['required', 'numeric', 'between:500,10000000']
+        ]);
+
+        if ($data) {
+            $storage = $data['storage'];
+            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+            $file = "${configBase}/config.json";
+            $jsonString = file_get_contents($file);
+            $data = json_decode($jsonString, true);
+            $data['Allocation'] = $storage;
+            $newJsonString = json_encode($data);
+            file_put_contents($file, $newJsonString);
+            return true;
+        }
+    }
+
+    /*
+     * Update the Storage Directory in the config file
+     */
+
+    public function updateStorageDirectory(Request $request) {
+        $data = $request->all();
+        $validatedData = $this->validate($request, [
+            'directory' => ['required', 'regex:/^\/$|(\/[a-zA-Z_0-9-]+)+$/']
+        ]);
+
+        if ($data) {
+            $directory = $data['directory'];
+            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+            $file = "${configBase}/config.json";
+            $jsonString = file_get_contents($file);
+            $data = json_decode($jsonString, true);
+            $data['Directory'] = $directory;
+            $newJsonString = json_encode($data);
+            file_put_contents($file, $newJsonString);
+            return true;
+        }
+    }
+
+    /*
+     * Update the Email Address in the config file
+     */
+
+    public function updateEmailAddress(Request $request) {
+        $data = $request->all();
+
+        $validatedData = $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+
+        if ($data) {
+            $email = $data['email'];
+            $configBase = env('CONFIG_DIR', "/share/Public/storagenode.conf");
+            $file = "${configBase}/config.json";
+            $jsonString = file_get_contents($file);
+            $data = json_decode($jsonString, true);
+            $data['Email'] = $email;
+            $newJsonString = json_encode($data);
+            file_put_contents($file, $newJsonString);
+            return true;
+        }
     }
 
     /*

@@ -109,7 +109,7 @@ class WizardController extends Controller {
 
     public function validateHost(Request $request) {
         $validatedData = $this->validate($request, [
-             'host' => ['required', 'regex:/[^\:]+:[0-9]{5}/']
+             'host' => ['required', 'regex:/[^\:]+:[0-9]{2,5}/']
         ]);
     }
 
