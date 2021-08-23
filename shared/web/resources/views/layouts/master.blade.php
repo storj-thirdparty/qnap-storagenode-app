@@ -12,18 +12,23 @@
     <body class="@yield('class')">
         @yield('content')
         <script src="{{ url('js/jquery.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="{{ url('js/popper.min.js') }}"></script>
+        <script src="{{ url('js/bootstrap.min.js') }}"></script>
+        
+        
+<!--        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        -->
         <script src="{{ url('js/vue.js') }}"></script>
         <script src="{{ url('js/axios.min.js') }}"></script>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+<!--        <script src="{{ url('js/firebase-app.js') }}"></script>-->
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
-        <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+<!--        <script src="{{ url('js/firebase-analytics.js') }}"></script>-->
 
-        <script>
+<!--        <script>
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         var firebaseConfig = {
@@ -39,7 +44,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
-        </script>
+        </script>-->
         @stack('scripts')
     </body>
 </html>
