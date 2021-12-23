@@ -119,9 +119,9 @@ class WizardController extends Controller {
 
     public function saveConfig(Request $request) {
         $data = $request->all();
-        $validatedData = $this->validate($request, [
-             'identity' => ['required', 'regex:/^\/$|(\/[a-zA-Z_0-9-]+)+$/']
-        ]);
+//        $validatedData = $this->validate($request, [
+//             'identity' => ['required', 'regex:/^\/$|(\/[a-zA-Z_0-9-]+)+$/']
+//        ]);
         $email = $data['email'];
         $address = $data['address'];
         $host = $data['host'];
